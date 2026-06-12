@@ -1,0 +1,159 @@
+title: Baserow API Vocabulary
+description: Key terms and concepts used across the Baserow REST API.
+source: https://api.baserow.io/api/schema.json
+version: 2.2.2
+terms:
+  - term: Workspace
+    definition: >
+      A top-level organizational unit in Baserow that groups applications and
+      databases together. Users are invited to workspaces and given roles that
+      control their access to the contained resources.
+    aliases:
+      - Group
+    endpoints:
+      - GET /api/workspaces/
+      - POST /api/workspaces/
+
+  - term: Application
+    definition: >
+      A Baserow application belongs to a workspace and can represent a database,
+      builder app, or automation. Each application has a type (e.g. "database",
+      "builder", "automation") and contains the main content entities.
+    endpoints:
+      - GET /api/applications/
+      - POST /api/applications/
+
+  - term: Database
+    definition: >
+      A type of Baserow application that holds one or more tables. Databases are
+      the primary container for structured tabular data in Baserow.
+    endpoints:
+      - GET /api/applications/
+
+  - term: Table
+    definition: >
+      A collection of rows and fields (columns) within a database. Tables are
+      the fundamental data-storage unit in Baserow, analogous to a spreadsheet
+      tab or a relational database table.
+    endpoints:
+      - GET /api/database/tables/database/{database_id}/
+      - POST /api/database/tables/database/{database_id}/
+      - GET /api/database/tables/{table_id}/
+      - PATCH /api/database/tables/{table_id}/
+      - DELETE /api/database/tables/{table_id}/
+
+  - term: Row
+    definition: >
+      A single record within a table. Each row contains values for each of the
+      table's fields. Rows are created, listed, updated, and deleted via the
+      database rows endpoints.
+    endpoints:
+      - GET /api/database/rows/table/{table_id}/
+      - POST /api/database/rows/table/{table_id}/
+      - GET /api/database/rows/table/{table_id}/{row_id}/
+      - PATCH /api/database/rows/table/{table_id}/{row_id}/
+      - DELETE /api/database/rows/table/{table_id}/{row_id}/
+
+  - term: Field
+    definition: >
+      A column definition within a table. Each field has a type (e.g. text,
+      number, date, link_row, formula) that determines how values are stored
+      and validated. Fields are managed via the fields endpoints.
+    fieldTypes:
+      - text
+      - long_text
+      - url
+      - email
+      - number
+      - rating
+      - boolean
+      - date
+      - last_modified
+      - created_on
+      - link_row
+      - file
+      - single_select
+      - multiple_select
+      - phone_number
+      - formula
+      - count
+      - rollup
+      - lookup
+      - multiple_collaborators
+      - uuid
+      - autonumber
+      - duration
+      - password
+    endpoints:
+      - GET /api/database/fields/table/{table_id}/
+      - POST /api/database/fields/table/{table_id}/
+      - PATCH /api/database/fields/{field_id}/
+      - DELETE /api/database/fields/{field_id}/
+
+  - term: View
+    definition: >
+      A saved presentation of a table's rows and fields. Views can filter, sort,
+      and group rows and can be of different types such as grid, gallery, form,
+      calendar, or kanban.
+    viewTypes:
+      - grid
+      - gallery
+      - form
+      - calendar
+      - kanban
+      - timeline
+    endpoints:
+      - GET /api/database/views/table/{table_id}/
+      - POST /api/database/views/table/{table_id}/
+
+  - term: Filter
+    definition: >
+      A condition applied to a view or an API list request to restrict which rows
+      are returned. Filters reference a field, a filter type (e.g. equal,
+      contains, higher_than), and a comparison value.
+    endpoints:
+      - GET /api/database/views/filter/{view_filter_id}/
+      - POST /api/database/views/{view_id}/filters/
+
+  - term: Sort
+    definition: >
+      An ordering rule applied to a view that determines the sequence in which
+      rows are presented. Multiple sorts can be stacked in priority order.
+    endpoints:
+      - GET /api/database/views/sort/{view_sort_id}/
+      - POST /api/database/views/{view_id}/sortings/
+
+  - term: Token
+    definition: >
+      A database API token used for authenticated access to the row-level CRUD
+      endpoints. Tokens have granular per-table read/write/create/delete
+      permission flags and are distinct from JWT user tokens.
+    endpoints:
+      - GET /api/database/tokens/
+      - POST /api/database/tokens/
+      - GET /api/database/tokens/{token_id}/
+
+  - term: Webhook
+    definition: >
+      An event subscription attached to a table that sends an HTTP POST to a
+      configured URL when rows are created, updated, or deleted. Webhooks
+      support filtering by event type and include delivery logs.
+    endpoints:
+      - GET /api/database/webhooks/table/{table_id}/
+      - POST /api/database/webhooks/table/{table_id}/
+
+  - term: Automation
+    definition: >
+      A Baserow application type that defines trigger-and-action workflows.
+      Automations react to events (e.g. row created) and execute sequences of
+      nodes (actions) such as creating rows or calling external services.
+    endpoints:
+      - GET /api/automation/workflows/{workflow_id}/
+
+  - term: Builder
+    definition: >
+      A Baserow application type for building no-code web applications with
+      pages, data sources, and workflow actions wired up to Baserow databases
+      or external integrations.
+    endpoints:
+      - GET /api/builder/applications/{application_id}/pages/

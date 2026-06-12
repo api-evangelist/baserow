@@ -1,0 +1,331 @@
+{
+  "title": "Baserow API Examples",
+  "examples": [
+    {
+      "path": "/api/database/rows/table/{table_id}/",
+      "method": "GET",
+      "operationId": "list_database_table_rows",
+      "summary": "Lists all the rows of the table related to the provided parameter if the user has access to the related database's workspace. The response is paginated by a page/size style. It is also possible to pro",
+      "tags": [
+        "Database table rows"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "exclude",
+          "schema": {
+            "type": "string"
+          },
+          "description": "All the fields are included in the response by default. You can select a subset of fields by providing the exclude query parameter. If you for example provide the following GET parameter `exclude=field_1,field_2` then the fields with id `1` and id `2` are going to be excluded from the selection and response. If the `user_field_names` parameter is provided then instead exclude should be a comma separated list of the actual field names. For field names with commas you should surround the name with quotes like so: `exclude=My Field,\"Field With , \"`. A backslash can be used to escape field names which contain double quotes like so: `exclude=My Field,Field with \\\"`."
+        },
+        {
+          "in": "query",
+          "name": "filter__{field}__{filter}",
+          "schema": {
+            "type": "string"
+          },
+          "description": "The rows can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n"
+        },
+        {
+          "in": "query",
+          "name": "filter_type",
+          "schema": {
+            "type": "string"
+          },
+          "description": "`AND`: Indicates that the rows must match all the provided filters.\n\n`OR`: Indicates that the rows only have to match one of the filters.\n\nThis works only if two or more filters are provided.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.**"
+        },
+        {
+          "in": "query",
+          "name": "filters",
+          "schema": {
+            "type": "string"
+          },
+          "description": "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+        },
+        {
+          "in": "query",
+          "name": "include",
+          "schema": {
+            "type": "string"
+          },
+          "description": "All the fields are included in the response by default. You can select a subset of fields by providing the include query parameter. If you for example provide the following GET parameter `include=field_1,field_2` then only the fields withid `1` and id `2` are going to be selected and included in the response. If the `user_field_names` parameter is provided then instead include should be a comma separated list of the actual field names. For field names with commas you should surround the name with quotes like so: `include=My Field,\"Field With , \"`. A backslash can be used to escape field names which contain double quotes like so: `include=My Field,Field with \\\"`."
+        }
+      ],
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/PaginationSerializerExampleRowResponseSerializerWithUserFieldNames"
+        }
+      }
+    },
+    {
+      "path": "/api/database/rows/table/{table_id}/",
+      "method": "POST",
+      "operationId": "create_database_table_row",
+      "summary": "Creates a new row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use t",
+      "tags": [
+        "Database table rows"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "ClientSessionId",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone."
+        },
+        {
+          "in": "header",
+          "name": "ClientUndoRedoActionGroupId",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call."
+        },
+        {
+          "in": "query",
+          "name": "before",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "If provided then the newly created row will be positioned before the row with the provided id."
+        },
+        {
+          "in": "query",
+          "name": "send_webhook_events",
+          "schema": {
+            "type": "boolean"
+          },
+          "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+        },
+        {
+          "in": "path",
+          "name": "table_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Creates a row in the table related to the provided value.",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/ExampleRowRequestSerializerWithUserFieldNames"
+        }
+      },
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/ExampleRowResponseSerializerWithUserFieldNames"
+        }
+      }
+    },
+    {
+      "path": "/api/database/rows/table/{table_id}/{row_id}/",
+      "method": "GET",
+      "operationId": "get_database_table_row",
+      "summary": "Fetches an existing row from the table if the user has access to the related table's workspace. The properties of the returned row depend on which fields the table has. For a complete overview of fiel",
+      "tags": [
+        "Database table rows"
+      ],
+      "parameters": [
+        {
+          "in": "query",
+          "name": "include",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Optionally include row's `metadata` in the response. The `metadata` object includes extra row specific data like the 'row_comments_notification_mode' settings, if available."
+        },
+        {
+          "in": "path",
+          "name": "row_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Returns the row related the provided value.",
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "table_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Returns the row of the table related to the provided value.",
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "user_field_names",
+          "schema": {
+            "type": "boolean"
+          },
+          "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause the returned JSON to use the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+        },
+        {
+          "in": "query",
+          "name": "view",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Provide if the row if fetched in a view. This can result in different permission checking and default values."
+        }
+      ],
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/ExampleRowResponseSerializerWithUserFieldNames"
+        }
+      }
+    },
+    {
+      "path": "/api/database/rows/table/{table_id}/{row_id}/",
+      "method": "PATCH",
+      "operationId": "update_database_table_row",
+      "summary": "Updates an existing row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields",
+      "tags": [
+        "Database table rows"
+      ],
+      "parameters": [
+        {
+          "in": "header",
+          "name": "ClientSessionId",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone."
+        },
+        {
+          "in": "header",
+          "name": "ClientUndoRedoActionGroupId",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call."
+        },
+        {
+          "in": "path",
+          "name": "row_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Updates the row related to the value.",
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "send_webhook_events",
+          "schema": {
+            "type": "boolean"
+          },
+          "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+        },
+        {
+          "in": "path",
+          "name": "table_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Updates the row in the table related to the value.",
+          "required": true
+        }
+      ],
+      "requestBody": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/PatchedExampleUpdateRowRequestSerializerWithUserFieldNames"
+        }
+      },
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "$ref": "#/components/schemas/ExampleRowResponseSerializerWithUserFieldNames"
+        }
+      }
+    },
+    {
+      "path": "/api/database/tables/database/{database_id}/",
+      "method": "GET",
+      "operationId": "list_database_tables",
+      "summary": "Lists all the tables that are in the database related to the `database_id` parameter if the user has access to the database's workspace. A table is exactly as the name suggests. It can hold multiple f",
+      "tags": [
+        "Database tables"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "database_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Returns only tables that are related to the provided value.",
+          "required": true
+        }
+      ],
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Table"
+          }
+        }
+      }
+    },
+    {
+      "path": "/api/workspaces/",
+      "method": "GET",
+      "operationId": "list_workspaces",
+      "summary": "Lists all the workspaces of the authorized user. A workspace can contain multiple applications like a database. Multiple users can have access to a workspace. For example each company could have their",
+      "tags": [
+        "Workspaces"
+      ],
+      "parameters": [],
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/WorkspaceUserWorkspace"
+          }
+        }
+      }
+    },
+    {
+      "path": "/api/database/fields/table/{table_id}/",
+      "method": "GET",
+      "operationId": "list_database_table_fields",
+      "summary": "Lists all the fields of the table related to the provided parameter if the user has access to the related database's workspace. If the workspace is related to a template, then this endpoint will be pu",
+      "tags": [
+        "Database table fields"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "table_id",
+          "schema": {
+            "type": "integer"
+          },
+          "description": "Returns only the fields of the table related to the provided value.",
+          "required": true
+        }
+      ],
+      "response200": {
+        "contentType": "application/json",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/FieldField"
+          }
+        }
+      }
+    }
+  ]
+}
