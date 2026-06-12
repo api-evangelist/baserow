@@ -1,0 +1,61 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Baserow
+providerId: baserow
+created: '2026-06-12'
+modified: '2026-06-12'
+url: https://baserow.io/faq
+notes: >
+  Baserow Cloud enforces a maximum of 10 concurrent API requests per workspace
+  under a fair use policy. The hosted version applies a rate limit of 20 requests
+  per second. Self-hosted deployments have no rate limits applied. Baserow reserves
+  the right to temporarily deactivate accounts that excessively impact platform
+  performance.
+headers:
+  retryAfter: Retry-After
+responseCodes:
+  throttled: 429
+  success: 200
+  unauthorized: 401
+  notFound: 404
+limits:
+  - name: Concurrent API Requests (Cloud)
+    scope: workspace
+    metric: concurrent_requests
+    limit: 10
+    timeFrame: instant
+    deployment: cloud
+    description: >
+      Maximum of 10 concurrent API requests per workspace on Baserow Cloud.
+      Subject to fair use policy; Baserow may lower this limit if it affects
+      overall platform performance.
+
+  - name: Request Rate (Cloud)
+    scope: workspace
+    metric: requests_per_second
+    limit: 20
+    timeFrame: second
+    deployment: cloud
+    description: >
+      Maximum of 20 requests per second on the hosted Baserow Cloud platform.
+      Subject to fair use policy.
+
+  - name: Webhook Pending Calls
+    scope: webhook
+    metric: pending_webhook_calls
+    limit: 5000
+    timeFrame: queue
+    deployment: cloud
+    description: >
+      Maximum of 5,000 pending calls per webhook. Calls beyond this threshold
+      are dropped. Webhook calls are processed sequentially, one at a time.
+
+  - name: Self-Hosted
+    scope: workspace
+    metric: requests
+    limit: -1
+    timeFrame: unlimited
+    deployment: self-hosted
+    description: >
+      No rate limits are applied to self-hosted Baserow deployments. Rows,
+      records, webhooks, and API requests are always unlimited on self-hosted.

@@ -1,0 +1,101 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: Baserow
+providerId: baserow
+created: '2026-06-12'
+modified: '2026-06-12'
+url: https://baserow.io/pricing
+billingModel: per-user-seat
+description: >
+  Baserow uses a per-user, per-month seat-based billing model for cloud plans.
+  Costs scale with the number of active users in a workspace. Annual billing
+  provides 17-22% savings across plans. Self-hosted deployments are available
+  for enterprises with custom licensing. Row and storage overages block new
+  row creation rather than incurring additional charges.
+focusColumns:
+  - ChargeCategory: Usage
+  - ChargeSubcategory: Subscription
+  - BillingCurrency: USD
+  - ResourceType: WorkspaceSeat
+  - ServiceName: Baserow Cloud
+  - ServiceCategory: Database
+  - PricingUnit: user/month
+meters:
+  - name: Active Users
+    metric: users
+    unit: user/month
+    description: Number of active users (non-viewer roles) in a workspace
+    tiers:
+      - planName: Free
+        price: 0
+        currency: USD
+      - planName: Premium
+        price: 10
+        currency: USD
+        billingCycle: monthly-annual
+      - planName: Premium Monthly
+        price: 12
+        currency: USD
+        billingCycle: monthly
+      - planName: Advanced
+        price: 18
+        currency: USD
+        billingCycle: monthly-annual
+      - planName: Advanced Monthly
+        price: 22
+        currency: USD
+        billingCycle: monthly
+
+  - name: Workspace Row Usage
+    metric: rows
+    unit: row
+    description: Total rows stored per workspace; enforced as hard quota not metered overage
+    tiers:
+      - planName: Free
+        limit: 3000
+        overage: blocked
+      - planName: Premium
+        limit: 50000
+        overage: blocked
+      - planName: Advanced
+        limit: 250000
+        overage: blocked
+      - planName: Enterprise
+        limit: unlimited
+
+  - name: Workspace Storage Usage
+    metric: storage
+    unit: GB
+    description: Total file storage per workspace
+    tiers:
+      - planName: Free
+        limit: 2
+        overage: blocked
+      - planName: Premium
+        limit: 20
+        overage: blocked
+      - planName: Advanced
+        limit: 100
+        overage: blocked
+      - planName: Enterprise
+        limit: unlimited
+
+principles:
+  - name: Visibility
+    description: >
+      Baserow provides workspace-level usage dashboards showing current row and
+      storage consumption relative to plan limits. Users are notified when approaching
+      or exceeding limits, with a 7-day grace period before new row creation is blocked.
+
+  - name: Optimization
+    description: >
+      Organizations can reduce costs by using annual billing (17-22% savings),
+      leveraging free read/comment users on the Advanced plan, or self-hosting for
+      unlimited usage. Non-profits and educational institutions can contact sales for
+      discounted pricing.
+
+  - name: Accountability
+    description: >
+      Costs are scoped per workspace, enabling team-level cost attribution. Enterprise
+      and self-hosted plans provide additional governance controls. Payment is by
+      credit card for cloud plans; enterprise pricing is negotiated directly with sales.
