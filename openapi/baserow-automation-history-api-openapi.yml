@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Automation history API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Automation history
+paths:
+  /api/automation/node_histories/{node_history_id}/result/:
+    get:
+      operationId: get_automation_node_result
+      description: Returns the node history's result JSON.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: node_history_id
+        schema:
+          type: integer
+        description: The id of the node history.
+        required: true
+      tags:
+      - Automation history
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationNodeResult'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_NODE_HISTORY_DOES_NOT_EXIST
+                    - ERROR_AUTOMATION_NODE_RESULT_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflow_histories/{workflow_history_id}/node_histories/:
+    get:
+      operationId: get_automation_node_histories
+      description: Returns all node histories for the given workflow history.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_history_id
+        schema:
+          type: integer
+        description: The id of the workflow history.
+        required: true
+      tags:
+      - Automation history
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AutomationNodeHistory'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_HISTORY_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    AutomationNodeHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        started_on:
+          type: string
+          format: date-time
+        completed_on:
+          type: string
+          format: date-time
+          nullable: true
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusF41Enum'
+        workflow_history:
+          type: integer
+        node:
+          type: integer
+        node_type:
+          type: string
+          readOnly: true
+        node_label:
+          type: string
+          readOnly: true
+        parent_node_id:
+          type: integer
+          readOnly: true
+        iteration:
+          type: integer
+          readOnly: true
+        iteration_path:
+          type: string
+          readOnly: true
+        edge_label:
+          type: string
+          readOnly: true
+      required:
+      - edge_label
+      - id
+      - iteration
+      - iteration_path
+      - message
+      - node
+      - node_label
+      - node_type
+      - parent_node_id
+      - started_on
+      - status
+      - workflow_history
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
+    AutomationNodeResult:
+      type: object
+      properties:
+        result:
+          description: Contains node results.
+      required:
+      - result
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

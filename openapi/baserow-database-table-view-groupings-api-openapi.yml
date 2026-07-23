@@ -1,0 +1,602 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database table view groupings API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database table view groupings
+paths:
+  /api/database/views/{view_id}/group_bys/:
+    get:
+      operationId: list_database_table_view_groupings
+      description: Lists all groupings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple groupings.
+      parameters:
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Returns only groupings of the view related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewGroupBy'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_database_table_view_group
+      description: Creates a new group by for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Creates a group by for the view related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateViewGroupBy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateViewGroupBy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateViewGroupBy'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewGroupBy'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_VIEW_GROUP_BY_NOT_SUPPORTED
+                    - ERROR_FIELD_NOT_IN_TABLE
+                    - ERROR_VIEW_GROUP_BY_FIELD_ALREADY_EXISTS
+                    - ERROR_VIEW_GROUP_BY_FIELD_NOT_SUPPORTED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/group_bys/prioritize/:
+    post:
+      operationId: prioritize_database_table_view_group_bys
+      description: Updates the priority of the provided view group by ids to the matching position that the id has in the list. The group by with the lowest position in the list is applied first when ordering rows.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Updates the priority of the group bys in the view related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrioritizeViewGroupBys'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrioritizeViewGroupBys'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PrioritizeViewGroupBys'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_VIEW_GROUP_BY_NOT_IN_VIEW
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/group_by/{view_group_by_id}/:
+    get:
+      operationId: get_database_table_view_group
+      description: Returns the existing view group by if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: path
+        name: view_group_by_id
+        schema:
+          type: integer
+        description: Returns the view group by related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewGroupBy'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table_view_group
+      description: Updates the existing group by if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_group_by_id
+        schema:
+          type: integer
+        description: Updates the view group by related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateViewGroupBy'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateViewGroupBy'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateViewGroupBy'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewGroupBy'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_FIELD_NOT_IN_TABLE
+                    - ERROR_VIEW_GROUP_BY_FIELD_ALREADY_EXISTS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_table_view_group
+      description: Deletes the existing group by if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_group_by_id
+        schema:
+          type: integer
+        description: Deletes the group by related to the provided value.
+        required: true
+      tags:
+      - Database table view groupings
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    PatchedUpdateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+    ViewGroupBy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the group by applies. Each view can have his own group bys.
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    PrioritizeViewGroupBys:
+      type: object
+      properties:
+        view_group_by_ids:
+          type: array
+          items:
+            type: integer
+          description: View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.
+          minItems: 1
+      required:
+      - view_group_by_ids
+    CreateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          default: 200
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          default: default
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+      required:
+      - field
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

@@ -1,0 +1,226 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Core webhooks API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Core webhooks
+paths:
+  /api/webhooks/{webhook_uid}/:
+    get:
+      operationId: handle_core_webhook_request_get
+      description: Receives and handles a webhook request.
+      parameters:
+      - in: path
+        name: webhook_uid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Core webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CORE_HTTP_WEBHOOK_SERVICE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: handle_core_webhook_request_post
+      description: Receives and handles a webhook request.
+      parameters:
+      - in: path
+        name: webhook_uid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Core webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CORE_HTTP_WEBHOOK_SERVICE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    put:
+      operationId: handle_core_webhook_request_put
+      description: Receives and handles a webhook request.
+      parameters:
+      - in: path
+        name: webhook_uid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Core webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CORE_HTTP_WEBHOOK_SERVICE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: handle_core_webhook_request_patch
+      description: Receives and handles a webhook request.
+      parameters:
+      - in: path
+        name: webhook_uid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Core webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CORE_HTTP_WEBHOOK_SERVICE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: handle_core_webhook_request_delete
+      description: Receives and handles a webhook request.
+      parameters:
+      - in: path
+        name: webhook_uid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Core webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CORE_HTTP_WEBHOOK_SERVICE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

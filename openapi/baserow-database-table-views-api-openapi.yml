@@ -1,0 +1,4005 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database table views API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database table views
+paths:
+  /api/database/view/{view_id}/premium:
+    patch:
+      operationId: premium_view_attributes_update
+      description: Sets view attributes only available for premium users.
+      parameters:
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Sets show_logo of this view.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePremiumViewAttributes'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePremiumViewAttributes'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdatePremiumViewAttributes'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/View'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_FEATURE_NOT_AVAILABLE
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_CANNOT_UPDATE_PREMIUM_ATTRIBUTES_ON_TEMPLATE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{slug}/link-row-field-lookup/{field_id}/:
+    get:
+      operationId: database_table_public_view_link_row_field_lookup
+      description: If the view is publicly shared or if an authenticated user has access to the related workspace, then this endpoint can be used to do a value lookup of the link row fields that are included in the view. Normally it is not possible for a not authenticated visitor to fetch the rows of a table. This endpoint makes it possible to fetch the id and primary field value of the related table of a link row included in the view.
+      parameters:
+      - in: path
+        name: field_id
+        schema:
+          type: integer
+        description: The field id of the link row field.
+        required: true
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: If provided only rows with data that matches the search query are going to be returned.
+      - in: query
+        name: search_mode
+        schema:
+          type: string
+        description: If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour.
+      - in: path
+        name: slug
+        schema:
+          type: string
+        description: The slug related to the view.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationSerializerLinkRowValue'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_VIEW
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                    - ERROR_FIELD_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{slug}/public/auth/:
+    post:
+      operationId: public_view_token_auth
+      description: Returns a valid never-expiring JWT token for this public shared view if the password provided matches with the one saved by the view's owner.
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        description: The slug of the grid view to get public information about.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicViewAuthRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicViewAuthRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicViewAuthRequest'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicViewAuthResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                description: The password provided for this view is incorrect
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{slug}/public/info/:
+    get:
+      operationId: get_public_view_info
+      description: Returns the required public information to display a single shared view.
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        description: The slug of the view to get public information about.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicViewInfo'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_VIEW
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{slug}/row/{row_id}/:
+    get:
+      operationId: get_public_view_row
+      description: Returns the data for a specific row in a publicly shared view, identified by the view’s slug and the row’s ID.
+      parameters:
+      - in: path
+        name: row_id
+        schema:
+          type: integer
+        description: The ID of the row to retrieve from the public view.
+        required: true
+      - in: path
+        name: slug
+        schema:
+          type: string
+        description: The slug of the view from which to get the row data.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamplePublicRowResponseSerializerWithUserFieldNames'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_VIEW
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                    - ERROR_ROW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/:
+    get:
+      operationId: get_database_table_view
+      description: Returns the existing view. Depending on the type different properties could be returned.
+      parameters:
+      - in: query
+        name: include
+        schema:
+          type: string
+        description: A comma separated list of extra attributes to include on the returned view. The supported attributes are `filters`, `sortings` and `decorations`. For example `include=filters,sortings` will add the attributes `filters` and `sortings` to every returned view, containing a list of the views filters and sortings respectively.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Returns the view related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table_view
+      description: Updates the existing view. The type cannot be changed. It depends on the existing type which properties can be changed.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: query
+        name: include
+        schema:
+          type: string
+        description: A comma separated list of extra attributes to include on the returned view. The supported attributes are `filters`, `sortings` and `decorations`. For example `include=filters,sortings` will add the attributes `filters` and `sortings` to every returned view, containing a list of the views filters and sortings respectively.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Updates the view related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedViewUpdateView'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedViewUpdateView'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedViewUpdateView'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_FIELD_NOT_IN_TABLE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_table_view
+      description: Deletes the existing view. Note that all the related settings of the view are going to be deleted also. The data stays intact after deleting the view because this is related to the table and not the view.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Deletes the view related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/default-values/:
+    patch:
+      operationId: update_view_default_values
+      description: Updates the default row values for the specified view. Accepts a list of default value objects, each specifying the field, whether the default is enabled, an optional raw value, and an optional function name (e.g. 'now') for dynamic defaults.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Updates the default row values for the view with the given id.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ViewDefaultValue'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ViewDefaultValue'
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ViewDefaultValue'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewDefaultValue'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_VIEW_DOES_NOT_SUPPORT_DEFAULT_VALUES
+                    - ERROR_INVALID_DEFAULT_VALUE_FUNCTION
+                    - ERROR_FIELD_NOT_IN_TABLE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/duplicate/:
+    post:
+      operationId: duplicate_database_table_view
+      description: 'Duplicates an existing view if the user has access to it. When a view is duplicated everything is copied except:
+
+        - The name is appended with the copy number. Ex: `ViewName`->`ViewName(2)` and `View(2)`->`View(3)`
+
+        - If the original view is publicly shared, the new view will not be shared anymore'
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Duplicates the view related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/field-options/:
+    get:
+      operationId: get_database_table_view_field_options
+      description: Responds with the fields options of the provided view if the authenticated user has access to the related workspace.
+      parameters:
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Responds with field options related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewFieldOptions'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_VIEW_DOES_NOT_SUPPORT_FIELD_OPTIONS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table_view_field_options
+      description: Updates the field options of a view. The field options differ per field type  This could for example be used to update the field width of a `grid` view if the user changes it.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Updates the field options related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedViewFieldOptions'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedViewFieldOptions'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedViewFieldOptions'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewFieldOptions'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_VIEW_DOES_NOT_SUPPORT_FIELD_OPTIONS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/{view_id}/rotate-slug/:
+    post:
+      operationId: rotate_database_view_slug
+      description: Rotates the unique slug of the view by replacing it with a new value. This would mean that the publicly shared URL of the view will change. Anyone with the old URL won't be able to access the viewanymore. Only view types which are sharable can have their slugs rotated.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Rotates the slug of the view related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_CANNOT_SHARE_VIEW_TYPE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/calendar/{ical_slug}.ics:
+    get:
+      operationId: calendar_ical_feed
+      description: Returns ICal feed for a specific Calendar view identified by ical_slug value. Calendar View resource contains full url in .ical_feed_url field.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: ical_slug
+        schema:
+          type: string
+        description: ICal feed unique slug.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            text/calendar:
+              schema:
+                type: string
+                format: binary
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_CALENDAR_VIEW_HAS_NO_DATE_FIELD
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/calendar/{view_id}/ical_slug_rotate/:
+    post:
+      operationId: rotate_calendar_view_ical_feed_slug
+      description: Rotates the unique slug of the calendar view's ical feed by replacing it with a new value. This would mean that the publicly shared URL of the view will change. Anyone with the old URL won't be able to access the view anymore.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Rotates the ical feed slug of the calendar view related to the provided id.
+        required: true
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_CANNOT_SHARE_VIEW_TYPE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/table/{table_id}/:
+    get:
+      operationId: list_database_table_views
+      description: Lists all views of the table related to the provided `table_id`. If the workspace is related to a template, then this endpoint will be publicly accessible. A table can have multiple views. Each view can display the data in a different way. For example the `grid` view shows the in a spreadsheet like way. That type has custom endpoints for data retrieval and manipulation. In the future other views types like a calendar or Kanban are going to be added. Each type can have different properties.
+      parameters:
+      - in: query
+        name: include
+        schema:
+          type: string
+        description: A comma separated list of extra attributes to include on each view in the response. The supported attributes are `filters`, `sortings`, `decorations`, `group_bys` and `default_row_values`. For example `include=filters,sortings` will add the attributes `filters` and `sortings` to every returned view, containing a list of the views filters and sortings respectively.
+      - in: query
+        name: limit
+        schema:
+          type: integer
+        description: The maximum amount of views that must be returned. This endpoint doesn't support pagination, but if you for example just need to fetch the first view, you can do that by setting a limit. There isn't a limit by default.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Returns only views of the table related to the provided value.
+        required: true
+      - in: query
+        name: type
+        schema:
+          type: string
+        description: Optionally filter on the view type. If provided, only views of that type will be returned.
+      tags:
+      - Database table views
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_database_table_view
+      description: Creates a new view for the table related to the provided `table_id` parameter. Depending on the type, different properties can optionally be set.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: query
+        name: include
+        schema:
+          type: string
+        description: A comma separated list of extra attributes to include on each view in the response. The supported attributes are `filters`, `sortings` and `decorations`. For example `include=filters,sortings` will add the attributes `filters` and `sortings` to every returned view, containing a list of the views filters and sortings respectively.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Creates a view for the table related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewCreateView'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ViewCreateView'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ViewCreateView'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewView'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_FIELD_NOT_IN_TABLE
+                    - ERROR_VIEW_OWNERSHIP_TYPE_INCOMPATIBLE_WITH_VIEW_TYPE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                    - ERROR_VIEW_OWNERSHIP_TYPE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/table/{table_id}/order/:
+    post:
+      operationId: order_database_table_views
+      description: Changes the order of the provided view ids to the matching position that the id has in the list. The order of the not provided views will be set to `0`.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Updates the order of the views in the table related to the provided value.
+        required: true
+      tags:
+      - Database table views
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderViews'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderViews'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderViews'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_VIEW_NOT_IN_TABLE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    PublicViewInfo:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicField'
+          readOnly: true
+        view:
+          allOf:
+          - $ref: '#/components/schemas/PublicView'
+          readOnly: true
+      required:
+      - fields
+      - view
+    TimelineViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    View:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - table
+      - table_id
+      - type
+    PaginationSerializerLinkRowValue:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the next page.
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRowValue'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PublicViewTable:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        database_id:
+          type: integer
+          readOnly: true
+      required:
+      - database_id
+      - id
+    ExamplePublicRowResponseSerializerWithUserFieldNames:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier of the row in the table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          description: Indicates the position of the row, lowest first and highest last.
+        field_1:
+          type: string
+          nullable: true
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_2:
+          type: string
+          nullable: true
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_3:
+          type: string
+          nullable: true
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_4:
+          type: string
+          nullable: true
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 254
+        field_5:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          nullable: true
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_8:
+          type: string
+          format: date
+          nullable: true
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_9:
+          type: string
+          format: date-time
+          description: 'This field represents the `last_modified` field. The number in field_9 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_10:
+          allOf:
+          - $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `last_modified_by` field. The number in field_10 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_11:
+          type: string
+          format: date-time
+          description: 'This field represents the `created_on` field. The number in field_11 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_12:
+          allOf:
+          - $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `created_by` field. The number in field_12 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_13:
+          type: number
+          format: float
+          nullable: true
+          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
+        field_14:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRowValue'
+          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
+        field_15:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileFieldResponse'
+          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
+        field_16:
+          allOf:
+          - $ref: '#/components/schemas/SelectOption'
+          nullable: true
+          description: 'This field represents the `single_select` field. The number in field_16 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed.'
+        field_17:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectOption'
+          nullable: true
+          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+        field_18:
+          type: string
+          nullable: true
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 100
+        field_19:
+          type: string
+          nullable: true
+          description: 'This field represents the `formula` field. The number in field_19 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_20:
+          type: string
+          nullable: true
+          description: 'This field represents the `count` field. The number in field_20 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_21:
+          type: string
+          nullable: true
+          description: 'This field represents the `rollup` field. The number in field_21 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_22:
+          type: string
+          nullable: true
+          description: 'This field represents the `lookup` field. The number in field_22 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_23:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
+        field_24:
+          type: string
+          format: uuid
+          description: 'This field represents the `uuid` field. The number in field_24 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent UUID for every row.'
+        field_25:
+          type: integer
+          description: 'This field represents the `autonumber` field. The number in field_25 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent incremental integer number for every row.'
+        field_26:
+          type: boolean
+          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
+        field_27:
+          type: string
+          readOnly: true
+          description: 'This field represents the `form_view_edit_row` field. The number in field_27 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_28:
+          type: string
+          nullable: true
+          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
+      required:
+      - field_27
+      - id
+    OrderViews:
+      type: object
+      properties:
+        view_ids:
+          type: array
+          items:
+            type: integer
+          description: View ids in the desired order.
+          minItems: 1
+      required:
+      - view_ids
+    TypeFa6Enum:
+      enum:
+      - grid
+      - gallery
+      - form
+      - kanban
+      - calendar
+      - timeline
+      type: string
+      description: '* `grid` - grid
+
+        * `gallery` - gallery
+
+        * `form` - form
+
+        * `kanban` - kanban
+
+        * `calendar` - calendar
+
+        * `timeline` - timeline'
+    form_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        title:
+          type: string
+          description: The title that is displayed at the beginning of the form.
+        description:
+          type: string
+          description: The description that is displayed at the beginning of the form.
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode51eEnum'
+          description: 'Configurable mode of the form.
+
+
+            * `form` - form
+
+            * `survey` - survey'
+        cover_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The cover image that must be displayed at the top of the form.
+        logo_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The logo image that must be displayed at the top of the form.
+        submit_text:
+          type: string
+          description: The text displayed on the submit button.
+        submit_action:
+          allOf:
+          - $ref: '#/components/schemas/SubmitActionEnum'
+          description: 'The action that must be performed after the visitor has filled out the form.
+
+
+            * `MESSAGE` - Message
+
+            * `REDIRECT` - Redirect'
+        submit_action_message:
+          type: string
+          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
+        submit_action_redirect_url:
+          type: string
+          format: uri
+          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
+          maxLength: 2000
+        receive_notification_on_submit:
+          type: boolean
+          readOnly: true
+          description: A boolean indicating if the current user should be notified when the form is submitted.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - receive_notification_on_submit
+      - slug
+    calendar_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        date_field:
+          type: integer
+          nullable: true
+        ical_feed_url:
+          type: string
+          readOnly: true
+          description: 'Read-only field with ICal feed endpoint. Note: this url will not be active if ical_public value is set to False.'
+        ical_public:
+          type: boolean
+          nullable: true
+          description: A flag to show if ical feed is exposed. Set this field to True when modifying this resource to enable ICal feed url.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - ical_feed_url
+      - slug
+    FormViewFieldOptions:
+      type: object
+      properties:
+        name:
+          type: string
+          description: By default, the name of the related field will be shown to the visitor. Optionally another name can be used by setting this name.
+          maxLength: 255
+        description:
+          type: string
+          description: If provided, then this value be will be shown under the field name.
+        enabled:
+          type: boolean
+          description: Indicates whether the field is included in the form.
+        required:
+          type: boolean
+          description: Indicates whether the field is required for the visitor to fill out.
+        show_when_matching_conditions:
+          type: boolean
+          description: Indicates whether this field is visible when the conditions are met.
+        condition_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all (AND) or any (OR) of the conditions should match before shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormViewFieldOptionsCondition'
+        condition_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormViewFieldOptionsConditionGroup'
+        field_component:
+          type: string
+          description: Indicates which field input component is used in the form. The value is only used in the frontend, and can differ per field.
+          maxLength: 32
+        include_all_select_options:
+          type: boolean
+          description: Indicates whether all fields must be included. Only works if the related field type can have select options.
+        allowed_select_options:
+          type: array
+          items:
+            type: integer
+    PublicViewSort:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        field:
+          type: integer
+          description: The field that must be sorted on.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    kanban_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/KanbanViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    OwnershipTypeEnum:
+      enum:
+      - collaborative
+      - personal
+      - restricted
+      type: string
+      description: '* `collaborative` - collaborative
+
+        * `personal` - personal
+
+        * `restricted` - restricted'
+    Mode51eEnum:
+      enum:
+      - form
+      - survey
+      type: string
+      description: '* `form` - form
+
+        * `survey` - survey'
+    GridViewFieldOptions:
+      type: object
+      properties:
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The width of the table field in the related view.
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the current view.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position that the field has within the view, lowest first. If there is another field with the same order value then the field with the lowest id must be shown first.
+        aggregation_type:
+          type: string
+          description: 'Indicates how the field value is aggregated. This value is different from the `aggregation_raw_type`. The `aggregation_raw_type` is the value extracted from the database, while the `aggregation_type` can implies further calculations. For example: if you want to compute an average, `sum` is going to be the `aggregation_raw_type`, the value extracted from database, and `sum / row_count` will be the aggregation result displayed to the user. This aggregation_type should be used by the client to compute the final value.'
+          maxLength: 48
+        aggregation_raw_type:
+          description: 'Indicates how to compute the raw aggregation value from database. This type must be registered in the backend prior to use it.
+
+
+            * `empty_count` - empty_count
+
+            * `not_empty_count` - not_empty_count
+
+            * `unique_count` - unique_count
+
+            * `min` - min
+
+            * `max` - max
+
+            * `sum` - sum
+
+            * `average` - average
+
+            * `median` - median
+
+            * `decile` - decile
+
+            * `variance` - variance
+
+            * `std_dev` - std_dev
+
+            * `distribution` - distribution'
+          oneOf:
+          - $ref: '#/components/schemas/AggregationRawTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+    calendar_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CalendarViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    ViewDecoration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the decoration applies. Each view can have his own decorations.
+        type:
+          type: string
+          description: The decorator type. This is then interpreted by the frontend to display the decoration.
+          maxLength: 255
+        value_provider_type:
+          type: string
+          description: The value provider type that gives the value to the decorator.
+          maxLength: 255
+        value_provider_conf:
+          description: The configuration consumed by the value provider.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - id
+    RowIdentifierTypeEnum:
+      enum:
+      - id
+      - count
+      type: string
+      description: '* `id` - Id
+
+        * `count` - Count'
+    gallery_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    PublicViewGroupBy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    ViewView:
+      oneOf:
+      - $ref: '#/components/schemas/GridViewView'
+      - $ref: '#/components/schemas/GalleryViewView'
+      - $ref: '#/components/schemas/FormViewView'
+      - $ref: '#/components/schemas/KanbanViewView'
+      - $ref: '#/components/schemas/CalendarViewView'
+      - $ref: '#/components/schemas/TimelineViewView'
+      discriminator:
+        propertyName: type
+        mapping:
+          grid: '#/components/schemas/GridViewView'
+          gallery: '#/components/schemas/GalleryViewView'
+          form: '#/components/schemas/FormViewView'
+          kanban: '#/components/schemas/KanbanViewView'
+          calendar: '#/components/schemas/CalendarViewView'
+          timeline: '#/components/schemas/TimelineViewView'
+    TableWithoutDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+      required:
+      - database_id
+      - id
+      - name
+      - order
+    GridViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    FormViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        title:
+          type: string
+          description: The title that is displayed at the beginning of the form.
+        description:
+          type: string
+          description: The description that is displayed at the beginning of the form.
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode51eEnum'
+          description: 'Configurable mode of the form.
+
+
+            * `form` - form
+
+            * `survey` - survey'
+        cover_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The cover image that must be displayed at the top of the form.
+        logo_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The logo image that must be displayed at the top of the form.
+        submit_text:
+          type: string
+          description: The text displayed on the submit button.
+        submit_action:
+          allOf:
+          - $ref: '#/components/schemas/SubmitActionEnum'
+          description: 'The action that must be performed after the visitor has filled out the form.
+
+
+            * `MESSAGE` - Message
+
+            * `REDIRECT` - Redirect'
+        submit_action_message:
+          type: string
+          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
+        submit_action_redirect_url:
+          type: string
+          format: uri
+          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
+          maxLength: 2000
+        receive_notification_on_submit:
+          type: boolean
+          readOnly: true
+          description: A boolean indicating if the current user should be notified when the form is submitted.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - receive_notification_on_submit
+      - slug
+      - table
+      - table_id
+      - type
+    RowHeightSizeEnum:
+      enum:
+      - small
+      - medium
+      - large
+      type: string
+      description: '* `small` - Small
+
+        * `medium` - Medium
+
+        * `large` - Large'
+    ViewDefaultValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        field:
+          type: integer
+        enabled:
+          type: boolean
+          default: true
+          description: Whether this default value is active.
+        value:
+          nullable: true
+          description: The raw default value in API request format.
+        field_type:
+          type: string
+          readOnly: true
+          nullable: true
+          description: The field type identifier at the time the value was stored. Used to detect incompatibility when the field type changes.
+        function:
+          type: string
+          nullable: true
+          description: Optional function name (e.g. 'now') to resolve the default value dynamically at row creation time instead of using the stored value.
+          maxLength: 64
+      required:
+      - field
+      - field_type
+      - id
+    CalendarViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    GalleryViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
+    ViewFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the filter applies. Each view can have his own filters.
+        field:
+          type: integer
+          description: The field of which the value must be compared to the filter value.
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        preload_values:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: Can contain unique preloaded values per filter. This is for example used by the `link_row_has` filter to communicate the display name if a value is provided.
+        group:
+          type: integer
+          nullable: true
+          description: The id of the filter group this filter belongs to. If this is null, the filter is not part of a filter group.
+      required:
+      - field
+      - id
+      - preload_values
+      - type
+      - view
+    PatchedUpdatePremiumViewAttributes:
+      type: object
+      properties:
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+    FormViewFieldOptionsCondition:
+      type: object
+      properties:
+        id:
+          type: integer
+        field:
+          type: integer
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        group:
+          type: integer
+          nullable: true
+      required:
+      - field
+      - id
+      - type
+    KanbanViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        single_select_field:
+          type: integer
+          nullable: true
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    GalleryViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    CalendarViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        date_field:
+          type: integer
+          nullable: true
+        ical_feed_url:
+          type: string
+          readOnly: true
+          description: 'Read-only field with ICal feed endpoint. Note: this url will not be active if ical_public value is set to False.'
+        ical_public:
+          type: boolean
+          nullable: true
+          description: A flag to show if ical feed is exposed. Set this field to True when modifying this resource to enable ICal feed url.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - ical_feed_url
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    FormViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        title:
+          type: string
+          description: The title that is displayed at the beginning of the form.
+        description:
+          type: string
+          description: The description that is displayed at the beginning of the form.
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode51eEnum'
+          description: 'Configurable mode of the form.
+
+
+            * `form` - form
+
+            * `survey` - survey'
+        cover_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The cover image that must be displayed at the top of the form.
+        logo_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          nullable: true
+          description: The logo image that must be displayed at the top of the form.
+        submit_text:
+          type: string
+          description: The text displayed on the submit button.
+        submit_action:
+          allOf:
+          - $ref: '#/components/schemas/SubmitActionEnum'
+          description: 'The action that must be performed after the visitor has filled out the form.
+
+
+            * `MESSAGE` - Message
+
+            * `REDIRECT` - Redirect'
+        submit_action_message:
+          type: string
+          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
+        submit_action_redirect_url:
+          type: string
+          format: uri
+          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
+          maxLength: 2000
+        receive_notification_on_submit:
+          type: boolean
+          readOnly: true
+          description: A boolean indicating if the current user should be notified when the form is submitted.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - receive_notification_on_submit
+      - slug
+      - type
+    PatchedViewUpdateView:
+      anyOf:
+      - $ref: '#/components/schemas/grid_view_update'
+      - $ref: '#/components/schemas/gallery_view_update'
+      - $ref: '#/components/schemas/form_view_update'
+      - $ref: '#/components/schemas/kanban_view_update'
+      - $ref: '#/components/schemas/calendar_view_update'
+      - $ref: '#/components/schemas/timeline_view_update'
+    TimelineViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        start_date_field:
+          type: integer
+          nullable: true
+        end_date_field:
+          type: integer
+          nullable: true
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    ViewFilterGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        view:
+          type: integer
+          description: The view to which the filter group applies to. Each view can have its own filter groups.
+        parent_group:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - view
+    TimelineViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        start_date_field:
+          type: integer
+          nullable: true
+        end_date_field:
+          type: integer
+          nullable: true
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    grid_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    UserFile:
+      type: object
+      properties:
+        size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mime_type:
+          type: string
+          maxLength: 127
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        image_height:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          nullable: true
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        original_name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      - original_name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+    grid_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GridViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    ViewFieldOptions:
+      anyOf:
+      - $ref: '#/components/schemas/grid_view_field_options'
+      - $ref: '#/components/schemas/gallery_view_field_options'
+      - $ref: '#/components/schemas/form_view_field_options'
+      - $ref: '#/components/schemas/kanban_view_field_options'
+      - $ref: '#/components/schemas/calendar_view_field_options'
+      - $ref: '#/components/schemas/timeline_view_field_options'
+    ViewGroupBy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the group by applies. Each view can have his own group bys.
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    gallery_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GalleryViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    KanbanViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        single_select_field:
+          type: integer
+          nullable: true
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    PublicView:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        table:
+          $ref: '#/components/schemas/PublicViewTable'
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewSort'
+          readOnly: true
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewGroupBy'
+          readOnly: true
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug where the view can be accessed publicly on.
+          pattern: ^[-a-zA-Z0-9_]+$
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+          readOnly: true
+      required:
+      - group_bys
+      - id
+      - name
+      - order
+      - ownership_type
+      - slug
+      - sortings
+      - table
+      - type
+    timeline_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        start_date_field:
+          type: integer
+          nullable: true
+        end_date_field:
+          type: integer
+          nullable: true
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    BlankEnum:
+      enum:
+      - ''
+    TimescaleEnum:
+      enum:
+      - day
+      - week
+      - month
+      - year
+      type: string
+      description: '* `day` - Day
+
+        * `week` - Week
+
+        * `month` - Month
+
+        * `year` - Year'
+    PublicViewAuthRequest:
+      type: object
+      properties:
+        password:
+          type: string
+      required:
+      - password
+    form_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FormViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    kanban_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        single_select_field:
+          type: integer
+          nullable: true
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
+    AggregationRawTypeEnum:
+      enum:
+      - empty_count
+      - not_empty_count
+      - unique_count
+      - min
+      - max
+      - sum
+      - average
+      - median
+      - decile
+      - variance
+      - std_dev
+      - distribution
+      type: string
+      description: '* `empty_count` - empty_count
+
+        * `not_empty_count` - not_empty_count
+
+        * `unique_count` - unique_count
+
+        * `min` - min
+
+        * `max` - max
+
+        * `sum` - sum
+
+        * `average` - average
+
+        * `median` - median
+
+        * `decile` - decile
+
+        * `variance` - variance
+
+        * `std_dev` - std_dev
+
+        * `distribution` - distribution'
+    ViewSort:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the sort applies. Each view can have his own sortings.
+        field:
+          type: integer
+          description: The field that must be sorted on.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    FormViewFieldOptionsConditionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type: integer
+          nullable: true
+      required:
+      - id
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    GalleryViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        card_cover_image_field:
+          type: integer
+          nullable: true
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    KanbanViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    ViewCreateView:
+      oneOf:
+      - $ref: '#/components/schemas/GridViewCreateView'
+      - $ref: '#/components/schemas/GalleryViewCreateView'
+      - $ref: '#/components/schemas/FormViewCreateView'
+      - $ref: '#/components/schemas/KanbanViewCreateView'
+      - $ref: '#/components/schemas/CalendarViewCreateView'
+      - $ref: '#/components/schemas/TimelineViewCreateView'
+      discriminator:
+        propertyName: type
+        mapping:
+          grid: '#/components/schemas/GridViewCreateView'
+          gallery: '#/components/schemas/GalleryViewCreateView'
+          form: '#/components/schemas/FormViewCreateView'
+          kanban: '#/components/schemas/KanbanViewCreateView'
+          calendar: '#/components/schemas/CalendarViewCreateView'
+          timeline: '#/components/schemas/TimelineViewCreateView'
+    PublicViewAuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+      - access_token
+    timeline_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TimelineViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    GridViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    SubmitActionEnum:
+      enum:
+      - MESSAGE
+      - REDIRECT
+      type: string
+      description: '* `MESSAGE` - Message
+
+        * `REDIRECT` - Redirect'
+    PublicField:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        primary:
+          type: boolean
+          description: Indicates if the field is a primary field. If `true` the field cannot be deleted and the value should represent the whole row.
+        read_only:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field is a read only field. If true, it's not possible to update the cell value.
+        immutable_type:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field type is immutable. If true, then it won't be possible to change the field type via the API.
+        immutable_properties:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field properties are immutable. If true, then it won't be possible to change the properties and the type via the API.
+        description:
+          type: string
+          nullable: true
+          description: Field description
+        database_id:
+          type: integer
+          readOnly: true
+        workspace_id:
+          type: integer
+          readOnly: true
+        db_index:
+          type: boolean
+          description: If true, then an index will be added to the Baserow field to increase lookup and filter speed. Note that this comes at a performance cost when creating the row and updating the cell.
+        field_constraints:
+          type: string
+          readOnly: true
+          description: The constraints applied to this field.
+      required:
+      - database_id
+      - field_constraints
+      - id
+      - immutable_properties
+      - immutable_type
+      - name
+      - order
+      - read_only
+      - table_id
+      - type
+      - workspace_id
+    CalendarViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        date_field:
+          type: integer
+          nullable: true
+        ical_feed_url:
+          type: string
+          readOnly: true
+          description: 'Read-only field with ICal feed endpoint. Note: this url will not be active if ical_public value is set to False.'
+        ical_public:
+          type: boolean
+          nullable: true
+          description: A flag to show if ical feed is exposed. Set this field to True when modifying this resource to enable ICal feed url.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - ical_feed_url
+      - name
+      - slug
+      - type
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+    PatchedViewFieldOptions:
+      anyOf:
+      - $ref: '#/components/schemas/grid_view_field_options'
+      - $ref: '#/components/schemas/gallery_view_field_options'
+      - $ref: '#/components/schemas/form_view_field_options'
+      - $ref: '#/components/schemas/kanban_view_field_options'
+      - $ref: '#/components/schemas/calendar_view_field_options'
+      - $ref: '#/components/schemas/timeline_view_field_options'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

@@ -1,0 +1,867 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database table webhooks API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database table webhooks
+paths:
+  /api/database/webhooks/{webhook_id}/:
+    get:
+      operationId: get_database_table_webhook
+      description: Returns the existing webhook if the authorized user has access to the related database workspace.
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: integer
+        description: Returns the webhook related to the provided value.
+        required: true
+      tags:
+      - Database table webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableWebhook'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table_webhook
+      description: Updates the existing view if the authorized user has access to the related database workspace.
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: integer
+        description: Updates the webhook related to the provided value.
+        required: true
+      tags:
+      - Database table webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTableWebhookUpdateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTableWebhookUpdateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTableWebhookUpdateRequest'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableWebhook'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_table_webhook
+      description: Deletes the existing webhook if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: integer
+        description: Deletes the webhook related to the provided value.
+        required: true
+      tags:
+      - Database table webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/webhooks/table/{table_id}/:
+    get:
+      operationId: list_database_table_webhooks
+      description: Lists all webhooks of the table related to the provided `table_id` if the user has access to the related database workspace.
+      parameters:
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Returns only webhooks of the table related to this value.
+        required: true
+      tags:
+      - Database table webhooks
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableWebhook'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_database_table_webhook
+      description: Creates a new webhook for the table related to the provided `table_id` parameter if the authorized user has access to the related database workspace.
+      parameters:
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Creates a webhook for the table related to the provided value.
+        required: true
+      tags:
+      - Database table webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableWebhookCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TableWebhookCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TableWebhookCreateRequest'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableWebhook'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_TABLE_WEBHOOK_MAX_LIMIT_EXCEEDED
+                    - ERROR_TABLE_WEBHOOK_EVENT_CONFIG_FIELD_NOT_IN_TABLE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/webhooks/table/{table_id}/test-call/:
+    post:
+      operationId: test_call_database_table_webhook
+      description: This endpoint triggers a test call based on the provided data if the user has access to the workspace related to the table. The test call will be made immediately and a copy of the request, response and status will be included in the response.
+      parameters:
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: The id of the table that must be tested.
+        required: true
+      tags:
+      - Database table webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableWebhookTestCallRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TableWebhookTestCallRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TableWebhookTestCallRequest'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableWebhookTestCallResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    TableWebhookCreateRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        include_all_events:
+          type: boolean
+          description: Indicates whether this webhook should listen to all events.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventsEnum'
+          description: A list containing the events that will trigger this webhook.
+        event_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookEventConfig'
+          description: A list containing the addition event options.
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        headers:
+          type: object
+          additionalProperties: {}
+          description: The additional headers as an object where the key is the name and the value the value.
+        name:
+          type: string
+          description: An internal name of the webhook.
+          maxLength: 255
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+      required:
+      - name
+      - url
+    TableWebhookCall:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        event_id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Event ID where the call originated from.
+        event_type:
+          type: string
+          maxLength: 50
+        called_time:
+          type: string
+          format: date-time
+          nullable: true
+        called_url:
+          type: string
+          maxLength: 2000
+        request:
+          type: string
+          readOnly: true
+          description: A text copy of the request headers and body.
+        response:
+          type: string
+          readOnly: true
+          description: A text copy of the response headers and body.
+        response_status:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+          description: The HTTP response status code.
+        error:
+          type: string
+          nullable: true
+          description: An internal error reflecting what went wrong.
+      required:
+      - called_url
+      - event_id
+      - event_type
+      - id
+      - request
+      - response
+    TableWebhookEventConfig:
+      type: object
+      properties:
+        event_type:
+          allOf:
+          - $ref: '#/components/schemas/EventTypeEnum'
+          description: 'The type of the event.
+
+
+            * `rows.created` - rows.created
+
+            * `rows.updated` - rows.updated
+
+            * `rows.deleted` - rows.deleted
+
+            * `field.created` - field.created
+
+            * `field.updated` - field.updated
+
+            * `field.deleted` - field.deleted
+
+            * `view.created` - view.created
+
+            * `view.updated` - view.updated
+
+            * `view.deleted` - view.deleted
+
+            * `view.rows_entered` - view.rows_entered'
+        fields:
+          type: array
+          items:
+            type: integer
+          description: A list of field IDs that are related to the event.
+        views:
+          type: array
+          items:
+            type: integer
+          description: A list of view IDs that are related to the event.
+      required:
+      - event_type
+    TableWebhook:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        events:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: A list containing the events that will trigger this webhook.
+        event_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookEventConfig'
+          readOnly: true
+          description: A list containing the addition event options.
+        headers:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The additional headers as an object where the key is the name and the value the value.
+        calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookCall'
+          description: All the calls that this webhook made.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        name:
+          type: string
+          description: An internal name of the webhook.
+          maxLength: 255
+        include_all_events:
+          type: boolean
+          description: Indicates whether this webhook should listen to all events.
+        failed_triggers:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The amount of failed webhook calls.
+        active:
+          type: boolean
+          description: Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.
+      required:
+      - calls
+      - created_on
+      - event_config
+      - events
+      - headers
+      - id
+      - name
+      - updated_on
+      - url
+    TableWebhookTestCallResponse:
+      type: object
+      properties:
+        request:
+          type: string
+          readOnly: true
+          description: A text copy of the request headers and body.
+        response:
+          type: string
+          readOnly: true
+          description: A text copy of the response headers and body.
+        status_code:
+          type: integer
+          readOnly: true
+          description: The HTTP response status code.
+        is_unreachable:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the provided URL could be reached.
+      required:
+      - is_unreachable
+      - request
+      - response
+      - status_code
+    EventTypeEnum:
+      enum:
+      - rows.created
+      - rows.updated
+      - rows.deleted
+      - field.created
+      - field.updated
+      - field.deleted
+      - view.created
+      - view.updated
+      - view.deleted
+      - view.rows_entered
+      type: string
+      description: '* `rows.created` - rows.created
+
+        * `rows.updated` - rows.updated
+
+        * `rows.deleted` - rows.deleted
+
+        * `field.created` - field.created
+
+        * `field.updated` - field.updated
+
+        * `field.deleted` - field.deleted
+
+        * `view.created` - view.created
+
+        * `view.updated` - view.updated
+
+        * `view.deleted` - view.deleted
+
+        * `view.rows_entered` - view.rows_entered'
+    RequestMethodEnum:
+      enum:
+      - POST
+      - GET
+      - PUT
+      - PATCH
+      - DELETE
+      type: string
+      description: '* `POST` - Post
+
+        * `GET` - Get
+
+        * `PUT` - Put
+
+        * `PATCH` - Patch
+
+        * `DELETE` - Delete'
+    PatchedTableWebhookUpdateRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        include_all_events:
+          type: boolean
+          description: Indicates whether this webhook should listen to all events.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventsEnum'
+          description: A list containing the events that will trigger this webhook.
+        event_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookEventConfig'
+          description: A list containing the addition event options.
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        headers:
+          type: object
+          additionalProperties: {}
+          description: The additional headers as an object where the key is the name and the value the value.
+        name:
+          type: string
+          description: An internal name of the webhook.
+          maxLength: 255
+        active:
+          type: boolean
+          description: Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+    TableWebhookTestCallRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        event_type:
+          allOf:
+          - $ref: '#/components/schemas/EventTypeEnum'
+          description: 'The event type that must be used for the test call.
+
+
+            * `rows.created` - rows.created
+
+            * `rows.updated` - rows.updated
+
+            * `rows.deleted` - rows.deleted
+
+            * `field.created` - field.created
+
+            * `field.updated` - field.updated
+
+            * `field.deleted` - field.deleted
+
+            * `view.created` - view.created
+
+            * `view.updated` - view.updated
+
+            * `view.deleted` - view.deleted
+
+            * `view.rows_entered` - view.rows_entered'
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        headers:
+          type: object
+          additionalProperties: {}
+          description: The additional headers as an object where the key is the name and the value the value.
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+      required:
+      - event_type
+      - url
+    EventsEnum:
+      enum:
+      - rows.created
+      - rows.updated
+      - rows.deleted
+      - field.created
+      - field.updated
+      - field.deleted
+      - view.created
+      - view.updated
+      - view.deleted
+      - view.rows_entered
+      type: string
+      description: '* `rows.created` - rows.created
+
+        * `rows.updated` - rows.updated
+
+        * `rows.deleted` - rows.deleted
+
+        * `field.created` - field.created
+
+        * `field.updated` - field.updated
+
+        * `field.deleted` - field.deleted
+
+        * `view.created` - view.created
+
+        * `view.updated` - view.updated
+
+        * `view.deleted` - view.deleted
+
+        * `view.rows_entered` - view.rows_entered'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

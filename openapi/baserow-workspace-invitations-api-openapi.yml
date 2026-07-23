@@ -1,0 +1,735 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Workspace invitations API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Workspace invitations
+paths:
+  /api/workspaces/invitations/{workspace_invitation_id}/:
+    get:
+      operationId: get_workspace_invitation
+      description: Returns the requested workspace invitation if the authorized user has admin right to the related workspace
+      parameters:
+      - in: path
+        name: workspace_invitation_id
+        schema:
+          type: integer
+        description: Returns the workspace invitation related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceInvitation'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_USER_INVALID_GROUP_PERMISSIONS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_workspace_invitation
+      description: Updates the existing workspace invitation related to the provided `workspace_invitation_id` param if the authorized user has admin rights to the related workspace.
+      parameters:
+      - in: path
+        name: workspace_invitation_id
+        schema:
+          type: integer
+        description: Updates the workspace invitation related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateWorkspaceInvitation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateWorkspaceInvitation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateWorkspaceInvitation'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceInvitation'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_USER_INVALID_GROUP_PERMISSIONS
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_workspace_invitation
+      description: Deletes a workspace invitation if the authorized user has admin rights to the related workspace.
+      parameters:
+      - in: path
+        name: workspace_invitation_id
+        schema:
+          type: integer
+        description: Deletes the workspace invitation related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_USER_INVALID_GROUP_PERMISSIONS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/workspaces/invitations/{workspace_invitation_id}/accept/:
+    post:
+      operationId: accept_workspace_invitation
+      description: Accepts a workspace invitation with the given id if the email address of the user matches that of the invitation.
+      parameters:
+      - in: path
+        name: workspace_invitation_id
+        schema:
+          type: integer
+        description: Accepts the workspace invitation related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceUserWorkspace'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_EMAIL_MISMATCH
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/workspaces/invitations/{workspace_invitation_id}/reject/:
+    post:
+      operationId: reject_workspace_invitation
+      description: Rejects a workspace invitation with the given id if the email address of the user matches that of the invitation.
+      parameters:
+      - in: path
+        name: workspace_invitation_id
+        schema:
+          type: integer
+        description: Rejects the workspace invitation related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_EMAIL_MISMATCH
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/workspaces/invitations/token/{token}/:
+    get:
+      operationId: get_workspace_invitation_by_token
+      description: Responds with the serialized workspace invitation if an invitation with the provided token is found.
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        description: Returns the workspace invitation related to the provided token.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWorkspaceInvitation'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - BAD_TOKEN_SIGNATURE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_INVITATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/workspaces/invitations/workspace/{workspace_id}/:
+    get:
+      operationId: list_workspace_invitations
+      description: Lists all the workspace invitations of the workspace related to the provided `workspace_id` parameter if the authorized user has admin rights to that workspace.
+      parameters:
+      - in: path
+        name: workspace_id
+        schema:
+          type: integer
+        description: Returns only invitations that are in the workspace related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceInvitation'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_USER_INVALID_GROUP_PERMISSIONS
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_workspace_invitation
+      description: Creates a new workspace invitations for an email address if the authorized user has admin rights to the related workspace. An email containing a sign up link will be send to the user.
+      parameters:
+      - in: path
+        name: workspace_id
+        schema:
+          type: integer
+        description: Creates a workspace invitation to the workspace related to the provided value.
+        required: true
+      tags:
+      - Workspace invitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceInvitation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceInvitation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceInvitation'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceInvitation'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_USER_INVALID_GROUP_PERMISSIONS
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    WorkspaceInvitation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        workspace:
+          type: integer
+          description: The workspace that the user will get access to once the invitation is accepted.
+        email:
+          type: string
+          format: email
+          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
+          maxLength: 254
+        permissions:
+          type: string
+          description: The permissions that the user is going to get within the workspace after accepting the invitation.
+          maxLength: 32
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - id
+      - workspace
+    UserWorkspaceInvitation:
+      type: object
+      description: 'This serializer is used for displaying the invitation to the user that doesn''t
+
+        have access to the workspace yet, so not for invitation management purposes.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        invited_by:
+          type: string
+          readOnly: true
+        workspace:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
+          maxLength: 254
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        email_exists:
+          type: boolean
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - email_exists
+      - id
+      - invited_by
+      - workspace
+    WorkspaceUserWorkspace:
+      type: object
+      description: 'This serializers includes relevant fields of the Workspace model, but also
+
+        some WorkspaceUser specific fields related to the workspace user relation.
+
+
+        Additionally, the list of users are included for each workspace.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Workspace id.
+        name:
+          type: string
+          readOnly: true
+          description: Workspace name.
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceUser'
+          readOnly: true
+          description: List of all workspace users.
+        order:
+          type: integer
+          readOnly: true
+          description: The requesting user's order within the workspace users.
+        permissions:
+          type: string
+          readOnly: true
+          description: The requesting user's permissions for the workspace.
+        unread_notifications_count:
+          type: integer
+          readOnly: true
+          description: The number of unread notifications for the requesting user.
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+          description: Generative AI models available in this workspace.
+      required:
+      - generative_ai_models_enabled
+      - id
+      - name
+      - order
+      - permissions
+      - unread_notifications_count
+      - users
+    WorkspaceUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+          description: User defined name.
+        email:
+          type: string
+          readOnly: true
+          description: User email.
+        workspace:
+          type: integer
+          description: The workspace that the user has access to.
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        user_id:
+          type: integer
+          description: The user that has access to the workspace.
+          readOnly: true
+        to_be_deleted:
+          type: boolean
+          description: True if user account is pending deletion.
+        two_factor_auth:
+          type: string
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - id
+      - name
+      - to_be_deleted
+      - two_factor_auth
+      - user_id
+      - workspace
+    PatchedUpdateWorkspaceInvitation:
+      type: object
+      properties:
+        permissions:
+          type: string
+          description: The permissions that the user is going to get within the workspace after accepting the invitation.
+          maxLength: 32
+    CreateWorkspaceInvitation:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
+          maxLength: 254
+        permissions:
+          type: string
+          description: The permissions that the user is going to get within the workspace after accepting the invitation.
+          maxLength: 32
+        base_url:
+          type: string
+          format: uri
+          description: The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').
+      required:
+      - base_url
+      - email
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

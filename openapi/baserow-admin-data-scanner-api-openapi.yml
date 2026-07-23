@@ -1,0 +1,1165 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Admin data scanner API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Admin data scanner
+paths:
+  /api/admin/data-scanner/results/:
+    get:
+      operationId: admin_data_scanner_list_results
+      description: Lists all data scan results across all scans. Results represent individual matches found in database fields during scan execution. Can be filtered by scan_id and searched by matched value. **Enterprise feature.**
+      parameters:
+      - in: query
+        name: ids
+        schema:
+          type: string
+        description: A comma-separated list of data scan results IDs to filter by. When provided, only data scan results with those IDs are returned.
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Defines which page should be returned.
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: If provided only data scan results with matched_value that match the query will be returned.
+      - in: query
+        name: size
+        schema:
+          type: integer
+        description: Defines how many data scan results should be returned per page.
+      - in: query
+        name: sorts
+        schema:
+          type: string
+        description: 'A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `first_identified_on, last_identified_on`. For example `sorts=-first_identified_on,-last_identified_on` will sort the data scan results first by descending first_identified_on and then ascending last_identified_on. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error.'
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationSerializerDataScanResult'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PAGE_SIZE_LIMIT
+                    - ERROR_INVALID_SORT_DIRECTION
+                    - ERROR_INVALID_SORT_ATTRIBUTE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          description: No response body
+  /api/admin/data-scanner/results/{result_id}/:
+    delete:
+      operationId: admin_data_scanner_delete_result
+      description: Deletes (resolves) a single data scan result, marking it as reviewed. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: result_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_RESULT_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/admin/data-scanner/results/export/:
+    post:
+      operationId: admin_data_scanner_export_results
+      description: Creates a job to export data scan results to CSV. The exported file includes scan name, workspace, database, table, field, row ID, matched value, and timestamps for each result. **Enterprise feature.**
+      tags:
+      - Admin data scanner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleDataScanResultExportJobRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SingleDataScanResultExportJobRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SingleDataScanResultExportJobRequest'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleDataScanResultExportJobResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/admin/data-scanner/scans/:
+    get:
+      operationId: admin_data_scanner_list_scans
+      description: Lists all data scans configured for this Baserow instance. Data scans allow administrators to search the entire instance for sensitive data matching a pattern, a list of uploaded values, or values from another Baserow table. **Enterprise feature.**
+      parameters:
+      - in: query
+        name: ids
+        schema:
+          type: string
+        description: A comma-separated list of data scans IDs to filter by. When provided, only data scans with those IDs are returned.
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Defines which page should be returned.
+      - in: query
+        name: search
+        schema:
+          type: string
+        description: If provided only data scans with name that match the query will be returned.
+      - in: query
+        name: size
+        schema:
+          type: integer
+        description: Defines how many data scans should be returned per page.
+      - in: query
+        name: sorts
+        schema:
+          type: string
+        description: 'A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `name, scan_type, frequency, created_on`. For example `sorts=-name,-scan_type` will sort the data scans first by descending name and then ascending scan_type. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error.'
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationSerializerDataScan'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PAGE_SIZE_LIMIT
+                    - ERROR_INVALID_SORT_DIRECTION
+                    - ERROR_INVALID_SORT_ATTRIBUTE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          description: No response body
+    post:
+      operationId: admin_data_scanner_create_scan
+      description: Creates a new data scan. A data scan searches the Baserow instance for sensitive data matching a pattern (e.g. credit card numbers), a list of uploaded values, or values sourced from another Baserow table. **Enterprise feature.**
+      tags:
+      - Admin data scanner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataScanCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DataScanCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DataScanCreate'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataScan'
+          description: ''
+  /api/admin/data-scanner/scans/{scan_id}/:
+    get:
+      operationId: admin_data_scanner_get_scan
+      description: Returns a single data scan configuration. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: scan_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataScan'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: admin_data_scanner_update_scan
+      description: Updates a data scan configuration. When the scan type, pattern, or list items change, stale results are automatically cleaned up. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: scan_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDataScanUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDataScanUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDataScanUpdate'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataScan'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '409':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_ALREADY_RUNNING
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: admin_data_scanner_delete_scan
+      description: Deletes a data scan and all of its results. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: scan_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '409':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_ALREADY_RUNNING
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/admin/data-scanner/scans/{scan_id}/trigger/:
+    post:
+      operationId: admin_data_scanner_trigger_scan
+      description: Triggers an immediate run of the given data scan. The scan executes asynchronously and searches the configured workspaces for matches. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: scan_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataScan'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '409':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SCAN_ALREADY_RUNNING
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/admin/data-scanner/workspace-structure/{workspace_id}/:
+    get:
+      operationId: admin_data_scanner_workspace_structure
+      description: Returns the database/table/field structure of a workspace for use in data scan configuration. Only text-compatible fields are included. **Enterprise feature.**
+      parameters:
+      - in: path
+        name: workspace_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - Admin data scanner
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkspaceStructureDatabase'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    WorkspaceStructureDatabase:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        tables:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+      - tables
+    PaginationSerializerDataScanResult:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the next page.
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScanResult'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    DataScan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type: string
+          nullable: true
+        frequency:
+          $ref: '#/components/schemas/FrequencyEnum'
+        scan_all_workspaces:
+          type: boolean
+        workspace_ids:
+          type: string
+          readOnly: true
+        is_running:
+          type: boolean
+        last_run_started_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_run_finished_at:
+          type: string
+          format: date-time
+          nullable: true
+        last_error:
+          type: string
+          nullable: true
+        list_items:
+          type: string
+          readOnly: true
+        results_count:
+          type: string
+          readOnly: true
+        source_table_id:
+          type: string
+          readOnly: true
+        source_field_id:
+          type: string
+          readOnly: true
+        whole_words:
+          type: boolean
+        source_workspace_id:
+          type: string
+          readOnly: true
+        source_database_id:
+          type: string
+          readOnly: true
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_on
+      - id
+      - list_items
+      - name
+      - results_count
+      - scan_type
+      - source_database_id
+      - source_field_id
+      - source_table_id
+      - source_workspace_id
+      - updated_on
+      - workspace_ids
+    DataScanCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type: string
+          maxLength: 100
+        frequency:
+          allOf:
+          - $ref: '#/components/schemas/FrequencyEnum'
+          default: manual
+        scan_all_workspaces:
+          type: boolean
+          default: true
+        workspace_ids:
+          type: array
+          items:
+            type: integer
+        list_items:
+          type: array
+          items:
+            type: string
+        source_table_id:
+          type: integer
+          nullable: true
+        source_field_id:
+          type: integer
+          nullable: true
+        whole_words:
+          type: boolean
+          default: true
+      required:
+      - name
+      - scan_type
+    DataScanResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        scan_id:
+          type: integer
+          readOnly: true
+        scan_name:
+          type: string
+          readOnly: true
+        workspace_name:
+          type: string
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        database_name:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        table_name:
+          type: string
+          readOnly: true
+        field_name:
+          type: string
+          readOnly: true
+        row_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        matched_value:
+          type: string
+        first_identified_on:
+          type: string
+          format: date-time
+        last_identified_on:
+          type: string
+          format: date-time
+      required:
+      - database_id
+      - database_name
+      - field_name
+      - first_identified_on
+      - id
+      - last_identified_on
+      - matched_value
+      - row_id
+      - scan_id
+      - scan_name
+      - table_id
+      - table_name
+      - workspace_name
+    PaginationSerializerDataScan:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the next page.
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScan'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    CsvColumnSeparatorEnum:
+      enum:
+      - ','
+      - ;
+      - '|'
+      - tab
+      - record_separator
+      - unit_separator
+      type: string
+      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+    ExportCharsetEnum:
+      enum:
+      - utf-8
+      - iso-8859-6
+      - windows-1256
+      - iso-8859-4
+      - windows-1257
+      - iso-8859-14
+      - iso-8859-2
+      - windows-1250
+      - gbk
+      - gb18030
+      - big5
+      - koi8-r
+      - koi8-u
+      - iso-8859-5
+      - windows-1251
+      - x-mac-cyrillic
+      - iso-8859-7
+      - windows-1253
+      - iso-8859-8
+      - windows-1255
+      - euc-jp
+      - iso-2022-jp
+      - shift-jis
+      - euc-kr
+      - macintosh
+      - iso-8859-10
+      - iso-8859-16
+      - windows-874
+      - windows-1254
+      - windows-1258
+      - iso-8859-1
+      - windows-1252
+      - iso-8859-3
+      type: string
+      description: '* `utf-8` - utf-8
+
+        * `iso-8859-6` - iso-8859-6
+
+        * `windows-1256` - windows-1256
+
+        * `iso-8859-4` - iso-8859-4
+
+        * `windows-1257` - windows-1257
+
+        * `iso-8859-14` - iso-8859-14
+
+        * `iso-8859-2` - iso-8859-2
+
+        * `windows-1250` - windows-1250
+
+        * `gbk` - gbk
+
+        * `gb18030` - gb18030
+
+        * `big5` - big5
+
+        * `koi8-r` - koi8-r
+
+        * `koi8-u` - koi8-u
+
+        * `iso-8859-5` - iso-8859-5
+
+        * `windows-1251` - windows-1251
+
+        * `x-mac-cyrillic` - mac-cyrillic
+
+        * `iso-8859-7` - iso-8859-7
+
+        * `windows-1253` - windows-1253
+
+        * `iso-8859-8` - iso-8859-8
+
+        * `windows-1255` - windows-1255
+
+        * `euc-jp` - euc-jp
+
+        * `iso-2022-jp` - iso-2022-jp
+
+        * `shift-jis` - shift-jis
+
+        * `euc-kr` - euc-kr
+
+        * `macintosh` - macintosh
+
+        * `iso-8859-10` - iso-8859-10
+
+        * `iso-8859-16` - iso-8859-16
+
+        * `windows-874` - cp874
+
+        * `windows-1254` - windows-1254
+
+        * `windows-1258` - windows-1258
+
+        * `iso-8859-1` - iso-8859-1
+
+        * `windows-1252` - windows-1252
+
+        * `iso-8859-3` - iso-8859-3'
+    FrequencyEnum:
+      enum:
+      - manual
+      - hourly
+      - daily
+      - weekly
+      type: string
+      description: '* `manual` - Manual
+
+        * `hourly` - Hourly
+
+        * `daily` - Daily
+
+        * `weekly` - Weekly'
+    SingleDataScanResultExportJobResponse:
+      type: object
+      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
+
+        with the actual usable url of the export job''s file (if it has one).'
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+          description: The URL to download the exported file.
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        csv_column_separator:
+          allOf:
+          - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
+          default: ','
+          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+        csv_first_row_header:
+          type: boolean
+          default: true
+          description: Whether or not to generate a header row at the top of the csv file.
+        filter_scan_id:
+          type: integer
+          minimum: 0
+          description: 'Optional: Filter results by scan ID.'
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+          description: The date and time when the export job was created.
+        exported_file_name:
+          type: string
+          readOnly: true
+          description: The name of the file that was created by the export job.
+      required:
+      - created_on
+      - exported_file_name
+      - url
+    PatchedDataScanUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type: string
+          nullable: true
+          maxLength: 100
+        frequency:
+          $ref: '#/components/schemas/FrequencyEnum'
+        scan_all_workspaces:
+          type: boolean
+        workspace_ids:
+          type: array
+          items:
+            type: integer
+        list_items:
+          type: array
+          items:
+            type: string
+        source_table_id:
+          type: integer
+          nullable: true
+        source_field_id:
+          type: integer
+          nullable: true
+        whole_words:
+          type: boolean
+    ScanTypeEnum:
+      enum:
+      - pattern
+      - list_of_values
+      - list_table
+      type: string
+      description: '* `pattern` - Pattern
+
+        * `list_of_values` - List of values
+
+        * `list_table` - List Table'
+    SingleDataScanResultExportJobRequest:
+      type: object
+      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
+
+        with the actual usable url of the export job''s file (if it has one).'
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        csv_column_separator:
+          allOf:
+          - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
+          default: ','
+          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+        csv_first_row_header:
+          type: boolean
+          default: true
+          description: Whether or not to generate a header row at the top of the csv file.
+        filter_scan_id:
+          type: integer
+          minimum: 0
+          description: 'Optional: Filter results by scan ID.'
+      required:
+      - url
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

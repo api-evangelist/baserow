@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Search API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Search
+paths:
+  /api/search/workspace/{workspace_id}/:
+    get:
+      operationId: workspace_search
+      description: Search across all searchable content within a workspace
+      parameters:
+      - in: path
+        name: workspace_id
+        schema:
+          type: integer
+        description: Workspace ID to search within
+        required: true
+      tags:
+      - Search
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceSearchResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_INVALID_SEARCH_QUERY
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_GROUP_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    WorkspaceSearchResponse:
+      type: object
+      description: Serializer for workspace search responses.
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+          description: Priority-ordered search results
+        has_more:
+          type: boolean
+          description: Whether there are more results available for pagination
+      required:
+      - has_more
+      - results
+    SearchResult:
+      type: object
+      description: Serializer for individual search results.
+      properties:
+        type:
+          type: string
+        id:
+          type: integer
+        title:
+          type: string
+        subtitle:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        created_on:
+          type: string
+          nullable: true
+        updated_on:
+          type: string
+          nullable: true
+      required:
+      - id
+      - title
+      - type
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

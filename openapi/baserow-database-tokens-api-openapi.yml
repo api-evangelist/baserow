@@ -1,0 +1,524 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database tokens API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database tokens
+paths:
+  /api/database/tokens/:
+    get:
+      operationId: list_database_tokens
+      description: Lists all the database tokens that belong to the authorized user. A token can be used to create, read, update and delete rows in the tables of the token's workspace. It only works on the tables if the token has the correct permissions. The **Database table rows** endpoints can be used for these operations.
+      tags:
+      - Database tokens
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+          description: ''
+    post:
+      operationId: create_database_token
+      description: Creates a new database token for a given workspace and for the authorized user.
+      tags:
+      - Database tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tokens/{token_id}/:
+    get:
+      operationId: get_database_token
+      description: Returns the requested database token if it is owned by the authorized user andif the user has access to the related workspace.
+      parameters:
+      - in: path
+        name: token_id
+        schema:
+          type: integer
+        description: Returns the database token related to the provided value.
+        required: true
+      tags:
+      - Database tokens
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TOKEN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_token
+      description: Updates the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.
+      parameters:
+      - in: path
+        name: token_id
+        schema:
+          type: integer
+        description: Updates the database token related to the provided value.
+        required: true
+      tags:
+      - Database tokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTokenUpdate'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_DATABASE_DOES_NOT_BELONG_TO_GROUP
+                    - ERROR_TABLE_DOES_NOT_BELONG_TO_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TOKEN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_token
+      description: Deletes the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.
+      parameters:
+      - in: path
+        name: token_id
+        schema:
+          type: integer
+        description: Deletes the database token related to the provided value.
+        required: true
+      tags:
+      - Database tokens
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TOKEN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tokens/check/:
+    get:
+      operationId: check_database_token
+      description: This endpoint check be used to check if the provided personal API token is valid. If returns a `200` response if so and a `403` is not. This can be used by integrations like Zapier or n8n to test if a token is valid.
+      tags:
+      - Database tokens
+      security:
+      - Database token: []
+      responses:
+        '200':
+          description: No response body
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TOKEN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    PatchedTokenUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The human readable name of the database token for the user.
+          maxLength: 100
+        permissions:
+          type: object
+          description: "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+          properties:
+            create:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            read:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            update:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            delete:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+        rotate_key:
+          type: boolean
+          default: false
+          description: Indicates if a new key must be generated.
+    Token:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: The human readable name of the database token for the user.
+          maxLength: 100
+        workspace:
+          type: integer
+          description: Only the tables of the workspace can be accessed.
+        key:
+          type: string
+          description: The unique token key that can be used to authorize for the table row endpoints.
+          maxLength: 32
+        permissions:
+          type: object
+          description: "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+          properties:
+            create:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            read:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            update:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+            delete:
+              anyOf:
+              - type: boolean
+                description: Indicating if the database token has permissions to all tables.
+                example: true
+              - type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    anyOf:
+                    - type: string
+                      example: database
+                      description: First element should indicate the reference type `database` or `table`.
+                    - type: number
+                      example: 1
+                      description: Second element should indicate the ID of the reference.
+      required:
+      - id
+      - key
+      - name
+      - permissions
+      - workspace
+    TokenCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The human readable name of the database token for the user.
+          maxLength: 100
+        workspace:
+          type: integer
+          description: Only the tables of the workspace can be accessed.
+      required:
+      - name
+      - workspace
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

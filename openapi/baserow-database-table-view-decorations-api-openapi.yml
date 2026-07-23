@@ -1,0 +1,1181 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database table view decorations API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database table view decorations
+paths:
+  /api/database/views/{view_id}/decorations/:
+    get:
+      operationId: list_database_table_view_decorations
+      description: Lists all decorations of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple decorations. View decorators can be used to decorate rows. This can, for example, be used to change the border or background color of a row if it matches certain conditions.
+      parameters:
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Returns only decoration of the view given to the provided value.
+        required: true
+      tags:
+      - Database table view decorations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Decorator_Value_Provider_TypeViewDecoration'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_database_table_view_decoration
+      description: Creates a new decoration for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_id
+        schema:
+          type: integer
+        description: Creates a decoration for the view related to the given value.
+        required: true
+      tags:
+      - Database table view decorations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Decorator_Value_Provider_TypeCreateViewDecoration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Decorator_Value_Provider_TypeCreateViewDecoration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Decorator_Value_Provider_TypeCreateViewDecoration'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Decorator_Value_Provider_TypeViewDecoration'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/views/decoration/{view_decoration_id}/:
+    get:
+      operationId: get_database_table_view_decoration
+      description: Returns the existing view decoration if the current user has access to the related database's workspace.
+      parameters:
+      - in: path
+        name: view_decoration_id
+        schema:
+          type: integer
+        description: Returns the view decoration related to the provided id.
+        required: true
+      tags:
+      - Database table view decorations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Decorator_Value_Provider_TypeViewDecoration'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DECORATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table_view_decoration
+      description: Updates the existing decoration if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_decoration_id
+        schema:
+          type: integer
+        description: Updates the view decoration related to the provided value.
+        required: true
+      tags:
+      - Database table view decorations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDecorator_Value_Provider_TypeUpdateViewDecoration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDecorator_Value_Provider_TypeUpdateViewDecoration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDecorator_Value_Provider_TypeUpdateViewDecoration'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Decorator_Value_Provider_TypeViewDecoration'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DECORATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_table_view_decoration
+      description: Deletes the existing decoration if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: view_decoration_id
+        schema:
+          type: integer
+        description: Deletes the decoration related to the provided value.
+        required: true
+      tags:
+      - Database table view decorations
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DECORATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    NullEnum:
+      enum:
+      - null
+    Decorator_Value_Provider_TypeCreateViewDecoration:
+      oneOf:
+      - $ref: '#/components/schemas/GeneratedSingle_select_colorCreateViewDecoration'
+      - $ref: '#/components/schemas/GeneratedConditional_colorCreateViewDecoration'
+      discriminator:
+        propertyName: value_provider_type
+        mapping:
+          single_select_color: '#/components/schemas/GeneratedSingle_select_colorCreateViewDecoration'
+          conditional_color: '#/components/schemas/GeneratedConditional_colorCreateViewDecoration'
+    ConditionalColorValueProviderConfColor:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for this condition.
+        color:
+          type: string
+          description: The color the decorator should take if the defined conditions apply.
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilter'
+          description: A list of conditions that the row must meet to get the selected color. This list of conditions can be empty, in that case, this color will always match the row values.
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilterGroup'
+          description: 'A list of filter groups that the row must meet to get the selected color. '
+        operator:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          default: AND
+          description: 'The boolean operator used to group all conditions.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+      required:
+      - color
+      - filters
+      - id
+    ValueProviderTypeEnum:
+      enum:
+      - single_select_color
+      - conditional_color
+      type: string
+      description: "* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+    ConditionalColorValueProviderConfColors:
+      type: object
+      properties:
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColor'
+          description: A list of color items. For each row, the value provider try to match the defined colors one by one in the given order. The first matching color is returned to the decorator.
+      required:
+      - colors
+    GeneratedConditional_colorCreateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          default: ''
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/ConditionalColorValueProviderConfColors'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - type
+    SelectColorValueProviderConf:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          nullable: true
+          description: An id of a select field of the table. The value provider return the color of the selected option for each row.
+      required:
+      - field_id
+    ConditionalColorValueProviderConfColorFilter:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for this condition.
+        field:
+          type: integer
+          nullable: true
+          description: The field of which the value must be compared to the filter value.
+        type:
+          nullable: true
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).
+
+
+            * `equal` - equal
+
+            * `not_equal` - not_equal
+
+            * `filename_contains` - filename_contains
+
+            * `files_lower_than` - files_lower_than
+
+            * `has_file_type` - has_file_type
+
+            * `contains` - contains
+
+            * `contains_not` - contains_not
+
+            * `contains_word` - contains_word
+
+            * `doesnt_contain_word` - doesnt_contain_word
+
+            * `length_is_lower_than` - length_is_lower_than
+
+            * `higher_than` - higher_than
+
+            * `higher_than_or_equal` - higher_than_or_equal
+
+            * `lower_than` - lower_than
+
+            * `lower_than_or_equal` - lower_than_or_equal
+
+            * `is_even_and_whole` - is_even_and_whole
+
+            * `date_equal` - date_equal
+
+            * `date_before` - date_before
+
+            * `date_before_or_equal` - date_before_or_equal
+
+            * `date_after_days_ago` - date_after_days_ago
+
+            * `date_after` - date_after
+
+            * `date_after_or_equal` - date_after_or_equal
+
+            * `date_not_equal` - date_not_equal
+
+            * `date_equals_today` - date_equals_today
+
+            * `date_before_today` - date_before_today
+
+            * `date_after_today` - date_after_today
+
+            * `date_within_days` - date_within_days
+
+            * `date_within_weeks` - date_within_weeks
+
+            * `date_within_months` - date_within_months
+
+            * `date_equals_days_ago` - date_equals_days_ago
+
+            * `date_equals_months_ago` - date_equals_months_ago
+
+            * `date_equals_years_ago` - date_equals_years_ago
+
+            * `date_equals_week` - date_equals_week
+
+            * `date_equals_month` - date_equals_month
+
+            * `date_equals_day_of_month` - date_equals_day_of_month
+
+            * `date_equals_year` - date_equals_year
+
+            * `date_is` - date_is
+
+            * `date_is_not` - date_is_not
+
+            * `date_is_before` - date_is_before
+
+            * `date_is_on_or_before` - date_is_on_or_before
+
+            * `date_is_after` - date_is_after
+
+            * `date_is_on_or_after` - date_is_on_or_after
+
+            * `date_is_within` - date_is_within
+
+            * `single_select_equal` - single_select_equal
+
+            * `single_select_not_equal` - single_select_not_equal
+
+            * `single_select_is_any_of` - single_select_is_any_of
+
+            * `single_select_is_none_of` - single_select_is_none_of
+
+            * `link_row_has` - link_row_has
+
+            * `link_row_has_not` - link_row_has_not
+
+            * `link_row_contains` - link_row_contains
+
+            * `link_row_not_contains` - link_row_not_contains
+
+            * `boolean` - boolean
+
+            * `empty` - empty
+
+            * `not_empty` - not_empty
+
+            * `multiple_select_has` - multiple_select_has
+
+            * `multiple_select_has_not` - multiple_select_has_not
+
+            * `multiple_collaborators_has` - multiple_collaborators_has
+
+            * `multiple_collaborators_has_not` - multiple_collaborators_has_not
+
+            * `user_is` - user_is
+
+            * `user_is_not` - user_is_not
+
+            * `has_value_equal` - has_value_equal
+
+            * `has_not_value_equal` - has_not_value_equal
+
+            * `has_value_contains` - has_value_contains
+
+            * `has_not_value_contains` - has_not_value_contains
+
+            * `has_value_contains_word` - has_value_contains_word
+
+            * `has_not_value_contains_word` - has_not_value_contains_word
+
+            * `has_value_length_is_lower_than` - has_value_length_is_lower_than
+
+            * `has_all_values_equal` - has_all_values_equal
+
+            * `has_empty_value` - has_empty_value
+
+            * `has_not_empty_value` - has_not_empty_value
+
+            * `has_any_select_option_equal` - has_any_select_option_equal
+
+            * `has_none_select_option_equal` - has_none_select_option_equal
+
+            * `has_value_lower` - has_value_lower
+
+            * `has_value_lower_or_equal` - has_value_lower_or_equal
+
+            * `has_value_higher` - has_value_higher
+
+            * `has_value_higher_or_equal` - has_value_higher_or_equal
+
+            * `has_not_value_higher_or_equal` - has_not_value_higher_or_equal
+
+            * `has_not_value_higher` - has_not_value_higher
+
+            * `has_not_value_lower_or_equal` - has_not_value_lower_or_equal
+
+            * `has_not_value_lower` - has_not_value_lower
+
+            * `has_date_equal` - has_date_equal
+
+            * `has_not_date_equal` - has_not_date_equal
+
+            * `has_date_before` - has_date_before
+
+            * `has_not_date_before` - has_not_date_before
+
+            * `has_date_on_or_before` - has_date_on_or_before
+
+            * `has_not_date_on_or_before` - has_not_date_on_or_before
+
+            * `has_date_on_or_after` - has_date_on_or_after
+
+            * `has_not_date_on_or_after` - has_not_date_on_or_after
+
+            * `has_date_after` - has_date_after
+
+            * `has_not_date_after` - has_not_date_after
+
+            * `has_date_within` - has_date_within
+
+            * `has_not_date_within` - has_not_date_within'
+          oneOf:
+          - $ref: '#/components/schemas/Type4e1Enum'
+          - $ref: '#/components/schemas/NullEnum'
+        value:
+          type: string
+          default: ''
+          description: The field of which the value must be compared to the filter value.
+        group:
+          type: string
+          nullable: true
+          description: The id of the filter group this filter belongs to. If this is null, the filter is not part of a filter group.
+      required:
+      - field
+      - id
+      - type
+    GeneratedSingle_select_colorUpdateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/SelectColorValueProviderConf'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+    Type516Enum:
+      enum:
+      - left_border_color
+      - background_color
+      type: string
+      description: '* `left_border_color` - left_border_color
+
+        * `background_color` - background_color'
+    ConditionalColorValueProviderConfColorFilterGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for this condition.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          default: AND
+          description: 'The boolean operator used to group all conditions.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type: string
+          nullable: true
+          description: The id of the parent filter group.
+      required:
+      - id
+    PatchedDecorator_Value_Provider_TypeUpdateViewDecoration:
+      oneOf:
+      - $ref: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
+      - $ref: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
+      discriminator:
+        propertyName: value_provider_type
+        mapping:
+          single_select_color: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
+          conditional_color: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
+    Decorator_Value_Provider_TypeViewDecoration:
+      oneOf:
+      - $ref: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
+      - $ref: '#/components/schemas/GeneratedConditional_colorViewDecoration'
+      discriminator:
+        propertyName: value_provider_type
+        mapping:
+          single_select_color: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
+          conditional_color: '#/components/schemas/GeneratedConditional_colorViewDecoration'
+    Type4e1Enum:
+      enum:
+      - equal
+      - not_equal
+      - filename_contains
+      - files_lower_than
+      - has_file_type
+      - contains
+      - contains_not
+      - contains_word
+      - doesnt_contain_word
+      - length_is_lower_than
+      - higher_than
+      - higher_than_or_equal
+      - lower_than
+      - lower_than_or_equal
+      - is_even_and_whole
+      - date_equal
+      - date_before
+      - date_before_or_equal
+      - date_after_days_ago
+      - date_after
+      - date_after_or_equal
+      - date_not_equal
+      - date_equals_today
+      - date_before_today
+      - date_after_today
+      - date_within_days
+      - date_within_weeks
+      - date_within_months
+      - date_equals_days_ago
+      - date_equals_months_ago
+      - date_equals_years_ago
+      - date_equals_week
+      - date_equals_month
+      - date_equals_day_of_month
+      - date_equals_year
+      - date_is
+      - date_is_not
+      - date_is_before
+      - date_is_on_or_before
+      - date_is_after
+      - date_is_on_or_after
+      - date_is_within
+      - single_select_equal
+      - single_select_not_equal
+      - single_select_is_any_of
+      - single_select_is_none_of
+      - link_row_has
+      - link_row_has_not
+      - link_row_contains
+      - link_row_not_contains
+      - boolean
+      - empty
+      - not_empty
+      - multiple_select_has
+      - multiple_select_has_not
+      - multiple_collaborators_has
+      - multiple_collaborators_has_not
+      - user_is
+      - user_is_not
+      - has_value_equal
+      - has_not_value_equal
+      - has_value_contains
+      - has_not_value_contains
+      - has_value_contains_word
+      - has_not_value_contains_word
+      - has_value_length_is_lower_than
+      - has_all_values_equal
+      - has_empty_value
+      - has_not_empty_value
+      - has_any_select_option_equal
+      - has_none_select_option_equal
+      - has_value_lower
+      - has_value_lower_or_equal
+      - has_value_higher
+      - has_value_higher_or_equal
+      - has_not_value_higher_or_equal
+      - has_not_value_higher
+      - has_not_value_lower_or_equal
+      - has_not_value_lower
+      - has_date_equal
+      - has_not_date_equal
+      - has_date_before
+      - has_not_date_before
+      - has_date_on_or_before
+      - has_not_date_on_or_before
+      - has_date_on_or_after
+      - has_not_date_on_or_after
+      - has_date_after
+      - has_not_date_after
+      - has_date_within
+      - has_not_date_within
+      type: string
+      description: '* `equal` - equal
+
+        * `not_equal` - not_equal
+
+        * `filename_contains` - filename_contains
+
+        * `files_lower_than` - files_lower_than
+
+        * `has_file_type` - has_file_type
+
+        * `contains` - contains
+
+        * `contains_not` - contains_not
+
+        * `contains_word` - contains_word
+
+        * `doesnt_contain_word` - doesnt_contain_word
+
+        * `length_is_lower_than` - length_is_lower_than
+
+        * `higher_than` - higher_than
+
+        * `higher_than_or_equal` - higher_than_or_equal
+
+        * `lower_than` - lower_than
+
+        * `lower_than_or_equal` - lower_than_or_equal
+
+        * `is_even_and_whole` - is_even_and_whole
+
+        * `date_equal` - date_equal
+
+        * `date_before` - date_before
+
+        * `date_before_or_equal` - date_before_or_equal
+
+        * `date_after_days_ago` - date_after_days_ago
+
+        * `date_after` - date_after
+
+        * `date_after_or_equal` - date_after_or_equal
+
+        * `date_not_equal` - date_not_equal
+
+        * `date_equals_today` - date_equals_today
+
+        * `date_before_today` - date_before_today
+
+        * `date_after_today` - date_after_today
+
+        * `date_within_days` - date_within_days
+
+        * `date_within_weeks` - date_within_weeks
+
+        * `date_within_months` - date_within_months
+
+        * `date_equals_days_ago` - date_equals_days_ago
+
+        * `date_equals_months_ago` - date_equals_months_ago
+
+        * `date_equals_years_ago` - date_equals_years_ago
+
+        * `date_equals_week` - date_equals_week
+
+        * `date_equals_month` - date_equals_month
+
+        * `date_equals_day_of_month` - date_equals_day_of_month
+
+        * `date_equals_year` - date_equals_year
+
+        * `date_is` - date_is
+
+        * `date_is_not` - date_is_not
+
+        * `date_is_before` - date_is_before
+
+        * `date_is_on_or_before` - date_is_on_or_before
+
+        * `date_is_after` - date_is_after
+
+        * `date_is_on_or_after` - date_is_on_or_after
+
+        * `date_is_within` - date_is_within
+
+        * `single_select_equal` - single_select_equal
+
+        * `single_select_not_equal` - single_select_not_equal
+
+        * `single_select_is_any_of` - single_select_is_any_of
+
+        * `single_select_is_none_of` - single_select_is_none_of
+
+        * `link_row_has` - link_row_has
+
+        * `link_row_has_not` - link_row_has_not
+
+        * `link_row_contains` - link_row_contains
+
+        * `link_row_not_contains` - link_row_not_contains
+
+        * `boolean` - boolean
+
+        * `empty` - empty
+
+        * `not_empty` - not_empty
+
+        * `multiple_select_has` - multiple_select_has
+
+        * `multiple_select_has_not` - multiple_select_has_not
+
+        * `multiple_collaborators_has` - multiple_collaborators_has
+
+        * `multiple_collaborators_has_not` - multiple_collaborators_has_not
+
+        * `user_is` - user_is
+
+        * `user_is_not` - user_is_not
+
+        * `has_value_equal` - has_value_equal
+
+        * `has_not_value_equal` - has_not_value_equal
+
+        * `has_value_contains` - has_value_contains
+
+        * `has_not_value_contains` - has_not_value_contains
+
+        * `has_value_contains_word` - has_value_contains_word
+
+        * `has_not_value_contains_word` - has_not_value_contains_word
+
+        * `has_value_length_is_lower_than` - has_value_length_is_lower_than
+
+        * `has_all_values_equal` - has_all_values_equal
+
+        * `has_empty_value` - has_empty_value
+
+        * `has_not_empty_value` - has_not_empty_value
+
+        * `has_any_select_option_equal` - has_any_select_option_equal
+
+        * `has_none_select_option_equal` - has_none_select_option_equal
+
+        * `has_value_lower` - has_value_lower
+
+        * `has_value_lower_or_equal` - has_value_lower_or_equal
+
+        * `has_value_higher` - has_value_higher
+
+        * `has_value_higher_or_equal` - has_value_higher_or_equal
+
+        * `has_not_value_higher_or_equal` - has_not_value_higher_or_equal
+
+        * `has_not_value_higher` - has_not_value_higher
+
+        * `has_not_value_lower_or_equal` - has_not_value_lower_or_equal
+
+        * `has_not_value_lower` - has_not_value_lower
+
+        * `has_date_equal` - has_date_equal
+
+        * `has_not_date_equal` - has_not_date_equal
+
+        * `has_date_before` - has_date_before
+
+        * `has_not_date_before` - has_not_date_before
+
+        * `has_date_on_or_before` - has_date_on_or_before
+
+        * `has_not_date_on_or_before` - has_not_date_on_or_before
+
+        * `has_date_on_or_after` - has_date_on_or_after
+
+        * `has_not_date_on_or_after` - has_not_date_on_or_after
+
+        * `has_date_after` - has_date_after
+
+        * `has_not_date_after` - has_not_date_after
+
+        * `has_date_within` - has_date_within
+
+        * `has_not_date_within` - has_not_date_within'
+    BlankEnum:
+      enum:
+      - ''
+    GeneratedSingle_select_colorCreateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          default: ''
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/SelectColorValueProviderConf'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - type
+    GeneratedSingle_select_colorViewDecoration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the decoration applies. Each view can have his own decorations.
+        type:
+          type: string
+          description: The decorator type. This is then interpreted by the frontend to display the decoration.
+          maxLength: 255
+        value_provider_type:
+          type: string
+          description: The value provider type that gives the value to the decorator.
+          maxLength: 255
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/SelectColorValueProviderConf'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - id
+    GeneratedConditional_colorUpdateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/ConditionalColorValueProviderConfColors'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+    GeneratedConditional_colorViewDecoration:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the decoration applies. Each view can have his own decorations.
+        type:
+          type: string
+          description: The decorator type. This is then interpreted by the frontend to display the decoration.
+          maxLength: 255
+        value_provider_type:
+          type: string
+          description: The value provider type that gives the value to the decorator.
+          maxLength: 255
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/ConditionalColorValueProviderConfColors'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - id
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

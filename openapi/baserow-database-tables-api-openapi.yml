@@ -1,0 +1,2956 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database tables API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database tables
+paths:
+  /api/data-sync/{data_sync_id}/periodic-interval/:
+    get:
+      operationId: get_periodic_data_sync_interval
+      description: 'Responds with the periodic data sync interval data, if the user has the right permissions.
+
+        This is an **enterprise** feature.'
+      parameters:
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: The data sync where to fetch the periodic settings for.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeriodicDataSyncInterval'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_periodic_data_sync_interval
+      description: 'Updates the periodic data sync interval, if the user has the right permissions.
+
+        This is an **enterprise** feature.'
+      parameters:
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: Updates the data sync related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPeriodicDataSyncInterval'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPeriodicDataSyncInterval'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPeriodicDataSyncInterval'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PeriodicDataSyncInterval'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/data-sync/{data_sync_id}/:
+    get:
+      operationId: get_table_data_sync
+      description: Responds with the data sync, including the data sync type specific properties, if the user has the right permissions.
+      parameters:
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: The data sync that must be fetched.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data_SyncDataSync'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_table_data_sync
+      description: Updates the properties of the provided data sync, if the user has the right permissions. Note that if the `synced_properties` is not provided, the available properties change, then the unavailable ones will automatically be removed.
+      parameters:
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: Updates the data sync related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedData_SyncUpdateDataSync'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedData_SyncUpdateDataSync'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedData_SyncUpdateDataSync'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSync'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_PROPERTY_NOT_FOUND
+                    - ERROR_SYNC_ERROR
+                    - ERROR_TWO_WAY_DATA_SYNC_NOT_SUPPORTED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/data-sync/{data_sync_id}/properties/:
+    get:
+      operationId: get_table_data_sync_properties
+      description: Lists all the available properties of the provided data sync.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: Lists properties related to the provided ID.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListDataSyncProperty'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_SYNC_ERROR
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/data-sync/{data_sync_id}/sync/async/:
+    post:
+      operationId: sync_data_sync_table_async
+      description: Start a job to sync the data sync table with the provided `data_sync_id` parameter if the authorized user has access to the database's workspace.
+      parameters:
+      - in: path
+        name: data_sync_id
+        schema:
+          type: integer
+        description: Starts a job to sync the data sync table related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncDataSyncTableJobTypeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DATA_SYNC_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/data-sync/database/{database_id}/:
+    post:
+      operationId: create_database_data_sync_table
+      description: Creates a new data sync table with the given data sync type. This will technically create a table, but it's synchronized with the provided data sync information. This means that some fields related to it will automatically be created and will be read-only.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: database_id
+        schema:
+          type: integer
+        description: Creates a data sync table for the database related to theprovided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Data_SyncCreateDataSync'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Data_SyncCreateDataSync'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Data_SyncCreateDataSync'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_SYNC_ERROR
+                    - ERROR_PROPERTY_NOT_FOUND
+                    - ERROR_TWO_WAY_DATA_SYNC_NOT_SUPPORTED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/data-sync/properties/:
+    post:
+      operationId: get_table_data_sync_type_properties
+      description: Lists all the properties of the provided data sync type given the request data. This can be used to choose which properties should be included when creating the data sync.
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Data_SyncListDataSyncPropertiesRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Data_SyncListDataSyncPropertiesRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Data_SyncListDataSyncPropertiesRequest'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListDataSyncProperty'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_SYNC_ERROR
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/{table_id}/:
+    get:
+      operationId: get_database_table
+      description: Returns the requested table if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Returns the table related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_database_table
+      description: Updates the existing table if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Updates the table related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTableUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTableUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTableUpdate'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_database_table
+      description: Deletes the existing table if the authorized user has access to the related database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Deletes the table related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_CANNOT_DELETE_ALREADY_DELETED_ITEM
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/{table_id}/duplicate/async/:
+    post:
+      operationId: duplicate_database_table_async
+      description: Start a job to duplicate the table with the provided `table_id` parameter if the authorized user has access to the database's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: The table to duplicate.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DuplicateTableJobTypeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/{table_id}/import/async/:
+    post:
+      operationId: import_data_database_table_async
+      description: Import data in the specified table if the authorized user has access to the related database's workspace. This endpoint is asynchronous and return the created job to track the progress of the task.
+      parameters:
+      - in: path
+        name: table_id
+        schema:
+          type: integer
+        description: Import data into the table related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableImport'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TableImport'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TableImport'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileImportJobTypeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TABLE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/all-tables/:
+    get:
+      operationId: list_all_token_tables
+      description: This endpoint only works in combination with the token authentication. It lists all the tables that the token has either create, read, update or delete access to.
+      tags:
+      - Database tables
+      security:
+      - Database token: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableWithoutDataSync'
+          description: ''
+  /api/database/tables/database/{database_id}/:
+    get:
+      operationId: list_database_tables
+      description: Lists all the tables that are in the database related to the `database_id` parameter if the user has access to the database's workspace. A table is exactly as the name suggests. It can hold multiple fields, each having their own type and multiple rows. They can be added via the **create_database_table_field** and **create_database_table_row** endpoints.
+      parameters:
+      - in: path
+        name: database_id
+        schema:
+          type: integer
+        description: Returns only tables that are related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Table'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_database_table
+      description: 'Creates synchronously a new table for the database related to the provided `database_id` parameter if the authorized user has access to the database''s workspace.
+
+
+        As an alternative you can use the `create_async_database_table` for better performances and importing bigger files.'
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: database_id
+        schema:
+          type: integer
+        description: Creates a table for the database related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_INVALID_INITIAL_TABLE_DATA
+                    - ERROR_INITIAL_TABLE_DATA_LIMIT_EXCEEDED
+                    - ERROR_RESERVED_BASEROW_FIELD_NAME
+                    - ERROR_INITIAL_TABLE_DATA_HAS_DUPLICATE_NAMES
+                    - ERROR_INVALID_BASEROW_FIELD_NAME
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/database/{database_id}/async/:
+    post:
+      operationId: create_database_table_async
+      description: Creates a job that creates a new table for the database related to the provided `database_id` parameter if the authorized user has access to the database's workspace. This endpoint is asynchronous and return the created job to track the progress of the task.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: database_id
+        schema:
+          type: integer
+        description: Creates a table for the database related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TableCreate'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileImportJobTypeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/tables/database/{database_id}/order/:
+    post:
+      operationId: order_database_tables
+      description: Changes the order of the provided table ids to the matching position that the id has in the list. If the authorized user does not belong to the workspace it will be ignored. The order of the not provided tables will be set to `0`.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: database_id
+        schema:
+          type: integer
+        description: Updates the order of the tables in the database related to the provided value.
+        required: true
+      tags:
+      - Database tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderTables'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderTables'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderTables'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_TABLE_NOT_IN_DATABASE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    PatchedTableUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+    PeriodicDataSyncInterval:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
+        when:
+          type: string
+          format: time
+        automatically_deactivated:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the periodic data sync has been deactivated.
+      required:
+      - automatically_deactivated
+      - when
+    GitHubIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
+      - type
+    Data_SyncListDataSyncPropertiesRequest:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
+    JiraIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+      - type
+    GitLabIssuesDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - database_id
+      - gitlab_project_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    GitLabIssuesDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - gitlab_project_id
+      - synced_properties
+      - table_name
+      - type
+    HubSpotContactsDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+    TableWithoutDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+      required:
+      - database_id
+      - id
+      - name
+      - order
+    Type098Enum:
+      enum:
+      - ical_calendar
+      - local_baserow_table
+      - jira_issues
+      - github_issues
+      - gitlab_issues
+      - hubspot_contacts
+      - postgresql
+      type: string
+      description: '* `ical_calendar` - ical_calendar
+
+        * `local_baserow_table` - local_baserow_table
+
+        * `jira_issues` - jira_issues
+
+        * `github_issues` - github_issues
+
+        * `gitlab_issues` - gitlab_issues
+
+        * `hubspot_contacts` - hubspot_contacts
+
+        * `postgresql` - postgresql'
+    FileImportJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        database_id:
+          type: integer
+          description: Database id where the table will be created.
+        name:
+          type: string
+          description: The name of the new table.
+          maxLength: 255
+        table_id:
+          type: integer
+          description: Table id where the data will be imported.
+        first_row_header:
+          type: boolean
+          default: false
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+        report:
+          allOf:
+          - $ref: '#/components/schemas/Report'
+          description: Import error report.
+      required:
+      - created_on
+      - database_id
+      - id
+      - progress_percentage
+      - report
+      - state
+      - type
+      - updated_on
+    HubSpotContactsDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+      required:
+      - type
+    Data_SyncCreateDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
+    OrderTables:
+      type: object
+      properties:
+        table_ids:
+          type: array
+          items:
+            type: integer
+          description: Table ids in the desired order.
+      required:
+      - table_ids
+    ICalCalendarDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - ical_url
+      - synced_properties
+      - table_name
+      - type
+    GitHubIssuesDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - database_id
+      - github_issues_owner
+      - github_issues_repo
+      - id
+      - synced_properties
+      - table_id
+      - type
+    TableCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        data:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: "A list of rows that needs to be created as initial table data. Each row is a list of values that are going to be added in the new table in the same order as provided.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor creating a two rows table with two fields.\n\nIf not provided, some example data is going to be created."
+          minItems: 1
+        first_row_header:
+          type: boolean
+          default: false
+          description: Indicates if the first provided row is the header. If true the field names are going to be the values of the first row. Otherwise they will be called "Field N"
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+      required:
+      - name
+    GitHubIssuesDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
+      - synced_properties
+      - table_name
+      - type
+    GitHubIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
+    DuplicateTableJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_table:
+          allOf:
+          - $ref: '#/components/schemas/Table'
+          readOnly: true
+        duplicated_table:
+          allOf:
+          - $ref: '#/components/schemas/Table'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_table
+      - id
+      - original_table
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    LocalBaserowTableDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type: integer
+          nullable: true
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - source_table_id
+      - type
+    TableImport:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: "A list of rows you want to add to the specified table. Each row is a list of values, one for each **writable** field. The field values must be ordered according to the field order in the table. All values must be compatible with the corresponding field type.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor adding two rows to a table with two writable fields."
+          minItems: 1
+        configuration:
+          $ref: '#/components/schemas/TableImportConfiguration'
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+      required:
+      - data
+    ICalCalendarDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - database_id
+      - ical_url
+      - id
+      - synced_properties
+      - table_id
+      - type
+    LocalBaserowTableDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type: integer
+          nullable: true
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - database_id
+      - id
+      - source_table_id
+      - synced_properties
+      - table_id
+      - type
+    ICalCalendarDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - ical_url
+    PatchedData_SyncUpdateDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
+    PostgreSQLDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        postgresql_host:
+          type: string
+          maxLength: 255
+        postgresql_username:
+          type: string
+          maxLength: 255
+        postgresql_port:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        postgresql_database:
+          type: string
+          maxLength: 255
+        postgresql_schema:
+          type: string
+          maxLength: 255
+        postgresql_table:
+          type: string
+          maxLength: 255
+        postgresql_sslmode:
+          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
+      required:
+      - database_id
+      - id
+      - postgresql_database
+      - postgresql_host
+      - postgresql_table
+      - postgresql_username
+      - synced_properties
+      - table_id
+      - type
+    LocalBaserowTableDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type: integer
+          nullable: true
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - source_table_id
+      - synced_properties
+      - table_name
+      - type
+    Table:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+        data_sync:
+          $ref: '#/components/schemas/DataSync'
+      required:
+      - data_sync
+      - database_id
+      - id
+      - name
+      - order
+    GitLabIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - gitlab_project_id
+      - type
+    HubSpotContactsDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - synced_properties
+      - table_name
+      - type
+    SyncDataSyncTableJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        data_sync:
+          allOf:
+          - $ref: '#/components/schemas/DataSync'
+          readOnly: true
+      required:
+      - created_on
+      - data_sync
+      - id
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    Report:
+      type: object
+      properties:
+        failing_rows:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+              description: Error messages for this field.
+            description: An object containing error messages by fields. The key is the field name and the value is an array of error messages for this field. These messages are localized for the user who has created the job when the translation is available.
+          description: An object containing field in error by rows. The keys are the row indexes from original file and values are objects of errors by fields.
+      required:
+      - failing_rows
+    DataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - database_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    PostgreSQLDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        postgresql_host:
+          type: string
+          maxLength: 255
+        postgresql_username:
+          type: string
+          maxLength: 255
+        postgresql_port:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        postgresql_database:
+          type: string
+          maxLength: 255
+        postgresql_schema:
+          type: string
+          maxLength: 255
+        postgresql_table:
+          type: string
+          maxLength: 255
+        postgresql_sslmode:
+          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
+      required:
+      - postgresql_database
+      - postgresql_host
+      - postgresql_table
+      - postgresql_username
+      - synced_properties
+      - table_name
+      - type
+    JiraAuthenticationEnum:
+      enum:
+      - API_TOKEN
+      - PERSONAL_ACCESS_TOKEN
+      type: string
+      description: '* `API_TOKEN` - API_TOKEN
+
+        * `PERSONAL_ACCESS_TOKEN` - PERSONAL_ACCESS_TOKEN'
+    ICalCalendarDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - ical_url
+      - type
+    ListDataSyncProperty:
+      type: object
+      properties:
+        unique_primary:
+          type: boolean
+        key:
+          type: string
+        name:
+          type: string
+        field_type:
+          type: string
+          readOnly: true
+        initially_selected:
+          type: boolean
+      required:
+      - field_type
+      - initially_selected
+      - key
+      - name
+      - unique_primary
+    PatchedPeriodicDataSyncInterval:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
+        when:
+          type: string
+          format: time
+        automatically_deactivated:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the periodic data sync has been deactivated.
+    TableImportConfiguration:
+      type: object
+      description: Additional table import configuration.
+      properties:
+        upsert_fields:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+          nullable: true
+          description: <function TableImportConfiguration.<lambda> at 0x7ff0ed4e2f00>
+          minItems: 1
+        upsert_values:
+          type: array
+          items:
+            type: array
+            items: {}
+            minItems: 1
+          nullable: true
+          description: "A list of values that are identifying rows in imported data.\n The number of rows in `upsert_values` should be equal to the number of rows in imported data. Each row in `upsert_values` should contain a list of values that match the number and field types of fields selected in `upsert_fields`. Based on `upsert_fields`, a similar upsert values will be calculated for each row in the table.\n There's no guarantee of uniqueness of row identification calculated from `upsert_values` nor from the table. Repeated upsert values are compared in order with matching values in the table. The imported data must be in the same order as the table rows for correct matching."
+        skipped_fields:
+          type: array
+          items:
+            type: integer
+            minimum: 1
+          nullable: true
+          description: A list of field IDs that should not be overwritten during upsert operations.
+    LocalBaserowTableDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type: integer
+          nullable: true
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - source_table_id
+    JiraIssuesDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+      - synced_properties
+      - table_name
+      - type
+    DataSyncSyncedProperty:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          description: The matching `key` of the `DataSyncProperty`.
+          maxLength: 255
+        unique_primary:
+          type: boolean
+          description: Indicates whether the data sync property is used for unique identification when syncing.
+      required:
+      - field_id
+      - key
+    GitLabIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - gitlab_project_id
+    JiraIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+    PostgreSQLDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        postgresql_host:
+          type: string
+          maxLength: 255
+        postgresql_username:
+          type: string
+          maxLength: 255
+        postgresql_port:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        postgresql_database:
+          type: string
+          maxLength: 255
+        postgresql_schema:
+          type: string
+          maxLength: 255
+        postgresql_table:
+          type: string
+          maxLength: 255
+        postgresql_sslmode:
+          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
+      required:
+      - postgresql_database
+      - postgresql_host
+      - postgresql_table
+      - postgresql_username
+      - type
+    HubSpotContactsDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - database_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    PeriodicDataSyncIntervalIntervalEnum:
+      enum:
+      - MANUAL
+      - DAILY
+      - HOURLY
+      type: string
+      description: '* `MANUAL` - MANUAL
+
+        * `DAILY` - DAILY
+
+        * `HOURLY` - HOURLY'
+    JiraIssuesDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when the table was last synced.
+        last_error:
+          type: string
+          nullable: true
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - database_id
+      - id
+      - jira_url
+      - synced_properties
+      - table_id
+      - type
+    PostgresqlSslmodeEnum:
+      enum:
+      - disable
+      - allow
+      - prefer
+      - require
+      - verify-ca
+      - verify-full
+      type: string
+      description: '* `disable` - disable
+
+        * `allow` - allow
+
+        * `prefer` - prefer
+
+        * `require` - require
+
+        * `verify-ca` - verify-ca
+
+        * `verify-full` - verify-full'
+    PostgreSQLDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        postgresql_host:
+          type: string
+          maxLength: 255
+        postgresql_username:
+          type: string
+          maxLength: 255
+        postgresql_port:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        postgresql_database:
+          type: string
+          maxLength: 255
+        postgresql_schema:
+          type: string
+          maxLength: 255
+        postgresql_table:
+          type: string
+          maxLength: 255
+        postgresql_sslmode:
+          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
+      required:
+      - postgresql_database
+      - postgresql_host
+      - postgresql_table
+      - postgresql_username
+    Data_SyncDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncDataSync'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

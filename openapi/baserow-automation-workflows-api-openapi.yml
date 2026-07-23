@@ -1,0 +1,848 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Automation workflows API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Automation workflows
+paths:
+  /api/automation/{automation_id}/workflows/:
+    post:
+      operationId: create_automation_workflow
+      description: Creates a new Automation Workflow.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: automation_id
+        schema:
+          type: integer
+        description: Creates a new Automation Workflow.
+        required: true
+      tags:
+      - Automation workflows
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAutomationWorkflow'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateAutomationWorkflow'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateAutomationWorkflow'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationWorkflow'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_NOTIFICATION_RECIPIENTS_INVALID
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/{automation_id}/workflows/order/:
+    post:
+      operationId: order_automation_workflows
+      description: Apply a new order to the workflows of an automation.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: automation_id
+        schema:
+          type: integer
+        description: The automation the workflow belongs to.
+        required: true
+      tags:
+      - Automation workflows
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderAutomationWorkflows'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderAutomationWorkflows'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderAutomationWorkflows'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_AUTOMATION_WORKFLOW_NOT_IN_AUTOMATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflows/{workflow_id}/:
+    get:
+      operationId: get_automation_workflow
+      description: Retrieve a single workflow of an automation.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The id of the workflow.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationWorkflow'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_automation_workflow
+      description: Updates an existing workflow of an automation.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The id of the workflow.
+        required: true
+      tags:
+      - Automation workflows
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateAutomationWorkflow'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateAutomationWorkflow'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateAutomationWorkflow'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationWorkflow'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_NOTIFICATION_RECIPIENTS_INVALID
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_automation_workflow
+      description: Deletes an existing workflow of an automation.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The id of the workflow.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflows/{workflow_id}/duplicate/async/:
+    post:
+      operationId: duplicate_automation_workflow_async
+      description: Start a job to duplicate the workflow with the provided `workflow_id` parameter if the authorized user has access to the automation's workspace.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The workflow to duplicate.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DuplicateAutomationWorkflowJobTypeResponse'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflows/{workflow_id}/history/:
+    get:
+      operationId: get_automation_workflow_history
+      description: Retrieve the history for a workflow.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The id of the workflow.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationSerializerAutomationWorkflowHistory'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflows/{workflow_id}/publish/async/:
+    post:
+      operationId: publish_automation_workflow
+      description: This endpoint starts an asynchronous job to publish the automation workflow. The job clones the current version of the given automation and publishes it for the given workflow.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The workflow id the user wants to publish.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/automation/workflows/{workflow_id}/test/:
+    post:
+      operationId: test_automation_workflow
+      description: This endpoint plan the execution of a test run for this workflow.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: workflow_id
+        schema:
+          type: integer
+        description: The workflow id the user wants to test.
+        required: true
+      tags:
+      - Automation workflows
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTOMATION_WORKFLOW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    DuplicateAutomationWorkflowJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_automation_workflow:
+          allOf:
+          - $ref: '#/components/schemas/AutomationWorkflow'
+          readOnly: true
+        duplicated_automation_workflow:
+          allOf:
+          - $ref: '#/components/schemas/AutomationWorkflow'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_automation_workflow
+      - id
+      - original_automation_workflow
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    UpdateAutomationWorkflowStateEnum:
+      enum:
+      - draft
+      - live
+      - paused
+      - disabled
+      - test_clone
+      type: string
+      description: '* `draft` - Draft
+
+        * `live` - Live
+
+        * `paused` - Paused
+
+        * `disabled` - Disabled
+
+        * `test_clone` - Test Clone'
+    AutomationWorkflowHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        started_on:
+          type: string
+          format: date-time
+        completed_on:
+          type: string
+          format: date-time
+          nullable: true
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusF41Enum'
+        is_test_run:
+          type: boolean
+          description: True when the workflow is being simulated.
+        simulate_until_node:
+          type: integer
+          nullable: true
+      required:
+      - id
+      - is_test_run
+      - message
+      - started_on
+      - status
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
+    CreateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    PaginationSerializerAutomationWorkflowHistory:
+      type: object
+      properties:
+        success_count:
+          type: integer
+          description: The total number of successful workflow runs.
+        fail_count:
+          type: integer
+          description: The total number of failed workflow runs.
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the next page.
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationWorkflowHistory'
+      required:
+      - count
+      - fail_count
+      - next
+      - previous
+      - results
+      - success_count
+    AutomationWorkflow:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        automation_id:
+          type: integer
+          readOnly: true
+        allow_test_run_until:
+          type: string
+          format: date-time
+          nullable: true
+        simulate_until_node_id:
+          type: integer
+          nullable: true
+          description: When set, upon the next workflow run, simulates the dispatch of the workflow until this node and updates the sample_data of the node's service.
+          readOnly: true
+        published_on:
+          type: string
+          readOnly: true
+        state:
+          type: string
+          readOnly: true
+        graph:
+          description: Contains the node graph.
+        notification_recipient_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+      required:
+      - automation_id
+      - id
+      - name
+      - notification_recipient_ids
+      - order
+      - published_on
+      - simulate_until_node_id
+      - state
+    PatchedUpdateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        allow_test_run:
+          type: boolean
+          description: If provided, enables the workflow to be triggerable for the next 5 minutes.
+        state:
+          $ref: '#/components/schemas/UpdateAutomationWorkflowStateEnum'
+        notification_recipient_ids:
+          type: array
+          items:
+            type: integer
+          description: The user IDs of the workspace members that should receive notifications related to this workflow.
+    OrderAutomationWorkflows:
+      type: object
+      properties:
+        workflow_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the workflows in the order they are supposed to be set in.
+      required:
+      - workflow_ids
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

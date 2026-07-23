@@ -1,0 +1,645 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Builder domains API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Builder domains
+paths:
+  /api/builder/{builder_id}/domains/:
+    get:
+      operationId: get_builder_domains
+      description: Gets all the domains of a builder
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: builder_id
+        schema:
+          type: integer
+        description: Gets all the domains for the specified builder
+        required: true
+      tags:
+      - Builder domains
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Domain_TypeDomain'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_builder_domain
+      description: Creates a new domain for an application builder
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: builder_id
+        schema:
+          type: integer
+        description: Creates a domain for the application builder related tothe provided value
+        required: true
+      tags:
+      - Builder domains
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Domain_TypeCreateDomain'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Domain_TypeCreateDomain'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Domain_TypeCreateDomain'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain_TypeDomain'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/builder/{builder_id}/domains/order/:
+    post:
+      operationId: order_builder_domains
+      description: Apply a new order to the domains of a builder
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: builder_id
+        schema:
+          type: integer
+        description: The builder the domain belongs to
+        required: true
+      tags:
+      - Builder domains
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDomains'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderDomains'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderDomains'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_DOMAIN_NOT_IN_BUILDER
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                    - ERROR_DOMAIN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/builder/domains/{domain_id}/:
+    patch:
+      operationId: update_builder_domain
+      description: Updates an existing domain of an application builder
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: domain_id
+        schema:
+          type: integer
+        description: The id of the domain
+        required: true
+      tags:
+      - Builder domains
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateDomain'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateDomain'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateDomain'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Domain_TypeDomain'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DOMAIN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_builder_domain
+      description: Deletes an existing domain of an application builder
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: domain_id
+        schema:
+          type: integer
+        description: The id of the domain
+        required: true
+      tags:
+      - Builder domains
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DOMAIN_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/builder/domains/{domain_id}/publish/async/:
+    post:
+      operationId: publish_builder_domain
+      description: This endpoint starts an asynchronous job to publish the builder. The job clones the current version of the given builder and publish it for the given domain.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: path
+        name: domain_id
+        schema:
+          type: integer
+        description: The builder application id the user wants to publish.
+        required: true
+      tags:
+      - Builder domains
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_MAX_JOB_COUNT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_APPLICATION_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/builder/domains/ask-public-domain-exists/:
+    get:
+      operationId: ask_public_builder_domain_exists
+      description: 'This endpoint can be used to check whether a domain exists for SSL certificate purposes. It''s compatible with the Caddy on_demand TLS as described here: https://caddyserver.com/docs/json/apps/tls/automation/on_demand/ask/. It will respond with a 200 status code if it exists or a 404 if it doesn''t exist.'
+      parameters:
+      - in: query
+        name: domain
+        schema:
+          type: integer
+        description: The domain name for which
+      tags:
+      - Builder domains
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+        '404':
+          description: No response body
+components:
+  schemas:
+    SubDomainDomain:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the domain.
+        domain_name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        builder_id:
+          type: integer
+          readOnly: true
+        last_published:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last publication date of this domain
+      required:
+      - builder_id
+      - domain_name
+      - id
+      - order
+      - type
+    CustomDomainCreateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+          maxLength: 255
+      required:
+      - domain_name
+      - type
+    Type509Enum:
+      enum:
+      - custom
+      - sub_domain
+      type: string
+      description: '* `custom` - custom
+
+        * `sub_domain` - sub_domain'
+    SubDomainCreateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+          maxLength: 255
+      required:
+      - domain_name
+      - type
+    CustomDomainDomain:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the domain.
+        domain_name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        builder_id:
+          type: integer
+          readOnly: true
+        last_published:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last publication date of this domain
+      required:
+      - builder_id
+      - domain_name
+      - id
+      - order
+      - type
+    Domain_TypeCreateDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainCreateDomain'
+      - $ref: '#/components/schemas/SubDomainCreateDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainCreateDomain'
+          sub_domain: '#/components/schemas/SubDomainCreateDomain'
+    PatchedUpdateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+    OrderDomains:
+      type: object
+      properties:
+        domain_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the domains in the order they are supposed to be set in
+      required:
+      - domain_ids
+    Domain_TypeDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainDomain'
+      - $ref: '#/components/schemas/SubDomainDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainDomain'
+          sub_domain: '#/components/schemas/SubDomainDomain'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

@@ -1,0 +1,872 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Database table view export API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Database table view export
+paths:
+  /api/database/view/{slug}/export-public-view/:
+    post:
+      operationId: export_publicly_shared_view
+      description: 'Creates and starts a new export job for a publicly shared view  given some exporter options. Returns an error if the view doesn''t support exporting.
+
+
+        This is a **premium** feature.'
+      parameters:
+      - in: path
+        name: slug
+        schema:
+          type: string
+        description: Select the view you want to export.
+        required: true
+      tags:
+      - Database table view export
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Export'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Export'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Export'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportJob'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_TABLE_ONLY_EXPORT_UNSUPPORTED
+                    - ERROR_VIEW_UNSUPPORTED_FOR_EXPORT_TYPE
+                    - ERROR_VIEW_NOT_IN_TABLE
+                    - ERROR_FILTER_FIELD_NOT_FOUND
+                    - ERROR_VIEW_FILTER_TYPE_DOES_NOT_EXIST
+                    - ERROR_VIEW_FILTER_TYPE_UNSUPPORTED_FIELD
+                    - ERROR_ORDER_BY_FIELD_NOT_FOUND
+                    - ERROR_ORDER_BY_FIELD_NOT_POSSIBLE
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_VIEW_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/database/view/get-public-view-export/{job_id}/:
+    get:
+      operationId: get_public_view_export_job
+      description: 'Returns information such as export progress and state or the url of the exported file for the specified export job, only if the requesting user has access.
+
+
+        This is a **premium** feature.'
+      parameters:
+      - in: path
+        name: job_id
+        schema:
+          type: string
+        description: The signed job id to lookup information about.
+        required: true
+      tags:
+      - Database table view export
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExportJob'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_EXPORT_JOB_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    FileExporterOptions:
+      type: object
+      properties:
+        view_id:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: 'Optional: The view for this table to export using its filters, sorts and other view specific settings.'
+        exporter_type:
+          allOf:
+          - $ref: '#/components/schemas/ExporterTypeEnum'
+          description: 'The file type to export to.
+
+
+            * `csv` - csv
+
+            * `json` - json
+
+            * `xml` - xml
+
+            * `excel` - excel
+
+            * `file` - file'
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        filters:
+          allOf:
+          - $ref: '#/components/schemas/PublicViewFilters'
+          nullable: true
+          description: "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+        order_by:
+          type: string
+          nullable: true
+          description: Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A).
+        fields:
+          type: array
+          items:
+            type: integer
+          nullable: true
+          description: List of field IDs that must be included in the export, in the desired order.
+        organize_files:
+          type: boolean
+          default: true
+          description: Whether or not to group files by row id in the export.
+      required:
+      - exporter_type
+    CsvExporterOptions:
+      type: object
+      properties:
+        view_id:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: 'Optional: The view for this table to export using its filters, sorts and other view specific settings.'
+        exporter_type:
+          allOf:
+          - $ref: '#/components/schemas/ExporterTypeEnum'
+          description: 'The file type to export to.
+
+
+            * `csv` - csv
+
+            * `json` - json
+
+            * `xml` - xml
+
+            * `excel` - excel
+
+            * `file` - file'
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        filters:
+          allOf:
+          - $ref: '#/components/schemas/PublicViewFilters'
+          nullable: true
+          description: "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+        order_by:
+          type: string
+          nullable: true
+          description: Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A).
+        fields:
+          type: array
+          items:
+            type: integer
+          nullable: true
+          description: List of field IDs that must be included in the export, in the desired order.
+        csv_column_separator:
+          allOf:
+          - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
+          default: ','
+          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+        csv_include_header:
+          type: boolean
+          default: true
+          description: Whether or not to generate a header row at the top of the csv file.
+      required:
+      - exporter_type
+    BaseExporterOptions:
+      type: object
+      properties:
+        view_id:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: 'Optional: The view for this table to export using its filters, sorts and other view specific settings.'
+        exporter_type:
+          allOf:
+          - $ref: '#/components/schemas/ExporterTypeEnum'
+          description: 'The file type to export to.
+
+
+            * `csv` - csv
+
+            * `json` - json
+
+            * `xml` - xml
+
+            * `excel` - excel
+
+            * `file` - file'
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        filters:
+          allOf:
+          - $ref: '#/components/schemas/PublicViewFilters'
+          nullable: true
+          description: "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+        order_by:
+          type: string
+          nullable: true
+          description: Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A).
+        fields:
+          type: array
+          items:
+            type: integer
+          nullable: true
+          description: List of field IDs that must be included in the export, in the desired order.
+      required:
+      - exporter_type
+    ExportJob:
+      type: object
+      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
+
+        with the actual usable url of the export job''s file (if it has one).'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table:
+          type: integer
+          nullable: true
+        view:
+          type: integer
+          nullable: true
+        exporter_type:
+          type: string
+        state:
+          $ref: '#/components/schemas/ExportJobStateEnum'
+        status:
+          type: string
+          readOnly: true
+          description: 'DEPRECATED: Use state instead'
+        exported_file_name:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        progress_percentage:
+          type: number
+          format: double
+        url:
+          type: string
+          format: uri
+          readOnly: true
+      required:
+      - created_at
+      - exporter_type
+      - id
+      - state
+      - status
+      - url
+    CsvColumnSeparatorEnum:
+      enum:
+      - ','
+      - ;
+      - '|'
+      - tab
+      - record_separator
+      - unit_separator
+      type: string
+      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+    ExcelExporterOptions:
+      type: object
+      properties:
+        view_id:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: 'Optional: The view for this table to export using its filters, sorts and other view specific settings.'
+        exporter_type:
+          allOf:
+          - $ref: '#/components/schemas/ExporterTypeEnum'
+          description: 'The file type to export to.
+
+
+            * `csv` - csv
+
+            * `json` - json
+
+            * `xml` - xml
+
+            * `excel` - excel
+
+            * `file` - file'
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        filters:
+          allOf:
+          - $ref: '#/components/schemas/PublicViewFilters'
+          nullable: true
+          description: "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+        order_by:
+          type: string
+          nullable: true
+          description: Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A).
+        fields:
+          type: array
+          items:
+            type: integer
+          nullable: true
+          description: List of field IDs that must be included in the export, in the desired order.
+        excel_include_header:
+          type: boolean
+          default: true
+          description: Whether or not to generate the field names as header row at the top of the Excel file.
+      required:
+      - exporter_type
+    ExportJobStateEnum:
+      enum:
+      - pending
+      - exporting
+      - cancelled
+      - finished
+      - failed
+      - expired
+      type: string
+      description: '* `pending` - pending
+
+        * `exporting` - exporting
+
+        * `cancelled` - cancelled
+
+        * `finished` - finished
+
+        * `failed` - failed
+
+        * `expired` - expired'
+    ExportCharsetEnum:
+      enum:
+      - utf-8
+      - iso-8859-6
+      - windows-1256
+      - iso-8859-4
+      - windows-1257
+      - iso-8859-14
+      - iso-8859-2
+      - windows-1250
+      - gbk
+      - gb18030
+      - big5
+      - koi8-r
+      - koi8-u
+      - iso-8859-5
+      - windows-1251
+      - x-mac-cyrillic
+      - iso-8859-7
+      - windows-1253
+      - iso-8859-8
+      - windows-1255
+      - euc-jp
+      - iso-2022-jp
+      - shift-jis
+      - euc-kr
+      - macintosh
+      - iso-8859-10
+      - iso-8859-16
+      - windows-874
+      - windows-1254
+      - windows-1258
+      - iso-8859-1
+      - windows-1252
+      - iso-8859-3
+      type: string
+      description: '* `utf-8` - utf-8
+
+        * `iso-8859-6` - iso-8859-6
+
+        * `windows-1256` - windows-1256
+
+        * `iso-8859-4` - iso-8859-4
+
+        * `windows-1257` - windows-1257
+
+        * `iso-8859-14` - iso-8859-14
+
+        * `iso-8859-2` - iso-8859-2
+
+        * `windows-1250` - windows-1250
+
+        * `gbk` - gbk
+
+        * `gb18030` - gb18030
+
+        * `big5` - big5
+
+        * `koi8-r` - koi8-r
+
+        * `koi8-u` - koi8-u
+
+        * `iso-8859-5` - iso-8859-5
+
+        * `windows-1251` - windows-1251
+
+        * `x-mac-cyrillic` - mac-cyrillic
+
+        * `iso-8859-7` - iso-8859-7
+
+        * `windows-1253` - windows-1253
+
+        * `iso-8859-8` - iso-8859-8
+
+        * `windows-1255` - windows-1255
+
+        * `euc-jp` - euc-jp
+
+        * `iso-2022-jp` - iso-2022-jp
+
+        * `shift-jis` - shift-jis
+
+        * `euc-kr` - euc-kr
+
+        * `macintosh` - macintosh
+
+        * `iso-8859-10` - iso-8859-10
+
+        * `iso-8859-16` - iso-8859-16
+
+        * `windows-874` - cp874
+
+        * `windows-1254` - windows-1254
+
+        * `windows-1258` - windows-1258
+
+        * `iso-8859-1` - iso-8859-1
+
+        * `windows-1252` - windows-1252
+
+        * `iso-8859-3` - iso-8859-3'
+    PublicViewFilter:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The id of the field to filter on.
+        type:
+          type: string
+          description: The filter type.
+        value:
+          type: string
+          description: The filter value.
+      required:
+      - field
+      - type
+      - value
+    ExporterTypeEnum:
+      enum:
+      - csv
+      - json
+      - xml
+      - excel
+      - file
+      type: string
+      description: '* `csv` - csv
+
+        * `json` - json
+
+        * `xml` - xml
+
+        * `excel` - excel
+
+        * `file` - file'
+    PublicViewFiltersFilterTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - AND
+
+        * `OR` - OR'
+    Export:
+      oneOf:
+      - $ref: '#/components/schemas/CsvExporterOptions'
+      - $ref: '#/components/schemas/BaseExporterOptions'
+      - $ref: '#/components/schemas/BaseExporterOptions'
+      - $ref: '#/components/schemas/ExcelExporterOptions'
+      - $ref: '#/components/schemas/FileExporterOptions'
+      discriminator:
+        propertyName: exporter_type
+        mapping:
+          csv: '#/components/schemas/CsvExporterOptions'
+          json: '#/components/schemas/BaseExporterOptions'
+          xml: '#/components/schemas/BaseExporterOptions'
+          excel: '#/components/schemas/ExcelExporterOptions'
+          file: '#/components/schemas/FileExporterOptions'
+    PublicViewFilters:
+      type: object
+      properties:
+        filter_type:
+          $ref: '#/components/schemas/PublicViewFiltersFilterTypeEnum'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewFilter'
+          description: The list of filters that should be applied in this group/public view.
+      required:
+      - filter_type
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

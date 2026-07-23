@@ -1,0 +1,759 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Dashboard widgets API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Dashboard widgets
+paths:
+  /api/dashboard/{dashboard_id}/widgets/:
+    get:
+      operationId: list_dashboard_widgets
+      description: 'Lists all the widgets of the dashboard related to the provided parameter if the user has access to the related workspace. '
+      parameters:
+      - in: path
+        name: dashboard_id
+        schema:
+          type: integer
+        description: Returns only the widgets of the dashboard related to the provided Id.
+        required: true
+      tags:
+      - Dashboard widgets
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Dashboard_WidgetWidget'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PERMISSION_DENIED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DASHBOARD_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: create_dashboard_widget
+      description: Creates a new dashboard widget
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: dashboard_id
+        schema:
+          type: integer
+        description: Creates a widget for the dashboard related to the provided value.
+        required: true
+      tags:
+      - Dashboard widgets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Dashboard_WidgetCreateWidget'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Dashboard_WidgetCreateWidget'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Dashboard_WidgetCreateWidget'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard_WidgetWidget'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_WIDGET_TYPE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PERMISSION_DENIED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_DASHBOARD_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/dashboard/widgets/{widget_id}/:
+    patch:
+      operationId: update_dashboard_widget
+      description: Updates an existing dashboard widget.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: widget_id
+        schema:
+          type: integer
+        description: The id of the widget
+        required: true
+      tags:
+      - Dashboard widgets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard_WidgetUpdateWidget'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard_WidgetUpdateWidget'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDashboard_WidgetUpdateWidget'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dashboard_WidgetWidget'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PERMISSION_DENIED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_WIDGET_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_dashboard_widget
+      description: Deletes the widget related to the given id.
+      parameters:
+      - in: header
+        name: ClientSessionId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.
+      - in: header
+        name: ClientUndoRedoActionGroupId
+        schema:
+          type: string
+          format: uuid
+        description: An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.
+      - in: path
+        name: widget_id
+        schema:
+          type: integer
+        description: The id of the widget
+        required: true
+      tags:
+      - Dashboard widgets
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_PERMISSION_DENIED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_WIDGET_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    Dashboard_WidgetWidget:
+      oneOf:
+      - $ref: '#/components/schemas/SummaryWidgetWidget'
+      - $ref: '#/components/schemas/ChartWidgetWidget'
+      - $ref: '#/components/schemas/PieChartWidgetWidget'
+      discriminator:
+        propertyName: type
+        mapping:
+          summary: '#/components/schemas/SummaryWidgetWidget'
+          chart: '#/components/schemas/ChartWidgetWidget'
+          pie_chart: '#/components/schemas/PieChartWidgetWidget'
+    SummaryWidgetUpdateWidget:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+    PieChartWidgetUpdateWidget:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/PieChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
+          description: 'Default chart type.
+
+
+            * `PIE` - Pie
+
+            * `DOUGHNUT` - Doughnut'
+    PieChartWidgetCreateWidget:
+      type: object
+      description: This serializer allow to set the type of the new widget.
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type2b7Enum'
+          description: 'The type of the widget.
+
+
+            * `summary` - summary
+
+            * `chart` - chart
+
+            * `pie_chart` - pie_chart'
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/PieChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
+          description: 'Default chart type.
+
+
+            * `PIE` - Pie
+
+            * `DOUGHNUT` - Doughnut'
+      required:
+      - title
+      - type
+    SeriesChartTypeC18Enum:
+      enum:
+      - PIE
+      - DOUGHNUT
+      type: string
+      description: '* `PIE` - Pie
+
+        * `DOUGHNUT` - Doughnut'
+    Type2b7Enum:
+      enum:
+      - summary
+      - chart
+      - pie_chart
+      type: string
+      description: '* `summary` - summary
+
+        * `chart` - chart
+
+        * `pie_chart` - pie_chart'
+    Dashboard_WidgetCreateWidget:
+      oneOf:
+      - $ref: '#/components/schemas/SummaryWidgetCreateWidget'
+      - $ref: '#/components/schemas/ChartWidgetCreateWidget'
+      - $ref: '#/components/schemas/PieChartWidgetCreateWidget'
+      discriminator:
+        propertyName: type
+        mapping:
+          summary: '#/components/schemas/SummaryWidgetCreateWidget'
+          chart: '#/components/schemas/ChartWidgetCreateWidget'
+          pie_chart: '#/components/schemas/PieChartWidgetCreateWidget'
+    PatchedDashboard_WidgetUpdateWidget:
+      anyOf:
+      - $ref: '#/components/schemas/SummaryWidgetUpdateWidget'
+      - $ref: '#/components/schemas/ChartWidgetUpdateWidget'
+      - $ref: '#/components/schemas/PieChartWidgetUpdateWidget'
+    SeriesChartType767Enum:
+      enum:
+      - BAR
+      - LINE
+      type: string
+      description: '* `BAR` - Bar
+
+        * `LINE` - Line'
+    DefaultSeriesChartTypeC18Enum:
+      enum:
+      - PIE
+      - DOUGHNUT
+      type: string
+      description: '* `PIE` - Pie
+
+        * `DOUGHNUT` - Doughnut'
+    PieChartSeriesConfig:
+      type: object
+      properties:
+        series_id:
+          type: integer
+        series_chart_type:
+          $ref: '#/components/schemas/SeriesChartTypeC18Enum'
+      required:
+      - series_chart_type
+      - series_id
+    ChartSeriesConfig:
+      type: object
+      properties:
+        series_id:
+          type: integer
+        series_chart_type:
+          $ref: '#/components/schemas/SeriesChartType767Enum'
+      required:
+      - series_chart_type
+      - series_id
+    PieChartWidgetWidget:
+      type: object
+      description: Basic widget serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        dashboard_id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the widget.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        data_source_id:
+          type: integer
+          description: References a data source field for the widget.
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/PieChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
+          description: 'Default chart type.
+
+
+            * `PIE` - Pie
+
+            * `DOUGHNUT` - Doughnut'
+      required:
+      - dashboard_id
+      - description
+      - id
+      - order
+      - title
+      - type
+    DefaultSeriesChartType767Enum:
+      enum:
+      - BAR
+      - LINE
+      type: string
+      description: '* `BAR` - Bar
+
+        * `LINE` - Line'
+    SummaryWidgetWidget:
+      type: object
+      description: Basic widget serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        dashboard_id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the widget.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        data_source_id:
+          type: integer
+          description: References a data source field for the widget.
+      required:
+      - dashboard_id
+      - description
+      - id
+      - order
+      - title
+      - type
+    ChartWidgetUpdateWidget:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartType767Enum'
+          description: 'Default chart type.
+
+
+            * `BAR` - Bar
+
+            * `LINE` - Line'
+    ChartWidgetWidget:
+      type: object
+      description: Basic widget serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        dashboard_id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the widget.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        data_source_id:
+          type: integer
+          description: References a data source field for the widget.
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartType767Enum'
+          description: 'Default chart type.
+
+
+            * `BAR` - Bar
+
+            * `LINE` - Line'
+      required:
+      - dashboard_id
+      - description
+      - id
+      - order
+      - title
+      - type
+    ChartWidgetCreateWidget:
+      type: object
+      description: This serializer allow to set the type of the new widget.
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type2b7Enum'
+          description: 'The type of the widget.
+
+
+            * `summary` - summary
+
+            * `chart` - chart
+
+            * `pie_chart` - pie_chart'
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartType767Enum'
+          description: 'Default chart type.
+
+
+            * `BAR` - Bar
+
+            * `LINE` - Line'
+      required:
+      - title
+      - type
+    SummaryWidgetCreateWidget:
+      type: object
+      description: This serializer allow to set the type of the new widget.
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type2b7Enum'
+          description: 'The type of the widget.
+
+
+            * `summary` - summary
+
+            * `chart` - chart
+
+            * `pie_chart` - pie_chart'
+      required:
+      - title
+      - type
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

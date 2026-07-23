@@ -1,0 +1,1080 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin Auth API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: Auth
+paths:
+  /api/admin/auth-provider/:
+    get:
+      operationId: list_auth_providers
+      description: List all the available authentication providers.
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Authentication_ProviderAuthProvider'
+          description: ''
+    post:
+      operationId: create_auth_provider
+      description: Creates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook.
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authentication_ProviderAuthProvider'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/admin/auth-provider/{auth_provider_id}/:
+    get:
+      operationId: get_auth_provider
+      description: Get an authentication provider.
+      parameters:
+      - in: path
+        name: auth_provider_id
+        schema:
+          type: integer
+        description: The authentication provider id to fetch.
+        required: true
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authentication_ProviderAuthProvider'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTH_PROVIDER_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_auth_provider
+      description: Updates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook.
+      parameters:
+      - in: path
+        name: auth_provider_id
+        schema:
+          type: integer
+        description: The authentication provider id to update.
+        required: true
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authentication_ProviderAuthProvider'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTH_PROVIDER_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_auth_provider
+      description: Delete an authentication provider.
+      parameters:
+      - in: path
+        name: auth_provider_id
+        schema:
+          type: integer
+        description: The authentication provider id to delete.
+        required: true
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_AUTH_PROVIDER_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/auth-provider/login-options/:
+    get:
+      operationId: list_auth_providers_login_options
+      description: Lists the available login options for the configured authentication providers.
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/sso/oauth2/callback/{provider_id}/:
+    get:
+      operationId: oauth_provider_login_callback
+      description: Processes callback from OAuth2 provider and logs the user in if successful.
+      parameters:
+      - in: query
+        name: code
+        schema:
+          type: string
+        description: The code returned by the IDP.
+      - in: path
+        name: provider_id
+        schema:
+          type: integer
+        description: The id of the provider for which to process the callback.
+        required: true
+      tags:
+      - Auth
+      responses:
+        '302':
+          description: No response body
+  /api/sso/oauth2/login/{provider_id}/:
+    get:
+      operationId: oauth_provider_login_redirect
+      description: Redirects to the OAuth2 provider's authentication URL based on the provided auth provider's id.
+      parameters:
+      - in: query
+        name: original
+        schema:
+          type: integer
+        description: The relative part of URL that the user wanted to access.
+      - in: path
+        name: provider_id
+        schema:
+          type: integer
+        description: The id of the provider for redirect.
+        required: true
+      - in: query
+        name: workspace_invitation_token
+        schema:
+          type: string
+        description: The invitation token sent to the user to join a specific workspace.
+      tags:
+      - Auth
+      responses:
+        '302':
+          description: No response body
+  /api/sso/saml/acs/:
+    post:
+      operationId: auth_provider_saml_acs_url
+      description: Complete the SAML authentication flow by validating the SAML response. Sign in the user if already exists in Baserow or create a new one otherwise. Once authenticated, the user will be redirected to the original URL they were trying to access. If the response is invalid, the user will be redirected to an error page with a specific error message.It accepts the language code and the workspace invitation token as query parameters if provided.
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SAMLResponse'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SAMLResponse'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SAMLResponse'
+        required: true
+      responses:
+        '302':
+          description: No response body
+  /api/sso/saml/login/:
+    get:
+      operationId: auth_provider_saml_sp_login
+      description: This is the endpoint that is called when the user wants to initiate a SSO SAML login from Baserow (the service provider). The user will be redirected to the SAML identity provider (IdP) where the user can authenticate. Once logged in in the IdP, the user will be redirected back to the assertion consumer service endpoint (ACS) where the SAML response will be validated and a new JWT session token will be provided to work with Baserow APIs.
+      parameters:
+      - in: query
+        name: email
+        schema:
+          type: string
+        description: The email address of the user that want to sign in using SAML.
+      - in: query
+        name: language
+        schema:
+          type: string
+        description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+      - in: query
+        name: original
+        schema:
+          type: string
+        description: The url to which the user should be redirected after a successful login or sign up.
+      - in: query
+        name: workspace_invitation_token
+        schema:
+          type: string
+        description: If provided and valid, the user accepts the workspace invitation and will have access to the workspace after login or signing up.
+      tags:
+      - Auth
+      responses:
+        '302':
+          description: No response body
+  /api/sso/saml/login-url/:
+    get:
+      operationId: auth_provider_login_url
+      description: Return the correct redirect_url to initiate the SSO SAML login. It needs an email address if multiple SAML providers are configured otherwise the only configured SAML provider signup URL will be returned.
+      parameters:
+      - in: query
+        name: email
+        schema:
+          type: string
+        description: The email address of the user that want to sign in using SAML.
+      - in: query
+        name: language
+        schema:
+          type: string
+        description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+      - in: query
+        name: original
+        schema:
+          type: string
+        description: The url to which the user should be redirected after a successful login.
+      - in: query
+        name: workspace_invitation_token
+        schema:
+          type: string
+        description: If provided and valid, the user accepts the workspace invitation and will have access to the workspace after login or signing up.
+      tags:
+      - Auth
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_SAML_INVALID_LOGIN_REQUEST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/two-factor-auth/configuration/:
+    get:
+      operationId: two_factor_auth_configuration
+      description: Returns two-factor auth configuration for the authenticated user.
+      tags:
+      - Auth
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Two_Factor_Auth_TypeTwoFactorAuth'
+          description: ''
+    post:
+      operationId: configure_two_factor_auth
+      description: Configures two-factor authentication for the authenticated user.
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Two_Factor_Auth_TypeCreateTwoFactorAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Two_Factor_Auth_TypeCreateTwoFactorAuth'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Two_Factor_Auth_TypeCreateTwoFactorAuth'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Two_Factor_Auth_TypeTwoFactorAuth'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TWO_FACTOR_AUTH_ALREADY_CONFIGURED
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TWO_FACTOR_AUTH_VERIFICATION_FAILED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TWO_FACTOR_AUTH_TYPE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/two-factor-auth/disable/:
+    post:
+      operationId: disable_two_factor_auth
+      description: Disables two-factor authentication for the authenticated user.
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisableTwoFactorAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DisableTwoFactorAuth'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DisableTwoFactorAuth'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '403':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_WRONG_PASSWORD
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                    - ERROR_TWO_FACTOR_AUTH_NOT_CONFIGURED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/two-factor-auth/verify/:
+    post:
+      operationId: verify_totp_auth
+      description: Verifies TOTP two-factor authentication
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyTOTP'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyTOTP'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyTOTP'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - title: Without two-factor authentication
+                  type: object
+                  properties:
+                    user:
+                      type: object
+                      description: An object containing information related to the user.
+                      properties:
+                        first_name:
+                          type: string
+                          description: The first name of related user.
+                        username:
+                          type: string
+                          format: email
+                          description: The username of the related user. This is always an email address.
+                        language:
+                          type: string
+                          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+                    token:
+                      type: string
+                      deprecated: true
+                      description: Deprecated. Use the `access_token` instead.
+                    access_token:
+                      type: string
+                      description: '''access_token'' can be used to authorize for other endpoints that require authorization. This token will be valid for 10 minutes.'
+                    refresh_token:
+                      type: string
+                      description: '''refresh_token'' can be used to get a new valid ''access_token''. This token will be valid for 168 hours.'
+                - title: With two-factor authentication
+                  type: object
+                  properties:
+                    two_factor_auth:
+                      type: string
+                      description: The type of the two factor auth that is required to perform.
+                    token:
+                      type: string
+                      description: The temporary token for verifying authentication using 2fa.
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_REQUEST_BODY_VALIDATION
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TWO_FACTOR_AUTH_VERIFICATION_FAILED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_TWO_FACTOR_AUTH_TYPE_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '429':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_RATE_LIMIT_EXCEEDED
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    PasswordAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain (if any) registered with this password provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+      required:
+      - id
+      - type
+    Two_Factor_Auth_TypeCreateTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+    GitHubAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    VerifyTOTP:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+        backup_code:
+          type: string
+      required:
+      - email
+    TOTPAuthProviderModelCreateTwoFactorAuth:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum'
+          description: 'The type of the two factor auth.
+
+
+            * `totp` - totp'
+        provisioning_url:
+          type: string
+        provisioning_qr_code:
+          type: string
+        backup_codes:
+          type: array
+          items:
+            type: string
+      required:
+      - backup_codes
+      - provisioning_qr_code
+      - provisioning_url
+      - type
+    TOTPAuthProviderModelTwoFactorAuth:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        is_enabled:
+          type: boolean
+          readOnly: true
+        provisioning_url:
+          type: string
+        provisioning_qr_code:
+          type: string
+        backup_codes:
+          type: array
+          items:
+            type: string
+      required:
+      - backup_codes
+      - is_enabled
+      - provisioning_qr_code
+      - provisioning_url
+      - type
+    SamlAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        metadata:
+          type: string
+          description: The SAML metadata XML provided by the IdP.
+        is_verified:
+          type: boolean
+          readOnly: true
+          description: Whether or not a user sign in correctly with this SAML provider.
+        email_attr_key:
+          type: string
+          description: The key in the SAML response that contains the email address of the user.
+        first_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the first name of the user.
+        last_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
+      required:
+      - domain
+      - id
+      - is_verified
+      - metadata
+      - type
+    GitLabAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          format: uri
+          description: Base URL of the authorization server
+          maxLength: 200
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - base_url
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    Authentication_ProviderAuthProvider:
+      oneOf:
+      - $ref: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/SamlAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
+      discriminator:
+        propertyName: type
+        mapping:
+          password: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
+          saml: '#/components/schemas/SamlAuthProviderModelAuthProvider'
+          google: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
+          facebook: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
+          github: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
+          gitlab: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
+          openid_connect: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
+    FacebookAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    GoogleAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    OpenIdConnectAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          format: uri
+          description: Base URL of the authorization server
+          maxLength: 200
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+        use_id_token:
+          type: boolean
+          description: Whether to use the id_token instead of user_info endpoint to get user data
+        email_attr_key:
+          type: string
+          description: The name of the claim that contains the email address of the user.
+          maxLength: 32
+        first_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the first name of the user.
+          maxLength: 32
+        last_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the last name of the user. If empty in response, first name will be used.
+          maxLength: 32
+      required:
+      - base_url
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    SAMLResponse:
+      type: object
+      properties:
+        SAMLResponse:
+          type: string
+          description: The encoded SAML response from the IdP.
+        RelayState:
+          type: string
+          description: The frontend URL where redirect the authenticated user.
+      required:
+      - RelayState
+      - SAMLResponse
+    DisableTwoFactorAuth:
+      type: object
+      properties:
+        password:
+          type: string
+      required:
+      - password
+    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
+      enum:
+      - totp
+      type: string
+      description: '* `totp` - totp'
+    Two_Factor_Auth_TypeTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

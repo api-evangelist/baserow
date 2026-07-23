@@ -1,0 +1,325 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin MCP endpoints API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: MCP endpoints
+paths:
+  /api/mcp/endpoint/{endpoint_id}/:
+    get:
+      operationId: get_mcp_endpoint
+      description: Returns the requested MCP endpoint if the authorized user has access to it.
+      parameters:
+      - in: path
+        name: endpoint_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - MCP endpoints
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPEndpoint'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_MCP_ENDPOINT_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    patch:
+      operationId: update_mcp_endpoint
+      description: Updates the MCP endpoint if the authorized user has access to it.
+      parameters:
+      - in: path
+        name: endpoint_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - MCP endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateMCPEndpoint'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateMCPEndpoint'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUpdateMCPEndpoint'
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPEndpoint'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_MCP_ENDPOINT_DOES_NOT_BELONG_TO_USER
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_MCP_ENDPOINT_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: delete_mcp_endpoint
+      description: Deletes an MCP endpoint if the authorized user has access to it.
+      parameters:
+      - in: path
+        name: endpoint_id
+        schema:
+          type: string
+          pattern: ^[0-9]+$
+        required: true
+      tags:
+      - MCP endpoints
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_MCP_ENDPOINT_DOES_NOT_BELONG_TO_USER
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_MCP_ENDPOINT_DOES_NOT_EXIST
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /api/mcp/endpoints/:
+    get:
+      operationId: list_mcp_endpoints
+      description: Lists all the MCP (Model Context Protocol) endpoints of a user. These canbe used to directly integrate with an LLM like Claude, and let the LLM perform actions directly in Baserow. Treat your MCP URL like a password,as it has the ability to modify data in Baserow.
+      tags:
+      - MCP endpoints
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MCPEndpoint'
+          description: ''
+    post:
+      operationId: create_mcp_endpoint
+      description: Creates a new MCP endpoint for a given workspace. The endpoint can be used for an MCP integration.
+      tags:
+      - MCP endpoints
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMCPEndpoint'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateMCPEndpoint'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateMCPEndpoint'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPEndpoint'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_MAXIMUM_UNIQUE_ENDPOINT_TRIES
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    CreateMCPEndpoint:
+      type: object
+      description: Used for validating the creation of a new MCP endpoint.
+      properties:
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
+        workspace_id:
+          type: integer
+      required:
+      - name
+      - workspace_id
+    MCPEndpoint:
+      type: object
+      description: Serializes a complete MCP endpoint object.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
+        key:
+          type: string
+          readOnly: true
+          description: The unique endpoint key that can be used to authorize for the MCP service.
+        workspace_id:
+          type: integer
+          readOnly: true
+        workspace_name:
+          type: string
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created
+      - id
+      - key
+      - name
+      - workspace_id
+      - workspace_name
+    PatchedUpdateMCPEndpoint:
+      type: object
+      description: Used for validating updating an existing MCP endpoint.
+      properties:
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token

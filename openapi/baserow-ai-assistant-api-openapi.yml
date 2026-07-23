@@ -1,0 +1,799 @@
+openapi: 3.0.3
+info:
+  title: Baserow API spec Admin AI Assistant API
+  version: 2.2.2
+  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+
+
+    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+  contact:
+    url: https://baserow.io/contact
+  license:
+    name: MIT
+    url: https://github.com/baserow/baserow/blob/develop/LICENSE
+tags:
+- name: AI Assistant
+paths:
+  /assistant/chat/:
+    get:
+      operationId: list_assistant_chats
+      description: List all AI assistant chats for the current user in the specified workspace.
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 100
+        description: The number of results to return per page.
+      - in: query
+        name: offset
+        schema:
+          type: integer
+          default: 0
+        description: The initial index from which to return the results.
+      - in: query
+        name: workspace_id
+        schema:
+          type: integer
+        description: The ID of the workspace.
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginationSerializerAssistantChat'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /assistant/chat/{chat_uuid}/cancel/:
+    get:
+      operationId: list_assistant_chat_messages
+      description: 'List all messages in the specified AI assistant chat.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantChatMessages'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: send_message_to_assistant_chat
+      description: 'Send a message to the specified AI assistant chat and stream back the response.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: A text/event-stream of the assistant’s partial responses
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: cancel_assistant_message
+      description: 'Cancel an ongoing assistant message generation in the specified chat.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: Message generation cancelled
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /assistant/chat/{chat_uuid}/messages/:
+    get:
+      operationId: list_assistant_chat_messages_2
+      description: 'List all messages in the specified AI assistant chat.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssistantChatMessages'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    post:
+      operationId: send_message_to_assistant_chat_2
+      description: 'Send a message to the specified AI assistant chat and stream back the response.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssistantMessageRequest'
+        required: true
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: A text/event-stream of the assistant’s partial responses
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+    delete:
+      operationId: cancel_assistant_message_2
+      description: 'Cancel an ongoing assistant message generation in the specified chat.
+
+
+        '
+      parameters:
+      - in: path
+        name: chat_uuid
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '204':
+          description: Message generation cancelled
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+  /assistant/messages/{message_id}/feedback/:
+    put:
+      operationId: submit_assistant_message_feedback
+      description: 'Provide sentiment and feedback for the given AI assistant chat message.
+
+
+        '
+      parameters:
+      - in: path
+        name: message_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - AI Assistant
+      security:
+      - UserSource JWT: []
+      - JWT: []
+      responses:
+        '200':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Machine readable error indicating what went wrong.
+                    enum:
+                    - ERROR_USER_NOT_IN_GROUP
+                    - ERROR_CANNOT_SUBMIT_MESSAGE_FEEDBACK
+                  detail:
+                    oneOf:
+                    - type: string
+                      format: string
+                      description: Human readable details about what went wrong.
+                    - type: object
+                      format: object
+                      description: Machine readable object about what went wrong.
+          description: ''
+components:
+  schemas:
+    NullEnum:
+      enum:
+      - null
+    UIContextTable:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the table.
+        name:
+          type: string
+          description: The name of the table.
+      required:
+      - id
+      - name
+    HumanSentimentEnum:
+      enum:
+      - LIKE
+      - DISLIKE
+      type: string
+      description: '* `LIKE` - LIKE
+
+        * `DISLIKE` - DISLIKE'
+    AssistantChat:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the chat. Can be provided by the client.
+        user_id:
+          type: integer
+          description: The user who owns the chat.
+          readOnly: true
+        workspace_id:
+          type: integer
+          description: The workspace the chat belongs to.
+          readOnly: true
+        title:
+          type: string
+          description: The title of the chat.
+          maxLength: 250
+        status:
+          $ref: '#/components/schemas/AssistantChatStatusEnum'
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_on
+      - updated_on
+      - user_id
+      - workspace_id
+    UIContext:
+      type: object
+      properties:
+        workspace:
+          $ref: '#/components/schemas/UIContextWorkspace'
+        database:
+          allOf:
+          - $ref: '#/components/schemas/UIContextApplication'
+          description: The application the user is currently in, e.g. 'database'.
+        table:
+          allOf:
+          - $ref: '#/components/schemas/UIContextTable'
+          description: The table the user is currently viewing, if any.
+        view:
+          allOf:
+          - $ref: '#/components/schemas/UIContextView'
+          description: The view the user is currently viewing, if any.
+        application:
+          allOf:
+          - $ref: '#/components/schemas/UIContextApplication'
+          description: The application the user is currently in, e.g. 'application'.
+        page:
+          allOf:
+          - $ref: '#/components/schemas/UIContextPage'
+          description: The page the user is currently viewing, if any.
+        automation:
+          allOf:
+          - $ref: '#/components/schemas/UIContextApplication'
+          description: The application the user is currently in, e.g. 'automation'.
+        workflow:
+          allOf:
+          - $ref: '#/components/schemas/UIContextWorkflow'
+          description: The workflow the user is currently viewing, if any.
+        dashboard:
+          allOf:
+          - $ref: '#/components/schemas/UIContextApplication'
+          description: The application the user is currently in, e.g. 'dashboard'.
+        timezone:
+          type: string
+          default: UTC
+          description: The timezone of the user, e.g. 'Europe/Amsterdam'.
+      required:
+      - workspace
+    AiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique ID of the message.
+        type:
+          type: string
+          default: ai/message
+        content:
+          type: string
+          description: The content of the AI message.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message.
+        sources:
+          type: array
+          items:
+            type: string
+          description: The list of relevant source URLs referenced in the knowledge. Can be empty or null.
+        can_submit_feedback:
+          type: boolean
+          default: false
+          description: Whether the user can submit feedback for this message. Only true for messages with an associated prediction.
+        human_sentiment:
+          nullable: true
+          description: 'The sentiment for the message, if it has been rated.
+
+
+            * `LIKE` - LIKE
+
+            * `DISLIKE` - DISLIKE'
+          oneOf:
+          - $ref: '#/components/schemas/HumanSentimentEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - content
+    UIContextPage:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the page.
+        name:
+          type: string
+          description: The name of the page.
+      required:
+      - id
+      - name
+    AiThinking:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/thinking
+        content:
+          type: string
+          default: The AI is thinking...
+          description: The message to show while the AI is thinking
+    AiNavigation:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/navigation
+        location:
+          type: object
+          additionalProperties: {}
+          description: The location to navigate to.
+      required:
+      - location
+    PaginationSerializerAssistantChat:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the next page.
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssistantChat'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    AssistantChatStatusEnum:
+      enum:
+      - idle
+      - in_progress
+      - canceling
+      type: string
+      description: '* `idle` - Idle
+
+        * `in_progress` - In progress
+
+        * `canceling` - Canceling'
+    ChatTitleMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          default: chat/title
+        content:
+          type: string
+          description: The chat title message content.
+      required:
+      - content
+    UIContextWorkflow:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the workflow.
+        name:
+          type: string
+          description: The name of the workflow.
+      required:
+      - id
+      - name
+    UIContextView:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the view.
+        name:
+          type: string
+          description: The name of the view.
+        type:
+          type: string
+          description: The type of the view.
+      required:
+      - id
+      - name
+      - type
+    AiStarted:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/started
+        message_id:
+          type: string
+          description: The ID of the message being generated.
+      required:
+      - message_id
+    UIContextApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the application.
+        name:
+          type: string
+          description: The name of the application.
+      required:
+      - id
+      - name
+    AiCancelled:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/cancelled
+        message_id:
+          type: string
+          description: The ID of the message that was cancelled.
+      required:
+      - message_id
+    HumanMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique ID of the message.
+        type:
+          type: string
+          default: human
+        content:
+          type: string
+          description: The content of the human message.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message.
+      required:
+      - content
+      - id
+    AiErrorMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/error
+        code:
+          type: string
+          description: A short error code that can be used to identify the error.
+        content:
+          type: string
+          description: The error message content.
+      required:
+      - code
+      - content
+    AiReasoning:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/reasoning
+        content:
+          type: string
+          description: The reasoning content of the AI message.
+      required:
+      - content
+    UIContextWorkspace:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the workspace.
+        name:
+          type: string
+          description: The name of the workspace.
+      required:
+      - id
+      - name
+    AssistantMessageRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          description: The content of the message.
+        ui_context:
+          allOf:
+          - $ref: '#/components/schemas/UIContext'
+          description: The UI context related to what the user was looking at when the message was sent.
+      required:
+      - content
+      - ui_context
+    AssistantChatMessages:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssistantMessage'
+      required:
+      - messages
+    AssistantMessage:
+      oneOf:
+      - $ref: '#/components/schemas/ChatTitleMessage'
+      - $ref: '#/components/schemas/HumanMessage'
+      - $ref: '#/components/schemas/AiMessage'
+      - $ref: '#/components/schemas/AiThinking'
+      - $ref: '#/components/schemas/AiReasoning'
+      - $ref: '#/components/schemas/AiNavigation'
+      - $ref: '#/components/schemas/AiErrorMessage'
+      - $ref: '#/components/schemas/AiStarted'
+      - $ref: '#/components/schemas/AiCancelled'
+      discriminator:
+        propertyName: type
+        mapping:
+          chat/title: '#/components/schemas/ChatTitleMessage'
+          human: '#/components/schemas/HumanMessage'
+          ai/message: '#/components/schemas/AiMessage'
+          ai/thinking: '#/components/schemas/AiThinking'
+          ai/reasoning: '#/components/schemas/AiReasoning'
+          ai/navigation: '#/components/schemas/AiNavigation'
+          ai/error: '#/components/schemas/AiErrorMessage'
+          ai/started: '#/components/schemas/AiStarted'
+          ai/cancelled: '#/components/schemas/AiCancelled'
+  securitySchemes:
+    Database token:
+      type: http
+      scheme: bearer
+      bearerFormat: Token your_token
+    JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
+    UserSource JWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT your_token
