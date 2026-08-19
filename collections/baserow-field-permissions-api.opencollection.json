@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Field permissions API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Field permissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_field_permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/field-permissions/:field_id/",
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the field to get the permissions for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the permissions for writing field values and form visibility of a specific field.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "update_field_permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/field-permissions/:field_id/",
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the field to update the permissions for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update permissions for writing field values and form visibility for a specific field. This endpoint is used to restrict the ability to modify field values to the roles defined. It also makes it possible to decide if the field can be exposed in forms or not.\n\nThis is a **enterprise** feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

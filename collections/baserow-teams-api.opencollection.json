@@ -1,0 +1,286 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Teams API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Teams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/teams/:team_id/",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the team related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the information related to the provided team id."
+        },
+        {
+          "info": {
+            "name": "update_team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/teams/:team_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing team with a new name."
+        },
+        {
+          "info": {
+            "name": "delete_team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/teams/:team_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the team related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a team if the authorized user is in the team's workspace. All the related children (e.g. subjects) are also going to be deleted."
+        },
+        {
+          "info": {
+            "name": "list_team_subjects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/teams/:team_id/subjects/",
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all team subjects in a given team."
+        },
+        {
+          "info": {
+            "name": "create_subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/teams/:team_id/subjects/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new team subject."
+        },
+        {
+          "info": {
+            "name": "get_subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+            "params": [
+              {
+                "name": "subject_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the subject related to the provided value."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the information related to the provided subject id"
+        },
+        {
+          "info": {
+            "name": "delete_subject",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "subject_id",
+                "value": "",
+                "type": "path",
+                "description": "The subject id to remove from the team."
+              },
+              {
+                "name": "team_id",
+                "value": "",
+                "type": "path",
+                "description": "The team id which the subject will be removed from."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a subject if the authorized user is in the team's workspace."
+        },
+        {
+          "info": {
+            "name": "workspace_list_teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for teams by their name."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sort teams by name or subjects."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Lists all teams in a given workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all teams in a given workspace."
+        },
+        {
+          "info": {
+            "name": "workspace_create_team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

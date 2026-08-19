@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Health API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "celery_queue_size_check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/_health/celery-queue/",
+            "params": [
+              {
+                "name": "queue",
+                "value": "",
+                "type": "query",
+                "description": "The name of the queues to check. Can be provided multiple times. Accepts either `celery` or `export`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Health check endpoint to check if the the celery and/or export celery queue has  exceeded the maximum healthy size. Responds with `200` if there there are less than 10 in all queues provided. Otherwise responds with a `503`."
+        },
+        {
+          "info": {
+            "name": "email_tester",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/_health/email/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sends a test email to the provided email address. Useful for testing Baserow's email configuration as errors are clearly returned."
+        },
+        {
+          "info": {
+            "name": "full_health_check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/_health/full/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Runs a full health check testing as many services and systems as possible. These health checks can be expensive operations such as writing files to storage etc."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

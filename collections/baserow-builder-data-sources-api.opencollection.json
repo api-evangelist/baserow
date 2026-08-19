@@ -1,0 +1,349 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Builder data sources API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Builder data sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "update_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/builder/data-source/:data_source_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing builder data_source."
+        },
+        {
+          "info": {
+            "name": "delete_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/builder/data-source/:data_source_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the data_source related by the given id."
+        },
+        {
+          "info": {
+            "name": "dispatch_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/data-source/:data_source_id/dispatch/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source you want to call the dispatch for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related data_source and returns the result."
+        },
+        {
+          "info": {
+            "name": "move_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/builder/data-source/:data_source_id/move/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source to move"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Moves the data_source in the page before another data_source or at the end of the page if no before data_source is given. The data_sources must belong to the same page."
+        },
+        {
+          "info": {
+            "name": "get_record_names_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/data-source/:data_source_id/record-names/",
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source to find the record names."
+              },
+              {
+                "name": "record_ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list of the record ids to search for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Find the record names associated with a given list of record ids."
+        },
+        {
+          "info": {
+            "name": "dispatch_public_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/domains/published/data-source/:data_source_id/dispatch/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data_source you want to call the dispatch for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related data_source and returns the result."
+        },
+        {
+          "info": {
+            "name": "list_public_builder_page_data_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/domains/published/page/:page_id/data_sources/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the data_sources of the page related to the provided Id if the related builder is public."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the data_sources of the page related to the provided parameter if the builder is public."
+        },
+        {
+          "info": {
+            "name": "dispatch_public_builder_page_data_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/domains/published/page/:page_id/dispatch-data-sources/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "The page we want to dispatch the data source for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related page data_sources"
+        },
+        {
+          "info": {
+            "name": "list_builder_page_data_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/data-sources/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the data_sources of the page related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the data_sources of the page related to the provided parameter if the user has access to the related builder's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+        },
+        {
+          "info": {
+            "name": "create_builder_page_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/data-sources/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a data_source for the builder page related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new builder data_source"
+        },
+        {
+          "info": {
+            "name": "dispatch_builder_page_data_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/dispatch-data-sources/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "The page we want to dispatch the data source for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related page data_sources"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

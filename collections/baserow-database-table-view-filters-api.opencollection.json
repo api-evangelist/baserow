@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table view filters API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table view filters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "create_database_table_view_filter_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/views/:view_id/filter-groups/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view where create the new filter group."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new filter group for the view related to the provided `view_id` parameter."
+        },
+        {
+          "info": {
+            "name": "list_database_table_view_filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/:view_id/filters/",
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only filters of the view related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all filters of the view related to the provided `view_id`. A view can have multiple filters. When all the rows are requested for the view only those that apply to the filters are returned."
+        },
+        {
+          "info": {
+            "name": "create_database_table_view_filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/views/:view_id/filters/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a filter for the view related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new filter for the view related to the provided `view_id` parameter. When the rows of a view are requested, for example via the `list_database_table_grid_view_rows` endpoint, then only the rows that apply to all the filters are going to be returned. A filter compares the value of a field to the value of a filter. It depends on the type how values are going to be compared."
+        },
+        {
+          "info": {
+            "name": "get_database_table_view_filter_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/filter-group/:view_filter_group_id/",
+            "params": [
+              {
+                "name": "view_filter_group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter group to return."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing view filter group with the given `view_filter_group_id`."
+        },
+        {
+          "info": {
+            "name": "update_database_table_view_filter_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/views/filter-group/:view_filter_group_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_filter_group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter group to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing filter group with the given `view_filter_group_id`."
+        },
+        {
+          "info": {
+            "name": "delete_database_table_view_filter_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/views/filter-group/:view_filter_group_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_filter_group_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter group to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing filter group with the given `view_filter_group_id`."
+        },
+        {
+          "info": {
+            "name": "get_database_table_view_filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/filter/:view_filter_id/",
+            "params": [
+              {
+                "name": "view_filter_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter to return."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing view filter."
+        },
+        {
+          "info": {
+            "name": "update_database_table_view_filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/views/filter/:view_filter_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_filter_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing filter."
+        },
+        {
+          "info": {
+            "name": "delete_database_table_view_filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/views/filter/:view_filter_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_filter_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the view filter to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing filter if the authorized user has access to the related database's workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

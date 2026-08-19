@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Dashboard data sources API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dashboard data sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_dashboard_data_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/dashboard/:dashboard_id/data-sources/",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the data sources of the dashboard related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the data sources of the dashboard if the user has access to the related dashboard's workspace."
+        },
+        {
+          "info": {
+            "name": "update_dashboard_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the dashboard data source."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing dashboard data source."
+        },
+        {
+          "info": {
+            "name": "dispatch_dashboard_data_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/dispatch/",
+            "params": [
+              {
+                "name": "data_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the data source you want to call the dispatch for"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related data source and returns the result."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

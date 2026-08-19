@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Automation history API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automation history",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_automation_node_result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/automation/node_histories/:node_history_id/result/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "node_history_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the node history."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the node history's result JSON."
+        },
+        {
+          "info": {
+            "name": "get_automation_node_histories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/automation/workflow_histories/:workflow_history_id/node_histories/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_history_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow history."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all node histories for the given workflow history."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

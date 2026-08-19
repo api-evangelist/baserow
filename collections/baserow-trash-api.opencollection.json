@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Trash API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trash",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_trash_structure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/trash/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Responds with the workspaces and applications available for the requesting user to inspect the trash contents of."
+        },
+        {
+          "info": {
+            "name": "restore",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/trash/restore/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Restores the specified trashed item back into baserow."
+        },
+        {
+          "info": {
+            "name": "workspace_get_contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/trash/workspace/:workspace_id/",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "query",
+                "description": "Optionally filters down the trash to only items for this application in the workspace."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Selects which page of trash contents should be returned."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the trash for the workspace with this id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Responds with trash contents for a workspace optionally filtered to a specific application."
+        },
+        {
+          "info": {
+            "name": "workspace_empty_contents",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/trash/workspace/:workspace_id/",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "query",
+                "description": "Optionally filters down the trash to delete to only items for this application in the workspace."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The workspace whose trash contents to empty, including the workspace itself if it is also trashed."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Empties the specified workspace and/or application of trash, including the workspace and application themselves if they are trashed also."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Templates API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/templates/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the template categories and the related templates that are in that category. The template's `workspace_id` can be used for previewing purposes because that workspace contains the applications that are in the template. All the `get` and `list` endpoints related to that workspace are publicly accessible."
+        },
+        {
+          "info": {
+            "name": "install_template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path",
+                "description": "The id related to the template that must be installed."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The id related to the workspace where the template applications must be installed into."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "(Deprecated) Installs the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications."
+        },
+        {
+          "info": {
+            "name": "install_template_async",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/async/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path",
+                "description": "The id related to the template that must be installed."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The id related to the workspace where the template applications must be installed into."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start an async job to install the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

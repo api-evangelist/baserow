@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table view groupings API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table view groupings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_database_table_view_groupings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only groupings of the view related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all groupings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple groupings."
+        },
+        {
+          "info": {
+            "name": "create_database_table_view_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a group by for the view related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new group by for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "prioritize_database_table_view_group_bys",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/views/:view_id/group_bys/prioritize/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the priority of the group bys in the view related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the priority of the provided view group by ids to the matching position that the id has in the list. The group by with the lowest position in the list is applied first when ordering rows."
+        },
+        {
+          "info": {
+            "name": "get_database_table_view_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+            "params": [
+              {
+                "name": "view_group_by_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the view group by related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing view group by if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "update_database_table_view_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_group_by_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the view group by related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing group by if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "delete_database_table_view_group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_group_by_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the group by related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing group by if the authorized user has access to the related database's workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

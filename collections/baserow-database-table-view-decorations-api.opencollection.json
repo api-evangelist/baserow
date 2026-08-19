@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table view decorations API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table view decorations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_database_table_view_decorations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/:view_id/decorations/",
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only decoration of the view given to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all decorations of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple decorations. View decorators can be used to decorate rows. This can, for example, be used to change the border or background color of a row if it matches certain conditions."
+        },
+        {
+          "info": {
+            "name": "create_database_table_view_decoration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/views/:view_id/decorations/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a decoration for the view related to the given value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new decoration for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "get_database_table_view_decoration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/views/decoration/:view_decoration_id/",
+            "params": [
+              {
+                "name": "view_decoration_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the view decoration related to the provided id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing view decoration if the current user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "update_database_table_view_decoration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/views/decoration/:view_decoration_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_decoration_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the view decoration related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing decoration if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "delete_database_table_view_decoration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/views/decoration/:view_decoration_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "view_decoration_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the decoration related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing decoration if the authorized user has access to the related database's workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

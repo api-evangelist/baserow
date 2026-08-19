@@ -1,0 +1,400 @@
+{
+  "item": [
+    {
+      "id": "02c14c81-5fdb-455a-9545-c3f3f628c6f7",
+      "name": "Automation history",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a042d008-60e8-40a7-a83c-1e6aa2b92e1f",
+          "name": "get automation node result",
+          "request": {
+            "name": "get automation node result",
+            "description": {
+              "content": "Returns the node history's result JSON.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "automation",
+                "node_histories",
+                ":node_history_id",
+                "result",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "node_history_id",
+                  "description": "(Required) The id of the node history."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "038624b7-e18c-40b5-be18-dd73e79b6c34",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "automation",
+                    "node_histories",
+                    ":node_history_id",
+                    "result",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "node_history_id",
+                      "description": "(Required) The id of the node history."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c95b5531-c5d7-4cf1-ad95-be72af54bc26",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "automation",
+                    "node_histories",
+                    ":node_history_id",
+                    "result",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "node_history_id",
+                      "description": "(Required) The id of the node history."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_AUTOMATION_NODE_HISTORY_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f8a7e9d-4531-4f60-91d2-a838224d7e4f",
+          "name": "get automation node histories",
+          "request": {
+            "name": "get automation node histories",
+            "description": {
+              "content": "Returns all node histories for the given workflow history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "automation",
+                "workflow_histories",
+                ":workflow_history_id",
+                "node_histories",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "workflow_history_id",
+                  "description": "(Required) The id of the workflow history."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9fd301af-f1d0-4ba8-abd5-b0f2ddb1f767",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "automation",
+                    "workflow_histories",
+                    ":workflow_history_id",
+                    "node_histories",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "workflow_history_id",
+                      "description": "(Required) The id of the workflow history."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"edge_label\": \"string\",\n    \"id\": 846,\n    \"iteration\": 4039,\n    \"iteration_path\": \"string\",\n    \"message\": \"string\",\n    \"node\": 9977,\n    \"node_label\": \"string\",\n    \"node_type\": \"string\",\n    \"parent_node_id\": 3748,\n    \"started_on\": \"1994-11-12T08:51:03.757Z\",\n    \"status\": \"success\",\n    \"workflow_history\": 5060,\n    \"completed_on\": \"1990-05-08T16:58:53.582Z\"\n  },\n  {\n    \"edge_label\": \"string\",\n    \"id\": 9781,\n    \"iteration\": 9154,\n    \"iteration_path\": \"string\",\n    \"message\": \"string\",\n    \"node\": 2164,\n    \"node_label\": \"string\",\n    \"node_type\": \"string\",\n    \"parent_node_id\": 3762,\n    \"started_on\": \"1982-02-22T01:04:44.095Z\",\n    \"status\": \"success\",\n    \"workflow_history\": 5851,\n    \"completed_on\": \"2015-09-12T19:39:49.803Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8be4b94e-c7e5-4304-8533-8c386daf8abe",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "automation",
+                    "workflow_histories",
+                    ":workflow_history_id",
+                    "node_histories",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "workflow_history_id",
+                      "description": "(Required) The id of the workflow history."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_AUTOMATION_WORKFLOW_HISTORY_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0458f3e2-a373-43ae-b2d7-745260b06378",
+    "name": "Baserow API spec Admin Automation history API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

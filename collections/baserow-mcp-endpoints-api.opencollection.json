@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin MCP endpoints API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_mcp_endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mcp/endpoint/:endpoint_id/",
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the requested MCP endpoint if the authorized user has access to it."
+        },
+        {
+          "info": {
+            "name": "update_mcp_endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/mcp/endpoint/:endpoint_id/",
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the MCP endpoint if the authorized user has access to it."
+        },
+        {
+          "info": {
+            "name": "delete_mcp_endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/mcp/endpoint/:endpoint_id/",
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an MCP endpoint if the authorized user has access to it."
+        },
+        {
+          "info": {
+            "name": "list_mcp_endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mcp/endpoints/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the MCP (Model Context Protocol) endpoints of a user. These canbe used to directly integrate with an LLM like Claude, and let the LLM perform actions directly in Baserow. Treat your MCP URL like a password,as it has the ability to modify data in Baserow."
+        },
+        {
+          "info": {
+            "name": "create_mcp_endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/mcp/endpoints/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new MCP endpoint for a given workspace. The endpoint can be used for an MCP integration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

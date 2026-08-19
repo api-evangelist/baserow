@@ -1,0 +1,291 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Automation workflows API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automation workflows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "create_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/automation/:automation_id/workflows/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a new Automation Workflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new Automation Workflow."
+        },
+        {
+          "info": {
+            "name": "order_automation_workflows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/automation/:automation_id/workflows/order/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "automation_id",
+                "value": "",
+                "type": "path",
+                "description": "The automation the workflow belongs to."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Apply a new order to the workflows of an automation."
+        },
+        {
+          "info": {
+            "name": "get_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single workflow of an automation."
+        },
+        {
+          "info": {
+            "name": "update_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing workflow of an automation."
+        },
+        {
+          "info": {
+            "name": "delete_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an existing workflow of an automation."
+        },
+        {
+          "info": {
+            "name": "duplicate_automation_workflow_async",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/duplicate/async/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The workflow to duplicate."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Start a job to duplicate the workflow with the provided `workflow_id` parameter if the authorized user has access to the automation's workspace."
+        },
+        {
+          "info": {
+            "name": "get_automation_workflow_history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/history/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the history for a workflow."
+        },
+        {
+          "info": {
+            "name": "publish_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/publish/async/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The workflow id the user wants to publish."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint starts an asynchronous job to publish the automation workflow. The job clones the current version of the given automation and publishes it for the given workflow."
+        },
+        {
+          "info": {
+            "name": "test_automation_workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/automation/workflows/:workflow_id/test/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_id",
+                "value": "",
+                "type": "path",
+                "description": "The workflow id the user wants to test."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint plan the execution of a test run for this workflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

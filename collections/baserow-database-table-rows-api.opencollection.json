@@ -1,0 +1,903 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table rows API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table rows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_database_table_row_names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/rows/names/",
+            "params": [
+              {
+                "name": "table__{id}",
+                "value": "",
+                "type": "query",
+                "description": "A list of comma separated row ids to query from the table with id {id}. For example, if you want the name of row `42` and `43` from table `28` this parameter will be `table__28=42,43`. You can specify multiple rows for different tables but every tables must be in the same database. You need at least read permission on all specified tables."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the names of the given row of the given tables. The nameof a row is the primary field value for this row. The result can be usedfor example, when you want to display the name of a linked row from another table."
+        },
+        {
+          "info": {
+            "name": "list_database_table_rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/",
+            "params": [
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "All the fields are included in the response by default. You can select a subset of fields by providing the exclude query parameter. If you for example provide the following GET parameter `exclude=field_1,field_2` then the fields with id `1` and id `2` are going to be excluded from the selection and response. If the `user_field_names` parameter is provided then instead exclude should be a comma separated list of the actual field names. For field names with commas you should surround the name with quotes like so: `exclude=My Field,\"Field With , \"`. A backslash can be used to escape field names which contain double quotes like so: `exclude=My Field,Field with \\\"`."
+              },
+              {
+                "name": "filter__{field}__{filter}",
+                "value": "",
+                "type": "query",
+                "description": "The rows can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n"
+              },
+              {
+                "name": "filter_type",
+                "value": "",
+                "type": "query",
+                "description": "`AND`: Indicates that the rows must match all the provided filters.\n\n`OR`: Indicates that the rows only have to match one of the filters.\n\nThis works only if two or more filters are provided.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.**"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "All the fields are included in the response by default. You can select a subset of fields by providing the include query parameter. If you for example provide the following GET parameter `include=field_1,field_2` then only the fields withid `1` and id `2` are going to be selected and included in the response. If the `user_field_names` parameter is provided then instead include should be a comma separated list of the actual field names. For field names with commas you should surround the name with quotes like so: `include=My Field,\"Field With , \"`. A backslash can be used to escape field names which contain double quotes like so: `include=My Field,Field with \\\"`."
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A). If the `user_field_names` parameter is provided then instead order_by should be a comma separated list of the actual field names. For field names with commas you should surround the name with quotes like so: `order_by=My Field,\"Field With , \"`. A backslash can be used to escape field names which contain double quotes like so: `order_by=My Field,Field with \\\"`."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page of rows should be returned."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only rows with data that matches the search query are going to be returned."
+              },
+              {
+                "name": "search_mode",
+                "value": "",
+                "type": "query",
+                "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many rows should be returned per page."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the rows of the table related to the provided value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause the returned JSON to use the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "query",
+                "description": "Includes all the filters and sorts of the provided view."
+              },
+              {
+                "name": "{link_row_field}__join={target_field},{target_field2}",
+                "value": "",
+                "type": "query",
+                "description": "This parameter allows you to request a lookup of field values from a target table through existing link row fields. The parameter name has to be the name of an existing link row field, followed by `__join`. The value should be a list of field names for which we want to lookup additional values. You can provide one or multiple target fields. It is not possible to lookup a value of a link row field in the target table. If `user_field_names` parameter is set, the names of the fields should be user field names. In this case the resulting field names in the output will also be user field names. The used link row field has to be among the requested fields if using the `include` or `exclude` parameters."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the rows of the table related to the provided parameter if the user has access to the related database's workspace. The response is paginated by a page/size style. It is also possible to provide an optional search query, only rows where the data matches the search query are going to be returned then. The properties of the returned rows depends on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the exampl"
+        },
+        {
+          "info": {
+            "name": "create_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "If provided then the newly created row will be positioned before the row with the provided id."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a row in the table related to the provided value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause this endpoint to expect and return the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the row is created in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** to list them all. None of the fields are required, if they are not provided the value is going to be `null` or `false` or some default value is that is set. If you want to add a value for the field with for example id `10`, the key must be named `field_10`. Or inste"
+        },
+        {
+          "info": {
+            "name": "get_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optionally include row's `metadata` in the response. The `metadata` object includes extra row specific data like the 'row_comments_notification_mode' settings, if available."
+              },
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the row related the provided value."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the row of the table related to the provided value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause the returned JSON to use the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the row if fetched in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches an existing row from the table if the user has access to the related table's workspace. The properties of the returned row depend on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the example all field types are listed, but normally the number in field_{id} key is going to be the id of the field of the field. Or if the GET parameter `user_field_names` is provided then the keys will be the name of the fiel"
+        },
+        {
+          "info": {
+            "name": "update_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the row related to the value."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the row in the table related to the value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause this endpoint to expect and return the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the row is updated in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. None of the fields are required, if they are not provided the value is not going to be updated. When you want to update a value for the field with id `10`, the key must be named `field_10`. Or if the GET parameter `user_field_names` "
+        },
+        {
+          "info": {
+            "name": "delete_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the row related to the value."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the row in the table related to the value."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the row is deleted in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an existing row in the table if the user has access to the table's workspace."
+        },
+        {
+          "info": {
+            "name": "get_adjacent_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/adjacent/",
+            "params": [
+              {
+                "name": "previous",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter which if provided returns theprevious row to the specified row_id. If it's not setit will return the next row."
+              },
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the row adjacent the provided value."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided, the adjacent row will be one that matchesthe search query."
+              },
+              {
+                "name": "search_mode",
+                "value": "",
+                "type": "query",
+                "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the row of the table related to the provided value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause the returned JSON to use the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view_id",
+                "value": "",
+                "type": "query",
+                "description": "Applies the filters and sorts of the provided view."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches the adjacent row to a given row_id in the table with the given table_id. If the previous flag is set it will return the previous row, otherwise it will return the next row. You can specifya view_id and it will apply the filters and sorts of the provided view."
+        },
+        {
+          "info": {
+            "name": "get_database_table_row_history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/history/",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of row change history entries to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The offset of the row change history entries to return."
+              },
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the row to fetch the change history from."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the table to fetch the row change history from."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetches the row change history of a given row_id in the table with the given table_id. The row change history is paginated and can be limited with the limit and offset query parameters."
+        },
+        {
+          "info": {
+            "name": "move_database_table_row",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/:row_id/move/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "before_id",
+                "value": "",
+                "type": "query",
+                "description": "Moves the row related to the given `row_id` before the row related to the provided value. If not provided, then the row will be moved to the end."
+              },
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "Moves the row related to the value."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Moves the row in the table related to the value."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause the returned JSON to use the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Moves the row related to given `row_id` parameter to another position. It is only possible to move the row before another existing row or to the end. If the `before_id` is provided then the row related to the `row_id` parameter is moved before that row. If the `before_id` parameter is not provided, then the row will be moved to the end."
+        },
+        {
+          "info": {
+            "name": "batch_create_database_table_rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/batch/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "If provided then the newly created rows will be positioned before the row with the provided id."
+              },
+              {
+                "name": "include_metadata",
+                "value": "",
+                "type": "query",
+                "description": "if provided, this will include `metadata` key containing operation metadata information in the response. Metadata will include a list of field ids, that were changed during the operation. The list will be stored in `update_field_ids` key in `metadata` object. Also, metadata object will include `cascade_update` key with a list of rows updated in cascade, and a list of field ids that were updated in cascade update."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates the rows in the table."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause this endpoint to expect and return the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the rows are created in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates new rows in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** to list them all. None of the fields are required, if they are not provided the value is going to be `null` or `false` or some default value is that is set. If you want to add a value for the field with for example id `10`, the key must be named `field_10`. Or instea"
+        },
+        {
+          "info": {
+            "name": "batch_update_database_table_rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/batch/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "include_metadata",
+                "value": "",
+                "type": "query",
+                "description": "if provided, this will include `metadata` key containing operation metadata information in the response. Metadata will include a list of field ids, that were changed during the operation. The list will be stored in `update_field_ids` key in `metadata` object. Also, metadata object will include `cascade_update` key with a list of rows updated in cascade, and a list of field ids that were updated in cascade update."
+              },
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the rows in the table."
+              },
+              {
+                "name": "user_field_names",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that, if provided with one of the following values: `y`, `yes`, `true`, `t`, `on`, `1`, or an empty value, will cause this endpoint to expect and return the user-specified field names instead of the internal Baserow field names (e.g., field_123)."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the rows are updated in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates existing rows in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. None of the fields are required, if they are not provided the value is not going to be updated. When you want to update a value for the field with id `10`, the key must be named `field_10`. Or if the GET parameter `user_field_names` is"
+        },
+        {
+          "info": {
+            "name": "batch_delete_database_table_rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/rows/table/:table_id/batch-delete/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "send_webhook_events",
+                "value": "",
+                "type": "query",
+                "description": "A flag query parameter that triggers webhooks after the operation, if set to `y`, `yes`, `true`, `t`, `on`, `1`, or left empty. Defaults to `true`"
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the rows in the table related to the value."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Provide if the rows are deleted in a view. This can result in different permission checking and default values."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes existing rows in the table if the user has access to the table's workspace.\n\n **WARNING:**  This endpoint doesn't yet work with row deleted webhooks."
+        },
+        {
+          "info": {
+            "name": "get_row_comments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/row_comments/:table_id/:row_id/",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many rows should be returned."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Can only be used in combination with the `limit` parameter and defines from which offset the rows should be returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page of rows should be returned. Either the `page` or `limit` can be provided, not both."
+              },
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "The row to get row comments for."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Can only be used in combination with the `page` parameter and defines how many rows should be returned."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table the row is in."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Optionally provide a view id. If the user doesn't have table-level permissions, the system will check if the user has view-level permissions as a fallback."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all row comments for the specified table and row.\n\nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "create_row_comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/row_comments/:table_id/:row_id/",
+            "params": [
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "The row to create a comment for."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table to find the row to comment on in."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Optionally provide a view id. If the user doesn't have table-level permissions, the system will check if the user has view-level permissions as a fallback."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a comment on the specified row.\n\nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "update_row_comment_notification_mode",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/row_comments/:table_id/:row_id/notification-mode/",
+            "params": [
+              {
+                "name": "row_id",
+                "value": "",
+                "type": "path",
+                "description": "The row on which to manage the comment subscription."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table id where the row is in."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Optionally provide a view id. If the user doesn't have table-level permissions, the system will check if the user has view-level permissions as a fallback."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the user's notification preferences for comments made on a specified table row.\n\nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "update_row_comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/row_comments/:table_id/comment/:comment_id/",
+            "params": [
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "The row comment to update."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table the row is in."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Optionally provide a view id. If the user doesn't have table-level permissions, the system will check if the user has view-level permissions as a fallback."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a row comment.\n\nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "delete_row_comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/row_comments/:table_id/comment/:comment_id/",
+            "params": [
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "The row comment to delete."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table the row is in."
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Optionally provide a view id. If the user doesn't have table-level permissions, the system will check if the user has view-level permissions as a fallback."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a row comment.\n\nThis is a **premium** feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

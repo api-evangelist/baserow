@@ -1,0 +1,386 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table fields API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_database_table_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/",
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the field related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing field if the authorized user has access to the related database's workspace. Depending on the type different properties could be returned."
+        },
+        {
+          "info": {
+            "name": "update_database_table_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the field related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing field if the authorized user has access to the related database's workspace. The type can also be changed and depending on that type, different additional properties can optionally be set. If you change the field type it could happen that the data conversion fails, in that case the `ERROR_CANNOT_CHANGE_FIELD_TYPE` is returned, but this rarely happens. If a data value cannot be converted it is set to `null` so data might go lost.If updated the field causes other fields to cha"
+        },
+        {
+          "info": {
+            "name": "delete_database_table_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the field related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing field if the authorized user has access to the related database's workspace. Note that all the related data to that field is also deleted. Primary fields cannot be deleted because their value represents the row. If deleting the field causes other fields to change then the specificinstances of those fields will be included in the related fields response key."
+        },
+        {
+          "info": {
+            "name": "duplicate_table_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/duplicate/async/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "The field to duplicate."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Duplicates the table with the provided `table_id` parameter if the authorized user has access to the database's workspace."
+        },
+        {
+          "info": {
+            "name": "generate_table_ai_field_value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/generate-ai-field-values/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "The field to generate the value for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Endpoint that's used by the AI field to start an sync task that will update the cell value of the provided row IDs based on the dynamically constructed prompt configured in the field settings. \nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "get_database_field_unique_row_values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/fields/:field_id/unique_row_values/",
+            "params": [
+              {
+                "name": "field_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the values related to the provided field."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many values should be returned."
+              },
+              {
+                "name": "split_comma_separated",
+                "value": "",
+                "type": "query",
+                "description": "Indicates whether the original column values must be splitted by comma."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all the unique row values for an existing field, sorted in order of frequency."
+        },
+        {
+          "info": {
+            "name": "password_field_authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/password-authentication/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Checks if the provided password and row matches what is stored in the cell. The field must have `allow_endpoint_authentication` set to `true` in order to work."
+        },
+        {
+          "info": {
+            "name": "list_database_table_fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/fields/table/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the fields of the table related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the fields of the table related to the provided parameter if the user has access to the related database's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible. A table consists of fields and each field can have a different type. Each type can have different properties. A field is comparable with a regular table's column."
+        },
+        {
+          "info": {
+            "name": "create_database_table_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/table/:table_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a new field for the provided table related to the value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new field for the table related to the provided `table_id` parameter if the authorized user has access to the related database's workspace. Depending on the type, different properties can optionally be set.If creating the field causes other fields to change then the specificinstances of those fields will be included in the related fields response key."
+        },
+        {
+          "info": {
+            "name": "change_primary_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/table/:table_id/change-primary-field/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table where to update the primary field in."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Changes the primary field of a table to the one provided in the body payload."
+        },
+        {
+          "info": {
+            "name": "generate_formula_with_ai",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/fields/table/:table_id/generate-ai-formula/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table to generate the formula for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint generates a Baserow formula for the table related to the provided id, based on the human readable input provided in the request body.\nThis is a **premium** feature."
+        },
+        {
+          "info": {
+            "name": "type_formula_field",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/formula/:table_id/type/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table id of the formula field to type."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Calculates and returns the type of the specified formula value. Does not change the state of the field in any way."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

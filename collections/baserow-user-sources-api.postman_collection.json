@@ -1,0 +1,2871 @@
+{
+  "item": [
+    {
+      "id": "17c99c68-58cf-4aec-a769-8147eed6d928",
+      "name": "User sources",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "47d475e2-1606-452c-80fc-41d84c7be335",
+          "name": "list application user source users",
+          "request": {
+            "name": "list application user source users",
+            "description": {
+              "content": "List per user sources the first 5 users available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "application",
+                ":application_id",
+                "list-user-source-users",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) The application we want the users for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dda05447-fc1b-47f9-9045-f7ffbed5b853",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "list-user-source-users",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) The application we want the users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users_per_user_sources\": {\n    \"key_0\": [\n      {\n        \"email\": \"5unOP@vXqTKfbdr.hfw\",\n        \"id\": 5688,\n        \"role\": \"string\",\n        \"user_source_id\": 6105,\n        \"username\": \"string\"\n      },\n      {\n        \"email\": \"vD5k5@CWyfoovXnpqIYhicWwCpkaS.jrp\",\n        \"id\": 7744,\n        \"role\": \"string\",\n        \"user_source_id\": 2553,\n        \"username\": \"string\"\n      }\n    ],\n    \"key_1\": [\n      {\n        \"email\": \"LoOBRZWDM@lcqoiRbqXAFJerhJISLEarIvxgKChvMnT.rw\",\n        \"id\": 345,\n        \"role\": \"string\",\n        \"user_source_id\": 5166,\n        \"username\": \"string\"\n      },\n      {\n        \"email\": \"iEE2kV8@hsRTCQLfWKkbZqQtkdBlESMqCU.nfj\",\n        \"id\": 8967,\n        \"role\": \"string\",\n        \"user_source_id\": 4513,\n        \"username\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f404960-6ffe-4e1d-a14b-02c00d83391a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "list-user-source-users",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) The application we want the users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d9e272f-617e-430f-ae15-23b318cb9b18",
+          "name": "list application user sources",
+          "request": {
+            "name": "list application user sources",
+            "description": {
+              "content": "Lists all the user_sources of the application related to the provided parameter if the user has access to the related application's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "application",
+                ":application_id",
+                "user-sources",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Returns only the user_sources of the application related to the provided Id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5754382b-b109-4905-b95e-487c0e513b33",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "user-sources",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Returns only the user_sources of the application related to the provided Id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"application_id\": 271,\n    \"id\": 3821,\n    \"integration_id\": 4832,\n    \"name\": \"string\",\n    \"order\": \"49321648535612261.\",\n    \"type\": \"string\",\n    \"uid\": \"string\",\n    \"user_count\": 9524,\n    \"user_count_updated_at\": \"1958-08-08T04:24:21.494Z\",\n    \"auth_providers\": [\n      {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"domain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password_field_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"domain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password_field_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"table_id\": 9061,\n    \"email_field_id\": 3429,\n    \"name_field_id\": 7381,\n    \"role_field_id\": 6067\n  },\n  {\n    \"application_id\": 8765,\n    \"id\": 6558,\n    \"integration_id\": 4094,\n    \"name\": \"string\",\n    \"order\": \"352653056584987\",\n    \"type\": \"string\",\n    \"uid\": \"string\",\n    \"user_count\": 5060,\n    \"user_count_updated_at\": \"1973-08-05T21:48:20.854Z\",\n    \"auth_providers\": [\n      {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"domain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password_field_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"domain\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password_field_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"table_id\": 2319,\n    \"email_field_id\": 1733,\n    \"name_field_id\": 5049,\n    \"role_field_id\": 9112\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f329147-0c8c-492b-b395-51b5b2c48046",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "user-sources",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Returns only the user_sources of the application related to the provided Id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35ac1a38-2b59-4e56-b5d0-828a4e7867ef",
+          "name": "create application user source",
+          "request": {
+            "name": "create application user source",
+            "description": {
+              "content": "Creates a new user_source",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "application",
+                ":application_id",
+                "user-sources",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Creates an user_source for the application related to the provided value."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "integration_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "before_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_providers",
+                  "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_providers",
+                  "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "table_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_field_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_field_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "role_field_id",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b8406c0a-7fb4-4275-8da5-9553dd8be0eb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "user-sources",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Creates an user_source for the application related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "before_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"application_id\": 1002,\n  \"id\": 9891,\n  \"integration_id\": 5914,\n  \"name\": \"string\",\n  \"order\": \"-715.87478816\",\n  \"type\": \"string\",\n  \"uid\": \"string\",\n  \"user_count\": 8206,\n  \"user_count_updated_at\": \"1951-12-12T16:01:31.526Z\",\n  \"auth_providers\": [\n    {\n      \"id\": 7207,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4539\n    },\n    {\n      \"id\": 3347,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4100\n    }\n  ],\n  \"table_id\": 9814,\n  \"email_field_id\": 1821,\n  \"name_field_id\": 4385,\n  \"role_field_id\": 7522\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e8af269-3d47-4fd1-b3ee-7dd129da0c46",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "user-sources",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Creates an user_source for the application related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "before_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d00e9761-b681-4a1a-b216-da75c3aae8f2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "application",
+                    ":application_id",
+                    "user-sources",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Creates an user_source for the application related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "before_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c8cadc8-7029-4dbb-b456-80fd2d7c4bd6",
+          "name": "user source token refresh",
+          "request": {
+            "name": "user source token refresh",
+            "description": {
+              "content": "Generate a new access_token that can be used to continue operating on Baserow with a user source user starting from a valid refresh token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source-auth-refresh",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "938eb15b-d76b-470a-86ea-6c38820cc9d6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source-auth-refresh",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c97eddf2-bc5a-45e5-92d6-f6b2f4132d35",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source-auth-refresh",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29d0fd8b-0afb-4a88-994a-e53b0548deac",
+          "name": "user source token blacklist",
+          "request": {
+            "name": "user source token blacklist",
+            "description": {
+              "content": "Blacklists the provided user source token. This can be used the sign the user off.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source-token-blacklist",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "refresh",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8007724a-8a6b-44e4-bcab-2559fc76225a",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source-token-blacklist",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb84407b-e2f0-4dd5-ba40-ed41ecbcf04d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source-token-blacklist",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "refresh",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5446649c-2436-408c-89c8-b8911a8f9027",
+          "name": "update application user source",
+          "request": {
+            "name": "update application user source",
+            "description": {
+              "content": "Updates an existing user_source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_id",
+                  "description": "(Required) The id of the user_source"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "integration_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_providers",
+                  "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "auth_providers",
+                  "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                },
+                {
+                  "disabled": false,
+                  "key": "table_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "email_field_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name_field_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "role_field_id",
+                  "value": "<integer>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa2a4749-3497-4b74-80a3-44270dde583b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"application_id\": 1002,\n  \"id\": 9891,\n  \"integration_id\": 5914,\n  \"name\": \"string\",\n  \"order\": \"-715.87478816\",\n  \"type\": \"string\",\n  \"uid\": \"string\",\n  \"user_count\": 8206,\n  \"user_count_updated_at\": \"1951-12-12T16:01:31.526Z\",\n  \"auth_providers\": [\n    {\n      \"id\": 7207,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4539\n    },\n    {\n      \"id\": 3347,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4100\n    }\n  ],\n  \"table_id\": 9814,\n  \"email_field_id\": 1821,\n  \"name_field_id\": 4385,\n  \"role_field_id\": 7522\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "729f4c1a-5ccb-47db-a736-b12d6f0cf20e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfb15e08-22f8-4cc7-9e9a-d0a14bc0428c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "integration_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "auth_providers",
+                      "value": "{\"type\":{\"description\":\"The type of the app_auth_provider.\\n\\n* `local_baserow_password` - local_baserow_password\\n* `saml` - saml\\n* `openid_connect` - openid_connect\",\"value\":\"<Error: Too many levels of nesting to fake this schema>\"},\"domain\":\"<string>\",\"password_field_id\":\"<integer>\"}"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "table_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "email_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "name_field_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "role_field_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9392226e-279a-4c6a-986d-76f21e9c0046",
+          "name": "delete application user source",
+          "request": {
+            "name": "delete application user source",
+            "description": {
+              "content": "Deletes the user_source related by the given id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_id",
+                  "description": "(Required) The id of the user_source"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b26326a4-ced4-4201-9284-291ff1601742",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9513ea47-99e3-4508-8760-19322eb46838",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b84cea1d-5d74-4604-a1af-503671e2f204",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e243786-3d8b-405b-a277-f4f8a3da278a",
+          "name": "user source force token auth",
+          "request": {
+            "name": "user source force token auth",
+            "description": {
+              "content": "Force authenticates an existing user based on their ID. If successful, an access token and a refresh token will be returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_id",
+                "force-token-auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_id",
+                  "description": "(Required) The user source to use to authenticate the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "58e63c45-eb5d-451f-9e63-f1980828737c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "force-token-auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The user source to use to authenticate the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abd4ad5b-d53b-431f-9487-241b68f1217c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "force-token-auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The user source to use to authenticate the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a6a6633-003a-42f4-903a-687d4bfc0bf8",
+          "name": "move application user source",
+          "request": {
+            "name": "move application user source",
+            "description": {
+              "content": "Moves the user_source in the application before another user_source or at the end of the application if no before user_source is given. The user_sources must belong to the same application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_id",
+                "move",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_id",
+                  "description": "(Required) The id of the user_source to move"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                "key": "ClientSessionId",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "before_id",
+                  "value": "<integer>",
+                  "description": "If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7b8eae0f-0945-4873-8ff4-a05bf4654700",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "move",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source to move"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page.",
+                        "type": "text/plain"
+                      },
+                      "key": "before_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"application_id\": 1002,\n  \"id\": 9891,\n  \"integration_id\": 5914,\n  \"name\": \"string\",\n  \"order\": \"-715.87478816\",\n  \"type\": \"string\",\n  \"uid\": \"string\",\n  \"user_count\": 8206,\n  \"user_count_updated_at\": \"1951-12-12T16:01:31.526Z\",\n  \"auth_providers\": [\n    {\n      \"id\": 7207,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4539\n    },\n    {\n      \"id\": 3347,\n      \"type\": \"string\",\n      \"domain\": \"string\",\n      \"password_field_id\": 4100\n    }\n  ],\n  \"table_id\": 9814,\n  \"email_field_id\": 1821,\n  \"name_field_id\": 4385,\n  \"role_field_id\": 7522\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a4dc3f8-fda7-4b4a-9bb7-7bb26a18fd0f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "move",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source to move"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page.",
+                        "type": "text/plain"
+                      },
+                      "key": "before_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_SOURCE_NOT_IN_SAME_APPLICATION\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c47f8bd7-6c53-4fc9-bee4-5e6b0c415c13",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "move",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source to move"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                    "key": "ClientSessionId",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page.",
+                        "type": "text/plain"
+                      },
+                      "key": "before_id",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb763330-41ff-4307-b8ed-23ea54666548",
+          "name": "user source token auth",
+          "request": {
+            "name": "user source token auth",
+            "description": {
+              "content": "Authenticates an existing user against a user source based on their credentials. If successful, an access token and a refresh token will be returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_id",
+                "token-auth"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_id",
+                  "description": "(Required) The id of the user_source to move"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "password",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "username",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04f411f3-ba40-4155-b146-d7a6d2e3ec3f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "token-auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source to move"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6a2e23f-2799-41c6-aac3-96a03e7ab17e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_id",
+                    "token-auth"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_id",
+                      "description": "(Required) The id of the user_source to move"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "password",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "username",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ff598d4-fadb-4cfb-99dc-703bf1ec8091",
+          "name": "app auth oidc login callback",
+          "request": {
+            "name": "app auth oidc login callback",
+            "description": {
+              "content": "Processes callback from OAuth2 provider and logs the user in if successful.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_uid",
+                "sso",
+                "oauth2",
+                "openid_connect",
+                "callback",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "The code returned by the IDP."
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "The oauth state returned by the IDP."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_uid",
+                  "description": "(Required) The uid of the user source for which to process the callback."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16bef9ea-a4e7-41fa-837c-c297abbd117e",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_uid",
+                    "sso",
+                    "oauth2",
+                    "openid_connect",
+                    "callback",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_uid",
+                      "description": "(Required) The uid of the user source for which to process the callback."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99ba59b8-2303-4c7b-9989-c46671e81b3c",
+          "name": "app auth oidc login redirect",
+          "request": {
+            "name": "app auth oidc login redirect",
+            "description": {
+              "content": "Redirects to the OAuth2 provider's authentication URL based on the provided user source uid and issuer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_uid",
+                "sso",
+                "oauth2",
+                "openid_connect",
+                "login",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "iss",
+                  "value": "<string>",
+                  "description": "The issuer of the authentication."
+                },
+                {
+                  "disabled": false,
+                  "key": "original",
+                  "value": "<string>",
+                  "description": "The URL that the user wants to access."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "user_source_uid",
+                  "description": "(Required) The uid of the user source to use for authentication."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfab428a-9986-4127-a575-033923c77df2",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_uid",
+                    "sso",
+                    "oauth2",
+                    "openid_connect",
+                    "login",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "iss",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "original",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "user_source_uid",
+                      "description": "(Required) The uid of the user source to use for authentication."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95d17f3c-3905-4739-a256-9a0c990f32b0",
+          "name": "app auth provider saml sp login",
+          "request": {
+            "name": "app auth provider saml sp login",
+            "description": {
+              "content": "This is the endpoint that is called when the user wants to initiate a SSO SAML login from Baserow (the service provider). The user will be redirected to the SAML identity provider (IdP) where the user can authenticate. Once logged in in the IdP, the user will be redirected back to the assertion consumer service endpoint (ACS) where the SAML response will be validated and a new JWT session token will be provided to work with Baserow APIs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                ":user_source_uid",
+                "sso",
+                "saml",
+                "login",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<string>",
+                  "description": "The email address of the user that want to sign in using SAML."
+                },
+                {
+                  "disabled": false,
+                  "key": "original",
+                  "value": "<string>",
+                  "description": "The url to which the user should be redirected after a successful login or sign up."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_source_uid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ae2df55-e493-4b4d-834d-86b29e0eca04",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    ":user_source_uid",
+                    "sso",
+                    "saml",
+                    "login",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "original",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_source_uid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad214f82-99c6-457d-aebe-bfd2790b7256",
+          "name": "auth provider saml acs url 2",
+          "request": {
+            "name": "auth provider saml acs url 2",
+            "description": {
+              "content": "Complete the SAML authentication flow by validating the SAML response. Sign in the user if already exists in the user source or create a new one otherwise.Once authenticated, the user will be redirected to the original URL they were trying to access. If the response is invalid, the user will be redirected to an error page with a specific error message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "user-source",
+                "sso",
+                "saml",
+                "acs",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "RelayState",
+                  "value": "<string>",
+                  "description": "(Required) The frontend URL where redirect the authenticated user."
+                },
+                {
+                  "disabled": false,
+                  "key": "SAMLResponse",
+                  "value": "<string>",
+                  "description": "(Required) The encoded SAML response from the IdP."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "875fa449-f04f-4d8d-b99d-bd9f3c785560",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "user-source",
+                    "sso",
+                    "saml",
+                    "acs",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The frontend URL where redirect the authenticated user.",
+                        "type": "text/plain"
+                      },
+                      "key": "RelayState",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The encoded SAML response from the IdP.",
+                        "type": "text/plain"
+                      },
+                      "key": "SAMLResponse",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7f7950dc-6582-4f3f-8aea-6619e39d90c6",
+    "name": "Baserow API spec Admin User sources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

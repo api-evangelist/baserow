@@ -1,0 +1,221 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Builder elements API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Builder elements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_public_builder_page_elements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/domains/published/page/:page_id/elements/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the elements of the page related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the elements of the page related to the provided parameter. If the user is Anonymous, the page must belong to a published builder instance to being accessible."
+        },
+        {
+          "info": {
+            "name": "update_builder_page_element",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/builder/element/:element_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "element_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the element"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing builder element."
+        },
+        {
+          "info": {
+            "name": "delete_builder_page_element",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/builder/element/:element_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "element_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the element"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the element related by the given id."
+        },
+        {
+          "info": {
+            "name": "duplicate_builder_page_element",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/element/:element_id/duplicate/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "element_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the element to duplicate"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Duplicates an element and all of the elements children and the associated workflow actions as well."
+        },
+        {
+          "info": {
+            "name": "move_builder_page_element",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/builder/element/:element_id/move/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "element_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the element to move"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Moves the element in the page before another element or at the end of the page if no before element is given. The elements must belong to the same page."
+        },
+        {
+          "info": {
+            "name": "list_builder_page_elements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/elements/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the elements of the page related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the elements of the page related to the provided parameter if the user has access to the related builder's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+        },
+        {
+          "info": {
+            "name": "create_builder_page_element",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/elements/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates an element for the builder page related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new builder element"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

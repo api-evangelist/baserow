@@ -1,0 +1,540 @@
+{
+  "item": [
+    {
+      "id": "eb50efd4-171d-4502-bd51-1c633dcfe326",
+      "name": "Settings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b608ce12-9943-472d-9cf7-0e521fc753a7",
+          "name": "get settings",
+          "request": {
+            "name": "get settings",
+            "description": {
+              "content": "Responds with all the admin configured settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "settings",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c10fc5d3-9f00-4140-a3d2-367912c4e132",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "settings",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allow_new_signups\": true,\n  \"allow_signups_via_workspace_invitations\": true,\n  \"allow_reset_password\": true,\n  \"allow_global_workspace_creation\": false,\n  \"account_deletion_grace_delay\": 32480,\n  \"show_admin_signup_page\": true,\n  \"track_workspace_usage\": true,\n  \"show_baserow_help_request\": true,\n  \"co_branding_logo\": {\n    \"name\": \"string\",\n    \"original_name\": \"string\",\n    \"size\": 7198815311810940000,\n    \"thumbnails\": {\n      \"key_0\": {}\n    },\n    \"uploaded_at\": \"1999-12-20T13:10:28.610Z\",\n    \"url\": \"https://AVYkrTQYpwOlnFmWqkSdXKiuYztlVb.rzttA89dt9irF.7NioPbgwXNXeFgm8SNwM5BFyLkTRjDlQuwGl\",\n    \"mime_type\": \"string\",\n    \"is_image\": true,\n    \"image_width\": 1748440875,\n    \"image_height\": 257224037\n  },\n  \"email_verification\": \"recommended\",\n  \"verify_import_signature\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b706e57a-7052-4ae0-a233-d1c3dc688a21",
+          "name": "get instance id",
+          "request": {
+            "name": "get instance id",
+            "description": {
+              "content": "Responds with the self hosted instance id. Only a user with staff permissions can request it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "settings",
+                "instance-id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "617fabb4-eae4-43ad-8fd6-25969e3b7461",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "settings",
+                    "instance-id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instance_id\": \"BRlwUuVqCt\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae4653c0-27ca-4e97-aa82-58353a21a99b",
+          "name": "update settings",
+          "request": {
+            "name": "update settings",
+            "description": {
+              "content": "Updates the admin configured settings if the user has admin permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "settings",
+                "update",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "allow_new_signups",
+                  "value": "<boolean>",
+                  "description": "Indicates whether new users can create a new account when signing up."
+                },
+                {
+                  "disabled": false,
+                  "key": "allow_signups_via_workspace_invitations",
+                  "value": "<boolean>",
+                  "description": "Indicates whether invited users can create an account when signing up, even if allow_new_signups is disabled."
+                },
+                {
+                  "disabled": false,
+                  "key": "allow_reset_password",
+                  "value": "<boolean>",
+                  "description": "Indicates whether users can request a password reset link."
+                },
+                {
+                  "disabled": false,
+                  "key": "allow_global_workspace_creation",
+                  "value": "<boolean>",
+                  "description": "Indicates whether all users can create workspaces, or just staff."
+                },
+                {
+                  "disabled": false,
+                  "key": "account_deletion_grace_delay",
+                  "value": "<integer>",
+                  "description": "Number of days after the last login for an account pending deletion to be deleted"
+                },
+                {
+                  "disabled": false,
+                  "key": "show_admin_signup_page",
+                  "value": "<boolean>",
+                  "description": "Indicates that there are no admin users in the database yet, so in the frontend the signup form will be shown instead of the login page."
+                },
+                {
+                  "disabled": false,
+                  "key": "track_workspace_usage",
+                  "value": "<boolean>",
+                  "description": "Runs a job once per day which calculates per workspace row counts and file storage usage, displayed on the admin workspace page."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_baserow_help_request",
+                  "value": "<boolean>",
+                  "description": "Indicates whether the `We need your help!` message will be shown on the dashboard"
+                },
+                {
+                  "disabled": false,
+                  "key": "original_name",
+                  "value": "<string>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<long>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "mime_type",
+                  "value": "<string>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "is_image",
+                  "value": "<boolean>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_width",
+                  "value": "<integer>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "image_height",
+                  "value": "<integer>",
+                  "description": "Co-branding logo that's placed next to the Baserow logo (176x29)."
+                },
+                {
+                  "disabled": false,
+                  "key": "email_verification",
+                  "value": "<string>",
+                  "description": "Controls whether user email addresses have to be verified.\n\n* `no_verification` - no_verification\n* `recommended` - recommended\n* `enforced` - enforced"
+                },
+                {
+                  "disabled": false,
+                  "key": "verify_import_signature",
+                  "value": "<boolean>",
+                  "description": "Indicates whether the signature of imported files should be verified."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "501e17a7-08a7-46a7-be9d-81ae5d6a27b7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "settings",
+                    "update",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether new users can create a new account when signing up.",
+                        "type": "text/plain"
+                      },
+                      "key": "allow_new_signups",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether invited users can create an account when signing up, even if allow_new_signups is disabled.",
+                        "type": "text/plain"
+                      },
+                      "key": "allow_signups_via_workspace_invitations",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether users can request a password reset link.",
+                        "type": "text/plain"
+                      },
+                      "key": "allow_reset_password",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether all users can create workspaces, or just staff.",
+                        "type": "text/plain"
+                      },
+                      "key": "allow_global_workspace_creation",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Number of days after the last login for an account pending deletion to be deleted",
+                        "type": "text/plain"
+                      },
+                      "key": "account_deletion_grace_delay",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates that there are no admin users in the database yet, so in the frontend the signup form will be shown instead of the login page.",
+                        "type": "text/plain"
+                      },
+                      "key": "show_admin_signup_page",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Runs a job once per day which calculates per workspace row counts and file storage usage, displayed on the admin workspace page.",
+                        "type": "text/plain"
+                      },
+                      "key": "track_workspace_usage",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether the `We need your help!` message will be shown on the dashboard",
+                        "type": "text/plain"
+                      },
+                      "key": "show_baserow_help_request",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "original_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "size",
+                      "value": "<long>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "mime_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "is_image",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "image_width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Co-branding logo that's placed next to the Baserow logo (176x29).",
+                        "type": "text/plain"
+                      },
+                      "key": "image_height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Controls whether user email addresses have to be verified.\n\n* `no_verification` - no_verification\n* `recommended` - recommended\n* `enforced` - enforced",
+                        "type": "text/plain"
+                      },
+                      "key": "email_verification",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates whether the signature of imported files should be verified.",
+                        "type": "text/plain"
+                      },
+                      "key": "verify_import_signature",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"allow_new_signups\": false,\n  \"allow_signups_via_workspace_invitations\": false,\n  \"allow_reset_password\": false,\n  \"allow_global_workspace_creation\": false,\n  \"account_deletion_grace_delay\": 12812,\n  \"show_admin_signup_page\": true,\n  \"track_workspace_usage\": true,\n  \"show_baserow_help_request\": true,\n  \"co_branding_logo\": {\n    \"original_name\": \"<string>\",\n    \"size\": \"<long>\",\n    \"mime_type\": \"<string>\",\n    \"is_image\": \"<boolean>\",\n    \"image_width\": \"<integer>\",\n    \"image_height\": \"<integer>\",\n    \"uploaded_at\": \"1981-03-21T08:35:55.785Z\",\n    \"url\": \"https://uzJTaTgcaxNKnNaNtbYAhcQSa.hflM1.v.gjUW-owLoLDuq6CmN7i7,LBo\",\n    \"thumbnails\": {\n      \"key_0\": {}\n    },\n    \"name\": \"string\"\n  },\n  \"email_verification\": \"<string>\",\n  \"verify_import_signature\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "918e19ee-ffa4-4e86-8fff-d54c9298b4d7",
+    "name": "Baserow API spec Admin Settings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

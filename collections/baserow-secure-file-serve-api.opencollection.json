@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Secure file serve API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Secure file serve",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "secure_file_serve_download",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/files/:signed_data",
+            "params": [
+              {
+                "name": "signed_data",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads a file using the backend and the secure file serve feature. The signed data is extracted from the URL and used to verify if the user has access to the file. If the permissions check passes and the file exists, the file is served to the user.\n\nThis is a **enterprise** feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

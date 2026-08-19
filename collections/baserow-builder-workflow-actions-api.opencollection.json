@@ -1,0 +1,221 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Builder workflow actions API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Builder workflow actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_public_builder_page_workflow_actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/domains/published/page/:page_id/workflow_actions/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the public workflow actions of the page related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the workflow actions with their public accessible data. Some configuration might be omitted for security reasons such as passwords or PII."
+        },
+        {
+          "info": {
+            "name": "list_builder_page_workflow_actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/workflow_actions/",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the workflow actions of the page related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the workflow actions of the page related to the provided parameter if the user has access to the related builder's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+        },
+        {
+          "info": {
+            "name": "create_builder_page_workflow_action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/workflow_actions/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a workflow action for the builder page related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new builder workflow action"
+        },
+        {
+          "info": {
+            "name": "order_builder_workflow_actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/page/:page_id/workflow_actions/order/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "The page the workflow actions belong to"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Apply a new order to the workflow actions of a page"
+        },
+        {
+          "info": {
+            "name": "update_builder_page_workflow_action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/builder/workflow_action/:workflow_action_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_action_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow action"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing builder workflow action."
+        },
+        {
+          "info": {
+            "name": "delete_builder_page_workflow_action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/builder/workflow_action/:workflow_action_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_action_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow action"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the workflow action related by the given id."
+        },
+        {
+          "info": {
+            "name": "dispatch_builder_page_workflow_action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/builder/workflow_action/:workflow_action_id/dispatch/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow_action_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the workflow_action you want to call the dispatch for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dispatches the service of the related workflow_action and returns the result."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

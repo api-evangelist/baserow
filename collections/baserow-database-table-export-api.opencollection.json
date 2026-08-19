@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table export API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_export_job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/export/:job_id/",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The job id to lookup information about."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns information such as export progress and state or the url of the exported file for the specified export job, only if the requesting user has access."
+        },
+        {
+          "info": {
+            "name": "export_table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/export/table/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The table id to create and start an export job for"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates and starts a new export job for a table given some exporter options. Returns an error if the requesting user does not have permissionsto view the table."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

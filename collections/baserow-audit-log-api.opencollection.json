@@ -1,0 +1,362 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Audit log API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "audit_log_list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/audit-log/",
+            "params": [
+              {
+                "name": "action_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by action type."
+              },
+              {
+                "name": "from_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "The ISO timestamp to filter the audit log entries from."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of audit log entries IDs to filter by. When provided, only audit log entries with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many audit log entries should be returned per page."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `user, workspace, type, timestamp, ip_address`. For example `sorts=-user,-workspace` will sort the audit log entries first by descending user and then ascending workspace. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error."
+              },
+              {
+                "name": "to_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "The ISO timestamp to filter the audit log entries to."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by user id."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by workspace id. This filter works only for the admin audit log."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all audit log entries for the given workspace id.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "audit_log_action_types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/audit-log/action-types/",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only action_types with name that match the query will be returned."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Return action types related to the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all distinct action types related to an audit log entry.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "async_audit_log_export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/admin/audit-log/export/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a job to export the filtered audit log to a CSV file.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "audit_log_users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/audit-log/users/",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of users IDs to filter by. When provided, only users with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only users with email that match the query will be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many users should be returned per page."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Return users belonging to the given workspace_id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all users that have performed an action in the audit log.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "audit_log_list_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/audit-log/",
+            "params": [
+              {
+                "name": "action_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by action type."
+              },
+              {
+                "name": "from_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "The ISO timestamp to filter the audit log entries from."
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of audit log entries IDs to filter by. When provided, only audit log entries with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many audit log entries should be returned per page."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `user, workspace, type, timestamp, ip_address`. For example `sorts=-user,-workspace` will sort the audit log entries first by descending user and then ascending workspace. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error."
+              },
+              {
+                "name": "to_timestamp",
+                "value": "",
+                "type": "query",
+                "description": "The ISO timestamp to filter the audit log entries to."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by user id."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter the audit log entries by workspace id. This filter works only for the admin audit log."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all audit log entries for the given workspace id.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "audit_log_action_types_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/audit-log/action-types/",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only action_types with name that match the query will be returned."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Return action types related to the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all distinct action types related to an audit log entry.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "async_audit_log_export_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/audit-log/export/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a job to export the filtered audit log to a CSV file.\n\nThis is a **enterprise** feature."
+        },
+        {
+          "info": {
+            "name": "audit_log_users_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/audit-log/users/",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of users IDs to filter by. When provided, only users with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only users with email that match the query will be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many users should be returned per page."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Return users belonging to the given workspace_id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all users that have performed an action in the audit log.\n\nThis is a **enterprise** feature."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

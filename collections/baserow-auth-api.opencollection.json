@@ -1,0 +1,349 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Auth API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_auth_providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/auth-provider/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all the available authentication providers."
+        },
+        {
+          "info": {
+            "name": "create_auth_provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/admin/auth-provider/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook."
+        },
+        {
+          "info": {
+            "name": "get_auth_provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/auth-provider/:auth_provider_id/",
+            "params": [
+              {
+                "name": "auth_provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The authentication provider id to fetch."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an authentication provider."
+        },
+        {
+          "info": {
+            "name": "update_auth_provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/auth-provider/:auth_provider_id/",
+            "params": [
+              {
+                "name": "auth_provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The authentication provider id to update."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook."
+        },
+        {
+          "info": {
+            "name": "delete_auth_provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/auth-provider/:auth_provider_id/",
+            "params": [
+              {
+                "name": "auth_provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The authentication provider id to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an authentication provider."
+        },
+        {
+          "info": {
+            "name": "list_auth_providers_login_options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/auth-provider/login-options/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists the available login options for the configured authentication providers."
+        },
+        {
+          "info": {
+            "name": "oauth_provider_login_callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sso/oauth2/callback/:provider_id/",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "The code returned by the IDP."
+              },
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the provider for which to process the callback."
+              }
+            ]
+          },
+          "docs": "Processes callback from OAuth2 provider and logs the user in if successful."
+        },
+        {
+          "info": {
+            "name": "oauth_provider_login_redirect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sso/oauth2/login/:provider_id/",
+            "params": [
+              {
+                "name": "original",
+                "value": "",
+                "type": "query",
+                "description": "The relative part of URL that the user wanted to access."
+              },
+              {
+                "name": "provider_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the provider for redirect."
+              },
+              {
+                "name": "workspace_invitation_token",
+                "value": "",
+                "type": "query",
+                "description": "The invitation token sent to the user to join a specific workspace."
+              }
+            ]
+          },
+          "docs": "Redirects to the OAuth2 provider's authentication URL based on the provided auth provider's id."
+        },
+        {
+          "info": {
+            "name": "auth_provider_saml_acs_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/sso/saml/acs/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete the SAML authentication flow by validating the SAML response. Sign in the user if already exists in Baserow or create a new one otherwise. Once authenticated, the user will be redirected to the original URL they were trying to access. If the response is invalid, the user will be redirected to an error page with a specific error message.It accepts the language code and the workspace invitation token as query parameters if provided."
+        },
+        {
+          "info": {
+            "name": "auth_provider_saml_sp_login",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sso/saml/login/",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The email address of the user that want to sign in using SAML."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB."
+              },
+              {
+                "name": "original",
+                "value": "",
+                "type": "query",
+                "description": "The url to which the user should be redirected after a successful login or sign up."
+              },
+              {
+                "name": "workspace_invitation_token",
+                "value": "",
+                "type": "query",
+                "description": "If provided and valid, the user accepts the workspace invitation and will have access to the workspace after login or signing up."
+              }
+            ]
+          },
+          "docs": "This is the endpoint that is called when the user wants to initiate a SSO SAML login from Baserow (the service provider). The user will be redirected to the SAML identity provider (IdP) where the user can authenticate. Once logged in in the IdP, the user will be redirected back to the assertion consumer service endpoint (ACS) where the SAML response will be validated and a new JWT session token will be provided to work with Baserow APIs."
+        },
+        {
+          "info": {
+            "name": "auth_provider_login_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/sso/saml/login-url/",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The email address of the user that want to sign in using SAML."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB."
+              },
+              {
+                "name": "original",
+                "value": "",
+                "type": "query",
+                "description": "The url to which the user should be redirected after a successful login."
+              },
+              {
+                "name": "workspace_invitation_token",
+                "value": "",
+                "type": "query",
+                "description": "If provided and valid, the user accepts the workspace invitation and will have access to the workspace after login or signing up."
+              }
+            ]
+          },
+          "docs": "Return the correct redirect_url to initiate the SSO SAML login. It needs an email address if multiple SAML providers are configured otherwise the only configured SAML provider signup URL will be returned."
+        },
+        {
+          "info": {
+            "name": "two_factor_auth_configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/two-factor-auth/configuration/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns two-factor auth configuration for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "configure_two_factor_auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/two-factor-auth/configuration/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configures two-factor authentication for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "disable_two_factor_auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/two-factor-auth/disable/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Disables two-factor authentication for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "verify_totp_auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/two-factor-auth/verify/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verifies TOTP two-factor authentication"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

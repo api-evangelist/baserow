@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin User files API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "upload_file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-files/upload-file/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Uploads a file to Baserow by uploading the file contents directly. A `file` multipart is expected containing the file contents."
+        },
+        {
+          "info": {
+            "name": "upload_via_url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-files/upload-via-url/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Uploads a file to Baserow by downloading it from the provided URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

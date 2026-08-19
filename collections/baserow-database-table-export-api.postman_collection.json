@@ -1,0 +1,637 @@
+{
+  "item": [
+    {
+      "id": "6500119e-65f3-40d4-a747-af811b4a93ba",
+      "name": "Database table export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5be10f99-7262-4fc2-a6e6-3b9a20e9ce9b",
+          "name": "get export job",
+          "request": {
+            "name": "get export job",
+            "description": {
+              "content": "Returns information such as export progress and state or the url of the exported file for the specified export job, only if the requesting user has access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "export",
+                ":job_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "job_id",
+                  "description": "(Required) The job id to lookup information about."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ff62e3c-1728-4ce1-8337-15227eecd653",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "export",
+                    ":job_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job_id",
+                      "description": "(Required) The job id to lookup information about."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2013-10-14T12:59:35.903Z\",\n  \"exporter_type\": \"string\",\n  \"id\": 8268,\n  \"state\": \"exporting\",\n  \"status\": \"string\",\n  \"url\": \"https://QzPoOcSfqmNRDNWnYk.qrrnUHGuLz\",\n  \"table\": 8131,\n  \"view\": 4616,\n  \"exported_file_name\": \"string\",\n  \"progress_percentage\": 9669.869713967946\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e1da85a-1a92-4ed9-9779-15998fde2306",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "export",
+                    ":job_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "job_id",
+                      "description": "(Required) The job id to lookup information about."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_EXPORT_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ab1c80d-8106-4e72-82db-3becdf474e45",
+          "name": "export table",
+          "request": {
+            "name": "export table",
+            "description": {
+              "content": "Creates and starts a new export job for a table given some exporter options. Returns an error if the requesting user does not have permissionsto view the table.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "export",
+                "table",
+                ":table_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "table_id",
+                  "description": "(Required) The table id to create and start an export job for"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "exporter_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "view_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "export_charset",
+                  "value": "utf-8"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "csv_column_separator",
+                  "value": ","
+                },
+                {
+                  "disabled": false,
+                  "key": "csv_include_header",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "655147ec-d08b-4c00-b5e0-020613142a19",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "export",
+                    "table",
+                    ":table_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "table_id",
+                      "description": "(Required) The table id to create and start an export job for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"2013-10-14T12:59:35.903Z\",\n  \"exporter_type\": \"string\",\n  \"id\": 8268,\n  \"state\": \"exporting\",\n  \"status\": \"string\",\n  \"url\": \"https://QzPoOcSfqmNRDNWnYk.qrrnUHGuLz\",\n  \"table\": 8131,\n  \"view\": 4616,\n  \"exported_file_name\": \"string\",\n  \"progress_percentage\": 9669.869713967946\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17902358-4b4f-44b3-9197-ca10d6a60593",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "export",
+                    "table",
+                    ":table_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "table_id",
+                      "description": "(Required) The table id to create and start an export job for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_VIEW_FILTER_TYPE_UNSUPPORTED_FIELD\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14e4d1ba-c151-4bd5-9431-4b6b816ea1bc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "export",
+                    "table",
+                    ":table_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "table_id",
+                      "description": "(Required) The table id to create and start an export job for"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "36c24812-28bc-4970-a0db-2e37243f1356",
+    "name": "Baserow API spec Admin Database table export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

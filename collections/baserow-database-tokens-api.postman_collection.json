@@ -1,0 +1,1327 @@
+{
+  "item": [
+    {
+      "id": "f876bc5b-000c-4dce-a5a1-a4ed6c123650",
+      "name": "Database tokens",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91ec84b5-52de-4f2c-a335-c2858dc80458",
+          "name": "list database tokens",
+          "request": {
+            "name": "list database tokens",
+            "description": {
+              "content": "Lists all the database tokens that belong to the authorized user. A token can be used to create, read, update and delete rows in the tables of the token's workspace. It only works on the tables if the token has the correct permissions. The **Database table rows** endpoints can be used for these operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31ee989d-88d0-4fc1-86df-1721abae5c0e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8357,\n    \"key\": \"string\",\n    \"name\": \"string\",\n    \"permissions\": {\n      \"create\": true,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": true\n    },\n    \"workspace\": 4772\n  },\n  {\n    \"id\": 8437,\n    \"key\": \"string\",\n    \"name\": \"string\",\n    \"permissions\": {\n      \"create\": true,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": true\n    },\n    \"workspace\": 477\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8998818d-10d8-43eb-95a1-2e3c74f54c94",
+          "name": "create database token",
+          "request": {
+            "name": "create database token",
+            "description": {
+              "content": "Creates a new database token for a given workspace and for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) The human readable name of the database token for the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace",
+                  "value": "<integer>",
+                  "description": "(Required) Only the tables of the workspace can be accessed."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5a598288-5612-4959-a51a-b3403712d8e4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The human readable name of the database token for the user.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only the tables of the workspace can be accessed.",
+                        "type": "text/plain"
+                      },
+                      "key": "workspace",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7a8f58e-6ea5-47e2-8780-6ca848efd167",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) The human readable name of the database token for the user.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only the tables of the workspace can be accessed.",
+                        "type": "text/plain"
+                      },
+                      "key": "workspace",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ef0591e-dde1-4747-b74d-9876ba638d97",
+          "name": "get database token",
+          "request": {
+            "name": "get database token",
+            "description": {
+              "content": "Returns the requested database token if it is owned by the authorized user andif the user has access to the related workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                ":token_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Returns the database token related to the provided value."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce35730d-81c3-4c8a-b32b-4d5fc2f252f8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Returns the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6edf3eb9-ab8f-4319-ac78-72067ea268e9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Returns the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73d9f419-46c2-4fe1-9670-0d12c3064b82",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Returns the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6659eb06-0902-4783-bf58-c2a3ec73eca5",
+          "name": "update database token",
+          "request": {
+            "name": "update database token",
+            "description": {
+              "content": "Updates the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                ":token_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Updates the database token related to the provided value."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "The human readable name of the database token for the user."
+                },
+                {
+                  "disabled": false,
+                  "key": "create",
+                  "value": "<boolean>",
+                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+                },
+                {
+                  "disabled": false,
+                  "key": "read",
+                  "value": "<boolean>",
+                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+                },
+                {
+                  "disabled": false,
+                  "key": "update",
+                  "value": "<boolean>",
+                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+                },
+                {
+                  "disabled": false,
+                  "key": "delete",
+                  "value": "<boolean>",
+                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
+                },
+                {
+                  "disabled": false,
+                  "key": "rotate_key",
+                  "value": "false",
+                  "description": "Indicates if a new key must be generated."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bd11118f-a0ed-4a41-814c-e01818d96831",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Updates the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The human readable name of the database token for the user.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "create",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "read",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "update",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "delete",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if a new key must be generated.",
+                        "type": "text/plain"
+                      },
+                      "key": "rotate_key",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abf2b0f3-8c4f-45ac-97db-f0c4fe62e40a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Updates the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The human readable name of the database token for the user.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "create",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "read",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "update",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "delete",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if a new key must be generated.",
+                        "type": "text/plain"
+                      },
+                      "key": "rotate_key",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_DATABASE_DOES_NOT_BELONG_TO_GROUP\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ae41cc9-e01a-460f-a927-49ce3df1dd02",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Updates the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "The human readable name of the database token for the user.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "create",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "read",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "update",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
+                        "type": "text/plain"
+                      },
+                      "key": "delete",
+                      "value": "true"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Indicates if a new key must be generated.",
+                        "type": "text/plain"
+                      },
+                      "key": "rotate_key",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b118c6c-09ae-433d-ba09-2876ded5533d",
+          "name": "delete database token",
+          "request": {
+            "name": "delete database token",
+            "description": {
+              "content": "Deletes the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                ":token_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Deletes the database token related to the provided value."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13d3bd9a-00ae-447b-bb73-35d57fe40d80",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Deletes the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26e0dcc4-0bf4-4fe5-85ef-5d91b3c8893d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Deletes the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ee9d643-4294-47e9-b031-0e25768b2c75",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Deletes the database token related to the provided value."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4301745d-0c51-4c95-9a55-3477c47e2226",
+          "name": "check database token",
+          "request": {
+            "name": "check database token",
+            "description": {
+              "content": "This endpoint check be used to check if the provided personal API token is valid. If returns a `200` response if so and a `403` is not. This can be used by integrations like Zapier or n8n to test if a token is valid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "tokens",
+                "check",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76d5296a-2bd1-404a-8b82-ec568bbe77b7",
+              "name": "No response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    "check",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "821384a6-6889-4da4-99dd-755cd12b28a8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "tokens",
+                    "check",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bfcc7064-984c-4d49-a691-307f9c81ec82",
+    "name": "Baserow API spec Admin Database tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

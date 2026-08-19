@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Database table webhooks API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database table webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_database_table_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the webhook related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the existing webhook if the authorized user has access to the related database workspace."
+        },
+        {
+          "info": {
+            "name": "update_database_table_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the webhook related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing view if the authorized user has access to the related database workspace."
+        },
+        {
+          "info": {
+            "name": "delete_database_table_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the webhook related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the existing webhook if the authorized user has access to the related database's workspace."
+        },
+        {
+          "info": {
+            "name": "list_database_table_webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only webhooks of the table related to this value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all webhooks of the table related to the provided `table_id` if the user has access to the related database workspace."
+        },
+        {
+          "info": {
+            "name": "create_database_table_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a webhook for the table related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new webhook for the table related to the provided `table_id` parameter if the authorized user has access to the related database workspace."
+        },
+        {
+          "info": {
+            "name": "test_call_database_table_webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/webhooks/table/:table_id/test-call/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the table that must be tested."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint triggers a test call based on the provided data if the user has access to the workspace related to the table. The test call will be made immediately and a copy of the request, response and status will be included in the response."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

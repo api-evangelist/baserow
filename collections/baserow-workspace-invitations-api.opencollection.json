@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Workspace invitations API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspace invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+            "params": [
+              {
+                "name": "workspace_invitation_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns the workspace invitation related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the requested workspace invitation if the authorized user has admin right to the related workspace"
+        },
+        {
+          "info": {
+            "name": "update_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+            "params": [
+              {
+                "name": "workspace_invitation_id",
+                "value": "",
+                "type": "path",
+                "description": "Updates the workspace invitation related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the existing workspace invitation related to the provided `workspace_invitation_id` param if the authorized user has admin rights to the related workspace."
+        },
+        {
+          "info": {
+            "name": "delete_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+            "params": [
+              {
+                "name": "workspace_invitation_id",
+                "value": "",
+                "type": "path",
+                "description": "Deletes the workspace invitation related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a workspace invitation if the authorized user has admin rights to the related workspace."
+        },
+        {
+          "info": {
+            "name": "accept_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/accept/",
+            "params": [
+              {
+                "name": "workspace_invitation_id",
+                "value": "",
+                "type": "path",
+                "description": "Accepts the workspace invitation related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Accepts a workspace invitation with the given id if the email address of the user matches that of the invitation."
+        },
+        {
+          "info": {
+            "name": "reject_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/reject/",
+            "params": [
+              {
+                "name": "workspace_invitation_id",
+                "value": "",
+                "type": "path",
+                "description": "Rejects the workspace invitation related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rejects a workspace invitation with the given id if the email address of the user matches that of the invitation."
+        },
+        {
+          "info": {
+            "name": "get_workspace_invitation_by_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/workspaces/invitations/token/:token/",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Returns the workspace invitation related to the provided token."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Responds with the serialized workspace invitation if an invitation with the provided token is found."
+        },
+        {
+          "info": {
+            "name": "list_workspace_invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only invitations that are in the workspace related to the provided value."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the workspace invitations of the workspace related to the provided `workspace_id` parameter if the authorized user has admin rights to that workspace."
+        },
+        {
+          "info": {
+            "name": "create_workspace_invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a workspace invitation to the workspace related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new workspace invitations for an email address if the authorized user has admin rights to the related workspace. An email containing a sign up link will be send to the user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

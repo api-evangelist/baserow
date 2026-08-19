@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Jobs API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/jobs/",
+            "params": [
+              {
+                "name": "generate_ai_values_field_id",
+                "value": "",
+                "type": "query",
+                "description": "**[Only for type='generate_ai_values']** Filter by the AI field ID."
+              },
+              {
+                "name": "job_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "states",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of job to filter for. Determines which additional filter fields are available.\n\n* `duplicate_application` - duplicate_application\n* `install_template` - install_template\n* `create_snapshot` - create_snapshot\n* `restore_snapshot` - restore_snapshot\n* `export_applications` - export_applications\n* `import_applications` - import_applications\n* `airtable` - airtable\n* `duplicate_table` - duplicate_table\n* `duplicate_field` - duplicate_field\n* `sync_data_sync_table` - sync_data_sync_table\n* `duplicate_page` - duplicate_page\n* `publish_domain` - publish_domain\n* `duplicate_automation_workflow` - duplicate_automation_workflow\n* `publish_automation_workflow` - publish_automation_workflow\n* `generate_ai_values` - generate_ai_values\n* `audit_log_export` - audit_log_export\n* `data_scan_result_export` - data_scan_result_export\n* `file_import` - file_import"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all existing jobs. Jobs are task executed asynchronously in the background. You can use the `get_job` endpoint to read the current progress of the job. The available query parameters depend on the job type selected via the `type` parameter. Each job type may support additional type-specific filter parameters."
+        },
+        {
+          "info": {
+            "name": "create_job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/jobs/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new job. This job runs asynchronously in the background and execute the task specific to the provided typeparameters. The `get_job` can be used to get the current state of the job."
+        },
+        {
+          "info": {
+            "name": "get_job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/jobs/:job_id/",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The job id to lookup information about."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the information related to the provided job id. This endpoint can for example be polled to get the state and progress of the job in real time."
+        },
+        {
+          "info": {
+            "name": "cancel_job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/jobs/:job_id/cancel/",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path",
+                "description": "The job id to cancel."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels a job. Note: you can cancel only a scheduled or a job that is already running. The user requesting must be the owner of the job to cancel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

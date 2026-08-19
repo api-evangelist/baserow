@@ -1,0 +1,379 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin User sources API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_application_user_source_users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/application/:application_id/list-user-source-users/",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "path",
+                "description": "The application we want the users for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List per user sources the first 5 users available."
+        },
+        {
+          "info": {
+            "name": "list_application_user_sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/application/:application_id/user-sources/",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the user_sources of the application related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the user_sources of the application related to the provided parameter if the user has access to the related application's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+        },
+        {
+          "info": {
+            "name": "create_application_user_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/application/:application_id/user-sources/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates an user_source for the application related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new user_source"
+        },
+        {
+          "info": {
+            "name": "user_source_token_refresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-source-auth-refresh/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a new access_token that can be used to continue operating on Baserow with a user source user starting from a valid refresh token."
+        },
+        {
+          "info": {
+            "name": "user_source_token_blacklist",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-source-token-blacklist/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Blacklists the provided user source token. This can be used the sign the user off."
+        },
+        {
+          "info": {
+            "name": "update_application_user_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/user-source/:user_source_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the user_source"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing user_source."
+        },
+        {
+          "info": {
+            "name": "delete_application_user_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/user-source/:user_source_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the user_source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the user_source related by the given id."
+        },
+        {
+          "info": {
+            "name": "user_source_force_token_auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-source/:user_source_id/force-token-auth",
+            "params": [
+              {
+                "name": "user_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The user source to use to authenticate the user."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Force authenticates an existing user based on their ID. If successful, an access token and a refresh token will be returned."
+        },
+        {
+          "info": {
+            "name": "move_application_user_source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/user-source/:user_source_id/move/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the user_source to move"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Moves the user_source in the application before another user_source or at the end of the application if no before user_source is given. The user_sources must belong to the same application."
+        },
+        {
+          "info": {
+            "name": "user_source_token_auth",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-source/:user_source_id/token-auth",
+            "params": [
+              {
+                "name": "user_source_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the user_source to move"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Authenticates an existing user against a user source based on their credentials. If successful, an access token and a refresh token will be returned."
+        },
+        {
+          "info": {
+            "name": "app_auth_oidc_login_callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user-source/:user_source_uid/sso/oauth2/openid_connect/callback/",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "The code returned by the IDP."
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "The oauth state returned by the IDP."
+              },
+              {
+                "name": "user_source_uid",
+                "value": "",
+                "type": "path",
+                "description": "The uid of the user source for which to process the callback."
+              }
+            ]
+          },
+          "docs": "Processes callback from OAuth2 provider and logs the user in if successful."
+        },
+        {
+          "info": {
+            "name": "app_auth_oidc_login_redirect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user-source/:user_source_uid/sso/oauth2/openid_connect/login/",
+            "params": [
+              {
+                "name": "iss",
+                "value": "",
+                "type": "query",
+                "description": "The issuer of the authentication."
+              },
+              {
+                "name": "original",
+                "value": "",
+                "type": "query",
+                "description": "The URL that the user wants to access."
+              },
+              {
+                "name": "user_source_uid",
+                "value": "",
+                "type": "path",
+                "description": "The uid of the user source to use for authentication."
+              }
+            ]
+          },
+          "docs": "Redirects to the OAuth2 provider's authentication URL based on the provided user source uid and issuer."
+        },
+        {
+          "info": {
+            "name": "app_auth_provider_saml_sp_login",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/user-source/:user_source_uid/sso/saml/login/",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query",
+                "description": "The email address of the user that want to sign in using SAML."
+              },
+              {
+                "name": "original",
+                "value": "",
+                "type": "query",
+                "description": "The url to which the user should be redirected after a successful login or sign up."
+              },
+              {
+                "name": "user_source_uid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This is the endpoint that is called when the user wants to initiate a SSO SAML login from Baserow (the service provider). The user will be redirected to the SAML identity provider (IdP) where the user can authenticate. Once logged in in the IdP, the user will be redirected back to the assertion consumer service endpoint (ACS) where the SAML response will be validated and a new JWT session token will be provided to work with Baserow APIs."
+        },
+        {
+          "info": {
+            "name": "auth_provider_saml_acs_url_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/user-source/sso/saml/acs/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete the SAML authentication flow by validating the SAML response. Sign in the user if already exists in the user source or create a new one otherwise.Once authenticated, the user will be redirected to the original URL they were trying to access. If the response is invalid, the user will be redirected to an error page with a specific error message."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

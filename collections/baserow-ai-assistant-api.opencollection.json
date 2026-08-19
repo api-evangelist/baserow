@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin AI Assistant API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AI Assistant",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_assistant_chats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/assistant/chat/",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The initial index from which to return the results."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the workspace."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all AI assistant chats for the current user in the specified workspace."
+        },
+        {
+          "info": {
+            "name": "list_assistant_chat_messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all messages in the specified AI assistant chat.\n\n"
+        },
+        {
+          "info": {
+            "name": "send_message_to_assistant_chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a message to the specified AI assistant chat and stream back the response.\n\n"
+        },
+        {
+          "info": {
+            "name": "cancel_assistant_message",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel an ongoing assistant message generation in the specified chat.\n\n"
+        },
+        {
+          "info": {
+            "name": "list_assistant_chat_messages_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all messages in the specified AI assistant chat.\n\n"
+        },
+        {
+          "info": {
+            "name": "send_message_to_assistant_chat_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a message to the specified AI assistant chat and stream back the response.\n\n"
+        },
+        {
+          "info": {
+            "name": "cancel_assistant_message_2",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+            "params": [
+              {
+                "name": "chat_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel an ongoing assistant message generation in the specified chat.\n\n"
+        },
+        {
+          "info": {
+            "name": "submit_assistant_message_feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/assistant/messages/:message_id/feedback/",
+            "params": [
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Provide sentiment and feedback for the given AI assistant chat message.\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Field rules API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Field rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "get_field_rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/field-rules/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the table to get field rules."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of field rules for the table"
+        },
+        {
+          "info": {
+            "name": "create_field_rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/database/field-rules/:table_id/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the table to set a field rule."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a field rule for a table"
+        },
+        {
+          "info": {
+            "name": "get_invalid_rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/database/field-rules/:table_id/invalid-rows/",
+            "params": [
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the table to get a list of invalid row ids."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of invalid rows"
+        },
+        {
+          "info": {
+            "name": "update_field_rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the rule to update."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the table."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific field rule."
+        },
+        {
+          "info": {
+            "name": "delete_field_rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the rule to delete."
+              },
+              {
+                "name": "table_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the table."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a field rule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

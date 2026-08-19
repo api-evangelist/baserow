@@ -1,0 +1,2641 @@
+{
+  "item": [
+    {
+      "id": "f1f6f17c-cf13-4487-8e51-4d02f518e4ab",
+      "name": "Database table grid view",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8308ec55-0de8-4305-8226-21fb9faa0043",
+          "name": "get database table public grid view field aggregations",
+          "request": {
+            "name": "get database table public grid view field aggregations",
+            "description": {
+              "content": "Returns all field aggregations values previously defined for this grid view. If filters exist for this view, the aggregations are computed only on filtered rows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":slug",
+                "public",
+                "aggregations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter__{field}__{filter}",
+                  "value": "<string>",
+                  "description": "The aggregation can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>",
+                  "description": "`AND`: Indicates that the aggregated rows must match all the provided filters.\n\n`OR`: Indicates that the aggregated rows only have to match one of the filters.\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "A JSON serialized string containing the filter tree to apply for the aggregation. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "if `include` is set to `total`, the total row count will be returned with the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "If provided the aggregations are calculated only for matching rows."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_mode",
+                  "value": "<string>",
+                  "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Select the view you want the aggregations for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e4f8722f-726b-47b9-a2e9-e80fc2d7c605",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"field_{id}\": 5,\n  \"total\": 7\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ef173e9-1f35-47c0-a24b-524b3b92c1a5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_VIEW_FILTER_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "289f589f-4bc5-43ff-98a8-a66d49a230af",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_VIEW\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc6766a0-8496-4f1d-aef2-2e873292c88f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_GRID_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88291b0e-8fb5-481b-897c-789dd6f3d192",
+          "name": "public list database table grid view rows",
+          "request": {
+            "name": "public list database table grid view rows",
+            "description": {
+              "content": "Lists the requested rows of the view's table related to the provided `slug` if the grid view is public.The response is paginated either by a limit/offset or page/size style. The style depends on the provided GET parameters. The properties of the returned rows depends on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the example all field types are listed, but normally the number in field_{id} key is going to be the id of the field. The value is what the user has provided and the format of it depends on the fields type.\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":slug",
+                "public",
+                "rows",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<boolean>",
+                  "description": "If provided only the count will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_count",
+                  "value": "<boolean>",
+                  "description": "If provided, the count, previous, and next properties will be excluded from the response. This is useful for large datasets where counting the total number of results is slow."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_fields",
+                  "value": "<string>",
+                  "description": "All the fields are included in the response by default. You can select a subset of fields by providing the exclude_fields query parameter. If you for example provide the following GET parameter `exclude_fields=field_1,field_2` then the fields with id `1` and id `2` are going to be excluded from the selection and response. "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter__{field}__{filter}",
+                  "value": "<string>",
+                  "description": "The rows can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>",
+                  "description": "`AND`: Indicates that the rows must match all the provided filters.\n\n`OR`: Indicates that the rows only have to match one of the filters.\n\nThis works only if two or more filters are provided.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "group_by",
+                  "value": "<string>",
+                  "description": "Optionally the rows can be grouped by provided field ids separated by comma. By default no groups are applied. This doesn't actually responds with the rows groups, this is just what's needed for the Baserow group by feature."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma separated list allowing the values of `field_options` which will add the object/objects with the same name to the response if included. The `field_options` object contains user defined view settings for each field. For example the field's width is included in here."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_fields",
+                  "value": "<string>",
+                  "description": "All the fields are included in the response by default. You can select a subset of fields by providing the fields query parameter. If you for example provide the following GET parameter `include_fields=field_1,field_2` then only the fields with id `1` and id `2` are going to be selected and included in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Defines how many rows should be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit_linked_items",
+                  "value": "<integer>",
+                  "description": "if provided, the maximum number of relationships per link row field in the response. If not provided, all the relationships will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Can only be used in combination with the `limit` parameter and defines from which offset the rows should be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Defines which page of rows should be returned. Either the `page` or `limit` can be provided, not both."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "If provided only rows with data that matches the search query are going to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_mode",
+                  "value": "<string>",
+                  "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Can only be used in combination with the `page` parameter and defines how many rows should be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Returns only rows that belong to the related view."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4b8bd6f5-c1d4-4914-bd42-89cb2df49feb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "rows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Returns only rows that belong to the related view."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 2584,\n  \"next\": \"https://IyjFJwRkfInyiYJbiyibkSxPQeo.reKoQHhDZrBWbG8kzt\",\n  \"previous\": \"https://NoauF.ignqWmPEdHXi6TozjiVDY9opP4IhUgldP68tq,\",\n  \"results\": [\n    {\n      \"field_27\": \"string\",\n      \"id\": 1369,\n      \"order\": \"825246\",\n      \"metadata\": {\n        \"row_comment_count\": 4982,\n        \"row_comments_notification_mode\": \"all\"\n      },\n      \"field_1\": \"string\",\n      \"field_2\": \"string\",\n      \"field_3\": \"string\",\n      \"field_4\": \"string\",\n      \"field_5\": \"-6695632236\",\n      \"field_6\": 0,\n      \"field_7\": false,\n      \"field_8\": \"1974-05-19\",\n      \"field_9\": \"1996-04-29T23:57:23.356Z\",\n      \"field_10\": {\n        \"id\": 6078,\n        \"name\": \"string\"\n      },\n      \"field_11\": \"1993-07-11T01:25:25.918Z\",\n      \"field_12\": {\n        \"id\": 5405,\n        \"name\": \"string\"\n      },\n      \"field_13\": 4245.948328355284,\n      \"field_14\": [\n        {\n          \"id\": 8241,\n          \"value\": \"string\",\n          \"order\": \"-4049045910\"\n        },\n        {\n          \"id\": 4818,\n          \"value\": \"string\",\n          \"order\": \"974324041789085\"\n        }\n      ],\n      \"field_15\": [\n        {\n          \"image_height\": 8492,\n          \"image_width\": 820,\n          \"is_image\": false,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 8643,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"uploaded_at\": \"1992-05-20T17:41:29.393Z\",\n          \"url\": \"https://kyKvcDVUNDIpv.rkhcHs0A2QqkxmibwCUtypJMxni1KkWW09iDDzElFUtZ-C553tL+AytWu\",\n          \"visible_name\": \"string\"\n        },\n        {\n          \"image_height\": 5660,\n          \"image_width\": 9406,\n          \"is_image\": false,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 37,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"uploaded_at\": \"2010-02-14T08:34:24.641Z\",\n          \"url\": \"http://KHUrnmdkCKsnP.wufxq-lkjsznn3FkG0cUViCH2KJ9iVjikQVk+J\",\n          \"visible_name\": \"string\"\n        }\n      ],\n      \"field_16\": {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 7532\n      },\n      \"field_17\": [\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 672\n        },\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 1334\n        }\n      ],\n      \"field_18\": \"string\",\n      \"field_19\": \"string\",\n      \"field_20\": \"string\",\n      \"field_21\": \"string\",\n      \"field_22\": \"string\",\n      \"field_23\": [\n        {\n          \"id\": 7572,\n          \"name\": \"string\"\n        },\n        {\n          \"id\": 6726,\n          \"name\": \"string\"\n        }\n      ],\n      \"field_24\": \"244189fc-9b4e-ba49-6c87-78450676ae8b\",\n      \"field_25\": 4360,\n      \"field_26\": false,\n      \"field_28\": \"string\"\n    },\n    {\n      \"field_27\": \"string\",\n      \"id\": 7694,\n      \"order\": \"-2705900.28447195736090293\",\n      \"metadata\": {\n        \"row_comment_count\": 7793,\n        \"row_comments_notification_mode\": \"all\"\n      },\n      \"field_1\": \"string\",\n      \"field_2\": \"string\",\n      \"field_3\": \"string\",\n      \"field_4\": \"string\",\n      \"field_5\": \"-32711331.\",\n      \"field_6\": 0,\n      \"field_7\": false,\n      \"field_8\": \"2000-12-18\",\n      \"field_9\": \"1991-04-10T08:22:46.464Z\",\n      \"field_10\": {\n        \"id\": 8406,\n        \"name\": \"string\"\n      },\n      \"field_11\": \"1980-06-20T13:52:19.755Z\",\n      \"field_12\": {\n        \"id\": 9460,\n        \"name\": \"string\"\n      },\n      \"field_13\": 2016.9197901990588,\n      \"field_14\": [\n        {\n          \"id\": 1871,\n          \"value\": \"string\",\n          \"order\": \"2146695977372345969.969\"\n        },\n        {\n          \"id\": 4330,\n          \"value\": \"string\",\n          \"order\": \"4424999923301\"\n        }\n      ],\n      \"field_15\": [\n        {\n          \"image_height\": 6554,\n          \"image_width\": 1908,\n          \"is_image\": false,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 6990,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"uploaded_at\": \"2002-01-11T09:26:09.657Z\",\n          \"url\": \"https://HjXNEpbTpwVu.moc0c,7n8-dY6sehqpJn7qaQ7vnQd,OJ69Hvccu3Xr4OPIooB.ueQZVMnIUlA7RA\",\n          \"visible_name\": \"string\"\n        },\n        {\n          \"image_height\": 5301,\n          \"image_width\": 572,\n          \"is_image\": true,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 828,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"uploaded_at\": \"1975-12-29T04:07:54.449Z\",\n          \"url\": \"https://tpAOtqKmCcWQfn.rxluPOb-FOSzR3hHDKy1wFRzf0lJ86yHkV-Wh-JsdVLZjP6hNLQKBRw-.wQwD9xolcm6Ww3\",\n          \"visible_name\": \"string\"\n        }\n      ],\n      \"field_16\": {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 2658\n      },\n      \"field_17\": [\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 5133\n        },\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 3121\n        }\n      ],\n      \"field_18\": \"string\",\n      \"field_19\": \"string\",\n      \"field_20\": \"string\",\n      \"field_21\": \"string\",\n      \"field_22\": \"string\",\n      \"field_23\": [\n        {\n          \"id\": 8708,\n          \"name\": \"string\"\n        },\n        {\n          \"id\": 3923,\n          \"name\": \"string\"\n        }\n      ],\n      \"field_24\": \"079bbbc8-42e7-336e-9685-a5c3ca1b0850\",\n      \"field_25\": 1923,\n      \"field_26\": false,\n      \"field_28\": \"string\"\n    }\n  ],\n  \"field_options\": {\n    \"key_0\": {\n      \"width\": 1007588738,\n      \"hidden\": true,\n      \"order\": -9657,\n      \"aggregation_type\": \"string\",\n      \"aggregation_raw_type\": \"average\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91766f89-6b62-4938-9364-feb30d5af1a6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "rows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Returns only rows that belong to the related view."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_FILTER_FIELD_NOT_FOUND\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c5c2e36-4fa2-4805-82fd-93ff02093dbd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "rows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Returns only rows that belong to the related view."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_NO_AUTHORIZATION_TO_PUBLICLY_SHARED_VIEW\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d25f97-d06c-47de-9349-fa7d8f53c235",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":slug",
+                    "public",
+                    "rows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Returns only rows that belong to the related view."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_FIELD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fbff3d7-aa7e-4525-8995-1ec0389a3f59",
+          "name": "list database table grid view rows",
+          "request": {
+            "name": "list database table grid view rows",
+            "description": {
+              "content": "Lists the requested rows of the view's table related to the provided `view_id` if the authorized user has access to the database's workspace. The response is paginated either by a limit/offset or page/size style. The style depends on the provided GET parameters. The properties of the returned rows depends on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the example all field types are listed, but normally the number in field_{id} key is going to be the id of the field. The value is what the user has provided and the format of it depends on the fields type.\n\nThe filters and sortings are automatically applied. To get a full overview of the applied filters and sortings you can use the `list_database_table_view_filters` and `list_database_table_view_sortings` endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":view_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<boolean>",
+                  "description": "If provided only the count will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_count",
+                  "value": "<boolean>",
+                  "description": "If provided, the count, previous, and next properties will be excluded from the response. This is useful for large datasets where counting the total number of results is slow."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_fields",
+                  "value": "<string>",
+                  "description": "All the fields are included in the response by default. You can select a subset of fields by providing the exclude_fields query parameter. If you for example provide the following GET parameter `exclude_fields=field_1,field_2` then the fields with id `1` and id `2` are going to be excluded from the selection and response. "
+                },
+                {
+                  "disabled": false,
+                  "key": "filter__{field}__{filter}",
+                  "value": "<string>",
+                  "description": "The rows can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n\n\n**Please note that by passing the filter parameters the view filters saved for the view itself will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>",
+                  "description": "`AND`: Indicates that the rows must match all the provided filters.\n\n`OR`: Indicates that the rows only have to match one of the filters.\n\nThis works only if two or more filters are provided.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "A JSON serialized string containing the filter tree to apply to this view. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**\n\n**Please note that by passing the filters parameter the view filters saved for the view itself will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "A comma separated list allowing the values of `field_options` and `row_metadata` which will add the object/objects with the same name to the response if included. The `field_options` object contains user defined view settings for each field. For example the field's width is included in here. The `row_metadata` object includes extra row specific data on a per row basis."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_fields",
+                  "value": "<string>",
+                  "description": "All the fields are included in the response by default. You can select a subset of fields by providing the fields query parameter. If you for example provide the following GET parameter `include_fields=field_1,field_2` then only the fields with id `1` and id `2` are going to be selected and included in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Defines how many rows should be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit_linked_items",
+                  "value": "<integer>",
+                  "description": "if provided, the maximum number of relationships per link row field in the response. If not provided, all the relationships will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Can only be used in combination with the `limit` parameter and defines from which offset the rows should be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Optionally the rows can be ordered by provided field ids separated by comma. By default a field is ordered in ascending (A-Z) order, but by prepending the field with a '-' it can be ordered descending (Z-A)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Defines which page of rows should be returned. Either the `page` or `limit` can be provided, not both."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "If provided only rows with data that matches the search query are going to be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_mode",
+                  "value": "<string>",
+                  "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "Can only be used in combination with the `page` parameter and defines how many rows should be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "view_id",
+                  "description": "(Required) Returns only rows that belong to the related view's table."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5d1df8ea-3859-4b99-a475-d2a93833b063",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 4760,\n  \"next\": \"http://qKvGoopVEEwVHaO.sgeWQ1jmF,\",\n  \"previous\": \"http://zDCbqozHgiTVcQuvshW.jynrrK1UGyEkVEiCeCKMJiEVCk,TEZ2IYAGI-YqqEIeYxWLgMLLf3RrGw\",\n  \"results\": [\n    {\n      \"field_27\": \"string\",\n      \"id\": 2380,\n      \"order\": \"5054068584726274646\",\n      \"metadata\": {\n        \"row_comment_count\": 4773,\n        \"row_comments_notification_mode\": \"mentions\"\n      },\n      \"field_1\": \"string\",\n      \"field_2\": \"string\",\n      \"field_3\": \"string\",\n      \"field_4\": \"string\",\n      \"field_5\": \"-7307\",\n      \"field_6\": 0,\n      \"field_7\": false,\n      \"field_8\": \"1972-09-04\",\n      \"field_9\": \"1988-01-07T12:21:13.472Z\",\n      \"field_10\": {\n        \"id\": 1592,\n        \"name\": \"string\"\n      },\n      \"field_11\": \"1989-01-06T18:24:49.212Z\",\n      \"field_12\": {\n        \"id\": 5378,\n        \"name\": \"string\"\n      },\n      \"field_13\": 4899.063118673063,\n      \"field_14\": [\n        {\n          \"id\": 3502,\n          \"value\": \"string\",\n          \"order\": \"-60484\"\n        },\n        {\n          \"id\": 176,\n          \"value\": \"string\",\n          \"order\": \"-\"\n        }\n      ],\n      \"field_15\": [\n        {\n          \"image_height\": 973,\n          \"image_width\": 4516,\n          \"is_image\": false,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 4629,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          \"uploaded_at\": \"2009-12-09T12:12:18.241Z\",\n          \"url\": \"http://OpGNZGLnmMvXzRJNIW.zzmquotN3E7wehnFwYAyrTMzwUv219Vs2xzTZA\",\n          \"visible_name\": \"string\"\n        },\n        {\n          \"image_height\": 5985,\n          \"image_width\": 4418,\n          \"is_image\": true,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 3557,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          \"uploaded_at\": \"1991-08-18T19:35:22.915Z\",\n          \"url\": \"https://qMLezAJxVJOuHcGPICmWE.tmnByEPWWowe3s1LmXEbenR9xtsP\",\n          \"visible_name\": \"string\"\n        }\n      ],\n      \"field_16\": {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 8028\n      },\n      \"field_17\": [\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 4499\n        },\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 4558\n        }\n      ],\n      \"field_18\": \"string\",\n      \"field_19\": \"string\",\n      \"field_20\": \"string\",\n      \"field_21\": \"string\",\n      \"field_22\": \"string\",\n      \"field_23\": [\n        {\n          \"id\": 8224,\n          \"name\": \"string\"\n        },\n        {\n          \"id\": 2309,\n          \"name\": \"string\"\n        }\n      ],\n      \"field_24\": \"4eaeb73a-db87-22f9-024f-5b2fe6943bf1\",\n      \"field_25\": 3696,\n      \"field_26\": false,\n      \"field_28\": \"string\"\n    },\n    {\n      \"field_27\": \"string\",\n      \"id\": 2990,\n      \"order\": \"-03067392\",\n      \"metadata\": {\n        \"row_comment_count\": 7004,\n        \"row_comments_notification_mode\": \"all\"\n      },\n      \"field_1\": \"string\",\n      \"field_2\": \"string\",\n      \"field_3\": \"string\",\n      \"field_4\": \"string\",\n      \"field_5\": \"527093790007982938076\",\n      \"field_6\": 0,\n      \"field_7\": false,\n      \"field_8\": \"1982-07-31\",\n      \"field_9\": \"1996-02-04T22:25:49.112Z\",\n      \"field_10\": {\n        \"id\": 385,\n        \"name\": \"string\"\n      },\n      \"field_11\": \"1994-06-12T08:21:48.236Z\",\n      \"field_12\": {\n        \"id\": 2234,\n        \"name\": \"string\"\n      },\n      \"field_13\": 5014.8587091246945,\n      \"field_14\": [\n        {\n          \"id\": 5471,\n          \"value\": \"string\",\n          \"order\": \"-755.20454897849450385765\"\n        },\n        {\n          \"id\": 5183,\n          \"value\": \"string\",\n          \"order\": \"-232\"\n        }\n      ],\n      \"field_15\": [\n        {\n          \"image_height\": 7749,\n          \"image_width\": 8463,\n          \"is_image\": false,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 465,\n          \"thumbnails\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {},\n            \"key_3\": {}\n          },\n          \"uploaded_at\": \"1952-09-25T15:13:41.443Z\",\n          \"url\": \"http://xFqgcCghXjgohKtSyUkCw.gxPD4GmOREDtL6wjrKy4sJy-8Ck9bJ0mm0ByNCaTUEQrejjAabRXUWlSIabjmVl1GD\",\n          \"visible_name\": \"string\"\n        },\n        {\n          \"image_height\": 4478,\n          \"image_width\": 8577,\n          \"is_image\": true,\n          \"mime_type\": \"string\",\n          \"name\": \"string\",\n          \"size\": 5632,\n          \"thumbnails\": {\n            \"key_0\": {}\n          },\n          \"uploaded_at\": \"1960-08-07T13:50:29.824Z\",\n          \"url\": \"https://IFJeVeMgJRnoysEGRJMJLpjfiMNygEKxc.fjxgzccYTnOSi0bqrrilWTaIhZTXZumhD,CH9tYOLW8sw2OXBt+rghbUQY1TZ0Kb.SWqY3Rb7p\",\n          \"visible_name\": \"string\"\n        }\n      ],\n      \"field_16\": {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 2854\n      },\n      \"field_17\": [\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 9067\n        },\n        {\n          \"color\": \"string\",\n          \"value\": \"string\",\n          \"id\": 6268\n        }\n      ],\n      \"field_18\": \"string\",\n      \"field_19\": \"string\",\n      \"field_20\": \"string\",\n      \"field_21\": \"string\",\n      \"field_22\": \"string\",\n      \"field_23\": [\n        {\n          \"id\": 6723,\n          \"name\": \"string\"\n        },\n        {\n          \"id\": 6679,\n          \"name\": \"string\"\n        }\n      ],\n      \"field_24\": \"4d987d57-9799-fe53-17a9-701a97092716\",\n      \"field_25\": 7089,\n      \"field_26\": true,\n      \"field_28\": \"string\"\n    }\n  ],\n  \"field_options\": {\n    \"key_0\": {\n      \"width\": 1307316645,\n      \"hidden\": true,\n      \"order\": -17787,\n      \"aggregation_type\": \"string\",\n      \"aggregation_raw_type\": \"not_empty_count\"\n    },\n    \"key_1\": {\n      \"width\": 1742302987,\n      \"hidden\": true,\n      \"order\": -22759,\n      \"aggregation_type\": \"string\",\n      \"aggregation_raw_type\": \"not_empty_count\"\n    },\n    \"key_2\": {\n      \"width\": 826690559,\n      \"hidden\": false,\n      \"order\": -9602,\n      \"aggregation_type\": \"string\",\n      \"aggregation_raw_type\": \"std_dev\"\n    },\n    \"key_3\": {\n      \"width\": 1356650112,\n      \"hidden\": false,\n      \"order\": -20871,\n      \"aggregation_type\": \"string\",\n      \"aggregation_raw_type\": \"average\"\n    }\n  },\n  \"row_metadata\": {\n    \"key_0\": {\n      \"row_comment_count\": 2274,\n      \"row_comments_notification_mode\": \"mentions\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "656153ec-ce28-491f-8bac-880992140bae",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_FILTER_FIELD_NOT_FOUND\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49a31a9f-d96f-4228-bbb9-708126f41f9b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_count",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "exclude_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include_fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit_linked_items",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_FIELD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca80fcff-27d7-43b5-8300-7d9ba64d42f2",
+          "name": "filter database table grid view rows",
+          "request": {
+            "name": "filter database table grid view rows",
+            "description": {
+              "content": "Lists only the rows and fields that match the request. Only the rows with the ids that are in the `row_ids` list are going to be returned. Same goes for the fields, only the fields with the ids in the `field_ids` are going to be returned. This endpoint could be used to refresh data after changes something. For example in the web frontend after changing a field type, the data of the related cells will be refreshed using this endpoint. In the example all field types are listed, but normally  the number in field_{id} key is going to be the id of the field. The value is what the user has provided and the format of it depends on the fields type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":view_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "view_id",
+                  "description": "(Required) Returns only rows that belong to the related view's table."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "row_ids",
+                  "value": "<integer>",
+                  "description": "(Required) Only rows related to the provided ids are added to the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "row_ids",
+                  "value": "<integer>",
+                  "description": "(Required) Only rows related to the provided ids are added to the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "field_ids",
+                  "value": "<integer>",
+                  "description": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "field_ids",
+                  "value": "<integer>",
+                  "description": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f8700a88-a1d0-4665-beb7-2e59ae70f0ab",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"field_27\": \"string\",\n    \"id\": 3048,\n    \"order\": \"9407881.2856812\",\n    \"metadata\": {\n      \"row_comment_count\": 1585,\n      \"row_comments_notification_mode\": \"mentions\"\n    },\n    \"field_1\": \"string\",\n    \"field_2\": \"string\",\n    \"field_3\": \"string\",\n    \"field_4\": \"string\",\n    \"field_5\": \"025065893986963115405540742785874744056911\",\n    \"field_6\": 0,\n    \"field_7\": false,\n    \"field_8\": \"1969-09-08\",\n    \"field_9\": \"1984-04-25T18:24:28.199Z\",\n    \"field_10\": {\n      \"id\": 315,\n      \"name\": \"string\"\n    },\n    \"field_11\": \"2005-07-10T01:45:52.607Z\",\n    \"field_12\": {\n      \"id\": 4073,\n      \"name\": \"string\"\n    },\n    \"field_13\": 2976.1270316733644,\n    \"field_14\": [\n      {\n        \"id\": 772,\n        \"value\": \"string\",\n        \"order\": \"-19072963172\"\n      },\n      {\n        \"id\": 469,\n        \"value\": \"string\",\n        \"order\": \"41386384\"\n      }\n    ],\n    \"field_15\": [\n      {\n        \"image_height\": 7942,\n        \"image_width\": 6203,\n        \"is_image\": false,\n        \"mime_type\": \"string\",\n        \"name\": \"string\",\n        \"size\": 3485,\n        \"thumbnails\": {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        \"uploaded_at\": \"1962-02-04T04:32:44.376Z\",\n        \"url\": \"https://IhiDUpcw.ofHUdT6uKFyC48D0x\",\n        \"visible_name\": \"string\"\n      },\n      {\n        \"image_height\": 7975,\n        \"image_width\": 1488,\n        \"is_image\": true,\n        \"mime_type\": \"string\",\n        \"name\": \"string\",\n        \"size\": 8311,\n        \"thumbnails\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"uploaded_at\": \"1966-03-13T07:30:25.622Z\",\n        \"url\": \"http://rimIGEvReaTCJJbBszpJmNKrrHFqdPWH.seuSVeRTScEOd0NqsPjKpKmKVpj\",\n        \"visible_name\": \"string\"\n      }\n    ],\n    \"field_16\": {\n      \"color\": \"string\",\n      \"value\": \"string\",\n      \"id\": 1124\n    },\n    \"field_17\": [\n      {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 4437\n      },\n      {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 2727\n      }\n    ],\n    \"field_18\": \"string\",\n    \"field_19\": \"string\",\n    \"field_20\": \"string\",\n    \"field_21\": \"string\",\n    \"field_22\": \"string\",\n    \"field_23\": [\n      {\n        \"id\": 7510,\n        \"name\": \"string\"\n      },\n      {\n        \"id\": 2009,\n        \"name\": \"string\"\n      }\n    ],\n    \"field_24\": \"0e2779ac-26ce-1d6b-25b9-874b5ccc4ae7\",\n    \"field_25\": 44,\n    \"field_26\": true,\n    \"field_28\": \"string\"\n  },\n  {\n    \"field_27\": \"string\",\n    \"id\": 5434,\n    \"order\": \"9461.18625769\",\n    \"metadata\": {\n      \"row_comment_count\": 6714,\n      \"row_comments_notification_mode\": \"mentions\"\n    },\n    \"field_1\": \"string\",\n    \"field_2\": \"string\",\n    \"field_3\": \"string\",\n    \"field_4\": \"string\",\n    \"field_5\": \"6678652704067908066582927997863011172\",\n    \"field_6\": 0,\n    \"field_7\": false,\n    \"field_8\": \"2022-04-17\",\n    \"field_9\": \"2021-07-18T00:40:51.138Z\",\n    \"field_10\": {\n      \"id\": 6215,\n      \"name\": \"string\"\n    },\n    \"field_11\": \"1984-03-24T10:40:35.431Z\",\n    \"field_12\": {\n      \"id\": 7841,\n      \"name\": \"string\"\n    },\n    \"field_13\": 5114.344949692261,\n    \"field_14\": [\n      {\n        \"id\": 1118,\n        \"value\": \"string\",\n        \"order\": \"-206893772049746672.391655729\"\n      },\n      {\n        \"id\": 2132,\n        \"value\": \"string\",\n        \"order\": \"-8.080497800214\"\n      }\n    ],\n    \"field_15\": [\n      {\n        \"image_height\": 6515,\n        \"image_width\": 6804,\n        \"is_image\": false,\n        \"mime_type\": \"string\",\n        \"name\": \"string\",\n        \"size\": 5788,\n        \"thumbnails\": {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        },\n        \"uploaded_at\": \"1956-05-05T21:43:01.042Z\",\n        \"url\": \"http://RKJLWT.lpoh3tC+ql2hiWtTIteVVw1do7j1gbN+rWlWMYuCoyhi6Tm9zHHuGSYueSc66eON4yEKvWn4v\",\n        \"visible_name\": \"string\"\n      },\n      {\n        \"image_height\": 8146,\n        \"image_width\": 7138,\n        \"is_image\": true,\n        \"mime_type\": \"string\",\n        \"name\": \"string\",\n        \"size\": 2271,\n        \"thumbnails\": {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        \"uploaded_at\": \"2014-05-09T20:00:15.543Z\",\n        \"url\": \"http://XMaUFsLeKbpDGJcsdSOquwSXcChmYg.kqtm0dL7.KvY3G-O+6sg7iwxJz7DMNx,GYxWaoRyojPLALrnYfL2rbm\",\n        \"visible_name\": \"string\"\n      }\n    ],\n    \"field_16\": {\n      \"color\": \"string\",\n      \"value\": \"string\",\n      \"id\": 7670\n    },\n    \"field_17\": [\n      {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 1828\n      },\n      {\n        \"color\": \"string\",\n        \"value\": \"string\",\n        \"id\": 172\n      }\n    ],\n    \"field_18\": \"string\",\n    \"field_19\": \"string\",\n    \"field_20\": \"string\",\n    \"field_21\": \"string\",\n    \"field_22\": \"string\",\n    \"field_23\": [\n      {\n        \"id\": 158,\n        \"name\": \"string\"\n      },\n      {\n        \"id\": 2192,\n        \"name\": \"string\"\n      }\n    ],\n    \"field_24\": \"864661f6-a0a7-4acd-21f7-3de1c1afdf9b\",\n    \"field_25\": 9349,\n    \"field_26\": false,\n    \"field_28\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de30ea9c-5191-43ac-b60b-5976436de512",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bcef56f-8c2c-4bba-b71f-89caed945d3a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Returns only rows that belong to the related view's table."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Only rows related to the provided ids are added to the response.",
+                        "type": "text/plain"
+                      },
+                      "key": "row_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.",
+                        "type": "text/plain"
+                      },
+                      "key": "field_ids",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_GRID_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb7a36ea-bdfb-4875-aa40-393d1790619b",
+          "name": "get database table grid view field aggregation",
+          "request": {
+            "name": "get database table grid view field aggregation",
+            "description": {
+              "content": "Computes the aggregation of all the values for a specified field from the selected grid view. You must select the aggregation type by setting the `type` GET parameter. If filters are configured for the selected view, the aggregation is calculated only on filtered rows. You need to have read permissions on the view to request an aggregation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":view_id",
+                "aggregation",
+                ":field_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "if `include` is set to `total`, the total row count will be returned with the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "The aggregation type you want. Available aggregation types: count, empty_count, not_empty_count, unique_count, min, max, sum, average, median, decile, variance, std_dev, distribution"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "field_id",
+                  "description": "(Required) The field id you want to aggregate"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "view_id",
+                  "description": "(Required) Select the view you want the aggregation for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1616220-3258-4f12-9097-8c21db8f5ccb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregation",
+                    ":field_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "field_id",
+                      "description": "(Required) The field id you want to aggregate"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregation for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": 5,\n  \"total\": 7\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0fa4ec2-3da5-41ed-b766-91c5b32ca1c8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregation",
+                    ":field_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "field_id",
+                      "description": "(Required) The field id you want to aggregate"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregation for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_AGGREGATION_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab9d9282-bbd6-43ac-b4e4-49c66265f436",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregation",
+                    ":field_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "field_id",
+                      "description": "(Required) The field id you want to aggregate"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregation for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_FIELD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b05cb2ca-196d-4125-a156-86f6b4726b00",
+          "name": "get database table grid view field aggregations",
+          "request": {
+            "name": "get database table grid view field aggregations",
+            "description": {
+              "content": "Returns all field aggregations values previously defined for this grid view. If filters exist for this view, the aggregations are computed only on filtered rows.You need to have read permissions on the view to request aggregations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "views",
+                "grid",
+                ":view_id",
+                "aggregations",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter__{field}__{filter}",
+                  "value": "<string>",
+                  "description": "The aggregation can optionally be filtered by the same view filters available for the views. Multiple filters can be provided if they follow the same format. The field and filter variable indicate how to filter and the value indicates where to filter on.\n\nFor example if you provide the following GET parameter `filter__field_1__equal=test` then only rows where the value of field_1 is equal to test are going to be returned.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if the `filters` parameter is provided, this parameter will be ignored.** \n\n\n\n**Please note that by passing the filter parameters the view filters saved for the view itself will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>",
+                  "description": "`AND`: Indicates that the aggregated rows must match all the provided filters.\n\n`OR`: Indicates that the aggregated rows only have to match one of the filters.\n\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>",
+                  "description": "A JSON serialized string containing the filter tree to apply for the aggregation. The filter tree is a nested structure containing the filters that need to be applied. \n\nAn example of a valid filter tree is the following:`{\"filter_type\": \"AND\", \"filters\": [{\"field\": 1, \"type\": \"equal\", \"value\": \"test\"}]}`. The `field` value must be the ID of the field to filter on, or the name of the field if `user_field_names` is true.\n\nThe following filters are available: equal, not_equal, filename_contains, files_lower_than, has_file_type, contains, contains_not, contains_word, doesnt_contain_word, length_is_lower_than, higher_than, higher_than_or_equal, lower_than, lower_than_or_equal, is_even_and_whole, date_equal, date_before, date_before_or_equal, date_after_days_ago, date_after, date_after_or_equal, date_not_equal, date_equals_today, date_before_today, date_after_today, date_within_days, date_within_weeks, date_within_months, date_equals_days_ago, date_equals_months_ago, date_equals_years_ago, date_equals_week, date_equals_month, date_equals_day_of_month, date_equals_year, date_is, date_is_not, date_is_before, date_is_on_or_before, date_is_after, date_is_on_or_after, date_is_within, single_select_equal, single_select_not_equal, single_select_is_any_of, single_select_is_none_of, link_row_has, link_row_has_not, link_row_contains, link_row_not_contains, boolean, empty, not_empty, multiple_select_has, multiple_select_has_not, multiple_collaborators_has, multiple_collaborators_has_not, user_is, user_is_not, has_value_equal, has_not_value_equal, has_value_contains, has_not_value_contains, has_value_contains_word, has_not_value_contains_word, has_value_length_is_lower_than, has_all_values_equal, has_empty_value, has_not_empty_value, has_any_select_option_equal, has_none_select_option_equal, has_value_lower, has_value_lower_or_equal, has_value_higher, has_value_higher_or_equal, has_not_value_higher_or_equal, has_not_value_higher, has_not_value_lower_or_equal, has_not_value_lower, has_date_equal, has_not_date_equal, has_date_before, has_not_date_before, has_date_on_or_before, has_not_date_on_or_before, has_date_on_or_after, has_not_date_on_or_after, has_date_after, has_not_date_after, has_date_within, has_not_date_within.\n\n**Please note that if this parameter is provided, all other `filter__{field}__{filter}` will be ignored, as well as the `filter_type` parameter.**\n\n**Please note that by passing the filters parameter the view filters saved for the view itself will be ignored.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "if `include` is set to `total`, the total row count will be returned with the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "If provided the aggregations are calculated only for matching rows."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_mode",
+                  "value": "<string>",
+                  "description": "If provided, allows API consumers to determine what kind of search experience they wish to have. If the default `SearchMode.FT_WITH_COUNT` is used, then Postgres full-text search is used. If `SearchMode.COMPAT` is provided then the search term will be exactly searched for including whitespace on each cell. This is the Baserow legacy search behaviour."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "view_id",
+                  "description": "(Required) Select the view you want the aggregations for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fc8a63c-ac62-4d3c-ad1e-7610d48323d1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"field_{id}\": 5,\n  \"total\": 7\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c293d59c-1079-4e47-a4d7-d68b182916f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_VIEW_FILTER_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20ede04a-4589-4be6-841c-314b9c2c506d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "views",
+                    "grid",
+                    ":view_id",
+                    "aggregations",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter__{field}__{filter}",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_mode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "view_id",
+                      "description": "(Required) Select the view you want the aggregations for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_GRID_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a2a8e646-7744-477f-bb58-5b5474c5c4a0",
+    "name": "Baserow API spec Admin Database table grid view API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}

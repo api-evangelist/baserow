@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin User source roles API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User source roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_application_user_source_roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/application/:application_id/user-sources/roles/",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the roles of the application related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the roles of the application related to the provided parameter if the user has access to the related application's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

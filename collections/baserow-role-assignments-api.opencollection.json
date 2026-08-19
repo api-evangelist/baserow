@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Role assignments API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Role assignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_role_assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/role/:workspace_id/",
+            "params": [
+              {
+                "name": "scope_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the scope you are trying to get all roleassignments for."
+              },
+              {
+                "name": "scope_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of scope you are trying to get all roleassignments for."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The workspace in which the role assignments are related to."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "You can list the role assignments within a workspace, optionally filtered downto a specific scope inside of that workspace. If the scope isn't specified,the workspace will be considered the scope."
+        },
+        {
+          "info": {
+            "name": "assign_role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/role/:workspace_id/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The workspace in which the role assignment takes place."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "You can assign a role to a subject into the given workspace for the given scope with this endpoint. If you want to remove the role you can omit the role property."
+        },
+        {
+          "info": {
+            "name": "batch_assign_role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/role/:workspace_id/batch/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "The workspace in which the role assignment takes place."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "You can assign a role to a multiple subjects into the given workspace for the given scopes with this endpoint. If you want to remove the role you can omit the role property."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

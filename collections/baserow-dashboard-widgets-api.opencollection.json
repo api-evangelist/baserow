@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Dashboard widgets API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dashboard widgets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "list_dashboard_widgets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path",
+                "description": "Returns only the widgets of the dashboard related to the provided Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all the widgets of the dashboard related to the provided parameter if the user has access to the related workspace. "
+        },
+        {
+          "info": {
+            "name": "create_dashboard_widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dashboard_id",
+                "value": "",
+                "type": "path",
+                "description": "Creates a widget for the dashboard related to the provided value."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new dashboard widget"
+        },
+        {
+          "info": {
+            "name": "update_dashboard_widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the widget"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing dashboard widget."
+        },
+        {
+          "info": {
+            "name": "delete_dashboard_widget",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+            "headers": [
+              {
+                "name": "ClientSessionId",
+                "value": ""
+              },
+              {
+                "name": "ClientUndoRedoActionGroupId",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "widget_id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the widget"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the widget related to the given id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,286 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Baserow API spec Admin Admin data scanner API",
+    "version": "2.2.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Admin data scanner",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "admin_data_scanner_list_results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/data-scanner/results/",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of data scan results IDs to filter by. When provided, only data scan results with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only data scan results with matched_value that match the query will be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many data scan results should be returned per page."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `first_identified_on, last_identified_on`. For example `sorts=-first_identified_on,-last_identified_on` will sort the data scan results first by descending first_identified_on and then ascending last_identified_on. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all data scan results across all scans. Results represent individual matches found in database fields during scan execution. Can be filtered by scan_id and searched by matched value. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_delete_result",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/data-scanner/results/:result_id/",
+            "params": [
+              {
+                "name": "result_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes (resolves) a single data scan result, marking it as reviewed. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_export_results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/admin/data-scanner/results/export/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a job to export data scan results to CSV. The exported file includes scan name, workspace, database, table, field, row ID, matched value, and timestamps for each result. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_list_scans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma-separated list of data scans IDs to filter by. When provided, only data scans with those IDs are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Defines which page should be returned."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "If provided only data scans with name that match the query will be returned."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Defines how many data scans should be returned per page."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated string of attributes to sort by, each attribute must be prefixed with `+` for a descending sort or a `-` for an ascending sort. The accepted attribute names are: `name, scan_type, frequency, created_on`. For example `sorts=-name,-scan_type` will sort the data scans first by descending name and then ascending scan_type. A sortparameter with multiple instances of the same sort attribute will respond with the ERROR_INVALID_SORT_ATTRIBUTE error."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all data scans configured for this Baserow instance. Data scans allow administrators to search the entire instance for sensitive data matching a pattern, a list of uploaded values, or values from another Baserow table. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_create_scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new data scan. A data scan searches the Baserow instance for sensitive data matching a pattern (e.g. credit card numbers), a list of uploaded values, or values sourced from another Baserow table. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_get_scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/:scan_id/",
+            "params": [
+              {
+                "name": "scan_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a single data scan configuration. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_update_scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/:scan_id/",
+            "params": [
+              {
+                "name": "scan_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a data scan configuration. When the scan type, pattern, or list items change, stale results are automatically cleaned up. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_delete_scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/:scan_id/",
+            "params": [
+              {
+                "name": "scan_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a data scan and all of its results. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_trigger_scan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/admin/data-scanner/scans/:scan_id/trigger/",
+            "params": [
+              {
+                "name": "scan_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Triggers an immediate run of the given data scan. The scan executes asynchronously and searches the configured workspaces for matches. **Enterprise feature.**"
+        },
+        {
+          "info": {
+            "name": "admin_data_scanner_workspace_structure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/admin/data-scanner/workspace-structure/:workspace_id/",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the database/table/field structure of a workspace for use in data scan configuration. Only text-compatible fields are included. **Enterprise feature.**"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

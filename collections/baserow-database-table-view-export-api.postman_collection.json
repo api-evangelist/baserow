@@ -1,0 +1,640 @@
+{
+  "item": [
+    {
+      "id": "6406b570-3c35-4c79-8b14-6d2176d5e42d",
+      "name": "Database table view export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ee1c9c5-85f4-48c8-bc4f-116e9cfaeea6",
+          "name": "export publicly shared view",
+          "request": {
+            "name": "export publicly shared view",
+            "description": {
+              "content": "Creates and starts a new export job for a publicly shared view  given some exporter options. Returns an error if the view doesn't support exporting.\n\nThis is a **premium** feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "view",
+                ":slug",
+                "export-public-view",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) Select the view you want to export."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "exporter_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "view_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "export_charset",
+                  "value": "utf-8"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "csv_column_separator",
+                  "value": ","
+                },
+                {
+                  "disabled": false,
+                  "key": "csv_include_header",
+                  "value": "true"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "146522e9-5a17-45e3-b721-c1e025a3b694",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "view",
+                    ":slug",
+                    "export-public-view",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1977-11-24T12:39:33.139Z\",\n  \"exporter_type\": \"string\",\n  \"id\": 3581,\n  \"state\": \"exporting\",\n  \"status\": \"string\",\n  \"url\": \"https://PTyoOXTdGudxBiPJriqsCQcQTGMFkF.omtdHe4gysU4l4hVRkn939Qm9l0ixnwt0zcm6rVQH\",\n  \"table\": 5100,\n  \"view\": 9515,\n  \"exported_file_name\": \"string\",\n  \"progress_percentage\": 5328.70534074842\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fed43cc-217d-4be7-bb08-8c3baa580eb4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "view",
+                    ":slug",
+                    "export-public-view",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_ORDER_BY_FIELD_NOT_FOUND\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e83379e-f1f8-405a-8132-cd501ba993f1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "view",
+                    ":slug",
+                    "export-public-view",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) Select the view you want to export."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "exporter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "view_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "export_charset",
+                      "value": "utf-8"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filter_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "filters",
+                      "value": "[{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"},{\"field\":\"<integer>\",\"type\":\"<string>\",\"value\":\"<string>\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "fields",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_column_separator",
+                      "value": ","
+                    },
+                    {
+                      "disabled": false,
+                      "key": "csv_include_header",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1572213e-04ea-4635-9a64-95bced71bfb3",
+          "name": "get public view export job",
+          "request": {
+            "name": "get public view export job",
+            "description": {
+              "content": "Returns information such as export progress and state or the url of the exported file for the specified export job, only if the requesting user has access.\n\nThis is a **premium** feature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "database",
+                "view",
+                "get-public-view-export",
+                ":job_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "job_id",
+                  "description": "(Required) The signed job id to lookup information about."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0eabea39-5ef2-427f-8f17-c46beb19d040",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "view",
+                    "get-public-view-export",
+                    ":job_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) The signed job id to lookup information about."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": \"1977-11-24T12:39:33.139Z\",\n  \"exporter_type\": \"string\",\n  \"id\": 3581,\n  \"state\": \"exporting\",\n  \"status\": \"string\",\n  \"url\": \"https://PTyoOXTdGudxBiPJriqsCQcQTGMFkF.omtdHe4gysU4l4hVRkn939Qm9l0ixnwt0zcm6rVQH\",\n  \"table\": 5100,\n  \"view\": 9515,\n  \"exported_file_name\": \"string\",\n  \"progress_percentage\": 5328.70534074842\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0f01656-24d2-418c-bc1f-c5d7af90b8ad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "database",
+                    "view",
+                    "get-public-view-export",
+                    ":job_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "job_id",
+                      "description": "(Required) The signed job id to lookup information about."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"ERROR_EXPORT_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "48be723f-2f71-44d8-912c-3730d57f0b4a",
+    "name": "Baserow API spec Admin Database table view export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
+      "type": "text/plain"
+    }
+  }
+}
