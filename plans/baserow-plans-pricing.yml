@@ -1,196 +1,50 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-provider: Baserow
-providerId: baserow
-created: '2026-06-12'
-modified: '2026-06-12'
-reconciled: true
-url: https://baserow.io/pricing
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://baserow.io/pricing
+sources:
+- https://baserow.io/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: per-seat
+published: true
+note: Cloud plans priced per user/month with yearly and monthly options; Enterprise on request. FAQ mentions
+  rate limit questions but no limits stated in visible text.
+plan_count: 4
+currency: USD
 plans:
-  - name: Free
-    description: >
-      Free tier for individuals and small projects. Includes unlimited databases
-      and access to basic views. No credit card required.
-    type: free
-    price: 0
-    currency: USD
-    billingCycle: monthly
-    quotas:
-      - name: Rows per Workspace
-        metric: rows
-        limit: 3000
-        timeFrame: workspace
-        type: quota
-      - name: Storage per Workspace
-        metric: storage_gb
-        limit: 2
-        timeFrame: workspace
-        type: quota
-    features:
-      - name: Unlimited Databases
-        type: boolean
-        value: true
-      - name: Templates
-        description: 65+ templates available
-        type: boolean
-        value: true
-      - name: Grid View
-        type: boolean
-        value: true
-      - name: Form View
-        type: boolean
-        value: true
-      - name: Gallery View
-        type: boolean
-        value: true
-      - name: Kanban View
-        type: boolean
-        value: false
-      - name: Calendar View
-        type: boolean
-        value: false
-      - name: Role Based Permissions
-        type: boolean
-        value: false
-      - name: Audit Logs
-        type: boolean
-        value: false
-
-  - name: Premium
-    description: >
-      For teams needing more capacity and advanced views. Includes Kanban, Survey,
-      and Calendar views, plus XML/JSON/Excel export and row comments.
-    type: paid
-    price: 10
-    currency: USD
-    billingCycle: monthly
-    billingNote: $10/user/month billed yearly; $12/user/month billed monthly
-    quotas:
-      - name: Rows per Workspace
-        metric: rows
-        limit: 50000
-        timeFrame: workspace
-        type: quota
-      - name: Storage per Workspace
-        metric: storage_gb
-        limit: 20
-        timeFrame: workspace
-        type: quota
-    features:
-      - name: Unlimited Databases
-        type: boolean
-        value: true
-      - name: Kanban View
-        type: boolean
-        value: true
-      - name: Calendar View
-        type: boolean
-        value: true
-      - name: Survey View
-        type: boolean
-        value: true
-      - name: XML/JSON/Excel Export
-        type: boolean
-        value: true
-      - name: Row Comments and Coloring
-        type: boolean
-        value: true
-      - name: Role Based Permissions
-        type: boolean
-        value: false
-      - name: Audit Logs
-        type: boolean
-        value: false
-
-  - name: Advanced
-    description: >
-      For larger teams needing governance, compliance, and access control features.
-      Includes role-based permissions, audit logs, extended row history, and free
-      read/comment users.
-    type: paid
-    price: 18
-    currency: USD
-    billingCycle: monthly
-    billingNote: $18/user/month billed yearly; $22/user/month billed monthly
-    quotas:
-      - name: Rows per Workspace
-        metric: rows
-        limit: 250000
-        timeFrame: workspace
-        type: quota
-      - name: Storage per Workspace
-        metric: storage_gb
-        limit: 100
-        timeFrame: workspace
-        type: quota
-      - name: Row History Retention
-        metric: days
-        limit: 180
-        timeFrame: workspace
-        type: quota
-    features:
-      - name: All Premium Features
-        type: boolean
-        value: true
-      - name: Role Based Permissions
-        type: boolean
-        value: true
-      - name: Free Read/Comment Users
-        type: boolean
-        value: true
-      - name: Audit Logs
-        type: boolean
-        value: true
-      - name: Extended Row History
-        description: 180 days of row history
-        type: boolean
-        value: true
-
-  - name: Enterprise
-    description: >
-      Maximum flexibility for large organizations with specific compliance and
-      infrastructure requirements. Available for self-hosted deployments with
-      custom pricing. Includes unlimited rows, API requests, and webhooks.
-    type: enterprise
-    price: 0
-    currency: USD
-    billingCycle: custom
-    billingNote: Custom pricing based on organization needs; contact sales
-    quotas:
-      - name: Rows
-        metric: rows
-        limit: -1
-        timeFrame: workspace
-        type: quota
-        note: Unlimited
-      - name: API Requests
-        metric: api_requests
-        limit: -1
-        timeFrame: workspace
-        type: quota
-        note: Unlimited on self-hosted
-      - name: Webhooks
-        metric: webhooks
-        limit: -1
-        timeFrame: workspace
-        type: quota
-        note: Unlimited on self-hosted
-    features:
-      - name: All Advanced Features
-        type: boolean
-        value: true
-      - name: Self-Hosted Deployment
-        type: boolean
-        value: true
-      - name: GDPR Compliance
-        type: boolean
-        value: true
-      - name: HIPAA Compliance
-        type: boolean
-        value: true
-      - name: SOC 2 Type II Compliance
-        type: boolean
-        value: true
-      - name: Custom SLA
-        type: boolean
-        value: true
+- name: Free
+  price_text: $0
+  price: 0
+  currency: USD
+  period: month
+  unit: per user
+  included_quota: 3,000 rows per workspace; 2GB of storage per workspace; 2,000 automation credits; 500
+    external app users; Grid, Form & Gallery views; Library of 65+ templates
+- name: Premium
+  price_text: $10 per user/month billed yearly
+  price: 10
+  currency: USD
+  period: month
+  unit: per user
+  included_quota: 50,000 rows per workspace; 20GB of storage per workspace; 100,000 automation credits;
+    500 external app users; All views; AI features
+  overage: $12 billed monthly
+- name: Advanced
+  price_text: $18 per user/month billed yearly
+  price: 18
+  currency: USD
+  period: month
+  unit: per user
+  included_quota: 250,000 rows per workspace; 100GB of storage per workspace; 500,000 automation credits;
+    500 external app users; Role based permissions; Audit logs
+  overage: $22 billed monthly
+- name: Enterprise
+  price_text: On request
+  period: month
+  unit: per user
+  included_quota: 1,000,000 rows per workspace; 1,000GB of storage per workspace; 2,000,000 automation
+    credits; Unlimited external app users; Implementation support; Payment by invoice
