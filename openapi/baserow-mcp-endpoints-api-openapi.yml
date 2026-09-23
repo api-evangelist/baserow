@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin MCP endpoints API
+  title: Baserow API spec MCP endpoints API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -57,6 +57,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get mcp endpoint
+      x-summary-source: derived
     patch:
       operationId: update_mcp_endpoint
       description: Updates the MCP endpoint if the authorized user has access to it.
@@ -131,6 +133,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update mcp endpoint
+      x-summary-source: derived
     delete:
       operationId: delete_mcp_endpoint
       description: Deletes an MCP endpoint if the authorized user has access to it.
@@ -189,6 +193,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete mcp endpoint
+      x-summary-source: derived
   /api/mcp/endpoints/:
     get:
       operationId: list_mcp_endpoints
@@ -207,6 +213,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/MCPEndpoint'
           description: ''
+      summary: List mcp endpoints
+      x-summary-source: derived
     post:
       operationId: create_mcp_endpoint
       description: Creates a new MCP endpoint for a given workspace. The endpoint can be used for an MCP integration.
@@ -255,21 +263,10 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create mcp endpoint
+      x-summary-source: derived
 components:
   schemas:
-    CreateMCPEndpoint:
-      type: object
-      description: Used for validating the creation of a new MCP endpoint.
-      properties:
-        name:
-          type: string
-          description: The human readable name of the MCP endpoint for the user.
-          maxLength: 100
-        workspace_id:
-          type: integer
-      required:
-      - name
-      - workspace_id
     MCPEndpoint:
       type: object
       description: Serializes a complete MCP endpoint object.
@@ -302,6 +299,19 @@ components:
       - name
       - workspace_id
       - workspace_name
+    CreateMCPEndpoint:
+      type: object
+      description: Used for validating the creation of a new MCP endpoint.
+      properties:
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
+        workspace_id:
+          type: integer
+      required:
+      - name
+      - workspace_id
     PatchedUpdateMCPEndpoint:
       type: object
       description: Used for validating updating an existing MCP endpoint.
@@ -311,7 +321,7 @@ components:
           description: The human readable name of the MCP endpoint for the user.
           maxLength: 100
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -319,7 +329,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

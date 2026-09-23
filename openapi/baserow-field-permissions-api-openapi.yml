@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Field permissions API
+  title: Baserow API spec Field permissions API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -81,6 +81,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get field permissions
+      x-summary-source: derived
     patch:
       operationId: update_field_permissions
       description: 'Update permissions for writing field values and form visibility for a specific field. This endpoint is used to restrict the ability to modify field values to the roles defined. It also makes it possible to decide if the field can be exposed in forms or not.
@@ -158,6 +160,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update field permissions
+      x-summary-source: derived
 components:
   schemas:
     PatchedUpdateFieldPermissionsRequest:
@@ -224,7 +228,7 @@ components:
 
         * `NOBODY` - Nobody'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -232,7 +236,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

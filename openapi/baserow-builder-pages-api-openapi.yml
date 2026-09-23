@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Builder pages API
+  title: Baserow API spec Builder pages API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -100,6 +100,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create builder page
+      x-summary-source: derived
   /api/builder/{builder_id}/pages/order/:
     post:
       operationId: order_builder_pages
@@ -179,6 +181,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Order builder pages
+      x-summary-source: derived
   /api/builder/pages/{page_id}/:
     patch:
       operationId: update_builder_page
@@ -266,6 +270,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update builder page
+      x-summary-source: derived
     delete:
       operationId: delete_builder_page
       description: Deletes an existing page of an application builder
@@ -331,6 +337,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete builder page
+      x-summary-source: derived
   /api/builder/pages/{page_id}/duplicate/async/:
     post:
       operationId: duplicate_builder_page_async
@@ -401,8 +409,72 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Duplicate builder page async
+      x-summary-source: derived
 components:
   schemas:
+    OrderPages:
+      type: object
+      properties:
+        page_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the pages in the order they are supposed to be set in
+      required:
+      - page_ids
+    VisibilityC5fEnum:
+      enum:
+      - all
+      - logged-in
+      type: string
+      description: '* `all` - All
+
+        * `logged-in` - Logged In'
+    DuplicatePageJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          readOnly: true
+        duplicated_page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_page
+      - id
+      - original_page
+      - progress_percentage
+      - state
+      - type
+      - updated_on
     Page:
       type: object
       description: '👉 Mind to update the
@@ -474,6 +546,63 @@ components:
       - roles
       - shared
       - visibility
+    RoleTypeEnum:
+      enum:
+      - allow_all
+      - allow_all_except
+      - disallow_all_except
+      type: string
+      description: '* `allow_all` - Allow All
+
+        * `allow_all_except` - Allow All Except
+
+        * `disallow_all_except` - Disallow All Except'
+    PathParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
+    QueryParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
+    TypeC70Enum:
+      enum:
+      - text
+      - numeric
+      type: string
+      description: '* `text` - text
+
+        * `numeric` - numeric'
     CreatePage:
       type: object
       properties:
@@ -494,35 +623,6 @@ components:
       required:
       - name
       - path
-    OrderPages:
-      type: object
-      properties:
-        page_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the pages in the order they are supposed to be set in
-      required:
-      - page_ids
-    QueryParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
     PatchedUpdatePage:
       type: object
       properties:
@@ -562,98 +662,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QueryParam'
-    TypeC70Enum:
-      enum:
-      - text
-      - numeric
-      type: string
-      description: '* `text` - text
-
-        * `numeric` - numeric'
-    VisibilityC5fEnum:
-      enum:
-      - all
-      - logged-in
-      type: string
-      description: '* `all` - All
-
-        * `logged-in` - Logged In'
-    PathParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
-    DuplicatePageJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        original_page:
-          allOf:
-          - $ref: '#/components/schemas/Page'
-          readOnly: true
-        duplicated_page:
-          allOf:
-          - $ref: '#/components/schemas/Page'
-          readOnly: true
-      required:
-      - created_on
-      - duplicated_page
-      - id
-      - original_page
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    RoleTypeEnum:
-      enum:
-      - allow_all
-      - allow_all_except
-      - disallow_all_except
-      type: string
-      description: '* `allow_all` - Allow All
-
-        * `allow_all_except` - Allow All Except
-
-        * `disallow_all_except` - Disallow All Except'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -661,7 +671,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

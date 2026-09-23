@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Automation history API
+  title: Baserow API spec Automation history API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -64,6 +64,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get automation node result
+      x-summary-source: derived
   /api/automation/workflow_histories/{workflow_history_id}/node_histories/:
     get:
       operationId: get_automation_node_histories
@@ -115,8 +117,24 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get automation node histories
+      x-summary-source: derived
 components:
   schemas:
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
     AutomationNodeHistory:
       type: object
       properties:
@@ -127,9 +145,10 @@ components:
           type: string
           format: date-time
         completed_on:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         message:
           type: string
         status:
@@ -169,20 +188,6 @@ components:
       - started_on
       - status
       - workflow_history
-    StatusF41Enum:
-      enum:
-      - success
-      - error
-      - disabled
-      - started
-      type: string
-      description: '* `success` - Success
-
-        * `error` - Error
-
-        * `disabled` - Disabled
-
-        * `started` - Started'
     AutomationNodeResult:
       type: object
       properties:
@@ -191,7 +196,7 @@ components:
       required:
       - result
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -199,7 +204,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Database table gallery view API
+  title: Baserow API spec Database table gallery view API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -17,10 +17,7 @@ paths:
   /api/database/views/gallery/{slug}/public/rows/:
     get:
       operationId: public_list_database_table_gallery_view_rows
-      description: 'Lists the requested rows of the view''s table related to the provided `slug` if the gallery view is public.The response is paginated either by a limit/offset or page/size style. The style depends on the provided GET parameters. The properties of the returned rows depends on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the example all field types are listed, but normally the number in field_{id} key is going to be the id of the field. The value is what the user has provided and the format of it depends on the fields type.
-
-
-        '
+      description: Lists the requested rows of the view's table related to the provided `slug` if the gallery view is public.The response is paginated either by a limit/offset or page/size style. The style depends on the provided GET parameters. The properties of the returned rows depends on which fields the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. In the example all field types are listed, but normally the number in field_{id} key is going to be the id of the field. The value is what the user has provided and the format of it depends on the fields type.
       parameters:
       - in: query
         name: count
@@ -190,6 +187,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Public list database table gallery view rows
+      x-summary-source: derived
   /api/database/views/gallery/{view_id}/:
     get:
       operationId: list_database_table_gallery_view_rows
@@ -329,6 +328,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List database table gallery view rows
+      x-summary-source: derived
 components:
   schemas:
     PaginationSerializerWithGalleryViewFieldOptionsExampleRowResponse:
@@ -348,14 +349,16 @@ components:
           type: integer
           description: The total amount of results.
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: URL to the next page.
         previous:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: URL to the previous page.
         results:
           type: array
@@ -366,6 +369,107 @@ components:
       - next
       - previous
       - results
+    RowMetadata:
+      type: object
+      properties:
+        row_comment_count:
+          type: integer
+          minimum: 0
+          description: How many row comments exist for this row.
+        row_comments_notification_mode:
+          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    PublicPaginationSerializerWithGalleryViewFieldOptionsExampleRowResponse:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GalleryViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponse'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    GalleryViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
     FileFieldResponse:
       type: object
       properties:
@@ -405,91 +509,6 @@ components:
       - uploaded_at
       - url
       - visible_name
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
-    PublicPaginationSerializerWithGalleryViewFieldOptionsExampleRowResponse:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GalleryViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    RowMetadata:
-      type: object
-      properties:
-        row_comment_count:
-          type: integer
-          minimum: 0
-          description: How many row comments exist for this row.
-        row_comments_notification_mode:
-          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    GalleryViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the form. Lower value is first.
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
     ExampleRowResponse:
       type: object
       properties:
@@ -506,27 +525,32 @@ components:
           - $ref: '#/components/schemas/RowMetadata'
           description: Additional metadata for the row, if `include=metadata' is provided as query parameter.
         field_1:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. '
         field_2:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. '
         field_3:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. '
         field_4:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. '
           maxLength: 254
         field_5:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
           pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          nullable: true
           description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. '
         field_6:
           type: integer
@@ -539,9 +563,10 @@ components:
           default: false
           description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. '
         field_8:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
           description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. '
         field_9:
           type: string
@@ -560,9 +585,10 @@ components:
           - $ref: '#/components/schemas/Collaborator'
           description: 'This field represents the `created_by` field. The number in field_12 is in a normal request or response the id of the field. '
         field_13:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
         field_14:
           type: array
@@ -577,34 +603,39 @@ components:
         field_16:
           allOf:
           - $ref: '#/components/schemas/SelectOption'
-          nullable: true
           description: This field represents the `single_select` field. The number in field_16 is in a normal request or response the id of the field. This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed.
         field_17:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/SelectOption'
-          nullable: true
           description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
         field_18:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. '
           maxLength: 100
         field_19:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `formula` field. The number in field_19 is in a normal request or response the id of the field. '
         field_20:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `count` field. The number in field_20 is in a normal request or response the id of the field. '
         field_21:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `rollup` field. The number in field_21 is in a normal request or response the id of the field. '
         field_22:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `lookup` field. The number in field_22 is in a normal request or response the id of the field. '
         field_23:
           type: array
@@ -626,28 +657,15 @@ components:
           readOnly: true
           description: 'This field represents the `form_view_edit_row` field. The number in field_27 is in a normal request or response the id of the field. '
         field_28:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
       required:
       - field_27
       - id
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -655,7 +673,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

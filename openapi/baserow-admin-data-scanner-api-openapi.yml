@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Admin data scanner API
+  title: Baserow API spec Admin data scanner API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -80,6 +80,8 @@ paths:
           description: ''
         '401':
           description: No response body
+      summary: Admin data scanner list results
+      x-summary-source: derived
   /api/admin/data-scanner/results/{result_id}/:
     delete:
       operationId: admin_data_scanner_delete_result
@@ -119,6 +121,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner delete result
+      x-summary-source: derived
   /api/admin/data-scanner/results/export/:
     post:
       operationId: admin_data_scanner_export_results
@@ -166,6 +170,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner export results
+      x-summary-source: derived
   /api/admin/data-scanner/scans/:
     get:
       operationId: admin_data_scanner_list_scans
@@ -232,6 +238,8 @@ paths:
           description: ''
         '401':
           description: No response body
+      summary: Admin data scanner list scans
+      x-summary-source: derived
     post:
       operationId: admin_data_scanner_create_scan
       description: Creates a new data scan. A data scan searches the Baserow instance for sensitive data matching a pattern (e.g. credit card numbers), a list of uploaded values, or values sourced from another Baserow table. **Enterprise feature.**
@@ -259,6 +267,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/DataScan'
           description: ''
+      summary: Admin data scanner create scan
+      x-summary-source: derived
   /api/admin/data-scanner/scans/{scan_id}/:
     get:
       operationId: admin_data_scanner_get_scan
@@ -302,6 +312,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner get scan
+      x-summary-source: derived
     patch:
       operationId: admin_data_scanner_update_scan
       description: Updates a data scan configuration. When the scan type, pattern, or list items change, stale results are automatically cleaned up. **Enterprise feature.**
@@ -375,6 +387,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner update scan
+      x-summary-source: derived
     delete:
       operationId: admin_data_scanner_delete_scan
       description: Deletes a data scan and all of its results. **Enterprise feature.**
@@ -433,6 +447,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner delete scan
+      x-summary-source: derived
   /api/admin/data-scanner/scans/{scan_id}/trigger/:
     post:
       operationId: admin_data_scanner_trigger_scan
@@ -496,6 +512,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner trigger scan
+      x-summary-source: derived
   /api/admin/data-scanner/workspace-structure/{workspace_id}/:
     get:
       operationId: admin_data_scanner_workspace_structure
@@ -541,122 +559,45 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Admin data scanner workspace structure
+      x-summary-source: derived
 components:
   schemas:
-    WorkspaceStructureDatabase:
+    PatchedDataScanUpdate:
       type: object
       properties:
-        id:
-          type: integer
-        name:
-          type: string
-        tables:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
-      - tables
-    PaginationSerializerDataScanResult:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataScanResult'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    DataScan:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
         name:
           type: string
           maxLength: 255
         scan_type:
           $ref: '#/components/schemas/ScanTypeEnum'
         pattern:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
+          maxLength: 100
         frequency:
           $ref: '#/components/schemas/FrequencyEnum'
         scan_all_workspaces:
           type: boolean
         workspace_ids:
-          type: string
-          readOnly: true
-        is_running:
-          type: boolean
-        last_run_started_at:
-          type: string
-          format: date-time
-          nullable: true
-        last_run_finished_at:
-          type: string
-          format: date-time
-          nullable: true
-        last_error:
-          type: string
-          nullable: true
+          type: array
+          items:
+            type: integer
         list_items:
-          type: string
-          readOnly: true
-        results_count:
-          type: string
-          readOnly: true
+          type: array
+          items:
+            type: string
         source_table_id:
-          type: string
-          readOnly: true
+          type:
+          - integer
+          - 'null'
         source_field_id:
-          type: string
-          readOnly: true
+          type:
+          - integer
+          - 'null'
         whole_words:
           type: boolean
-        source_workspace_id:
-          type: string
-          readOnly: true
-        source_database_id:
-          type: string
-          readOnly: true
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-      required:
-      - created_on
-      - id
-      - list_items
-      - name
-      - results_count
-      - scan_type
-      - source_database_id
-      - source_field_id
-      - source_table_id
-      - source_workspace_id
-      - updated_on
-      - workspace_ids
     DataScanCreate:
       type: object
       properties:
@@ -684,108 +625,141 @@ components:
           items:
             type: string
         source_table_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         source_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         whole_words:
           type: boolean
           default: true
       required:
       - name
       - scan_type
-    DataScanResult:
+    SingleDataScanResultExportJobRequest:
       type: object
+      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
+
+        with the actual usable url of the export job''s file (if it has one).'
       properties:
-        id:
-          type: integer
-          readOnly: true
-        scan_id:
-          type: integer
-          readOnly: true
-        scan_name:
-          type: string
-          readOnly: true
-        workspace_name:
-          type: string
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        database_name:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        table_name:
-          type: string
-          readOnly: true
-        field_name:
-          type: string
-          readOnly: true
-        row_id:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        matched_value:
-          type: string
-        first_identified_on:
-          type: string
-          format: date-time
-        last_identified_on:
-          type: string
-          format: date-time
-      required:
-      - database_id
-      - database_name
-      - field_name
-      - first_identified_on
-      - id
-      - last_identified_on
-      - matched_value
-      - row_id
-      - scan_id
-      - scan_name
-      - table_id
-      - table_name
-      - workspace_name
-    PaginationSerializerDataScan:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
+        url:
           type: string
           format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataScan'
+          readOnly: true
+        export_charset:
+          allOf:
+          - $ref: '#/components/schemas/ExportCharsetEnum'
+          default: utf-8
+          description: 'The character set to use when creating the export file.
+
+
+            * `utf-8` - utf-8
+
+            * `iso-8859-6` - iso-8859-6
+
+            * `windows-1256` - windows-1256
+
+            * `iso-8859-4` - iso-8859-4
+
+            * `windows-1257` - windows-1257
+
+            * `iso-8859-14` - iso-8859-14
+
+            * `iso-8859-2` - iso-8859-2
+
+            * `windows-1250` - windows-1250
+
+            * `gbk` - gbk
+
+            * `gb18030` - gb18030
+
+            * `big5` - big5
+
+            * `koi8-r` - koi8-r
+
+            * `koi8-u` - koi8-u
+
+            * `iso-8859-5` - iso-8859-5
+
+            * `windows-1251` - windows-1251
+
+            * `x-mac-cyrillic` - mac-cyrillic
+
+            * `iso-8859-7` - iso-8859-7
+
+            * `windows-1253` - windows-1253
+
+            * `iso-8859-8` - iso-8859-8
+
+            * `windows-1255` - windows-1255
+
+            * `euc-jp` - euc-jp
+
+            * `iso-2022-jp` - iso-2022-jp
+
+            * `shift-jis` - shift-jis
+
+            * `euc-kr` - euc-kr
+
+            * `macintosh` - macintosh
+
+            * `iso-8859-10` - iso-8859-10
+
+            * `iso-8859-16` - iso-8859-16
+
+            * `windows-874` - cp874
+
+            * `windows-1254` - windows-1254
+
+            * `windows-1258` - windows-1258
+
+            * `iso-8859-1` - iso-8859-1
+
+            * `windows-1252` - windows-1252
+
+            * `iso-8859-3` - iso-8859-3'
+        csv_column_separator:
+          allOf:
+          - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
+          default: ','
+          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
+        csv_first_row_header:
+          type: boolean
+          default: true
+          description: Whether or not to generate a header row at the top of the csv file.
+        filter_scan_id:
+          type: integer
+          minimum: 0
+          description: 'Optional: Filter results by scan ID.'
       required:
-      - count
-      - next
-      - previous
-      - results
-    CsvColumnSeparatorEnum:
+      - url
+    ScanTypeEnum:
       enum:
-      - ','
-      - ;
-      - '|'
-      - tab
-      - record_separator
-      - unit_separator
+      - pattern
+      - list_of_values
+      - list_table
       type: string
-      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+      description: '* `pattern` - Pattern
+
+        * `list_of_values` - List of values
+
+        * `list_table` - List Table'
+    FrequencyEnum:
+      enum:
+      - manual
+      - hourly
+      - daily
+      - weekly
+      type: string
+      description: '* `manual` - Manual
+
+        * `hourly` - Hourly
+
+        * `daily` - Daily
+
+        * `weekly` - Weekly'
     ExportCharsetEnum:
       enum:
       - utf-8
@@ -887,20 +861,178 @@ components:
         * `windows-1252` - windows-1252
 
         * `iso-8859-3` - iso-8859-3'
-    FrequencyEnum:
+    CsvColumnSeparatorEnum:
       enum:
-      - manual
-      - hourly
-      - daily
-      - weekly
+      - ','
+      - ;
+      - '|'
+      - tab
+      - record_separator
+      - unit_separator
       type: string
-      description: '* `manual` - Manual
-
-        * `hourly` - Hourly
-
-        * `daily` - Daily
-
-        * `weekly` - Weekly'
+      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
+    DataScan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type:
+          - string
+          - 'null'
+        frequency:
+          $ref: '#/components/schemas/FrequencyEnum'
+        scan_all_workspaces:
+          type: boolean
+        workspace_ids:
+          type: string
+          readOnly: true
+        is_running:
+          type: boolean
+        last_run_started_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_run_finished_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_error:
+          type:
+          - string
+          - 'null'
+        list_items:
+          type: string
+          readOnly: true
+        results_count:
+          type: string
+          readOnly: true
+        source_table_id:
+          type: string
+          readOnly: true
+        source_field_id:
+          type: string
+          readOnly: true
+        whole_words:
+          type: boolean
+        source_workspace_id:
+          type: string
+          readOnly: true
+        source_database_id:
+          type: string
+          readOnly: true
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_on
+      - id
+      - list_items
+      - name
+      - results_count
+      - scan_type
+      - source_database_id
+      - source_field_id
+      - source_table_id
+      - source_workspace_id
+      - updated_on
+      - workspace_ids
+    PaginationSerializerDataScanResult:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScanResult'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    DataScanResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        scan_id:
+          type: integer
+          readOnly: true
+        scan_name:
+          type: string
+          readOnly: true
+        workspace_name:
+          type: string
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        database_name:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        table_name:
+          type: string
+          readOnly: true
+        field_name:
+          type: string
+          readOnly: true
+        row_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        matched_value:
+          type: string
+        first_identified_on:
+          type: string
+          format: date-time
+        last_identified_on:
+          type: string
+          format: date-time
+      required:
+      - database_id
+      - database_name
+      - field_name
+      - first_identified_on
+      - id
+      - last_identified_on
+      - matched_value
+      - row_id
+      - scan_id
+      - scan_name
+      - table_id
+      - table_name
+      - workspace_name
     SingleDataScanResultExportJobResponse:
       type: object
       description: 'When mixed in to a model serializer for an ExportJob this will add an url field
@@ -988,7 +1120,7 @@ components:
           allOf:
           - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
           default: ','
-          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
+          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
         csv_first_row_header:
           type: boolean
           default: true
@@ -1010,148 +1142,49 @@ components:
       - created_on
       - exported_file_name
       - url
-    PatchedDataScanUpdate:
+    WorkspaceStructureDatabase:
       type: object
       properties:
+        id:
+          type: integer
         name:
           type: string
-          maxLength: 255
-        scan_type:
-          $ref: '#/components/schemas/ScanTypeEnum'
-        pattern:
+        tables:
           type: string
-          nullable: true
-          maxLength: 100
-        frequency:
-          $ref: '#/components/schemas/FrequencyEnum'
-        scan_all_workspaces:
-          type: boolean
-        workspace_ids:
-          type: array
-          items:
-            type: integer
-        list_items:
-          type: array
-          items:
-            type: string
-        source_table_id:
-          type: integer
-          nullable: true
-        source_field_id:
-          type: integer
-          nullable: true
-        whole_words:
-          type: boolean
-    ScanTypeEnum:
-      enum:
-      - pattern
-      - list_of_values
-      - list_table
-      type: string
-      description: '* `pattern` - Pattern
-
-        * `list_of_values` - List of values
-
-        * `list_table` - List Table'
-    SingleDataScanResultExportJobRequest:
-      type: object
-      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
-
-        with the actual usable url of the export job''s file (if it has one).'
-      properties:
-        url:
-          type: string
-          format: uri
           readOnly: true
-        export_charset:
-          allOf:
-          - $ref: '#/components/schemas/ExportCharsetEnum'
-          default: utf-8
-          description: 'The character set to use when creating the export file.
-
-
-            * `utf-8` - utf-8
-
-            * `iso-8859-6` - iso-8859-6
-
-            * `windows-1256` - windows-1256
-
-            * `iso-8859-4` - iso-8859-4
-
-            * `windows-1257` - windows-1257
-
-            * `iso-8859-14` - iso-8859-14
-
-            * `iso-8859-2` - iso-8859-2
-
-            * `windows-1250` - windows-1250
-
-            * `gbk` - gbk
-
-            * `gb18030` - gb18030
-
-            * `big5` - big5
-
-            * `koi8-r` - koi8-r
-
-            * `koi8-u` - koi8-u
-
-            * `iso-8859-5` - iso-8859-5
-
-            * `windows-1251` - windows-1251
-
-            * `x-mac-cyrillic` - mac-cyrillic
-
-            * `iso-8859-7` - iso-8859-7
-
-            * `windows-1253` - windows-1253
-
-            * `iso-8859-8` - iso-8859-8
-
-            * `windows-1255` - windows-1255
-
-            * `euc-jp` - euc-jp
-
-            * `iso-2022-jp` - iso-2022-jp
-
-            * `shift-jis` - shift-jis
-
-            * `euc-kr` - euc-kr
-
-            * `macintosh` - macintosh
-
-            * `iso-8859-10` - iso-8859-10
-
-            * `iso-8859-16` - iso-8859-16
-
-            * `windows-874` - cp874
-
-            * `windows-1254` - windows-1254
-
-            * `windows-1258` - windows-1258
-
-            * `iso-8859-1` - iso-8859-1
-
-            * `windows-1252` - windows-1252
-
-            * `iso-8859-3` - iso-8859-3'
-        csv_column_separator:
-          allOf:
-          - $ref: '#/components/schemas/CsvColumnSeparatorEnum'
-          default: ','
-          description: "The value used to separate columns in the resulting csv file.\n\n* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \x1E\n* `unit_separator` - \x1F"
-        csv_first_row_header:
-          type: boolean
-          default: true
-          description: Whether or not to generate a header row at the top of the csv file.
-        filter_scan_id:
-          type: integer
-          minimum: 0
-          description: 'Optional: Filter results by scan ID.'
       required:
-      - url
+      - id
+      - name
+      - tables
+    PaginationSerializerDataScan:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScan'
+      required:
+      - count
+      - next
+      - previous
+      - results
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -1159,7 +1192,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

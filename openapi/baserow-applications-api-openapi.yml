@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Applications API
+  title: Baserow API spec Applications API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -52,6 +52,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List all applications
+      x-summary-source: derived
   /api/applications/{application_id}/:
     get:
       operationId: workspace_get_application
@@ -116,6 +118,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace get application
+      x-summary-source: derived
     patch:
       operationId: workspace_update_application
       description: Updates the existing application related to the provided `application_id` param if the authorized user is in the application's workspace. It is not possible to change the type, but properties like the name can be changed.
@@ -202,6 +206,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace update application
+      x-summary-source: derived
     delete:
       operationId: workspace_delete_application
       description: Deletes an application if the authorized user is in the application's workspace. All the related children are also going to be deleted. For example in case of a database application all the underlying tables, fields, views and rows are going to be deleted.
@@ -273,6 +279,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace delete application
+      x-summary-source: derived
   /api/applications/{application_id}/duplicate/async/:
     post:
       operationId: duplicate_application_async
@@ -350,6 +358,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Duplicate application async
+      x-summary-source: derived
   /api/applications/workspace/{workspace_id}/:
     get:
       operationId: workspace_list_applications
@@ -416,6 +426,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace list applications
+      x-summary-source: derived
     post:
       operationId: workspace_create_application
       description: Creates a new application based on the provided type. The newly created application is going to be added to the workspace related to the provided `workspace_id` parameter. If the authorized user does not belong to the workspace an error will be returned.
@@ -502,6 +514,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace create application
+      x-summary-source: derived
   /api/applications/workspace/{workspace_id}/order/:
     post:
       operationId: workspace_order_applications
@@ -586,254 +600,10 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace order applications
+      x-summary-source: derived
 components:
   schemas:
-    ButtonFontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    LinkTextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    Page:
-      type: object
-      description: '👉 Mind to update the
-
-        baserow.contrib.builder.api.domains.serializer.PublicPageSerializer
-
-        when you update this one.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        path:
-          type: string
-          maxLength: 255
-        path_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathParam'
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        builder_id:
-          type: integer
-          readOnly: true
-        shared:
-          type: boolean
-          readOnly: true
-        visibility:
-          allOf:
-          - $ref: '#/components/schemas/VisibilityC5fEnum'
-          readOnly: true
-          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
-
-
-            * `all` - All
-
-            * `logged-in` - Logged In'
-        role_type:
-          allOf:
-          - $ref: '#/components/schemas/RoleTypeEnum'
-          readOnly: true
-          description: 'Role type is used in conjunction with roles to control access to this page.
-
-
-            * `allow_all` - Allow All
-
-            * `allow_all_except` - Allow All Except
-
-            * `disallow_all_except` - Disallow All Except'
-        roles:
-          readOnly: true
-          description: List of user roles that are associated with this page. Used in conjunction with role_type.
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
-      required:
-      - builder_id
-      - id
-      - name
-      - order
-      - path
-      - role_type
-      - roles
-      - shared
-      - visibility
-    Type76dEnum:
-      enum:
-      - database
-      - dashboard
-      - automation
-      - builder
-      type: string
-      description: '* `database` - database
-
-        * `dashboard` - dashboard
-
-        * `automation` - automation
-
-        * `builder` - builder'
-    BuilderBaseApplicationCreatePolymorphic:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 160
-        type:
-          $ref: '#/components/schemas/Type76dEnum'
-        init_with_data:
-          type: boolean
-          default: false
-        favicon_file:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          nullable: true
-          description: The favicon image file
-        login_page_id:
-          type: integer
-          nullable: true
-          description: The login page for this application. This is related to the visibility settings of builder pages.
-        scripts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomScript'
-          description: Custom CSS/JS scripts for this builder
-        custom_code:
-          allOf:
-          - $ref: '#/components/schemas/CustomCode'
-          description: Custom CSS/JS code for this builder
-      required:
-      - name
-      - type
-    PatchedApplicationBaseApplicationUpdatePolymorphic:
-      anyOf:
-      - $ref: '#/components/schemas/DatabaseBaseApplicationUpdatePolymorphic'
-      - $ref: '#/components/schemas/DashboardBaseApplicationUpdatePolymorphic'
-      - $ref: '#/components/schemas/AutomationBaseApplicationUpdatePolymorphic'
-      - $ref: '#/components/schemas/BuilderBaseApplicationUpdatePolymorphic'
-    Heading2FontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    ButtonTextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    LoadTypeEnum:
-      enum:
-      - defer
-      - async
-      type: string
-      description: '* `` - None
-
-        * `defer` - Defer
-
-        * `async` - Async'
-    ButtonWidthEnum:
-      enum:
-      - auto
-      - full
-      type: string
-      description: '* `auto` - Auto
-
-        * `full` - Full'
-    ApplicationApplication:
-      oneOf:
-      - $ref: '#/components/schemas/DatabaseApplication'
-      - $ref: '#/components/schemas/DashboardApplication'
-      - $ref: '#/components/schemas/AutomationApplication'
-      - $ref: '#/components/schemas/BuilderApplication'
-      discriminator:
-        propertyName: type
-        mapping:
-          database: '#/components/schemas/DatabaseApplication'
-          dashboard: '#/components/schemas/DashboardApplication'
-          automation: '#/components/schemas/AutomationApplication'
-          builder: '#/components/schemas/BuilderApplication'
     Heading6FontWeightEnum:
       enum:
       - thin
@@ -869,728 +639,6 @@ components:
         * `black` - Black
 
         * `extra-black` - Extra Black'
-    DatabaseBaseApplicationUpdatePolymorphic:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 160
-      required:
-      - name
-    Heading5FontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    CustomScriptTypeEnum:
-      enum:
-      - stylesheet
-      - javascript
-      type: string
-      description: '* `stylesheet` - Stylesheet
-
-        * `javascript` - JavaScript'
-    BodyTextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    CustomScript:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/CustomScriptTypeEnum'
-          description: 'The type of script.
-
-
-            * `stylesheet` - Stylesheet
-
-            * `javascript` - JavaScript'
-        url:
-          type: string
-          format: uri
-          description: The URL of the script.
-          maxLength: 200
-        load_type:
-          description: 'The load type of the script.
-
-
-            * `` - None
-
-            * `defer` - Defer
-
-            * `async` - Async'
-          oneOf:
-          - $ref: '#/components/schemas/LoadTypeEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        crossorigin:
-          description: 'The Crossorigin type of the script.
-
-
-            * `` - None
-
-            * `anonymous` - Anonymous
-
-            * `credentials` - Use credentials'
-          oneOf:
-          - $ref: '#/components/schemas/CrossoriginEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-      required:
-      - id
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
-      required:
-      - generative_ai_models_enabled
-      - id
-      - name
-    CustomCode:
-      type: object
-      properties:
-        css:
-          type: string
-          description: Custom CSS code.
-        js:
-          type: string
-          description: Custom JavaScript code.
-    InputFontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    AutomationApplication:
-      type: object
-      description: The Automation serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        workspace:
-          allOf:
-          - $ref: '#/components/schemas/Workspace'
-          description: The workspace that the application belongs to.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        workflows:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationWorkflow'
-          readOnly: true
-          description: This field is specific to the `automation` application and contains an array of workflows that are in the automation.
-      required:
-      - created_on
-      - id
-      - name
-      - order
-      - type
-      - workflows
-      - workspace
-    TableHeaderFontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    CrossoriginEnum:
-      enum:
-      - anonymous
-      - credentials
-      type: string
-      description: '* `` - None
-
-        * `anonymous` - Anonymous
-
-        * `credentials` - Use credentials'
-    Heading3TextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    DuplicateApplicationJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        original_application:
-          allOf:
-          - $ref: '#/components/schemas/ApplicationApplication'
-          readOnly: true
-        duplicated_application:
-          allOf:
-          - $ref: '#/components/schemas/ApplicationApplication'
-          readOnly: true
-      required:
-      - created_on
-      - duplicated_application
-      - id
-      - original_application
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    BodyFontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    Heading5TextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    DatabaseBaseApplicationCreatePolymorphic:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 160
-        type:
-          $ref: '#/components/schemas/Type76dEnum'
-        init_with_data:
-          type: boolean
-          default: false
-      required:
-      - name
-      - type
-    DatabaseApplication:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        workspace:
-          allOf:
-          - $ref: '#/components/schemas/Workspace'
-          description: The workspace that the application belongs to.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        tables:
-          type: array
-          items:
-            $ref: '#/components/schemas/Table'
-          readOnly: true
-          description: This field is specific to the `database` application and contains an array of tables that are in the database.
-      required:
-      - created_on
-      - id
-      - name
-      - order
-      - tables
-      - type
-      - workspace
-    BuilderBaseApplicationUpdatePolymorphic:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 160
-        favicon_file:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          nullable: true
-          description: The favicon image file
-        login_page_id:
-          type: integer
-          nullable: true
-          description: The login page for this application. This is related to the visibility settings of builder pages.
-        scripts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomScript'
-          description: Custom CSS/JS scripts for this builder
-        custom_code:
-          allOf:
-          - $ref: '#/components/schemas/CustomCode'
-          description: Custom CSS/JS code for this builder
-      required:
-      - name
-    TableHeaderTextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    Heading4TextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    DashboardApplication:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        workspace:
-          allOf:
-          - $ref: '#/components/schemas/Workspace'
-          description: The workspace that the application belongs to.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        description:
-          type: string
-      required:
-      - created_on
-      - id
-      - name
-      - order
-      - type
-      - workspace
-    QueryParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
-    UserFile:
-      type: object
-      properties:
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-        mime_type:
-          type: string
-          maxLength: 127
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-        image_height:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-        uploaded_at:
-          type: string
-          format: date-time
-          readOnly: true
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        original_name:
-          type: string
-          maxLength: 255
-      required:
-      - name
-      - original_name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-    AutomationBaseApplicationCreatePolymorphic:
-      type: object
-      description: The Automation serializer.
-      properties:
-        name:
-          type: string
-          maxLength: 160
-        type:
-          $ref: '#/components/schemas/Type76dEnum'
-        init_with_data:
-          type: boolean
-          default: false
-      required:
-      - name
-      - type
-    DashboardBaseApplicationCreatePolymorphic:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 160
-        type:
-          $ref: '#/components/schemas/Type76dEnum'
-        init_with_data:
-          type: boolean
-          default: false
-        description:
-          type: string
-      required:
-      - name
-      - type
-    VisibilityC5fEnum:
-      enum:
-      - all
-      - logged-in
-      type: string
-      description: '* `all` - All
-
-        * `logged-in` - Logged In'
-    PageBackgroundModeEnum:
-      enum:
-      - tile
-      - fill
-      - fit
-      type: string
-      description: '* `tile` - Tile
-
-        * `fill` - Fill
-
-        * `fit` - Fit'
-    Heading6TextAlignmentEnum:
-      enum:
-      - left
-      - center
-      - right
-      type: string
-      description: '* `left` - Left
-
-        * `center` - Center
-
-        * `right` - Right'
-    Table:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        database_id:
-          type: integer
-          readOnly: true
-        data_sync:
-          $ref: '#/components/schemas/DataSync'
-      required:
-      - data_sync
-      - database_id
-      - id
-      - name
-      - order
-    Heading4FontWeightEnum:
-      enum:
-      - thin
-      - extra-light
-      - light
-      - regular
-      - medium
-      - semi-bold
-      - bold
-      - extra-bold
-      - heavy
-      - black
-      - extra-black
-      type: string
-      description: '* `thin` - Thin
-
-        * `extra-light` - Extra Light
-
-        * `light` - Light
-
-        * `regular` - Regular
-
-        * `medium` - Medium
-
-        * `semi-bold` - Semi Bold
-
-        * `bold` - Bold
-
-        * `extra-bold` - Extra Bold
-
-        * `heavy` - Heavy
-
-        * `black` - Black
-
-        * `extra-black` - Extra Black'
-    AutomationWorkflow:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        automation_id:
-          type: integer
-          readOnly: true
-        allow_test_run_until:
-          type: string
-          format: date-time
-          nullable: true
-        simulate_until_node_id:
-          type: integer
-          nullable: true
-          description: When set, upon the next workflow run, simulates the dispatch of the workflow until this node and updates the sample_data of the node's service.
-          readOnly: true
-        published_on:
-          type: string
-          readOnly: true
-        state:
-          type: string
-          readOnly: true
-        graph:
-          description: Contains the node graph.
-        notification_recipient_ids:
-          type: array
-          items:
-            type: integer
-          readOnly: true
-      required:
-      - automation_id
-      - id
-      - name
-      - notification_recipient_ids
-      - order
-      - published_on
-      - simulate_until_node_id
-      - state
     AutomationBaseApplicationUpdatePolymorphic:
       type: object
       description: The Automation serializer.
@@ -1600,20 +648,6 @@ components:
           maxLength: 160
       required:
       - name
-    BlankEnum:
-      enum:
-      - ''
-    RoleTypeEnum:
-      enum:
-      - allow_all
-      - allow_all_except
-      - disallow_all_except
-      type: string
-      description: '* `allow_all` - Allow All
-
-        * `allow_all_except` - Allow All Except
-
-        * `disallow_all_except` - Disallow All Except'
     ColorTypographyButtonImagePageInputTableLinklink_active_text_decoration:
       type: object
       properties:
@@ -1864,7 +898,6 @@ components:
         page_background_file:
           allOf:
           - $ref: '#/components/schemas/UserFile'
-          nullable: true
           description: The image file
         page_background_color:
           type: string
@@ -2049,46 +1082,642 @@ components:
           type: string
           description: The hover color of links when active
           maxLength: 255
-    DataSync:
+    Workspace:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
+        name:
+          type: string
+          maxLength: 165
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+      required:
+      - generative_ai_models_enabled
+      - id
+      - name
+    Page:
+      type: object
+      description: '👉 Mind to update the
+
+        baserow.contrib.builder.api.domains.serializer.PublicPageSerializer
+
+        when you update this one.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        path:
+          type: string
+          maxLength: 255
+        path_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathParam'
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        builder_id:
+          type: integer
+          readOnly: true
+        shared:
+          type: boolean
+          readOnly: true
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/VisibilityC5fEnum'
+          readOnly: true
+          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
+
+
+            * `all` - All
+
+            * `logged-in` - Logged In'
+        role_type:
+          allOf:
+          - $ref: '#/components/schemas/RoleTypeEnum'
+          readOnly: true
+          description: 'Role type is used in conjunction with roles to control access to this page.
+
+
+            * `allow_all` - Allow All
+
+            * `allow_all_except` - Allow All Except
+
+            * `disallow_all_except` - Disallow All Except'
+        roles:
+          readOnly: true
+          description: List of user roles that are associated with this page. Used in conjunction with role_type.
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+      required:
+      - builder_id
+      - id
+      - name
+      - order
+      - path
+      - role_type
+      - roles
+      - shared
+      - visibility
+    DatabaseBaseApplicationCreatePolymorphic:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 160
+        type:
+          $ref: '#/components/schemas/Type76dEnum'
+        init_with_data:
+          type: boolean
+          default: false
+      required:
+      - name
+      - type
+    DashboardBaseApplicationCreatePolymorphic:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 160
+        type:
+          $ref: '#/components/schemas/Type76dEnum'
+        init_with_data:
+          type: boolean
+          default: false
+        description:
+          type: string
+      required:
+      - name
+      - type
+    Heading4TextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    CrossoriginEnum:
+      enum:
+      - anonymous
+      - credentials
+      type: string
+      description: '* `` - None
+
+        * `anonymous` - Anonymous
+
+        * `credentials` - Use credentials'
+    UserFile:
+      type: object
+      properties:
+        size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mime_type:
+          type: string
+          maxLength: 127
+        is_image:
+          type: boolean
+        image_width:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        image_height:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        original_name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      - original_name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+    BodyTextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    CustomScriptTypeEnum:
+      enum:
+      - stylesheet
+      - javascript
+      type: string
+      description: '* `stylesheet` - Stylesheet
+
+        * `javascript` - JavaScript'
+    DatabaseBaseApplicationUpdatePolymorphic:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 160
+      required:
+      - name
+    DashboardApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
         type:
           type: string
           readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
+        workspace:
+          allOf:
+          - $ref: '#/components/schemas/Workspace'
+          description: The workspace that the application belongs to.
+        created_on:
           type: string
           format: date-time
-          nullable: true
-          description: Timestamp when the table was last synced.
-        last_error:
+          readOnly: true
+        description:
           type: string
-          nullable: true
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
       required:
+      - created_on
+      - id
+      - name
+      - order
+      - type
+      - workspace
+    TableCellAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    BuilderBaseApplicationUpdatePolymorphic:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 160
+        favicon_file:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The favicon image file
+        login_page_id:
+          type:
+          - integer
+          - 'null'
+          description: The login page for this application. This is related to the visibility settings of builder pages.
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomScript'
+          description: Custom CSS/JS scripts for this builder
+        custom_code:
+          allOf:
+          - $ref: '#/components/schemas/CustomCode'
+          description: Custom CSS/JS code for this builder
+      required:
+      - name
+    BuilderApplication:
+      type: object
+      description: 'The builder serializer.
+
+
+        👉 Mind to update the
+
+        baserow.contrib.builder.api.domains.serializer.PublicBuilderSerializer
+
+        file when you update this one if needed.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        workspace:
+          allOf:
+          - $ref: '#/components/schemas/Workspace'
+          description: The workspace that the application belongs to.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        favicon_file:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The favicon image file
+        login_page_id:
+          type:
+          - integer
+          - 'null'
+          description: The login page for this application. This is related to the visibility settings of builder pages.
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
+          readOnly: true
+          description: This field is specific to the `builder` application and contains an array of pages that are in the builder.
+        theme:
+          allOf:
+          - $ref: '#/components/schemas/ColorTypographyButtonImagePageInputTableLinklink_active_text_decoration'
+          readOnly: true
+          description: This field is specific to the `builder` application and contains the theme settings.
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomScript'
+          readOnly: true
+          description: Scripts to embed for this application
+        custom_code:
+          allOf:
+          - $ref: '#/components/schemas/CustomCode'
+          description: Custom CSS/JS code for this builder
+      required:
+      - created_on
+      - custom_code
+      - id
+      - name
+      - order
+      - pages
+      - scripts
+      - theme
+      - type
+      - workspace
+    VisibilityC5fEnum:
+      enum:
+      - all
+      - logged-in
+      type: string
+      description: '* `all` - All
+
+        * `logged-in` - Logged In'
+    DataSyncSyncedProperty:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          description: The matching `key` of the `DataSyncProperty`.
+          maxLength: 255
+        unique_primary:
+          type: boolean
+          description: Indicates whether the data sync property is used for unique identification when syncing.
+      required:
+      - field_id
+      - key
+    TableHeaderFontWeightEnum:
+      enum:
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
+      type: string
+      description: '* `thin` - Thin
+
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    Heading6TextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    AutomationApplication:
+      type: object
+      description: The Automation serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        workspace:
+          allOf:
+          - $ref: '#/components/schemas/Workspace'
+          description: The workspace that the application belongs to.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        workflows:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationWorkflow'
+          readOnly: true
+          description: This field is specific to the `automation` application and contains an array of workflows that are in the automation.
+      required:
+      - created_on
+      - id
+      - name
+      - order
+      - type
+      - workflows
+      - workspace
+    Table:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+        data_sync:
+          $ref: '#/components/schemas/DataSync'
+      required:
+      - data_sync
       - database_id
       - id
-      - synced_properties
-      - table_id
+      - name
+      - order
+    DatabaseApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        workspace:
+          allOf:
+          - $ref: '#/components/schemas/Workspace'
+          description: The workspace that the application belongs to.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
+          readOnly: true
+          description: This field is specific to the `database` application and contains an array of tables that are in the database.
+      required:
+      - created_on
+      - id
+      - name
+      - order
+      - tables
       - type
+      - workspace
+    PathParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
+    ButtonFontWeightEnum:
+      enum:
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
+      type: string
+      description: '* `thin` - Thin
+
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    PatchedApplicationBaseApplicationUpdatePolymorphic:
+      anyOf:
+      - $ref: '#/components/schemas/DatabaseBaseApplicationUpdatePolymorphic'
+      - $ref: '#/components/schemas/DashboardBaseApplicationUpdatePolymorphic'
+      - $ref: '#/components/schemas/AutomationBaseApplicationUpdatePolymorphic'
+      - $ref: '#/components/schemas/BuilderBaseApplicationUpdatePolymorphic'
+    BlankEnum:
+      enum:
+      - ''
+    ButtonWidthEnum:
+      enum:
+      - auto
+      - full
+      type: string
+      description: '* `auto` - Auto
+
+        * `full` - Full'
+    Heading2FontWeightEnum:
+      enum:
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
+      type: string
+      description: '* `thin` - Thin
+
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
     Heading1FontWeightEnum:
       enum:
       - thin
@@ -2124,28 +1753,78 @@ components:
         * `black` - Black
 
         * `extra-black` - Extra Black'
-    DashboardBaseApplicationUpdatePolymorphic:
+    OrderApplications:
       type: object
       properties:
-        name:
-          type: string
-          maxLength: 160
-        description:
-          type: string
+        application_ids:
+          type: array
+          items:
+            type: integer
+          description: Application ids in the desired order.
       required:
-      - name
-    ButtonAlignmentEnum:
+      - application_ids
+    CustomCode:
+      type: object
+      properties:
+        css:
+          type: string
+          description: Custom CSS code.
+        js:
+          type: string
+          description: Custom JavaScript code.
+    BodyFontWeightEnum:
       enum:
-      - left
-      - center
-      - right
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
       type: string
-      description: '* `left` - Left
+      description: '* `thin` - Thin
 
-        * `center` - Center
+        * `extra-light` - Extra Light
 
-        * `right` - Right'
-    LinkFontWeightEnum:
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    ApplicationBaseApplicationCreatePolymorphic:
+      anyOf:
+      - $ref: '#/components/schemas/DatabaseBaseApplicationCreatePolymorphic'
+      - $ref: '#/components/schemas/DashboardBaseApplicationCreatePolymorphic'
+      - $ref: '#/components/schemas/AutomationBaseApplicationCreatePolymorphic'
+      - $ref: '#/components/schemas/BuilderBaseApplicationCreatePolymorphic'
+    RoleTypeEnum:
+      enum:
+      - allow_all
+      - allow_all_except
+      - disallow_all_except
+      type: string
+      description: '* `allow_all` - Allow All
+
+        * `allow_all_except` - Allow All Except
+
+        * `disallow_all_except` - Disallow All Except'
+    InputFontWeightEnum:
       enum:
       - thin
       - extra-light
@@ -2215,17 +1894,239 @@ components:
         * `black` - Black
 
         * `extra-black` - Extra Black'
-    OrderApplications:
+    DuplicateApplicationJobTypeResponse:
       type: object
       properties:
-        application_ids:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_application:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationApplication'
+          readOnly: true
+        duplicated_application:
+          allOf:
+          - $ref: '#/components/schemas/ApplicationApplication'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_application
+      - id
+      - original_application
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    QueryParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
+    TypeC70Enum:
+      enum:
+      - text
+      - numeric
+      type: string
+      description: '* `text` - text
+
+        * `numeric` - numeric'
+    Heading5TextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    LinkFontWeightEnum:
+      enum:
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
+      type: string
+      description: '* `thin` - Thin
+
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    TableHeaderTextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    ImageConstraintEnum:
+      enum:
+      - cover
+      - contain
+      - full-width
+      type: string
+      description: '* `cover` - Cover
+
+        * `contain` - Contain
+
+        * `full-width` - Full Width'
+    AutomationWorkflow:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        automation_id:
+          type: integer
+          readOnly: true
+        allow_test_run_until:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        simulate_until_node_id:
+          type:
+          - integer
+          - 'null'
+          description: When set, upon the next workflow run, simulates the dispatch of the workflow until this node and updates the sample_data of the node's service.
+          readOnly: true
+        published_on:
+          type: string
+          readOnly: true
+        state:
+          type: string
+          readOnly: true
+        graph:
+          description: Contains the node graph.
+        notification_recipient_ids:
           type: array
           items:
             type: integer
-          description: Application ids in the desired order.
+          readOnly: true
       required:
-      - application_ids
-    TableCellAlignmentEnum:
+      - automation_id
+      - id
+      - name
+      - notification_recipient_ids
+      - order
+      - published_on
+      - simulate_until_node_id
+      - state
+    BuilderBaseApplicationCreatePolymorphic:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 160
+        type:
+          $ref: '#/components/schemas/Type76dEnum'
+        init_with_data:
+          type: boolean
+          default: false
+        favicon_file:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The favicon image file
+        login_page_id:
+          type:
+          - integer
+          - 'null'
+          description: The login page for this application. This is related to the visibility settings of builder pages.
+        scripts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomScript'
+          description: Custom CSS/JS scripts for this builder
+        custom_code:
+          allOf:
+          - $ref: '#/components/schemas/CustomCode'
+          description: Custom CSS/JS code for this builder
+      required:
+      - name
+      - type
+    Heading2TextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    ButtonTextAlignmentEnum:
       enum:
       - left
       - center
@@ -2247,36 +2148,81 @@ components:
         * `center` - Center
 
         * `right` - Right'
-    DataSyncSyncedProperty:
+    AutomationBaseApplicationCreatePolymorphic:
       type: object
+      description: The Automation serializer.
       properties:
-        field_id:
-          type: integer
-          readOnly: true
-        key:
+        name:
           type: string
-          description: The matching `key` of the `DataSyncProperty`.
-          maxLength: 255
-        unique_primary:
+          maxLength: 160
+        type:
+          $ref: '#/components/schemas/Type76dEnum'
+        init_with_data:
           type: boolean
-          description: Indicates whether the data sync property is used for unique identification when syncing.
+          default: false
       required:
-      - field_id
-      - key
-    TypeC70Enum:
+      - name
+      - type
+    Heading4FontWeightEnum:
       enum:
-      - text
-      - numeric
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
       type: string
-      description: '* `text` - text
+      description: '* `thin` - Thin
 
-        * `numeric` - numeric'
-    ApplicationBaseApplicationCreatePolymorphic:
-      anyOf:
-      - $ref: '#/components/schemas/DatabaseBaseApplicationCreatePolymorphic'
-      - $ref: '#/components/schemas/DashboardBaseApplicationCreatePolymorphic'
-      - $ref: '#/components/schemas/AutomationBaseApplicationCreatePolymorphic'
-      - $ref: '#/components/schemas/BuilderBaseApplicationCreatePolymorphic'
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    Type76dEnum:
+      enum:
+      - database
+      - dashboard
+      - automation
+      - builder
+      type: string
+      description: '* `database` - database
+
+        * `dashboard` - dashboard
+
+        * `automation` - automation
+
+        * `builder` - builder'
+    PageBackgroundModeEnum:
+      enum:
+      - tile
+      - fill
+      - fit
+      type: string
+      description: '* `tile` - Tile
+
+        * `fill` - Fill
+
+        * `fit` - Fit'
     LabelFontWeightEnum:
       enum:
       - thin
@@ -2323,26 +2269,95 @@ components:
         * `center` - Center
 
         * `right` - Right'
-    PathParam:
+    DataSync:
       type: object
       properties:
-        name:
+        id:
+          type: integer
+          readOnly: true
+        type:
           type: string
-          description: The name of the parameter.
-          maxLength: 255
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - database_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    CustomScript:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
         type:
           allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
+          - $ref: '#/components/schemas/CustomScriptTypeEnum'
+          description: 'The type of script.
 
 
-            * `text` - text
+            * `stylesheet` - Stylesheet
 
-            * `numeric` - numeric'
+            * `javascript` - JavaScript'
+        url:
+          type: string
+          format: uri
+          description: The URL of the script.
+          maxLength: 200
+        load_type:
+          description: 'The load type of the script.
+
+
+            * `` - None
+
+            * `defer` - Defer
+
+            * `async` - Async'
+          oneOf:
+          - $ref: '#/components/schemas/LoadTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        crossorigin:
+          description: 'The Crossorigin type of the script.
+
+
+            * `` - None
+
+            * `anonymous` - Anonymous
+
+            * `credentials` - Use credentials'
+          oneOf:
+          - $ref: '#/components/schemas/CrossoriginEnum'
+          - $ref: '#/components/schemas/BlankEnum'
       required:
-      - name
-      - type
-    Heading2TextAlignmentEnum:
+      - id
+    LinkTextAlignmentEnum:
       enum:
       - left
       - center
@@ -2353,92 +2368,98 @@ components:
         * `center` - Center
 
         * `right` - Right'
-    BuilderApplication:
+    DashboardBaseApplicationUpdatePolymorphic:
       type: object
-      description: 'The builder serializer.
-
-
-        👉 Mind to update the
-
-        baserow.contrib.builder.api.domains.serializer.PublicBuilderSerializer
-
-        file when you update this one if needed.'
       properties:
-        id:
-          type: integer
-          readOnly: true
         name:
           type: string
           maxLength: 160
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
+        description:
           type: string
-          readOnly: true
-        workspace:
-          allOf:
-          - $ref: '#/components/schemas/Workspace'
-          description: The workspace that the application belongs to.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        favicon_file:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          nullable: true
-          description: The favicon image file
-        login_page_id:
-          type: integer
-          nullable: true
-          description: The login page for this application. This is related to the visibility settings of builder pages.
-        pages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
-          readOnly: true
-          description: This field is specific to the `builder` application and contains an array of pages that are in the builder.
-        theme:
-          allOf:
-          - $ref: '#/components/schemas/ColorTypographyButtonImagePageInputTableLinklink_active_text_decoration'
-          readOnly: true
-          description: This field is specific to the `builder` application and contains the theme settings.
-        scripts:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomScript'
-          readOnly: true
-          description: Scripts to embed for this application
-        custom_code:
-          allOf:
-          - $ref: '#/components/schemas/CustomCode'
-          description: Custom CSS/JS code for this builder
       required:
-      - created_on
-      - custom_code
-      - id
       - name
-      - order
-      - pages
-      - scripts
-      - theme
-      - type
-      - workspace
-    ImageConstraintEnum:
+    ButtonAlignmentEnum:
       enum:
-      - cover
-      - contain
-      - full-width
+      - left
+      - center
+      - right
       type: string
-      description: '* `cover` - Cover
+      description: '* `left` - Left
 
-        * `contain` - Contain
+        * `center` - Center
 
-        * `full-width` - Full Width'
+        * `right` - Right'
+    Heading3TextAlignmentEnum:
+      enum:
+      - left
+      - center
+      - right
+      type: string
+      description: '* `left` - Left
+
+        * `center` - Center
+
+        * `right` - Right'
+    Heading5FontWeightEnum:
+      enum:
+      - thin
+      - extra-light
+      - light
+      - regular
+      - medium
+      - semi-bold
+      - bold
+      - extra-bold
+      - heavy
+      - black
+      - extra-black
+      type: string
+      description: '* `thin` - Thin
+
+        * `extra-light` - Extra Light
+
+        * `light` - Light
+
+        * `regular` - Regular
+
+        * `medium` - Medium
+
+        * `semi-bold` - Semi Bold
+
+        * `bold` - Bold
+
+        * `extra-bold` - Extra Bold
+
+        * `heavy` - Heavy
+
+        * `black` - Black
+
+        * `extra-black` - Extra Black'
+    LoadTypeEnum:
+      enum:
+      - defer
+      - async
+      type: string
+      description: '* `` - None
+
+        * `defer` - Defer
+
+        * `async` - Async'
+    ApplicationApplication:
+      oneOf:
+      - $ref: '#/components/schemas/DatabaseApplication'
+      - $ref: '#/components/schemas/DashboardApplication'
+      - $ref: '#/components/schemas/AutomationApplication'
+      - $ref: '#/components/schemas/BuilderApplication'
+      discriminator:
+        propertyName: type
+        mapping:
+          database: '#/components/schemas/DatabaseApplication'
+          dashboard: '#/components/schemas/DashboardApplication'
+          automation: '#/components/schemas/AutomationApplication'
+          builder: '#/components/schemas/BuilderApplication'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -2446,7 +2467,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

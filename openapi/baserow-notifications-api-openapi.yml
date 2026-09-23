@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Notifications API
+  title: Baserow API spec Notifications API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -87,6 +87,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List workspace notifications
+      x-summary-source: derived
     delete:
       operationId: clear_workspace_notifications
       description: Clear all the notifications for the given workspace and user.
@@ -145,6 +147,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Clear workspace notifications
+      x-summary-source: derived
   /api/notifications/{workspace_id}/{notification_id}/:
     patch:
       operationId: mark_notification_as_read
@@ -215,6 +219,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Mark notification as read
+      x-summary-source: derived
   /api/notifications/{workspace_id}/mark-all-as-read/:
     post:
       operationId: mark_all_workspace_notifications_as_read
@@ -274,8 +280,37 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Mark all workspace notifications as read
+      x-summary-source: derived
 components:
   schemas:
+    PaginationSerializerNotificationRecipient:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationRecipient'
+      required:
+      - count
+      - next
+      - previous
+      - results
     NotificationRecipient:
       type: object
       description: 'Serialize notification data along with the recipient information about the
@@ -329,33 +364,8 @@ components:
       required:
       - id
       - username
-    PaginationSerializerNotificationRecipient:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationRecipient'
-      required:
-      - count
-      - next
-      - previous
-      - results
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -363,7 +373,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

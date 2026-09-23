@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Trash API
+  title: Baserow API spec Trash API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -30,6 +30,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/TrashStructure'
           description: ''
+      summary: Get trash structure
+      x-summary-source: derived
   /api/trash/restore/:
     patch:
       operationId: restore
@@ -79,6 +81,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Restore
+      x-summary-source: derived
   /api/trash/workspace/{workspace_id}/:
     get:
       operationId: workspace_get_contents
@@ -135,6 +139,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace get contents
+      x-summary-source: derived
     delete:
       operationId: workspace_empty_contents
       description: Empties the specified workspace and/or application of trash, including the workspace and application themselves if they are trashed also.
@@ -181,8 +187,141 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace empty contents
+      x-summary-source: derived
 components:
   schemas:
+    TrashStructureApplication:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        trashed:
+          type: boolean
+        type:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+      - type
+    PaginationSerializerTrashContents:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrashContents'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    TrashStructureWorkspace:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 0
+        trashed:
+          type: boolean
+        name:
+          type: string
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrashStructureApplication'
+      required:
+      - applications
+      - id
+      - name
+      - trashed
+    PatchedTrashEntryRequest:
+      type: object
+      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
+
+        is provided to the serializer.'
+      properties:
+        trash_item_id:
+          type: integer
+          minimum: 0
+        parent_trash_item_id:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        trash_item_type:
+          $ref: '#/components/schemas/TrashItemTypeEnum'
+    TrashContents:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user_who_trashed:
+          type: string
+          readOnly: true
+        trash_item_type:
+          type: string
+        trash_item_id:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        parent_trash_item_id:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        trashed_at:
+          type: string
+          format: date-time
+          readOnly: true
+        application:
+          type:
+          - integer
+          - 'null'
+        workspace:
+          type: integer
+        name:
+          type: string
+        names:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        parent_name:
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - name
+      - trash_item_id
+      - trash_item_type
+      - trashed_at
+      - user_who_trashed
+      - workspace
     TrashItemTypeEnum:
       enum:
       - workspace
@@ -227,64 +366,6 @@ components:
         * `row_comment` - row_comment
 
         * `team` - team'
-    TrashStructureApplication:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
-        trashed:
-          type: boolean
-        type:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
-      - type
-    PaginationSerializerTrashContents:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrashContents'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    PatchedTrashEntryRequest:
-      type: object
-      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
-
-        is provided to the serializer.'
-      properties:
-        trash_item_id:
-          type: integer
-          minimum: 0
-        parent_trash_item_id:
-          type: integer
-          minimum: 0
-          nullable: true
-        trash_item_type:
-          $ref: '#/components/schemas/TrashItemTypeEnum'
     TrashStructure:
       type: object
       properties:
@@ -295,74 +376,8 @@ components:
           description: An array of workspace trash structure records
       required:
       - workspaces
-    TrashStructureWorkspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          minimum: 0
-        trashed:
-          type: boolean
-        name:
-          type: string
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrashStructureApplication'
-      required:
-      - applications
-      - id
-      - name
-      - trashed
-    TrashContents:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        user_who_trashed:
-          type: string
-          readOnly: true
-        trash_item_type:
-          type: string
-        trash_item_id:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        parent_trash_item_id:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          nullable: true
-        trashed_at:
-          type: string
-          format: date-time
-          readOnly: true
-        application:
-          type: integer
-          nullable: true
-        workspace:
-          type: integer
-        name:
-          type: string
-        names:
-          type: array
-          items:
-            type: string
-          nullable: true
-        parent_name:
-          type: string
-          nullable: true
-      required:
-      - id
-      - name
-      - trash_item_id
-      - trash_item_type
-      - trashed_at
-      - user_who_trashed
-      - workspace
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -370,7 +385,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Auth API
+  title: Baserow API spec Auth API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -32,6 +32,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Authentication_ProviderAuthProvider'
           description: ''
+      summary: List auth providers
+      x-summary-source: derived
     post:
       operationId: create_auth_provider
       description: Creates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook.
@@ -67,6 +69,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create auth provider
+      x-summary-source: derived
   /api/admin/auth-provider/{auth_provider_id}/:
     get:
       operationId: get_auth_provider
@@ -110,6 +114,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get auth provider
+      x-summary-source: derived
     patch:
       operationId: update_auth_provider
       description: Updates a new authentication provider. This can be used to enable authentication with a third party service like Google or Facebook.
@@ -172,6 +178,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update auth provider
+      x-summary-source: derived
     delete:
       operationId: delete_auth_provider
       description: Delete an authentication provider.
@@ -210,6 +218,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete auth provider
+      x-summary-source: derived
   /api/auth-provider/login-options/:
     get:
       operationId: list_auth_providers_login_options
@@ -228,6 +238,8 @@ paths:
                 type: object
                 additionalProperties: {}
           description: ''
+      summary: List auth providers login options
+      x-summary-source: derived
   /api/sso/oauth2/callback/{provider_id}/:
     get:
       operationId: oauth_provider_login_callback
@@ -249,6 +261,8 @@ paths:
       responses:
         '302':
           description: No response body
+      summary: Oauth provider login callback
+      x-summary-source: derived
   /api/sso/oauth2/login/{provider_id}/:
     get:
       operationId: oauth_provider_login_redirect
@@ -275,6 +289,8 @@ paths:
       responses:
         '302':
           description: No response body
+      summary: Oauth provider login redirect
+      x-summary-source: derived
   /api/sso/saml/acs/:
     post:
       operationId: auth_provider_saml_acs_url
@@ -296,6 +312,8 @@ paths:
       responses:
         '302':
           description: No response body
+      summary: Auth provider saml acs url
+      x-summary-source: derived
   /api/sso/saml/login/:
     get:
       operationId: auth_provider_saml_sp_login
@@ -326,6 +344,8 @@ paths:
       responses:
         '302':
           description: No response body
+      summary: Auth provider saml sp login
+      x-summary-source: derived
   /api/sso/saml/login-url/:
     get:
       operationId: auth_provider_login_url
@@ -382,6 +402,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Auth provider login url
+      x-summary-source: derived
   /api/two-factor-auth/configuration/:
     get:
       operationId: two_factor_auth_configuration
@@ -398,6 +420,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Two_Factor_Auth_TypeTwoFactorAuth'
           description: ''
+      summary: Two factor auth configuration
+      x-summary-source: derived
     post:
       operationId: configure_two_factor_auth
       description: Configures two-factor authentication for the authenticated user.
@@ -485,6 +509,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Configure two factor auth
+      x-summary-source: derived
   /api/two-factor-auth/disable/:
     post:
       operationId: disable_two_factor_auth
@@ -550,6 +576,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Disable two factor auth
+      x-summary-source: derived
   /api/two-factor-auth/verify/:
     post:
       operationId: verify_totp_auth
@@ -694,103 +722,29 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Verify totp auth
+      x-summary-source: derived
 components:
   schemas:
-    PasswordAuthProviderModelAuthProvider:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain (if any) registered with this password provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-      required:
-      - id
-      - type
-    Two_Factor_Auth_TypeCreateTwoFactorAuth:
+    Authentication_ProviderAuthProvider:
       oneOf:
-      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      - $ref: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/SamlAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
+      - $ref: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
       discriminator:
         propertyName: type
         mapping:
-          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
-    GitHubAuthProviderModelAuthProvider:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        name:
-          type: string
-          maxLength: 255
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
-      required:
-      - client_id
-      - domain
-      - id
-      - name
-      - secret
-      - type
-    VerifyTOTP:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        code:
-          type: string
-        backup_code:
-          type: string
-      required:
-      - email
-    TOTPAuthProviderModelCreateTwoFactorAuth:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum'
-          description: 'The type of the two factor auth.
-
-
-            * `totp` - totp'
-        provisioning_url:
-          type: string
-        provisioning_qr_code:
-          type: string
-        backup_codes:
-          type: array
-          items:
-            type: string
-      required:
-      - backup_codes
-      - provisioning_qr_code
-      - provisioning_url
-      - type
+          password: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
+          saml: '#/components/schemas/SamlAuthProviderModelAuthProvider'
+          google: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
+          facebook: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
+          github: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
+          gitlab: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
+          openid_connect: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
     TOTPAuthProviderModelTwoFactorAuth:
       type: object
       properties:
@@ -814,104 +768,14 @@ components:
       - provisioning_qr_code
       - provisioning_url
       - type
-    SamlAuthProviderModelAuthProvider:
+    DisableTwoFactorAuth:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
+        password:
           type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        metadata:
-          type: string
-          description: The SAML metadata XML provided by the IdP.
-        is_verified:
-          type: boolean
-          readOnly: true
-          description: Whether or not a user sign in correctly with this SAML provider.
-        email_attr_key:
-          type: string
-          description: The key in the SAML response that contains the email address of the user.
-        first_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the first name of the user.
-        last_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
       required:
-      - domain
-      - id
-      - is_verified
-      - metadata
-      - type
-    GitLabAuthProviderModelAuthProvider:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        name:
-          type: string
-          maxLength: 255
-        base_url:
-          type: string
-          format: uri
-          description: Base URL of the authorization server
-          maxLength: 200
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
-      required:
-      - base_url
-      - client_id
-      - domain
-      - id
-      - name
-      - secret
-      - type
-    Authentication_ProviderAuthProvider:
-      oneOf:
-      - $ref: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/SamlAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
-      - $ref: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
-      discriminator:
-        propertyName: type
-        mapping:
-          password: '#/components/schemas/PasswordAuthProviderModelAuthProvider'
-          saml: '#/components/schemas/SamlAuthProviderModelAuthProvider'
-          google: '#/components/schemas/GoogleAuthProviderModelAuthProvider'
-          facebook: '#/components/schemas/FacebookAuthProviderModelAuthProvider'
-          github: '#/components/schemas/GitHubAuthProviderModelAuthProvider'
-          gitlab: '#/components/schemas/GitLabAuthProviderModelAuthProvider'
-          openid_connect: '#/components/schemas/OpenIdConnectAuthProviderModelAuthProvider'
-    FacebookAuthProviderModelAuthProvider:
+      - password
+    GitHubAuthProviderModelAuthProvider:
       type: object
       properties:
         id:
@@ -1034,6 +898,161 @@ components:
       - name
       - secret
       - type
+    SamlAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        metadata:
+          type: string
+          description: The SAML metadata XML provided by the IdP.
+        is_verified:
+          type: boolean
+          readOnly: true
+          description: Whether or not a user sign in correctly with this SAML provider.
+        email_attr_key:
+          type: string
+          description: The key in the SAML response that contains the email address of the user.
+        first_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the first name of the user.
+        last_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
+      required:
+      - domain
+      - id
+      - is_verified
+      - metadata
+      - type
+    GitLabAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          format: uri
+          description: Base URL of the authorization server
+          maxLength: 200
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - base_url
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    VerifyTOTP:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+        backup_code:
+          type: string
+      required:
+      - email
+    Two_Factor_Auth_TypeCreateTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+    FacebookAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    PasswordAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain (if any) registered with this password provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+      required:
+      - id
+      - type
+    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
+      enum:
+      - totp
+      type: string
+      description: '* `totp` - totp'
     SAMLResponse:
       type: object
       properties:
@@ -1046,18 +1065,29 @@ components:
       required:
       - RelayState
       - SAMLResponse
-    DisableTwoFactorAuth:
+    TOTPAuthProviderModelCreateTwoFactorAuth:
       type: object
       properties:
-        password:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum'
+          description: 'The type of the two factor auth.
+
+
+            * `totp` - totp'
+        provisioning_url:
           type: string
+        provisioning_qr_code:
+          type: string
+        backup_codes:
+          type: array
+          items:
+            type: string
       required:
-      - password
-    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
-      enum:
-      - totp
-      type: string
-      description: '* `totp` - totp'
+      - backup_codes
+      - provisioning_qr_code
+      - provisioning_url
+      - type
     Two_Factor_Auth_TypeTwoFactorAuth:
       oneOf:
       - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
@@ -1066,7 +1096,7 @@ components:
         mapping:
           totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -1074,7 +1104,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

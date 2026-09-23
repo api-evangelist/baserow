@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Field rules API
+  title: Baserow API spec Field rules API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -79,6 +79,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get field rules
+      x-summary-source: derived
     post:
       operationId: create_field_rule
       description: Create a field rule for a table
@@ -176,6 +178,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create field rule
+      x-summary-source: derived
   /api/database/field-rules/{table_id}/invalid-rows/:
     get:
       operationId: get_invalid_rows
@@ -239,6 +243,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get invalid rows
+      x-summary-source: derived
   /api/database/field-rules/{table_id}/rule/{rule_id}/:
     put:
       operationId: update_field_rule
@@ -323,6 +329,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update field rule
+      x-summary-source: derived
     delete:
       operationId: delete_field_rule
       description: Delete a field rule.
@@ -387,52 +395,10 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete field rule
+      x-summary-source: derived
 components:
   schemas:
-    Type908Enum:
-      enum:
-      - date_dependency
-      type: string
-      description: '* `date_dependency` - date_dependency'
-    PaginationSerializerInvalidRow:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidRow'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    Field_RulesRequestFieldRule:
-      oneOf:
-      - $ref: '#/components/schemas/DateDependencyRequestFieldRule'
-      discriminator:
-        propertyName: type
-        mapping:
-          date_dependency: '#/components/schemas/DateDependencyRequestFieldRule'
-    Field_RulesResponseFieldRule:
-      oneOf:
-      - $ref: '#/components/schemas/DateDependencyResponseFieldRule'
-      discriminator:
-        propertyName: type
-        mapping:
-          date_dependency: '#/components/schemas/DateDependencyResponseFieldRule'
     DateDependencyRequestUpdateFieldRule:
       type: object
       description: Serializes inbound date dependency configuration. Requires `table` in the context.
@@ -457,11 +423,120 @@ components:
           type: integer
           description: Duration field id
         dependency_linkrow_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Linkrow field id
       required:
       - is_active
+      - type
+    Field_RulesRequestUpdateFieldRule:
+      oneOf:
+      - $ref: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          date_dependency: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+    InvalidRow:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+      required:
+      - id
+    Field_RulesResponseFieldRule:
+      oneOf:
+      - $ref: '#/components/schemas/DateDependencyResponseFieldRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          date_dependency: '#/components/schemas/DateDependencyResponseFieldRule'
+    PaginationSerializerInvalidRow:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidRow'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    Field_RulesRequestFieldRule:
+      oneOf:
+      - $ref: '#/components/schemas/DateDependencyRequestFieldRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          date_dependency: '#/components/schemas/DateDependencyRequestFieldRule'
+    DateDependencyResponseFieldRule:
+      type: object
+      description: Serializes inbound date dependency configuration. Requires `table` in the context.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table that this field rule applies to.
+          readOnly: true
+        is_valid:
+          type: boolean
+          readOnly: true
+          description: Tells if the rule is valid in the context of a table. This field is read-only.
+        error_text:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: Stores information about validation error, if it's present. This field is read-only.
+        is_active:
+          type: boolean
+          description: Whether the date dependency is active or not. If set to false, all other values in the payload will be ignored.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type908Enum'
+          description: 'The type of the field rule that must be created.
+
+
+            * `date_dependency` - date_dependency'
+        start_date_field_id:
+          type: integer
+          description: Start date field id
+        end_date_field_id:
+          type: integer
+          description: End date field id
+        duration_field_id:
+          type: integer
+          description: Duration field id
+        dependency_linkrow_field_id:
+          type:
+          - integer
+          - 'null'
+          description: Linkrow field id
+      required:
+      - error_text
+      - id
+      - is_active
+      - is_valid
+      - table_id
       - type
     DateDependencyRequestFieldRule:
       type: object
@@ -487,79 +562,20 @@ components:
           type: integer
           description: Duration field id
         dependency_linkrow_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Linkrow field id
       required:
       - is_active
       - type
-    DateDependencyResponseFieldRule:
-      type: object
-      description: Serializes inbound date dependency configuration. Requires `table` in the context.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table that this field rule applies to.
-          readOnly: true
-        is_valid:
-          type: boolean
-          readOnly: true
-          description: Tells if the rule is valid in the context of a table. This field is read-only.
-        error_text:
-          type: string
-          readOnly: true
-          nullable: true
-          description: Stores information about validation error, if it's present. This field is read-only.
-        is_active:
-          type: boolean
-          description: Whether the date dependency is active or not. If set to false, all other values in the payload will be ignored.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type908Enum'
-          description: 'The type of the field rule that must be created.
-
-
-            * `date_dependency` - date_dependency'
-        start_date_field_id:
-          type: integer
-          description: Start date field id
-        end_date_field_id:
-          type: integer
-          description: End date field id
-        duration_field_id:
-          type: integer
-          description: Duration field id
-        dependency_linkrow_field_id:
-          type: integer
-          nullable: true
-          description: Linkrow field id
-      required:
-      - error_text
-      - id
-      - is_active
-      - is_valid
-      - table_id
-      - type
-    InvalidRow:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-      required:
-      - id
-    Field_RulesRequestUpdateFieldRule:
-      oneOf:
-      - $ref: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
-      discriminator:
-        propertyName: type
-        mapping:
-          date_dependency: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+    Type908Enum:
+      enum:
+      - date_dependency
+      type: string
+      description: '* `date_dependency` - date_dependency'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -567,7 +583,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

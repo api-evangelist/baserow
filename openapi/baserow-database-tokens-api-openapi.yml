@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Database tokens API
+  title: Baserow API spec Database tokens API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -32,6 +32,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Token'
           description: ''
+      summary: List database tokens
+      x-summary-source: derived
     post:
       operationId: create_database_token
       description: Creates a new database token for a given workspace and for the authorized user.
@@ -80,6 +82,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create database token
+      x-summary-source: derived
   /api/database/tokens/{token_id}/:
     get:
       operationId: get_database_token
@@ -143,6 +147,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get database token
+      x-summary-source: derived
     patch:
       operationId: update_database_token
       description: Updates the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.
@@ -219,6 +225,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update database token
+      x-summary-source: derived
     delete:
       operationId: delete_database_token
       description: Deletes the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.
@@ -277,6 +285,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete database token
+      x-summary-source: derived
   /api/database/tokens/check/:
     get:
       operationId: check_database_token
@@ -308,8 +318,23 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Check database token
+      x-summary-source: derived
 components:
   schemas:
+    TokenCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The human readable name of the database token for the user.
+          maxLength: 100
+        workspace:
+          type: integer
+          description: Only the tables of the workspace can be accessed.
+      required:
+      - name
+      - workspace
     PatchedTokenUpdate:
       type: object
       properties:
@@ -496,21 +521,8 @@ components:
       - name
       - permissions
       - workspace
-    TokenCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The human readable name of the database token for the user.
-          maxLength: 100
-        workspace:
-          type: integer
-          description: Only the tables of the workspace can be accessed.
-      required:
-      - name
-      - workspace
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -518,7 +530,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

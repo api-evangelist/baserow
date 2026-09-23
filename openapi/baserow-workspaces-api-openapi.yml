@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Workspaces API
+  title: Baserow API spec Workspaces API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -32,6 +32,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/WorkspaceUserWorkspace'
           description: ''
+      summary: List workspaces
+      x-summary-source: derived
     post:
       operationId: create_workspace
       description: Creates a new workspace where only the authorized user has access to. No initial data like database applications are added, they have to be created via other endpoints.
@@ -66,6 +68,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/WorkspaceUserWorkspace'
           description: ''
+      summary: Create workspace
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/:
     patch:
       operationId: update_workspace
@@ -154,6 +158,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update workspace
+      x-summary-source: derived
     delete:
       operationId: delete_workspace
       description: Deletes an existing workspace if the authorized user belongs to the workspace. All the applications, databases, tables etc that were in the workspace are going to be deleted also.
@@ -227,6 +233,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete workspace
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/export/:
     get:
       operationId: list_workspace_exports
@@ -296,6 +304,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List workspace exports
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/export/async/:
     post:
       operationId: export_workspace_applications_async
@@ -368,6 +378,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Export workspace applications async
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/import/{resource_id}/:
     delete:
       operationId: import_export_resource
@@ -434,6 +446,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Import export resource
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/import/async/:
     post:
       operationId: import_workspace_applications_async
@@ -507,6 +521,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Import workspace applications async
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/import/upload-file/:
     post:
       operationId: import_resource_upload_file
@@ -579,6 +595,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Import resource upload file
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/leave/:
     post:
       operationId: leave_workspace
@@ -639,10 +657,14 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Leave workspace
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/permissions/:
     get:
       operationId: workspace_permissions
-      description: "Returns a the permission data necessary to determine the permissions of a specific user over a specific workspace. \nSee `core.handler.CoreHandler.get_permissions()` for more details."
+      description: 'Returns a the permission data necessary to determine the permissions of a specific user over a specific workspace.
+
+        See `core.handler.CoreHandler.get_permissions()` for more details.'
       parameters:
       - in: path
         name: workspace_id
@@ -685,6 +707,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace permissions
+      x-summary-source: derived
   /api/workspaces/{workspace_id}/settings/generative-ai/:
     get:
       operationId: get_workspace_generative_ai_models_settings
@@ -708,6 +732,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/GenerativeAISettings'
           description: ''
+      summary: Get workspace generative ai models settings
+      x-summary-source: derived
     patch:
       operationId: update_workspace_generative_ai_models_settings
       description: Updates the generative AI models settings for the given workspace.
@@ -789,6 +815,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update workspace generative ai models settings
+      x-summary-source: derived
   /api/workspaces/create-initial-workspace/:
     post:
       operationId: create_initial_workspace
@@ -805,6 +833,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/WorkspaceUserWorkspace'
           description: ''
+      summary: Create initial workspace
+      x-summary-source: derived
   /api/workspaces/order/:
     post:
       operationId: order_workspaces
@@ -842,6 +872,8 @@ paths:
       responses:
         '204':
           description: No response body
+      summary: Order workspaces
+      x-summary-source: derived
   /api/workspaces/users/{workspace_user_id}/:
     patch:
       operationId: update_workspace_user
@@ -918,6 +950,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update workspace user
+      x-summary-source: derived
     delete:
       operationId: delete_workspace_user
       description: Deletes a workspace user if the authorized user has admin rights to the related workspace.
@@ -977,6 +1011,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete workspace user
+      x-summary-source: derived
   /api/workspaces/users/workspace/{workspace_id}/:
     get:
       operationId: list_workspace_users
@@ -1055,15 +1091,37 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List workspace users
+      x-summary-source: derived
 components:
   schemas:
-    PatchedUpdateWorkspaceUser:
+    Workspace:
       type: object
       properties:
-        permissions:
+        id:
+          type: integer
+          readOnly: true
+        name:
           type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
+          maxLength: 165
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+      required:
+      - generative_ai_models_enabled
+      - id
+      - name
+    OllamaSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        host:
+          type: string
+          description: The host that is used to authenticate with the Ollama API.
     OpenRouterSettings:
       type: object
       properties:
@@ -1078,19 +1136,32 @@ components:
         organization:
           type: string
           description: The organization that the OpenRouter API key belongs to.
-    GenerativeAISettings:
+    WorkspaceUserEnterpriseTeam:
+      type: object
+      description: A serializer for the `WorkspaceUserSerializer.teams` field.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier for this team.
+        name:
+          type: string
+          readOnly: true
+          description: The team name that this workspace user belongs to.
+      required:
+      - id
+      - name
+    PermissionObject:
       type: object
       properties:
-        openai:
-          $ref: '#/components/schemas/OpenAISettings'
-        anthropic:
-          $ref: '#/components/schemas/AnthropicSettings'
-        mistral:
-          $ref: '#/components/schemas/MistralSettings'
-        ollama:
-          $ref: '#/components/schemas/OllamaSettings'
-        openrouter:
-          $ref: '#/components/schemas/OpenRouterSettings'
+        name:
+          type: string
+          description: The permission manager name.
+        permissions:
+          description: The content of the permission object for this permission manager.
+      required:
+      - name
+      - permissions
     OpenAISettings:
       type: object
       properties:
@@ -1109,6 +1180,53 @@ components:
           type: string
           format: uri
           description: https://api.openai.com/v1 by default, but can be changed to https://eu.api.openai.com/v1, https://<your-resource-name>.openai.azure.com,or any other OpenAI compatible API.
+    OrderWorkspaces:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            type: integer
+          description: Workspace ids in the desired order.
+      required:
+      - workspaces
+    PatchedUpdateWorkspaceUser:
+      type: object
+      properties:
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+    ImportResource:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: The size of the resource in bytes.
+      required:
+      - id
+      - name
+    PatchedWorkspace:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 165
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
     ListWorkspaceUsersWithMemberData:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -1153,12 +1271,14 @@ components:
             $ref: '#/components/schemas/WorkspaceUserEnterpriseTeam'
           description: 'Enterprise only: a list of team IDs and names, which this workspace user belongs to in this workspace.'
         role_uid:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'Enterprise or advanced only: the uid of the role that is assigned to this workspace user in this workspace.'
         highest_role_uid:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'Enterprise or advanced only: the highest role uid assigned to this user in this workspace on anything, including roles from teams.'
       required:
       - created_on
@@ -1169,93 +1289,7 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
-      required:
-      - generative_ai_models_enabled
-      - id
-      - name
-    WorkspaceUserEnterpriseTeam:
-      type: object
-      description: A serializer for the `WorkspaceUserSerializer.teams` field.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier for this team.
-        name:
-          type: string
-          readOnly: true
-          description: The team name that this workspace user belongs to.
-      required:
-      - id
-      - name
-    MistralSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
-          type: string
-          description: The Mistral API key that is used to authenticate with the Mistral API.
-    WorkspaceUser:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-          description: User defined name.
-        email:
-          type: string
-          readOnly: true
-          description: User email.
-        workspace:
-          type: integer
-          description: The workspace that the user has access to.
-        permissions:
-          type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        user_id:
-          type: integer
-          description: The user that has access to the workspace.
-          readOnly: true
-        to_be_deleted:
-          type: boolean
-          description: True if user account is pending deletion.
-        two_factor_auth:
-          type: string
-          readOnly: true
-      required:
-      - created_on
-      - email
-      - id
-      - name
-      - to_be_deleted
-      - two_factor_auth
-      - user_id
-      - workspace
-    PatchedGenerativeAISettings:
+    GenerativeAISettings:
       type: object
       properties:
         openai:
@@ -1268,75 +1302,6 @@ components:
           $ref: '#/components/schemas/OllamaSettings'
         openrouter:
           $ref: '#/components/schemas/OpenRouterSettings'
-    ImportResource:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-          description: The size of the resource in bytes.
-      required:
-      - id
-      - name
-    ListExportWorkspaceApplications:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
-      required:
-      - results
-    ImportApplicationsJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        installed_applications: {}
-        workspace_id:
-          type: integer
-        resource:
-          $ref: '#/components/schemas/ImportResource'
-      required:
-      - created_on
-      - id
-      - installed_applications
-      - progress_percentage
-      - resource
-      - state
-      - type
-      - updated_on
-      - workspace_id
     WorkspaceUserWorkspace:
       type: object
       description: 'This serializers includes relevant fields of the Workspace model, but also
@@ -1384,61 +1349,6 @@ components:
       - permissions
       - unread_notifications_count
       - users
-    OrderWorkspaces:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            type: integer
-          description: Workspace ids in the desired order.
-      required:
-      - workspaces
-    OllamaSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        host:
-          type: string
-          description: The host that is used to authenticate with the Ollama API.
-    AnthropicSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
-          type: string
-          description: The Anthropic API key that is used to authenticate with the Anthropic API.
-    PatchedWorkspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
-    PermissionObject:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The permission manager name.
-        permissions:
-          description: The content of the permission object for this permission manager.
-      required:
-      - name
-      - permissions
     ExportApplicationsJobTypeResponse:
       type: object
       properties:
@@ -1474,8 +1384,9 @@ components:
           format: uri
           readOnly: true
         workspace_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The workspace that the applications are going to be exported from.
           readOnly: true
       required:
@@ -1488,8 +1399,138 @@ components:
       - updated_on
       - url
       - workspace_id
+    ListExportWorkspaceApplications:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
+      required:
+      - results
+    PatchedGenerativeAISettings:
+      type: object
+      properties:
+        openai:
+          $ref: '#/components/schemas/OpenAISettings'
+        anthropic:
+          $ref: '#/components/schemas/AnthropicSettings'
+        mistral:
+          $ref: '#/components/schemas/MistralSettings'
+        ollama:
+          $ref: '#/components/schemas/OllamaSettings'
+        openrouter:
+          $ref: '#/components/schemas/OpenRouterSettings'
+    AnthropicSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The Anthropic API key that is used to authenticate with the Anthropic API.
+    MistralSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The Mistral API key that is used to authenticate with the Mistral API.
+    ImportApplicationsJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        installed_applications: {}
+        workspace_id:
+          type: integer
+        resource:
+          $ref: '#/components/schemas/ImportResource'
+      required:
+      - created_on
+      - id
+      - installed_applications
+      - progress_percentage
+      - resource
+      - state
+      - type
+      - updated_on
+      - workspace_id
+    WorkspaceUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+          description: User defined name.
+        email:
+          type: string
+          readOnly: true
+          description: User email.
+        workspace:
+          type: integer
+          description: The workspace that the user has access to.
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        user_id:
+          type: integer
+          description: The user that has access to the workspace.
+          readOnly: true
+        to_be_deleted:
+          type: boolean
+          description: True if user account is pending deletion.
+        two_factor_auth:
+          type: string
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - id
+      - name
+      - to_be_deleted
+      - two_factor_auth
+      - user_id
+      - workspace
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -1497,7 +1538,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

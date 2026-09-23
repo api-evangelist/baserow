@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Database table view sortings API
+  title: Baserow API spec Database table view sortings API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -79,6 +79,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List database table view sortings
+      x-summary-source: derived
     post:
       operationId: create_database_table_view_sort
       description: Creates a new sort for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace. When the rows of a view are requested, for example via the `list_database_table_grid_view_rows` endpoint, they will be returned in the respected order defined by all the sortings.
@@ -170,6 +172,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create database table view sort
+      x-summary-source: derived
   /api/database/views/{view_id}/sortings/prioritize/:
     post:
       operationId: prioritize_database_table_view_sortings
@@ -254,6 +258,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Prioritize database table view sortings
+      x-summary-source: derived
   /api/database/views/sort/{view_sort_id}/:
     get:
       operationId: get_database_table_view_sort
@@ -317,6 +323,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get database table view sort
+      x-summary-source: derived
     patch:
       operationId: update_database_table_view_sort
       description: Updates the existing sort if the authorized user has access to the related database's workspace.
@@ -404,6 +412,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update database table view sort
+      x-summary-source: derived
     delete:
       operationId: delete_database_table_view_sort
       description: Deletes the existing sort if the authorized user has access to the related database's workspace.
@@ -474,6 +484,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete database table view sort
+      x-summary-source: derived
 components:
   schemas:
     CreateViewSort:
@@ -498,6 +510,17 @@ components:
           maxLength: 32
       required:
       - field
+    PrioritizeViewSortings:
+      type: object
+      properties:
+        view_sort_ids:
+          type: array
+          items:
+            type: integer
+          description: View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.
+          minItems: 1
+      required:
+      - view_sort_ids
     ViewSort:
       type: object
       properties:
@@ -532,17 +555,6 @@ components:
       - id
       - priority
       - view
-    PrioritizeViewSortings:
-      type: object
-      properties:
-        view_sort_ids:
-          type: array
-          items:
-            type: integer
-          description: View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.
-          minItems: 1
-      required:
-      - view_sort_ids
     PatchedUpdateViewSort:
       type: object
       properties:
@@ -571,7 +583,7 @@ components:
 
         * `DESC` - Descending'
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -579,7 +591,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

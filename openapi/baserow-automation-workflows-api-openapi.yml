@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Automation workflows API
+  title: Baserow API spec Automation workflows API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
     name: MIT
     url: https://github.com/baserow/baserow/blob/develop/LICENSE
 tags:
-- name: Automation workflows
+- name: Automation WorkFlows
 paths:
   /api/automation/{automation_id}/workflows/:
     post:
@@ -32,7 +32,7 @@ paths:
         description: Creates a new Automation Workflow.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       requestBody:
         content:
           application/json:
@@ -96,6 +96,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create automation workflow
+      x-summary-source: derived
   /api/automation/{automation_id}/workflows/order/:
     post:
       operationId: order_automation_workflows
@@ -114,7 +116,7 @@ paths:
         description: The automation the workflow belongs to.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       requestBody:
         content:
           application/json:
@@ -175,6 +177,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Order automation workflows
+      x-summary-source: derived
   /api/automation/workflows/{workflow_id}/:
     get:
       operationId: get_automation_workflow
@@ -193,7 +197,7 @@ paths:
         description: The id of the workflow.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -225,6 +229,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get automation workflow
+      x-summary-source: derived
     patch:
       operationId: update_automation_workflow
       description: Updates an existing workflow of an automation.
@@ -242,7 +248,7 @@ paths:
         description: The id of the workflow.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       requestBody:
         content:
           application/json:
@@ -306,6 +312,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update automation workflow
+      x-summary-source: derived
     delete:
       operationId: delete_automation_workflow
       description: Deletes an existing workflow of an automation.
@@ -323,7 +331,7 @@ paths:
         description: The id of the workflow.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -370,6 +378,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete automation workflow
+      x-summary-source: derived
   /api/automation/workflows/{workflow_id}/duplicate/async/:
     post:
       operationId: duplicate_automation_workflow_async
@@ -388,7 +398,7 @@ paths:
         description: The workflow to duplicate.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -440,6 +450,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Duplicate automation workflow async
+      x-summary-source: derived
   /api/automation/workflows/{workflow_id}/history/:
     get:
       operationId: get_automation_workflow_history
@@ -458,7 +470,7 @@ paths:
         description: The id of the workflow.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -489,6 +501,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get automation workflow history
+      x-summary-source: derived
   /api/automation/workflows/{workflow_id}/publish/async/:
     post:
       operationId: publish_automation_workflow
@@ -507,7 +521,7 @@ paths:
         description: The workflow id the user wants to publish.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -561,6 +575,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Publish automation workflow
+      x-summary-source: derived
   /api/automation/workflows/{workflow_id}/test/:
     post:
       operationId: test_automation_workflow
@@ -579,7 +595,7 @@ paths:
         description: The workflow id the user wants to test.
         required: true
       tags:
-      - Automation workflows
+      - Automation WorkFlows
       security:
       - UserSource JWT: []
       - JWT: []
@@ -612,8 +628,40 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Test automation workflow
+      x-summary-source: derived
 components:
   schemas:
+    PatchedUpdateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        allow_test_run:
+          type: boolean
+          description: If provided, enables the workflow to be triggerable for the next 5 minutes.
+        state:
+          $ref: '#/components/schemas/UpdateAutomationWorkflowStateEnum'
+        notification_recipient_ids:
+          type: array
+          items:
+            type: integer
+          description: The user IDs of the workspace members that should receive notifications related to this workflow.
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
     DuplicateAutomationWorkflowJobTypeResponse:
       type: object
       properties:
@@ -658,6 +706,16 @@ components:
       - state
       - type
       - updated_on
+    OrderAutomationWorkflows:
+      type: object
+      properties:
+        workflow_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the workflows in the order they are supposed to be set in.
+      required:
+      - workflow_ids
     UpdateAutomationWorkflowStateEnum:
       enum:
       - draft
@@ -675,57 +733,6 @@ components:
         * `disabled` - Disabled
 
         * `test_clone` - Test Clone'
-    AutomationWorkflowHistory:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        started_on:
-          type: string
-          format: date-time
-        completed_on:
-          type: string
-          format: date-time
-          nullable: true
-        message:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusF41Enum'
-        is_test_run:
-          type: boolean
-          description: True when the workflow is being simulated.
-        simulate_until_node:
-          type: integer
-          nullable: true
-      required:
-      - id
-      - is_test_run
-      - message
-      - started_on
-      - status
-    StatusF41Enum:
-      enum:
-      - success
-      - error
-      - disabled
-      - started
-      type: string
-      description: '* `success` - Success
-
-        * `error` - Error
-
-        * `disabled` - Disabled
-
-        * `started` - Started'
-    CreateAutomationWorkflow:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-      required:
-      - name
     PaginationSerializerAutomationWorkflowHistory:
       type: object
       properties:
@@ -739,14 +746,16 @@ components:
           type: integer
           description: The total amount of results.
         next:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: URL to the next page.
         previous:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
           description: URL to the previous page.
         results:
           type: array
@@ -759,6 +768,45 @@ components:
       - previous
       - results
       - success_count
+    AutomationWorkflowHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        started_on:
+          type: string
+          format: date-time
+        completed_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusF41Enum'
+        is_test_run:
+          type: boolean
+          description: True when the workflow is being simulated.
+        simulate_until_node:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+      - is_test_run
+      - message
+      - started_on
+      - status
+    CreateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
     AutomationWorkflow:
       type: object
       properties:
@@ -777,12 +825,14 @@ components:
           type: integer
           readOnly: true
         allow_test_run_until:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         simulate_until_node_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: When set, upon the next workflow run, simulates the dispatch of the workflow until this node and updates the sample_data of the node's service.
           readOnly: true
         published_on:
@@ -807,34 +857,8 @@ components:
       - published_on
       - simulate_until_node_id
       - state
-    PatchedUpdateAutomationWorkflow:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        allow_test_run:
-          type: boolean
-          description: If provided, enables the workflow to be triggerable for the next 5 minutes.
-        state:
-          $ref: '#/components/schemas/UpdateAutomationWorkflowStateEnum'
-        notification_recipient_ids:
-          type: array
-          items:
-            type: integer
-          description: The user IDs of the workspace members that should receive notifications related to this workflow.
-    OrderAutomationWorkflows:
-      type: object
-      properties:
-        workflow_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the workflows in the order they are supposed to be set in.
-      required:
-      - workflow_ids
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -842,7 +866,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

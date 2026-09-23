@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Teams API
+  title: Baserow API spec Teams API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -57,6 +57,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get team
+      x-summary-source: derived
     put:
       operationId: update_team
       description: Updates an existing team with a new name.
@@ -141,6 +143,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update team
+      x-summary-source: derived
     delete:
       operationId: delete_team
       description: Deletes a team if the authorized user is in the team's workspace. All the related children (e.g. subjects) are also going to be deleted.
@@ -206,6 +210,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete team
+      x-summary-source: derived
   /api/teams/{team_id}/subjects/:
     get:
       operationId: list_team_subjects
@@ -251,6 +257,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List team subjects
+      x-summary-source: derived
     post:
       operationId: create_subject
       description: Creates a new team subject.
@@ -334,6 +342,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create subject
+      x-summary-source: derived
   /api/teams/{team_id}/subjects/{subject_id}/:
     get:
       operationId: get_subject
@@ -384,6 +394,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get subject
+      x-summary-source: derived
     delete:
       operationId: delete_subject
       description: Deletes a subject if the authorized user is in the team's workspace.
@@ -455,6 +467,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete subject
+      x-summary-source: derived
   /api/teams/workspace/{workspace_id}/:
     get:
       operationId: workspace_list_teams
@@ -510,6 +524,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace list teams
+      x-summary-source: derived
     post:
       operationId: workspace_create_team
       description: Creates a new team.
@@ -596,41 +612,65 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Workspace create team
+      x-summary-source: derived
 components:
   schemas:
-    TeamSubjectResponse:
+    SubjectType0b2Enum:
+      enum:
+      - auth.User
+      type: string
+      description: '* `auth.User` - auth.User'
+    TeamSampleSubject:
       type: object
+      properties:
+        subject_id:
+          type: integer
+          description: The subject's unique identifier.
+        subject_type:
+          allOf:
+          - $ref: '#/components/schemas/SubjectType0b2Enum'
+          description: 'The type of subject who belongs to the team.
+
+
+            * `auth.User` - auth.User'
+        subject_label:
+          type: string
+          description: The subject's label. Defaults to a user's first name.
+        team_subject_id:
+          type: integer
+          description: The team subject unique identifier.
+      required:
+      - subject_id
+      - subject_label
+      - subject_type
+      - team_subject_id
+    TeamSubject:
+      type: object
+      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
+
+        is provided to the serializer.'
       properties:
         id:
           type: integer
           readOnly: true
         subject_id:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-          description: The unique subject ID.
-        subject_type:
+          description: The subject's unique identifier.
+        subject_user_email:
           type: string
-          description: 'Returns the TeamSubject''s `subject_type` natural key.
+          format: email
+          description: The user subject's email address.
+        subject_type:
+          allOf:
+          - $ref: '#/components/schemas/SubjectType0b2Enum'
+          description: 'The type of subject that is being invited.
 
 
-            :param obj: The TeamSubject record.
-
-            :return: The subject''s content type natural key.'
-          readOnly: true
-        team:
-          type: integer
-          description: The team this subject belongs to.
+            * `auth.User` - auth.User'
       required:
       - id
-      - subject_id
       - subject_type
-      - team
-    SubjectType0b2Enum:
-      enum:
-      - auth.User
-      type: string
-      description: '* `auth.User` - auth.User'
     TeamResponse:
       type: object
       properties:
@@ -670,56 +710,34 @@ components:
       - subject_count
       - updated_on
       - workspace
-    TeamSubject:
+    TeamSubjectResponse:
       type: object
-      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
-
-        is provided to the serializer.'
       properties:
         id:
           type: integer
           readOnly: true
         subject_id:
           type: integer
-          description: The subject's unique identifier.
-        subject_user_email:
-          type: string
-          format: email
-          description: The user subject's email address.
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The unique subject ID.
         subject_type:
-          allOf:
-          - $ref: '#/components/schemas/SubjectType0b2Enum'
-          description: 'The type of subject that is being invited.
+          type: string
+          description: 'Returns the TeamSubject''s `subject_type` natural key.
 
 
-            * `auth.User` - auth.User'
+            :param obj: The TeamSubject record.
+
+            :return: The subject''s content type natural key.'
+          readOnly: true
+        team:
+          type: integer
+          description: The team this subject belongs to.
       required:
       - id
-      - subject_type
-    TeamSampleSubject:
-      type: object
-      properties:
-        subject_id:
-          type: integer
-          description: The subject's unique identifier.
-        subject_type:
-          allOf:
-          - $ref: '#/components/schemas/SubjectType0b2Enum'
-          description: 'The type of subject who belongs to the team.
-
-
-            * `auth.User` - auth.User'
-        subject_label:
-          type: string
-          description: The subject's label. Defaults to a user's first name.
-        team_subject_id:
-          type: integer
-          description: The team subject unique identifier.
-      required:
       - subject_id
-      - subject_label
       - subject_type
-      - team_subject_id
+      - team
     Team:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -731,8 +749,9 @@ components:
           description: A human friendly name for this team.
           maxLength: 160
         default_role:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.
         subjects:
           type: array
@@ -743,7 +762,7 @@ components:
       required:
       - name
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -751,7 +770,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

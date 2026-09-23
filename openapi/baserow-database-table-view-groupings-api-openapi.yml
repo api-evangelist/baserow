@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Database table view groupings API
+  title: Baserow API spec Database table view groupings API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -79,6 +79,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List database table view groupings
+      x-summary-source: derived
     post:
       operationId: create_database_table_view_group
       description: Creates a new group by for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace.
@@ -170,6 +172,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create database table view group
+      x-summary-source: derived
   /api/database/views/{view_id}/group_bys/prioritize/:
     post:
       operationId: prioritize_database_table_view_group_bys
@@ -254,6 +258,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Prioritize database table view group bys
+      x-summary-source: derived
   /api/database/views/group_by/{view_group_by_id}/:
     get:
       operationId: get_database_table_view_group
@@ -317,6 +323,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get database table view group
+      x-summary-source: derived
     patch:
       operationId: update_database_table_view_group
       description: Updates the existing group by if the authorized user has access to the related database's workspace.
@@ -404,6 +412,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update database table view group
+      x-summary-source: derived
     delete:
       operationId: delete_database_table_view_group
       description: Deletes the existing group by if the authorized user has access to the related database's workspace.
@@ -474,32 +484,10 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete database table view group
+      x-summary-source: derived
 components:
   schemas:
-    PatchedUpdateViewGroupBy:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
     ViewGroupBy:
       type: object
       properties:
@@ -539,25 +527,6 @@ components:
       - id
       - priority
       - view
-    OrderEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
-    PrioritizeViewGroupBys:
-      type: object
-      properties:
-        view_group_by_ids:
-          type: array
-          items:
-            type: integer
-          description: View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.
-          minItems: 1
-      required:
-      - view_group_by_ids
     CreateViewGroupBy:
       type: object
       properties:
@@ -587,8 +556,51 @@ components:
           maxLength: 32
       required:
       - field
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    PatchedUpdateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+    PrioritizeViewGroupBys:
+      type: object
+      properties:
+        view_group_by_ids:
+          type: array
+          items:
+            type: integer
+          description: View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.
+          minItems: 1
+      required:
+      - view_group_by_ids
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -596,7 +608,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

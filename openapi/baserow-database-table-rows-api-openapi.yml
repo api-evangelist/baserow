@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Database table rows API
+  title: Baserow API spec Database table rows API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -105,6 +105,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List database table row names
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/:
     get:
       operationId: list_database_table_rows
@@ -273,6 +275,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List database table rows
+      x-summary-source: derived
     post:
       operationId: create_database_table_row
       description: Creates a new row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** to list them all. None of the fields are required, if they are not provided the value is going to be `null` or `false` or some default value is that is set. If you want to add a value for the field with for example id `10`, the key must be named `field_10`. Or instead if the `user_field_names` GET param is provided the key must be the name of the field. Of course multiple fields can be provided in one request. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.
@@ -403,6 +407,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create database table row
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/{row_id}/:
     get:
       operationId: get_database_table_row
@@ -511,6 +517,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get database table row
+      x-summary-source: derived
     patch:
       operationId: update_database_table_row
       description: Updates an existing row in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. None of the fields are required, if they are not provided the value is not going to be updated. When you want to update a value for the field with id `10`, the key must be named `field_10`. Or if the GET parameter `user_field_names` is provided the key of the field to update must be the name of the field. Multiple different fields to update can be provided in one request. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.
@@ -641,6 +649,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update database table row
+      x-summary-source: derived
     delete:
       operationId: delete_database_table_row
       description: Deletes an existing row in the table if the user has access to the table's workspace.
@@ -731,6 +741,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete database table row
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/{row_id}/adjacent/:
     get:
       operationId: get_adjacent_database_table_row
@@ -830,6 +842,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get adjacent database table row
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/{row_id}/history/:
     get:
       operationId: get_database_table_row_history
@@ -912,6 +926,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get database table row history
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/{row_id}/move/:
     patch:
       operationId: move_database_table_row
@@ -1030,10 +1046,15 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Move database table row
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/batch/:
     post:
       operationId: batch_create_database_table_rows
-      description: "Creates new rows in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** to list them all. None of the fields are required, if they are not provided the value is going to be `null` or `false` or some default value is that is set. If you want to add a value for the field with for example id `10`, the key must be named `field_10`. Or instead if the `user_field_names` GET param is provided the key must be the name of the field. Of course multiple fields can be provided in one request. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.\n\n **WARNING:** This endpoint doesn't yet work with row created webhooks."
+      description: 'Creates new rows in the table if the user has access to the related table''s workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** to list them all. None of the fields are required, if they are not provided the value is going to be `null` or `false` or some default value is that is set. If you want to add a value for the field with for example id `10`, the key must be named `field_10`. Or instead if the `user_field_names` GET param is provided the key must be the name of the field. Of course multiple fields can be provided in one request. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.
+
+
+        **WARNING:** This endpoint doesn''t yet work with row created webhooks.'
       parameters:
       - in: header
         name: ClientSessionId
@@ -1168,9 +1189,14 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Batch create database table rows
+      x-summary-source: derived
     patch:
       operationId: batch_update_database_table_rows
-      description: "Updates existing rows in the table if the user has access to the related table's workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. None of the fields are required, if they are not provided the value is not going to be updated. When you want to update a value for the field with id `10`, the key must be named `field_10`. Or if the GET parameter `user_field_names` is provided the key of the field to update must be the name of the field. Multiple different fields to update can be provided for each row. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.\n\n **WARNING:** This endpoint doesn't yet work with row updated webhooks."
+      description: 'Updates existing rows in the table if the user has access to the related table''s workspace. The accepted body fields are depending on the fields that the table has. For a complete overview of fields use the **list_database_table_fields** endpoint to list them all. None of the fields are required, if they are not provided the value is not going to be updated. When you want to update a value for the field with id `10`, the key must be named `field_10`. Or if the GET parameter `user_field_names` is provided the key of the field to update must be the name of the field. Multiple different fields to update can be provided for each row. In the examples below you will find all the different field types, the numbers/ids in the example are just there for example purposes, the field_ID must be replaced with the actual id of the field or the name of the field if `user_field_names` is provided.
+
+
+        **WARNING:** This endpoint doesn''t yet work with row updated webhooks.'
       parameters:
       - in: header
         name: ClientSessionId
@@ -1299,10 +1325,15 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Batch update database table rows
+      x-summary-source: derived
   /api/database/rows/table/{table_id}/batch-delete/:
     post:
       operationId: batch_delete_database_table_rows
-      description: "Deletes existing rows in the table if the user has access to the table's workspace.\n\n **WARNING:**  This endpoint doesn't yet work with row deleted webhooks."
+      description: 'Deletes existing rows in the table if the user has access to the table''s workspace.
+
+
+        **WARNING:** This endpoint doesn''t yet work with row deleted webhooks.'
       parameters:
       - in: header
         name: ClientSessionId
@@ -1397,6 +1428,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Batch delete database table rows
+      x-summary-source: derived
   /api/row_comments/{table_id}/{row_id}/:
     get:
       operationId: get_row_comments
@@ -1496,6 +1529,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get row comments
+      x-summary-source: derived
     post:
       operationId: create_row_comment
       description: 'Creates a comment on the specified row.
@@ -1587,6 +1622,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create row comment
+      x-summary-source: derived
   /api/row_comments/{table_id}/{row_id}/notification-mode/:
     put:
       operationId: update_row_comment_notification_mode
@@ -1674,6 +1711,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update row comment notification mode
+      x-summary-source: derived
   /api/row_comments/{table_id}/comment/{comment_id}/:
     patch:
       operationId: update_row_comment
@@ -1776,6 +1815,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update row comment
+      x-summary-source: derived
     delete:
       operationId: delete_row_comment
       description: 'Delete a row comment.
@@ -1875,36 +1916,61 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete row comment
+      x-summary-source: derived
 components:
   schemas:
-    ExampleBatchUpdateRowRequestSerializerWithUserFieldNames:
+    RowMetadata:
+      type: object
+      properties:
+        row_comment_count:
+          type: integer
+          minimum: 0
+          description: How many row comments exist for this row.
+        row_comments_notification_mode:
+          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
+    ExampleRowResponseSerializerWithUserFieldNames:
       type: object
       properties:
         id:
           type: integer
           description: The unique identifier of the row in the table.
-        field_1:
+        order:
           type: string
-          nullable: true
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          description: Indicates the position of the row, lowest first and highest last.
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/RowMetadata'
+          description: Additional metadata for the row, if `include=metadata' is provided as query parameter.
+        field_1:
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_2:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_3:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_4:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
           maxLength: 254
         field_5:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
           pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          nullable: true
           description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_6:
           type: integer
@@ -1917,40 +1983,190 @@ components:
           default: false
           description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_8:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
           description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_9:
+          type: string
+          format: date-time
+          description: 'This field represents the `last_modified` field. The number in field_9 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_10:
+          allOf:
+          - $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `last_modified_by` field. The number in field_10 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_11:
+          type: string
+          format: date-time
+          description: 'This field represents the `created_on` field. The number in field_11 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_12:
+          allOf:
+          - $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `created_by` field. The number in field_12 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
         field_13:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
           description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
         field_14:
           type: array
           items:
-            type: integer
-            nullable: true
+            $ref: '#/components/schemas/LinkRowValue'
           description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
         field_15:
           type: array
-          items: {}
-          nullable: true
+          items:
+            $ref: '#/components/schemas/FileFieldResponse'
           description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
         field_16:
+          allOf:
+          - $ref: '#/components/schemas/SelectOption'
+          description: 'This field represents the `single_select` field. The number in field_16 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed.'
+        field_17:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SelectOption'
+          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+        field_18:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 100
+        field_19:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `formula` field. The number in field_19 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_20:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `count` field. The number in field_20 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_21:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `rollup` field. The number in field_21 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_22:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `lookup` field. The number in field_22 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_23:
+          type: array
+          items:
+            $ref: '#/components/schemas/Collaborator'
+          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
+        field_24:
+          type: string
+          format: uuid
+          description: 'This field represents the `uuid` field. The number in field_24 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent UUID for every row.'
+        field_25:
           type: integer
-          nullable: true
+          description: 'This field represents the `autonumber` field. The number in field_25 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent incremental integer number for every row.'
+        field_26:
+          type: boolean
+          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
+        field_27:
+          type: string
+          readOnly: true
+          description: 'This field represents the `form_view_edit_row` field. The number in field_27 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_28:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
+      required:
+      - field_27
+      - id
+    ExampleRowRequestSerializerWithUserFieldNames:
+      type: object
+      properties:
+        field_1:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_2:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_3:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_4:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 254
+        field_5:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_8:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_13:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
+        field_14:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
+        field_15:
+          type:
+          - array
+          - 'null'
+          items: {}
+          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
+        field_16:
+          type:
+          - integer
+          - 'null'
           description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
         field_17:
           type: array
           items:
-            type: integer
-            nullable: true
+            type:
+            - integer
+            - 'null'
             description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
           description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
         field_18:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
           maxLength: 100
         field_23:
@@ -1959,15 +2175,329 @@ components:
             type: integer
           description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
         field_26:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
         field_28:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
           type: string
-          nullable: true
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    ActionCommandTypeEnum:
+      enum:
+      - DO
+      - UNDO
+      - REDO
+      type: string
+      description: '* `DO` - DO
+
+        * `UNDO` - UNDO
+
+        * `REDO` - REDO'
+    PaginationSerializerRowComment:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RowComment'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    ExampleBatchUpdateRowRequestSerializerWithUserFieldNames:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique identifier of the row in the table.
+        field_1:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_2:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_3:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_4:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 254
+        field_5:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_8:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_13:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
+        field_14:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
+        field_15:
+          type:
+          - array
+          - 'null'
+          items: {}
+          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
+        field_16:
+          type:
+          - integer
+          - 'null'
+          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+        field_17:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+            description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+        field_18:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 100
+        field_23:
+          type: array
+          items:
+            type: integer
+          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
+        field_26:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
+        field_28:
+          type:
+          - string
+          - 'null'
           description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
       required:
       - id
+    RowCommentsNotificationMode:
+      type: object
+      properties:
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode884Enum'
+          description: 'The mode to use to receive notifications for new comments on a table row.
+
+
+            * `all` - all
+
+            * `mentions` - mentions'
+      required:
+      - mode
+    OperationMetadata:
+      type: object
+      properties:
+        updated_field_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+          description: A list of field ids that has been changed during the operation
+        cascade_update:
+          $ref: '#/components/schemas/CascadeUpdate'
+      required:
+      - updated_field_ids
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
+    CascadeUpdate:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
+          readOnly: true
+          description: A list of rows that have been updated as cascade update.
+        field_ids:
+          type: array
+          items:
+            type: integer
+          readOnly: true
+          description: A list of field ids that has been changed in cascade update
+      required:
+      - field_ids
+      - rows
+    Mode884Enum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    PaginationSerializerExampleRowResponseSerializerWithUserFieldNames:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponseSerializerWithUserFieldNames'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    ExampleBatchRowsRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowRequestSerializerWithUserFieldNames'
+          maxItems: 200
+          minItems: 1
+      required:
+      - items
+    RowHistoryUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The id of the user.
+        name:
+          type: string
+          description: The first name of the user.
+      required:
+      - id
+      - name
+    ExampleBatchUpdateRowsRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
+          maxItems: 200
+          minItems: 1
+        metadata:
+          allOf:
+          - $ref: '#/components/schemas/OperationMetadata'
+          description: An optional object containing metadata information about the operation
+      required:
+      - items
     RowHistory:
       type: object
       properties:
@@ -2010,573 +2540,6 @@ components:
       - id
       - timestamp
       - user
-    PaginationSerializerRowComment:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/RowComment'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    PaginationSerializerRowHistory:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/RowHistory'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    RowMetadata:
-      type: object
-      properties:
-        row_comment_count:
-          type: integer
-          minimum: 0
-          description: How many row comments exist for this row.
-        row_comments_notification_mode:
-          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    ExampleRowRequestSerializerWithUserFieldNames:
-      type: object
-      properties:
-        field_1:
-          type: string
-          nullable: true
-          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_2:
-          type: string
-          nullable: true
-          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_3:
-          type: string
-          nullable: true
-          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_4:
-          type: string
-          nullable: true
-          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 254
-        field_5:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          nullable: true
-          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_6:
-          type: integer
-          maximum: 5
-          minimum: 0
-          default: 0
-          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_7:
-          type: boolean
-          default: false
-          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_8:
-          type: string
-          format: date
-          nullable: true
-          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_13:
-          type: number
-          format: float
-          nullable: true
-          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
-        field_14:
-          type: array
-          items:
-            type: integer
-            nullable: true
-          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
-        field_15:
-          type: array
-          items: {}
-          nullable: true
-          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
-        field_16:
-          type: integer
-          nullable: true
-          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
-        field_17:
-          type: array
-          items:
-            type: integer
-            nullable: true
-            description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
-          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
-        field_18:
-          type: string
-          nullable: true
-          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 100
-        field_23:
-          type: array
-          items:
-            type: integer
-          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
-        field_26:
-          type: string
-          nullable: true
-          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
-        field_28:
-          type: string
-          nullable: true
-          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
-    ExampleBatchUpdateRowsRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
-          maxItems: 200
-          minItems: 1
-        metadata:
-          allOf:
-          - $ref: '#/components/schemas/OperationMetadata'
-          description: An optional object containing metadata information about the operation
-      required:
-      - items
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    PatchedExampleUpdateRowRequestSerializerWithUserFieldNames:
-      type: object
-      properties:
-        field_1:
-          type: string
-          nullable: true
-          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_2:
-          type: string
-          nullable: true
-          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_3:
-          type: string
-          nullable: true
-          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_4:
-          type: string
-          nullable: true
-          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 254
-        field_5:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          nullable: true
-          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_6:
-          type: integer
-          maximum: 5
-          minimum: 0
-          default: 0
-          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_7:
-          type: boolean
-          default: false
-          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_8:
-          type: string
-          format: date
-          nullable: true
-          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_13:
-          type: number
-          format: float
-          nullable: true
-          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
-        field_14:
-          type: array
-          items:
-            type: integer
-            nullable: true
-          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
-        field_15:
-          type: array
-          items: {}
-          nullable: true
-          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
-        field_16:
-          type: integer
-          nullable: true
-          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
-        field_17:
-          type: array
-          items:
-            type: integer
-            nullable: true
-            description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
-          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
-        field_18:
-          type: string
-          nullable: true
-          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 100
-        field_23:
-          type: array
-          items:
-            type: integer
-          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
-        field_26:
-          type: string
-          nullable: true
-          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
-        field_28:
-          type: string
-          nullable: true
-          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
-    ExampleRowResponseSerializerWithUserFieldNames:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The unique identifier of the row in the table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-          description: Indicates the position of the row, lowest first and highest last.
-        metadata:
-          allOf:
-          - $ref: '#/components/schemas/RowMetadata'
-          description: Additional metadata for the row, if `include=metadata' is provided as query parameter.
-        field_1:
-          type: string
-          nullable: true
-          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_2:
-          type: string
-          nullable: true
-          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_3:
-          type: string
-          nullable: true
-          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_4:
-          type: string
-          nullable: true
-          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 254
-        field_5:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          nullable: true
-          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_6:
-          type: integer
-          maximum: 5
-          minimum: 0
-          default: 0
-          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_7:
-          type: boolean
-          default: false
-          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_8:
-          type: string
-          format: date
-          nullable: true
-          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_9:
-          type: string
-          format: date-time
-          description: 'This field represents the `last_modified` field. The number in field_9 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_10:
-          allOf:
-          - $ref: '#/components/schemas/Collaborator'
-          description: 'This field represents the `last_modified_by` field. The number in field_10 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_11:
-          type: string
-          format: date-time
-          description: 'This field represents the `created_on` field. The number in field_11 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_12:
-          allOf:
-          - $ref: '#/components/schemas/Collaborator'
-          description: 'This field represents the `created_by` field. The number in field_12 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_13:
-          type: number
-          format: float
-          nullable: true
-          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
-        field_14:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRowValue'
-          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
-        field_15:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileFieldResponse'
-          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
-        field_16:
-          allOf:
-          - $ref: '#/components/schemas/SelectOption'
-          nullable: true
-          description: 'This field represents the `single_select` field. The number in field_16 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed.'
-        field_17:
-          type: array
-          items:
-            $ref: '#/components/schemas/SelectOption'
-          nullable: true
-          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
-        field_18:
-          type: string
-          nullable: true
-          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-          maxLength: 100
-        field_19:
-          type: string
-          nullable: true
-          description: 'This field represents the `formula` field. The number in field_19 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_20:
-          type: string
-          nullable: true
-          description: 'This field represents the `count` field. The number in field_20 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_21:
-          type: string
-          nullable: true
-          description: 'This field represents the `rollup` field. The number in field_21 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_22:
-          type: string
-          nullable: true
-          description: 'This field represents the `lookup` field. The number in field_22 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_23:
-          type: array
-          items:
-            $ref: '#/components/schemas/Collaborator'
-          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
-        field_24:
-          type: string
-          format: uuid
-          description: 'This field represents the `uuid` field. The number in field_24 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent UUID for every row.'
-        field_25:
-          type: integer
-          description: 'This field represents the `autonumber` field. The number in field_25 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Contains a unique and persistent incremental integer number for every row.'
-        field_26:
-          type: boolean
-          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
-        field_27:
-          type: string
-          readOnly: true
-          description: 'This field represents the `form_view_edit_row` field. The number in field_27 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
-        field_28:
-          type: string
-          nullable: true
-          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
-      required:
-      - field_27
-      - id
-    ActionCommandTypeEnum:
-      enum:
-      - DO
-      - UNDO
-      - REDO
-      type: string
-      description: '* `DO` - DO
-
-        * `UNDO` - UNDO
-
-        * `REDO` - REDO'
-    OperationMetadata:
-      type: object
-      properties:
-        updated_field_ids:
-          type: array
-          items:
-            type: integer
-          readOnly: true
-          description: A list of field ids that has been changed during the operation
-        cascade_update:
-          $ref: '#/components/schemas/CascadeUpdate'
-      required:
-      - updated_field_ids
-    Mode884Enum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    RowHistoryUser:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The id of the user.
-        name:
-          type: string
-          description: The first name of the user.
-      required:
-      - id
-      - name
-    PatchedExampleBatchUpdateRowsRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
-          maxItems: 200
-          minItems: 1
-    RowCommentsNotificationMode:
-      type: object
-      properties:
-        mode:
-          allOf:
-          - $ref: '#/components/schemas/Mode884Enum'
-          description: 'The mode to use to receive notifications for new comments on a table row.
-
-
-            * `all` - all
-
-            * `mentions` - mentions'
-      required:
-      - mode
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
-    ExampleBatchRowsRequest:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowRequestSerializerWithUserFieldNames'
-          maxItems: 200
-          minItems: 1
-      required:
-      - items
-    CascadeUpdate:
-      type: object
-      properties:
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
-          readOnly: true
-          description: A list of rows that have been updated as cascade update.
-        field_ids:
-          type: array
-          items:
-            type: integer
-          readOnly: true
-          description: A list of field ids that has been changed in cascade update
-      required:
-      - field_ids
-      - rows
-    FileFieldResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
-      required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
-    PaginationSerializerExampleRowResponseSerializerWithUserFieldNames:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the next page.
-        previous:
-          type: string
-          format: uri
-          nullable: true
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponseSerializerWithUserFieldNames'
-      required:
-      - count
-      - next
-      - previous
-      - results
     LinkRowValue:
       type: object
       properties:
@@ -2593,6 +2556,15 @@ components:
           pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
       required:
       - id
+    PatchedExampleBatchUpdateRowsRequest:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleBatchUpdateRowRequestSerializerWithUserFieldNames'
+          maxItems: 200
+          minItems: 1
     RowCommentCreate:
       type: object
       properties:
@@ -2600,17 +2572,6 @@ components:
           description: The rich text comment content.
       required:
       - message
-    BatchDeleteRows:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: integer
-          maxItems: 200
-          minItems: 1
-      required:
-      - items
     RowComment:
       type: object
       properties:
@@ -2618,8 +2579,9 @@ components:
           type: integer
           readOnly: true
         user_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The user who made the comment.
           readOnly: true
         first_name:
@@ -2659,22 +2621,165 @@ components:
       - table_id
       - updated_on
       - user_id
-    SelectOption:
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    PaginationSerializerRowHistory:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RowHistory'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    BatchDeleteRows:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: integer
+          maxItems: 200
+          minItems: 1
+      required:
+      - items
+    PatchedExampleUpdateRowRequestSerializerWithUserFieldNames:
+      type: object
+      properties:
+        field_1:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_2:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_3:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_4:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 254
+        field_5:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_8:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+        field_13:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: 'This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field''s duration format.'
+        field_14:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+          description: 'This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field''s `value` as a string for display purposes.'
+        field_15:
+          type:
+          - array
+          - 'null'
+          items: {}
+          description: 'This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.'
+        field_16:
+          type:
+          - integer
+          - 'null'
+          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+        field_17:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+            description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+          description: 'This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.'
+        field_18:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. '
+          maxLength: 100
+        field_23:
+          type: array
+          items:
+            type: integer
+          description: 'This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. This field accepts a list of objects representing the chosen collaborators through the object''s `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.'
+        field_26:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.'
+        field_28:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. If the GET parameter user_field_names is provided and its value is one of the following: `y`, `yes`, `true`, `t`, `on`, `1`, or empty, then the key will instead be the actual name of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.'
+    Collaborator:
       type: object
       properties:
         id:
           type: integer
-        value:
+        name:
           type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
+          readOnly: true
       required:
-      - color
-      - value
+      - id
+      - name
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -2682,7 +2787,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

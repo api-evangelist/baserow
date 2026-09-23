@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin User source roles API
+  title: Baserow API spec User source roles API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -58,6 +58,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List application user source roles
+      x-summary-source: derived
 components:
   schemas:
     User_SourceUserSourceRoles:
@@ -79,26 +81,30 @@ components:
             type: string
           readOnly: true
         table_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The id of the Baserow table we want the data for.
         email_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The id of the field to use as email for the user account.
         name_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The id of the field that contains the user name.
         role_field_id:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The id of the field that contains the user role.
       required:
       - id
       - roles
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -106,7 +112,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

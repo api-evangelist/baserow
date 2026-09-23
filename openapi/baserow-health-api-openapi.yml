@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Health API
+  title: Baserow API spec Health API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -17,7 +17,7 @@ paths:
   /api/_health/celery-queue/:
     get:
       operationId: celery_queue_size_check
-      description: Health check endpoint to check if the the celery and/or export celery queue has  exceeded the maximum healthy size. Responds with `200` if there there are less than 10 in all queues provided. Otherwise responds with a `503`.
+      description: Health check endpoint to check if the the celery and/or export celery queue has exceeded the maximum healthy size. Responds with `200` if there there are less than 10 in all queues provided. Otherwise responds with a `503`.
       parameters:
       - in: query
         name: queue
@@ -39,6 +39,8 @@ paths:
           description: No response body
         '503':
           description: No response body
+      summary: Celery queue size check
+      x-summary-source: derived
   /api/_health/email/:
     post:
       operationId: email_tester
@@ -87,6 +89,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Email tester
+      x-summary-source: derived
   /api/_health/full/:
     get:
       operationId: full_health_check
@@ -103,28 +107,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/FullHealthCheck'
           description: ''
+      summary: Full health check
+      x-summary-source: derived
 components:
   schemas:
-    EmailTesterResponse:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-          description: Whether or not the test email was sent successfully.
-        error_stack:
-          type: string
-          nullable: true
-          description: The full stack trace and error message if the test email failed.
-        error_type:
-          type: string
-          nullable: true
-          description: The type of error that occurred if the test email failed.
-        error:
-          type: string
-          nullable: true
-          description: A short message describing the error that occured if the test email failed
-      required:
-      - succeeded
     FullHealthCheck:
       type: object
       properties:
@@ -157,8 +143,31 @@ components:
           format: email
       required:
       - target_email
+    EmailTesterResponse:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+          description: Whether or not the test email was sent successfully.
+        error_stack:
+          type:
+          - string
+          - 'null'
+          description: The full stack trace and error message if the test email failed.
+        error_type:
+          type:
+          - string
+          - 'null'
+          description: The type of error that occurred if the test email failed.
+        error:
+          type:
+          - string
+          - 'null'
+          description: A short message describing the error that occured if the test email failed
+      required:
+      - succeeded
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -166,7 +175,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

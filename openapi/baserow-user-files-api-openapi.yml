@@ -1,25 +1,25 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin User files API
+  title: Baserow API spec User files API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
     name: MIT
     url: https://github.com/baserow/baserow/blob/develop/LICENSE
 tags:
-- name: User files
+- name: User Files
 paths:
   /api/user-files/upload-file/:
     post:
       operationId: upload_file
       description: Uploads a file to Baserow by uploading the file contents directly. A `file` multipart is expected containing the file contents.
       tags:
-      - User files
+      - User Files
       security:
       - UserSource JWT: []
       - JWT: []
@@ -52,12 +52,14 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Upload file
+      x-summary-source: derived
   /api/user-files/upload-via-url/:
     post:
       operationId: upload_via_url
       description: Uploads a file to Baserow by downloading it from the provided URL.
       tags:
-      - User files
+      - User Files
       requestBody:
         content:
           application/json:
@@ -104,6 +106,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Upload via url
+      x-summary-source: derived
 components:
   schemas:
     UserFileUploadViaURLRequest:
@@ -128,15 +132,17 @@ components:
         is_image:
           type: boolean
         image_width:
-          type: integer
+          type:
+          - integer
+          - 'null'
           maximum: 2147483647
           minimum: 0
-          nullable: true
         image_height:
-          type: integer
+          type:
+          - integer
+          - 'null'
           maximum: 2147483647
           minimum: 0
-          nullable: true
         uploaded_at:
           type: string
           format: date-time
@@ -163,7 +169,7 @@ components:
       - uploaded_at
       - url
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -171,7 +177,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

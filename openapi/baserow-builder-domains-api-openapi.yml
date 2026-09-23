@@ -1,11 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Builder domains API
+  title: Baserow API spec Builder domains API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
@@ -85,6 +85,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get builder domains
+      x-summary-source: derived
     post:
       operationId: create_builder_domain
       description: Creates a new domain for an application builder
@@ -165,6 +167,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create builder domain
+      x-summary-source: derived
   /api/builder/{builder_id}/domains/order/:
     post:
       operationId: order_builder_domains
@@ -245,6 +249,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Order builder domains
+      x-summary-source: derived
   /api/builder/domains/{domain_id}/:
     patch:
       operationId: update_builder_domain
@@ -326,6 +332,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update builder domain
+      x-summary-source: derived
     delete:
       operationId: delete_builder_domain
       description: Deletes an existing domain of an application builder
@@ -391,6 +399,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete builder domain
+      x-summary-source: derived
   /api/builder/domains/{domain_id}/publish/async/:
     post:
       operationId: publish_builder_domain
@@ -457,6 +467,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Publish builder domain
+      x-summary-source: derived
   /api/builder/domains/ask-public-domain-exists/:
     get:
       operationId: ask_public_builder_domain_exists
@@ -478,6 +490,8 @@ paths:
           description: No response body
         '404':
           description: No response body
+      summary: Ask public builder domain exists
+      x-summary-source: derived
 components:
   schemas:
     SubDomainDomain:
@@ -502,9 +516,10 @@ components:
           type: integer
           readOnly: true
         last_published:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Last publication date of this domain
       required:
       - builder_id
@@ -512,33 +527,16 @@ components:
       - id
       - order
       - type
+    Domain_TypeCreateDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainCreateDomain'
+      - $ref: '#/components/schemas/SubDomainCreateDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainCreateDomain'
+          sub_domain: '#/components/schemas/SubDomainCreateDomain'
     CustomDomainCreateDomain:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type509Enum'
-          description: 'The type of the domain.
-
-
-            * `custom` - custom
-
-            * `sub_domain` - sub_domain'
-        domain_name:
-          type: string
-          maxLength: 255
-      required:
-      - domain_name
-      - type
-    Type509Enum:
-      enum:
-      - custom
-      - sub_domain
-      type: string
-      description: '* `custom` - custom
-
-        * `sub_domain` - sub_domain'
-    SubDomainCreateDomain:
       type: object
       properties:
         type:
@@ -578,9 +576,10 @@ components:
           type: integer
           readOnly: true
         last_published:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: Last publication date of this domain
       required:
       - builder_id
@@ -588,15 +587,16 @@ components:
       - id
       - order
       - type
-    Domain_TypeCreateDomain:
-      oneOf:
-      - $ref: '#/components/schemas/CustomDomainCreateDomain'
-      - $ref: '#/components/schemas/SubDomainCreateDomain'
-      discriminator:
-        propertyName: type
-        mapping:
-          custom: '#/components/schemas/CustomDomainCreateDomain'
-          sub_domain: '#/components/schemas/SubDomainCreateDomain'
+    OrderDomains:
+      type: object
+      properties:
+        domain_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the domains in the order they are supposed to be set in
+      required:
+      - domain_ids
     PatchedUpdateDomain:
       type: object
       properties:
@@ -611,16 +611,14 @@ components:
             * `sub_domain` - sub_domain'
         domain_name:
           type: string
-    OrderDomains:
-      type: object
-      properties:
-        domain_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the domains in the order they are supposed to be set in
-      required:
-      - domain_ids
+    Type509Enum:
+      enum:
+      - custom
+      - sub_domain
+      type: string
+      description: '* `custom` - custom
+
+        * `sub_domain` - sub_domain'
     Domain_TypeDomain:
       oneOf:
       - $ref: '#/components/schemas/CustomDomainDomain'
@@ -630,8 +628,26 @@ components:
         mapping:
           custom: '#/components/schemas/CustomDomainDomain'
           sub_domain: '#/components/schemas/SubDomainDomain'
+    SubDomainCreateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+          maxLength: 255
+      required:
+      - domain_name
+      - type
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -639,7 +655,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token

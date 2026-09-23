@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Baserow API spec Admin Workspace invitations API
+  title: Baserow API spec Workspace invitations API
   version: 2.2.2
-  description: 'For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).
+  description: 'For more information about our REST API, please visit this page.
 
 
-    For more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).'
+    For more information about our deprecation policy, please visit this page.'
   contact:
     url: https://baserow.io/contact
   license:
     name: MIT
     url: https://github.com/baserow/baserow/blob/develop/LICENSE
 tags:
-- name: Workspace invitations
+- name: Workspace Invitations
 paths:
   /api/workspaces/invitations/{workspace_invitation_id}/:
     get:
@@ -26,7 +26,7 @@ paths:
         description: Returns the workspace invitation related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -78,6 +78,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get workspace invitation
+      x-summary-source: derived
     patch:
       operationId: update_workspace_invitation
       description: Updates the existing workspace invitation related to the provided `workspace_invitation_id` param if the authorized user has admin rights to the related workspace.
@@ -89,7 +91,7 @@ paths:
         description: Updates the workspace invitation related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       requestBody:
         content:
           application/json:
@@ -153,6 +155,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Update workspace invitation
+      x-summary-source: derived
     delete:
       operationId: delete_workspace_invitation
       description: Deletes a workspace invitation if the authorized user has admin rights to the related workspace.
@@ -164,7 +168,7 @@ paths:
         description: Deletes the workspace invitation related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -212,6 +216,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Delete workspace invitation
+      x-summary-source: derived
   /api/workspaces/invitations/{workspace_invitation_id}/accept/:
     post:
       operationId: accept_workspace_invitation
@@ -224,7 +230,7 @@ paths:
         description: Accepts the workspace invitation related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -275,6 +281,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Accept workspace invitation
+      x-summary-source: derived
   /api/workspaces/invitations/{workspace_invitation_id}/reject/:
     post:
       operationId: reject_workspace_invitation
@@ -287,7 +295,7 @@ paths:
         description: Rejects the workspace invitation related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -334,6 +342,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Reject workspace invitation
+      x-summary-source: derived
   /api/workspaces/invitations/token/{token}/:
     get:
       operationId: get_workspace_invitation_by_token
@@ -346,7 +356,7 @@ paths:
         description: Returns the workspace invitation related to the provided token.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -398,6 +408,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Get workspace invitation by token
+      x-summary-source: derived
   /api/workspaces/invitations/workspace/{workspace_id}/:
     get:
       operationId: list_workspace_invitations
@@ -410,7 +422,7 @@ paths:
         description: Returns only invitations that are in the workspace related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       security:
       - UserSource JWT: []
       - JWT: []
@@ -464,6 +476,8 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: List workspace invitations
+      x-summary-source: derived
     post:
       operationId: create_workspace_invitation
       description: Creates a new workspace invitations for an email address if the authorized user has admin rights to the related workspace. An email containing a sign up link will be send to the user.
@@ -475,7 +489,7 @@ paths:
         description: Creates a workspace invitation to the workspace related to the provided value.
         required: true
       tags:
-      - Workspace invitations
+      - Workspace Invitations
       requestBody:
         content:
           application/json:
@@ -540,17 +554,13 @@ paths:
                       format: object
                       description: Machine readable object about what went wrong.
           description: ''
+      summary: Create workspace invitation
+      x-summary-source: derived
 components:
   schemas:
-    WorkspaceInvitation:
+    CreateWorkspaceInvitation:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        workspace:
-          type: integer
-          description: The workspace that the user will get access to once the invitation is accepted.
         email:
           type: string
           format: email
@@ -560,49 +570,13 @@ components:
           type: string
           description: The permissions that the user is going to get within the workspace after accepting the invitation.
           maxLength: 32
-        created_on:
+        base_url:
           type: string
-          format: date-time
-          readOnly: true
+          format: uri
+          description: The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').
       required:
-      - created_on
+      - base_url
       - email
-      - id
-      - workspace
-    UserWorkspaceInvitation:
-      type: object
-      description: 'This serializer is used for displaying the invitation to the user that doesn''t
-
-        have access to the workspace yet, so not for invitation management purposes.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        invited_by:
-          type: string
-          readOnly: true
-        workspace:
-          type: string
-          readOnly: true
-        email:
-          type: string
-          format: email
-          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
-          maxLength: 254
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        email_exists:
-          type: boolean
-          readOnly: true
-      required:
-      - created_on
-      - email
-      - email_exists
-      - id
-      - invited_by
-      - workspace
     WorkspaceUserWorkspace:
       type: object
       description: 'This serializers includes relevant fields of the Workspace model, but also
@@ -650,6 +624,13 @@ components:
       - permissions
       - unread_notifications_count
       - users
+    PatchedUpdateWorkspaceInvitation:
+      type: object
+      properties:
+        permissions:
+          type: string
+          description: The permissions that the user is going to get within the workspace after accepting the invitation.
+          maxLength: 32
     WorkspaceUser:
       type: object
       properties:
@@ -694,16 +675,49 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    PatchedUpdateWorkspaceInvitation:
+    UserWorkspaceInvitation:
       type: object
+      description: 'This serializer is used for displaying the invitation to the user that doesn''t
+
+        have access to the workspace yet, so not for invitation management purposes.'
       properties:
-        permissions:
+        id:
+          type: integer
+          readOnly: true
+        invited_by:
           type: string
-          description: The permissions that the user is going to get within the workspace after accepting the invitation.
-          maxLength: 32
-    CreateWorkspaceInvitation:
+          readOnly: true
+        workspace:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
+          maxLength: 254
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        email_exists:
+          type: boolean
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - email_exists
+      - id
+      - invited_by
+      - workspace
+    WorkspaceInvitation:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
+        workspace:
+          type: integer
+          description: The workspace that the user will get access to once the invitation is accepted.
         email:
           type: string
           format: email
@@ -713,15 +727,17 @@ components:
           type: string
           description: The permissions that the user is going to get within the workspace after accepting the invitation.
           maxLength: 32
-        base_url:
+        created_on:
           type: string
-          format: uri
-          description: The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').
+          format: date-time
+          readOnly: true
       required:
-      - base_url
+      - created_on
       - email
+      - id
+      - workspace
   securitySchemes:
-    Database token:
+    Database_token:
       type: http
       scheme: bearer
       bearerFormat: Token your_token
@@ -729,7 +745,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
-    UserSource JWT:
+    UserSource_JWT:
       type: http
       scheme: bearer
       bearerFormat: JWT your_token
