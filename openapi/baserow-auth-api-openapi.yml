@@ -768,6 +768,18 @@ components:
       - provisioning_qr_code
       - provisioning_url
       - type
+    SAMLResponse:
+      type: object
+      properties:
+        SAMLResponse:
+          type: string
+          description: The encoded SAML response from the IdP.
+        RelayState:
+          type: string
+          description: The frontend URL where redirect the authenticated user.
+      required:
+      - RelayState
+      - SAMLResponse
     DisableTwoFactorAuth:
       type: object
       properties:
@@ -775,41 +787,54 @@ components:
           type: string
       required:
       - password
-    GitHubAuthProviderModelAuthProvider:
+    Two_Factor_Auth_TypeCreateTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+    VerifyTOTP:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
+        email:
           type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
+          format: email
+        code:
           type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        name:
+        backup_code:
           type: string
-          maxLength: 255
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
       required:
-      - client_id
-      - domain
-      - id
-      - name
-      - secret
+      - email
+    TOTPAuthProviderModelCreateTwoFactorAuth:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum'
+          description: 'The type of the two factor auth.
+
+
+            * `totp` - totp'
+        provisioning_url:
+          type: string
+        provisioning_qr_code:
+          type: string
+        backup_codes:
+          type: array
+          items:
+            type: string
+      required:
+      - backup_codes
+      - provisioning_qr_code
+      - provisioning_url
       - type
-    GoogleAuthProviderModelAuthProvider:
+    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
+      enum:
+      - totp
+      type: string
+      description: '* `totp` - totp'
+    GitHubAuthProviderModelAuthProvider:
       type: object
       properties:
         id:
@@ -898,44 +923,6 @@ components:
       - name
       - secret
       - type
-    SamlAuthProviderModelAuthProvider:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        metadata:
-          type: string
-          description: The SAML metadata XML provided by the IdP.
-        is_verified:
-          type: boolean
-          readOnly: true
-          description: Whether or not a user sign in correctly with this SAML provider.
-        email_attr_key:
-          type: string
-          description: The key in the SAML response that contains the email address of the user.
-        first_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the first name of the user.
-        last_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
-      required:
-      - domain
-      - id
-      - is_verified
-      - metadata
-      - type
     GitLabAuthProviderModelAuthProvider:
       type: object
       properties:
@@ -976,25 +963,78 @@ components:
       - name
       - secret
       - type
-    VerifyTOTP:
+    GoogleAuthProviderModelAuthProvider:
       type: object
       properties:
-        email:
+        id:
+          type: integer
+          readOnly: true
+        type:
           type: string
-          format: email
-        code:
+          readOnly: true
+          description: The type of the related field.
+        domain:
           type: string
-        backup_code:
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
           type: string
+          maxLength: 255
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
       required:
-      - email
-    Two_Factor_Auth_TypeCreateTwoFactorAuth:
-      oneOf:
-      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
-      discriminator:
-        propertyName: type
-        mapping:
-          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    SamlAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        metadata:
+          type: string
+          description: The SAML metadata XML provided by the IdP.
+        is_verified:
+          type: boolean
+          readOnly: true
+          description: Whether or not a user sign in correctly with this SAML provider.
+        email_attr_key:
+          type: string
+          description: The key in the SAML response that contains the email address of the user.
+        first_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the first name of the user.
+        last_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
+      required:
+      - domain
+      - id
+      - is_verified
+      - metadata
+      - type
     FacebookAuthProviderModelAuthProvider:
       type: object
       properties:
@@ -1029,6 +1069,13 @@ components:
       - name
       - secret
       - type
+    Two_Factor_Auth_TypeTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
     PasswordAuthProviderModelAuthProvider:
       type: object
       properties:
@@ -1048,53 +1095,6 @@ components:
       required:
       - id
       - type
-    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
-      enum:
-      - totp
-      type: string
-      description: '* `totp` - totp'
-    SAMLResponse:
-      type: object
-      properties:
-        SAMLResponse:
-          type: string
-          description: The encoded SAML response from the IdP.
-        RelayState:
-          type: string
-          description: The frontend URL where redirect the authenticated user.
-      required:
-      - RelayState
-      - SAMLResponse
-    TOTPAuthProviderModelCreateTwoFactorAuth:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum'
-          description: 'The type of the two factor auth.
-
-
-            * `totp` - totp'
-        provisioning_url:
-          type: string
-        provisioning_qr_code:
-          type: string
-        backup_codes:
-          type: array
-          items:
-            type: string
-      required:
-      - backup_codes
-      - provisioning_qr_code
-      - provisioning_url
-      - type
-    Two_Factor_Auth_TypeTwoFactorAuth:
-      oneOf:
-      - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
-      discriminator:
-        propertyName: type
-        mapping:
-          totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
   securitySchemes:
     Database_token:
       type: http

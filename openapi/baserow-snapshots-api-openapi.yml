@@ -298,32 +298,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Snapshot:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
-        snapshot_from_application:
-          type: integer
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        created_by:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          readOnly: true
-      required:
-      - created_at
-      - created_by
-      - id
-      - name
-      - snapshot_from_application
     User:
       type: object
       properties:
@@ -368,6 +342,32 @@ components:
       - state
       - type
       - updated_on
+    Snapshot:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 160
+        snapshot_from_application:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+      required:
+      - created_at
+      - created_by
+      - id
+      - name
+      - snapshot_from_application
   securitySchemes:
     Database_token:
       type: http

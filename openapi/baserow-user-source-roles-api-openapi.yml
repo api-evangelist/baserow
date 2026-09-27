@@ -62,13 +62,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    User_SourceUserSourceRoles:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowUserSourceUserSourceRoles'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow: '#/components/schemas/LocalBaserowUserSourceUserSourceRoles'
     LocalBaserowUserSourceUserSourceRoles:
       type: object
       properties:
@@ -103,6 +96,13 @@ components:
       required:
       - id
       - roles
+    User_SourceUserSourceRoles:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowUserSourceUserSourceRoles'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow: '#/components/schemas/LocalBaserowUserSourceUserSourceRoles'
   securitySchemes:
     Database_token:
       type: http

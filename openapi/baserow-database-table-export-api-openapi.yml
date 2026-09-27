@@ -147,6 +147,134 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PublicViewFilters:
+      type: object
+      properties:
+        filter_type:
+          $ref: '#/components/schemas/PublicViewFiltersFilterTypeEnum'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewFilter'
+          description: The list of filters that should be applied in this group/public view.
+      required:
+      - filter_type
+    Export:
+      oneOf:
+      - $ref: '#/components/schemas/CsvExporterOptions'
+      - $ref: '#/components/schemas/BaseExporterOptions'
+      - $ref: '#/components/schemas/BaseExporterOptions'
+      - $ref: '#/components/schemas/ExcelExporterOptions'
+      - $ref: '#/components/schemas/FileExporterOptions'
+      discriminator:
+        propertyName: exporter_type
+        mapping:
+          csv: '#/components/schemas/CsvExporterOptions'
+          json: '#/components/schemas/BaseExporterOptions'
+          xml: '#/components/schemas/BaseExporterOptions'
+          excel: '#/components/schemas/ExcelExporterOptions'
+          file: '#/components/schemas/FileExporterOptions'
+    ExportCharsetEnum:
+      enum:
+      - utf-8
+      - iso-8859-6
+      - windows-1256
+      - iso-8859-4
+      - windows-1257
+      - iso-8859-14
+      - iso-8859-2
+      - windows-1250
+      - gbk
+      - gb18030
+      - big5
+      - koi8-r
+      - koi8-u
+      - iso-8859-5
+      - windows-1251
+      - x-mac-cyrillic
+      - iso-8859-7
+      - windows-1253
+      - iso-8859-8
+      - windows-1255
+      - euc-jp
+      - iso-2022-jp
+      - shift-jis
+      - euc-kr
+      - macintosh
+      - iso-8859-10
+      - iso-8859-16
+      - windows-874
+      - windows-1254
+      - windows-1258
+      - iso-8859-1
+      - windows-1252
+      - iso-8859-3
+      type: string
+      description: '* `utf-8` - utf-8
+
+        * `iso-8859-6` - iso-8859-6
+
+        * `windows-1256` - windows-1256
+
+        * `iso-8859-4` - iso-8859-4
+
+        * `windows-1257` - windows-1257
+
+        * `iso-8859-14` - iso-8859-14
+
+        * `iso-8859-2` - iso-8859-2
+
+        * `windows-1250` - windows-1250
+
+        * `gbk` - gbk
+
+        * `gb18030` - gb18030
+
+        * `big5` - big5
+
+        * `koi8-r` - koi8-r
+
+        * `koi8-u` - koi8-u
+
+        * `iso-8859-5` - iso-8859-5
+
+        * `windows-1251` - windows-1251
+
+        * `x-mac-cyrillic` - mac-cyrillic
+
+        * `iso-8859-7` - iso-8859-7
+
+        * `windows-1253` - windows-1253
+
+        * `iso-8859-8` - iso-8859-8
+
+        * `windows-1255` - windows-1255
+
+        * `euc-jp` - euc-jp
+
+        * `iso-2022-jp` - iso-2022-jp
+
+        * `shift-jis` - shift-jis
+
+        * `euc-kr` - euc-kr
+
+        * `macintosh` - macintosh
+
+        * `iso-8859-10` - iso-8859-10
+
+        * `iso-8859-16` - iso-8859-16
+
+        * `windows-874` - cp874
+
+        * `windows-1254` - windows-1254
+
+        * `windows-1258` - windows-1258
+
+        * `iso-8859-1` - iso-8859-1
+
+        * `windows-1252` - windows-1252
+
+        * `iso-8859-3` - iso-8859-3'
     ExporterTypeEnum:
       enum:
       - csv
@@ -164,7 +292,108 @@ components:
         * `excel` - excel
 
         * `file` - file'
-    ExcelExporterOptions:
+    PublicViewFiltersFilterTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - AND
+
+        * `OR` - OR'
+    ExportJob:
+      type: object
+      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
+
+        with the actual usable url of the export job''s file (if it has one).'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table:
+          type:
+          - integer
+          - 'null'
+        view:
+          type:
+          - integer
+          - 'null'
+        exporter_type:
+          type: string
+        state:
+          $ref: '#/components/schemas/ExportJobStateEnum'
+        status:
+          type: string
+          readOnly: true
+          description: 'DEPRECATED: Use state instead'
+        exported_file_name:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        progress_percentage:
+          type: number
+          format: double
+        url:
+          type: string
+          format: uri
+          readOnly: true
+      required:
+      - created_at
+      - exporter_type
+      - id
+      - state
+      - status
+      - url
+    CsvColumnSeparatorEnum:
+      enum:
+      - ','
+      - ;
+      - '|'
+      - tab
+      - record_separator
+      - unit_separator
+      type: string
+      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
+    ExportJobStateEnum:
+      enum:
+      - pending
+      - exporting
+      - cancelled
+      - finished
+      - failed
+      - expired
+      type: string
+      description: '* `pending` - pending
+
+        * `exporting` - exporting
+
+        * `cancelled` - cancelled
+
+        * `finished` - finished
+
+        * `failed` - failed
+
+        * `expired` - expired'
+    PublicViewFilter:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The id of the field to filter on.
+        type:
+          type: string
+          description: The filter type.
+        value:
+          type: string
+          description: The filter value.
+      required:
+      - field
+      - type
+      - value
+    FileExporterOptions:
       type: object
       properties:
         view_id:
@@ -276,10 +505,10 @@ components:
           items:
             type: integer
           description: List of field IDs that must be included in the export, in the desired order.
-        excel_include_header:
+        organize_files:
           type: boolean
           default: true
-          description: Whether or not to generate the field names as header row at the top of the Excel file.
+          description: Whether or not to group files by row id in the export.
       required:
       - exporter_type
     CsvExporterOptions:
@@ -405,204 +634,6 @@ components:
           description: Whether or not to generate a header row at the top of the csv file.
       required:
       - exporter_type
-    ExportJobStateEnum:
-      enum:
-      - pending
-      - exporting
-      - cancelled
-      - finished
-      - failed
-      - expired
-      type: string
-      description: '* `pending` - pending
-
-        * `exporting` - exporting
-
-        * `cancelled` - cancelled
-
-        * `finished` - finished
-
-        * `failed` - failed
-
-        * `expired` - expired'
-    PublicViewFiltersFilterTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - AND
-
-        * `OR` - OR'
-    ExportCharsetEnum:
-      enum:
-      - utf-8
-      - iso-8859-6
-      - windows-1256
-      - iso-8859-4
-      - windows-1257
-      - iso-8859-14
-      - iso-8859-2
-      - windows-1250
-      - gbk
-      - gb18030
-      - big5
-      - koi8-r
-      - koi8-u
-      - iso-8859-5
-      - windows-1251
-      - x-mac-cyrillic
-      - iso-8859-7
-      - windows-1253
-      - iso-8859-8
-      - windows-1255
-      - euc-jp
-      - iso-2022-jp
-      - shift-jis
-      - euc-kr
-      - macintosh
-      - iso-8859-10
-      - iso-8859-16
-      - windows-874
-      - windows-1254
-      - windows-1258
-      - iso-8859-1
-      - windows-1252
-      - iso-8859-3
-      type: string
-      description: '* `utf-8` - utf-8
-
-        * `iso-8859-6` - iso-8859-6
-
-        * `windows-1256` - windows-1256
-
-        * `iso-8859-4` - iso-8859-4
-
-        * `windows-1257` - windows-1257
-
-        * `iso-8859-14` - iso-8859-14
-
-        * `iso-8859-2` - iso-8859-2
-
-        * `windows-1250` - windows-1250
-
-        * `gbk` - gbk
-
-        * `gb18030` - gb18030
-
-        * `big5` - big5
-
-        * `koi8-r` - koi8-r
-
-        * `koi8-u` - koi8-u
-
-        * `iso-8859-5` - iso-8859-5
-
-        * `windows-1251` - windows-1251
-
-        * `x-mac-cyrillic` - mac-cyrillic
-
-        * `iso-8859-7` - iso-8859-7
-
-        * `windows-1253` - windows-1253
-
-        * `iso-8859-8` - iso-8859-8
-
-        * `windows-1255` - windows-1255
-
-        * `euc-jp` - euc-jp
-
-        * `iso-2022-jp` - iso-2022-jp
-
-        * `shift-jis` - shift-jis
-
-        * `euc-kr` - euc-kr
-
-        * `macintosh` - macintosh
-
-        * `iso-8859-10` - iso-8859-10
-
-        * `iso-8859-16` - iso-8859-16
-
-        * `windows-874` - cp874
-
-        * `windows-1254` - windows-1254
-
-        * `windows-1258` - windows-1258
-
-        * `iso-8859-1` - iso-8859-1
-
-        * `windows-1252` - windows-1252
-
-        * `iso-8859-3` - iso-8859-3'
-    ExportJob:
-      type: object
-      description: 'When mixed in to a model serializer for an ExportJob this will add an url field
-
-        with the actual usable url of the export job''s file (if it has one).'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table:
-          type:
-          - integer
-          - 'null'
-        view:
-          type:
-          - integer
-          - 'null'
-        exporter_type:
-          type: string
-        state:
-          $ref: '#/components/schemas/ExportJobStateEnum'
-        status:
-          type: string
-          readOnly: true
-          description: 'DEPRECATED: Use state instead'
-        exported_file_name:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-        progress_percentage:
-          type: number
-          format: double
-        url:
-          type: string
-          format: uri
-          readOnly: true
-      required:
-      - created_at
-      - exporter_type
-      - id
-      - state
-      - status
-      - url
-    CsvColumnSeparatorEnum:
-      enum:
-      - ','
-      - ;
-      - '|'
-      - tab
-      - record_separator
-      - unit_separator
-      type: string
-      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
-    PublicViewFilters:
-      type: object
-      properties:
-        filter_type:
-          $ref: '#/components/schemas/PublicViewFiltersFilterTypeEnum'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicViewFilter'
-          description: The list of filters that should be applied in this group/public view.
-      required:
-      - filter_type
     BaseExporterOptions:
       type: object
       properties:
@@ -717,7 +748,7 @@ components:
           description: List of field IDs that must be included in the export, in the desired order.
       required:
       - exporter_type
-    FileExporterOptions:
+    ExcelExporterOptions:
       type: object
       properties:
         view_id:
@@ -829,43 +860,12 @@ components:
           items:
             type: integer
           description: List of field IDs that must be included in the export, in the desired order.
-        organize_files:
+        excel_include_header:
           type: boolean
           default: true
-          description: Whether or not to group files by row id in the export.
+          description: Whether or not to generate the field names as header row at the top of the Excel file.
       required:
       - exporter_type
-    Export:
-      oneOf:
-      - $ref: '#/components/schemas/CsvExporterOptions'
-      - $ref: '#/components/schemas/BaseExporterOptions'
-      - $ref: '#/components/schemas/BaseExporterOptions'
-      - $ref: '#/components/schemas/ExcelExporterOptions'
-      - $ref: '#/components/schemas/FileExporterOptions'
-      discriminator:
-        propertyName: exporter_type
-        mapping:
-          csv: '#/components/schemas/CsvExporterOptions'
-          json: '#/components/schemas/BaseExporterOptions'
-          xml: '#/components/schemas/BaseExporterOptions'
-          excel: '#/components/schemas/ExcelExporterOptions'
-          file: '#/components/schemas/FileExporterOptions'
-    PublicViewFilter:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The id of the field to filter on.
-        type:
-          type: string
-          description: The filter type.
-        value:
-          type: string
-          description: The filter value.
-      required:
-      - field
-      - type
-      - value
   securitySchemes:
     Database_token:
       type: http

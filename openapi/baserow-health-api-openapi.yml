@@ -111,6 +111,37 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    EmailTesterResponse:
+      type: object
+      properties:
+        succeeded:
+          type: boolean
+          description: Whether or not the test email was sent successfully.
+        error_stack:
+          type:
+          - string
+          - 'null'
+          description: The full stack trace and error message if the test email failed.
+        error_type:
+          type:
+          - string
+          - 'null'
+          description: The type of error that occurred if the test email failed.
+        error:
+          type:
+          - string
+          - 'null'
+          description: A short message describing the error that occured if the test email failed
+      required:
+      - succeeded
+    EmailTesterRequest:
+      type: object
+      properties:
+        target_email:
+          type: string
+          format: email
+      required:
+      - target_email
     FullHealthCheck:
       type: object
       properties:
@@ -135,37 +166,6 @@ components:
       - celery_queue_size
       - checks
       - passing
-    EmailTesterRequest:
-      type: object
-      properties:
-        target_email:
-          type: string
-          format: email
-      required:
-      - target_email
-    EmailTesterResponse:
-      type: object
-      properties:
-        succeeded:
-          type: boolean
-          description: Whether or not the test email was sent successfully.
-        error_stack:
-          type:
-          - string
-          - 'null'
-          description: The full stack trace and error message if the test email failed.
-        error_type:
-          type:
-          - string
-          - 'null'
-          description: The type of error that occurred if the test email failed.
-        error:
-          type:
-          - string
-          - 'null'
-          description: A short message describing the error that occured if the test email failed
-      required:
-      - succeeded
   securitySchemes:
     Database_token:
       type: http

@@ -488,28 +488,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateViewSort:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The field that must be sorted on.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          default: ASC
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-      required:
-      - field
     PrioritizeViewSortings:
       type: object
       properties:
@@ -521,6 +499,25 @@ components:
           minItems: 1
       required:
       - view_sort_ids
+    PatchedUpdateViewSort:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be sorted on.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
     ViewSort:
       type: object
       properties:
@@ -555,7 +552,7 @@ components:
       - id
       - priority
       - view
-    PatchedUpdateViewSort:
+    CreateViewSort:
       type: object
       properties:
         field:
@@ -564,6 +561,7 @@ components:
         order:
           allOf:
           - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
           description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
 
 
@@ -574,6 +572,8 @@ components:
           type: string
           description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
           maxLength: 32
+      required:
+      - field
     OrderEnum:
       enum:
       - ASC

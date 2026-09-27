@@ -332,43 +332,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PaginationSerializerWithGalleryViewFieldOptionsExampleRowResponse:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GalleryViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-        row_metadata:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RowMetadata'
-          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
     RowMetadata:
       type: object
       properties:
@@ -378,6 +341,45 @@ components:
           description: How many row comments exist for this row.
         row_comments_notification_mode:
           $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
     LinkRowValue:
       type: object
       properties:
@@ -426,6 +428,17 @@ components:
       - next
       - previous
       - results
+    GalleryViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
     SelectOption:
       type: object
       properties:
@@ -448,17 +461,6 @@ components:
       description: '* `all` - all
 
         * `mentions` - mentions'
-    GalleryViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the form. Lower value is first.
     Collaborator:
       type: object
       properties:
@@ -470,45 +472,43 @@ components:
       required:
       - id
       - name
-    FileFieldResponse:
+    PaginationSerializerWithGalleryViewFieldOptionsExampleRowResponse:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
+        field_options:
           type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
+          additionalProperties:
+            $ref: '#/components/schemas/GalleryViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+        row_metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RowMetadata'
+          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
+        count:
           type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponse'
       required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
+      - count
+      - next
+      - previous
+      - results
     ExampleRowResponse:
       type: object
       properties:

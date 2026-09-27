@@ -371,6 +371,104 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Dashboard_WidgetCreateWidget:
+      oneOf:
+      - $ref: '#/components/schemas/SummaryWidgetCreateWidget'
+      - $ref: '#/components/schemas/ChartWidgetCreateWidget'
+      - $ref: '#/components/schemas/PieChartWidgetCreateWidget'
+      discriminator:
+        propertyName: type
+        mapping:
+          summary: '#/components/schemas/SummaryWidgetCreateWidget'
+          chart: '#/components/schemas/ChartWidgetCreateWidget'
+          pie_chart: '#/components/schemas/PieChartWidgetCreateWidget'
+    SummaryWidgetWidget:
+      type: object
+      description: Basic widget serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        dashboard_id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the widget.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        data_source_id:
+          type: integer
+          description: References a data source field for the widget.
+      required:
+      - dashboard_id
+      - description
+      - id
+      - order
+      - title
+      - type
+    PatchedDashboard_WidgetUpdateWidget:
+      anyOf:
+      - $ref: '#/components/schemas/SummaryWidgetUpdateWidget'
+      - $ref: '#/components/schemas/ChartWidgetUpdateWidget'
+      - $ref: '#/components/schemas/PieChartWidgetUpdateWidget'
+    SeriesChartTypeC18Enum:
+      enum:
+      - PIE
+      - DOUGHNUT
+      type: string
+      description: '* `PIE` - Pie
+
+        * `DOUGHNUT` - Doughnut'
+    PieChartWidgetCreateWidget:
+      type: object
+      description: This serializer allow to set the type of the new widget.
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type2b7Enum'
+          description: 'The type of the widget.
+
+
+            * `summary` - summary
+
+            * `chart` - chart
+
+            * `pie_chart` - pie_chart'
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/PieChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
+          description: 'Default chart type.
+
+
+            * `PIE` - Pie
+
+            * `DOUGHNUT` - Doughnut'
+      required:
+      - title
+      - type
     PieChartWidgetWidget:
       type: object
       description: Basic widget serializer mostly for returned values.
@@ -421,17 +519,14 @@ components:
       - order
       - title
       - type
-    Dashboard_WidgetCreateWidget:
-      oneOf:
-      - $ref: '#/components/schemas/SummaryWidgetCreateWidget'
-      - $ref: '#/components/schemas/ChartWidgetCreateWidget'
-      - $ref: '#/components/schemas/PieChartWidgetCreateWidget'
-      discriminator:
-        propertyName: type
-        mapping:
-          summary: '#/components/schemas/SummaryWidgetCreateWidget'
-          chart: '#/components/schemas/ChartWidgetCreateWidget'
-          pie_chart: '#/components/schemas/PieChartWidgetCreateWidget'
+    DefaultSeriesChartTypeC18Enum:
+      enum:
+      - PIE
+      - DOUGHNUT
+      type: string
+      description: '* `PIE` - Pie
+
+        * `DOUGHNUT` - Doughnut'
     ChartSeriesConfig:
       type: object
       properties:
@@ -442,42 +537,6 @@ components:
       required:
       - series_chart_type
       - series_id
-    SummaryWidgetUpdateWidget:
-      type: object
-      properties:
-        title:
-          type: string
-          maxLength: 255
-        description:
-          type: string
-          maxLength: 255
-    SeriesChartTypeC18Enum:
-      enum:
-      - PIE
-      - DOUGHNUT
-      type: string
-      description: '* `PIE` - Pie
-
-        * `DOUGHNUT` - Doughnut'
-    Type2b7Enum:
-      enum:
-      - summary
-      - chart
-      - pie_chart
-      type: string
-      description: '* `summary` - summary
-
-        * `chart` - chart
-
-        * `pie_chart` - pie_chart'
-    SeriesChartType767Enum:
-      enum:
-      - BAR
-      - LINE
-      type: string
-      description: '* `BAR` - Bar
-
-        * `LINE` - Line'
     ChartWidgetWidget:
       type: object
       description: Basic widget serializer mostly for returned values.
@@ -528,88 +587,26 @@ components:
       - order
       - title
       - type
-    SummaryWidgetWidget:
+    SummaryWidgetUpdateWidget:
       type: object
-      description: Basic widget serializer mostly for returned values.
       properties:
-        id:
-          type: integer
-          readOnly: true
         title:
           type: string
-          readOnly: true
+          maxLength: 255
         description:
           type: string
-          readOnly: true
-        dashboard_id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the widget.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-          readOnly: true
-          description: Lowest first.
-        data_source_id:
-          type: integer
-          description: References a data source field for the widget.
-      required:
-      - dashboard_id
-      - description
-      - id
-      - order
-      - title
-      - type
-    PieChartSeriesConfig:
-      type: object
-      properties:
-        series_id:
-          type: integer
-        series_chart_type:
-          $ref: '#/components/schemas/SeriesChartTypeC18Enum'
-      required:
-      - series_chart_type
-      - series_id
-    PatchedDashboard_WidgetUpdateWidget:
-      anyOf:
-      - $ref: '#/components/schemas/SummaryWidgetUpdateWidget'
-      - $ref: '#/components/schemas/ChartWidgetUpdateWidget'
-      - $ref: '#/components/schemas/PieChartWidgetUpdateWidget'
-    DefaultSeriesChartType767Enum:
+          maxLength: 255
+    Type2b7Enum:
       enum:
-      - BAR
-      - LINE
+      - summary
+      - chart
+      - pie_chart
       type: string
-      description: '* `BAR` - Bar
+      description: '* `summary` - summary
 
-        * `LINE` - Line'
-    PieChartWidgetUpdateWidget:
-      type: object
-      properties:
-        title:
-          type: string
-          maxLength: 255
-        description:
-          type: string
-          maxLength: 255
-        series_config:
-          type: array
-          items:
-            $ref: '#/components/schemas/PieChartSeriesConfig'
-          description: Provides series configuration.
-        default_series_chart_type:
-          allOf:
-          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
-          description: 'Default chart type.
+        * `chart` - chart
 
-
-            * `PIE` - Pie
-
-            * `DOUGHNUT` - Doughnut'
+        * `pie_chart` - pie_chart'
     SummaryWidgetCreateWidget:
       type: object
       description: This serializer allow to set the type of the new widget.
@@ -672,44 +669,27 @@ components:
       required:
       - title
       - type
-    PieChartWidgetCreateWidget:
+    Dashboard_WidgetWidget:
+      oneOf:
+      - $ref: '#/components/schemas/SummaryWidgetWidget'
+      - $ref: '#/components/schemas/ChartWidgetWidget'
+      - $ref: '#/components/schemas/PieChartWidgetWidget'
+      discriminator:
+        propertyName: type
+        mapping:
+          summary: '#/components/schemas/SummaryWidgetWidget'
+          chart: '#/components/schemas/ChartWidgetWidget'
+          pie_chart: '#/components/schemas/PieChartWidgetWidget'
+    PieChartSeriesConfig:
       type: object
-      description: This serializer allow to set the type of the new widget.
       properties:
-        title:
-          type: string
-          maxLength: 255
-        description:
-          type: string
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type2b7Enum'
-          description: 'The type of the widget.
-
-
-            * `summary` - summary
-
-            * `chart` - chart
-
-            * `pie_chart` - pie_chart'
-        series_config:
-          type: array
-          items:
-            $ref: '#/components/schemas/PieChartSeriesConfig'
-          description: Provides series configuration.
-        default_series_chart_type:
-          allOf:
-          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
-          description: 'Default chart type.
-
-
-            * `PIE` - Pie
-
-            * `DOUGHNUT` - Doughnut'
+        series_id:
+          type: integer
+        series_chart_type:
+          $ref: '#/components/schemas/SeriesChartTypeC18Enum'
       required:
-      - title
-      - type
+      - series_chart_type
+      - series_id
     ChartWidgetUpdateWidget:
       type: object
       properties:
@@ -733,25 +713,45 @@ components:
             * `BAR` - Bar
 
             * `LINE` - Line'
-    DefaultSeriesChartTypeC18Enum:
+    SeriesChartType767Enum:
       enum:
-      - PIE
-      - DOUGHNUT
+      - BAR
+      - LINE
       type: string
-      description: '* `PIE` - Pie
+      description: '* `BAR` - Bar
 
-        * `DOUGHNUT` - Doughnut'
-    Dashboard_WidgetWidget:
-      oneOf:
-      - $ref: '#/components/schemas/SummaryWidgetWidget'
-      - $ref: '#/components/schemas/ChartWidgetWidget'
-      - $ref: '#/components/schemas/PieChartWidgetWidget'
-      discriminator:
-        propertyName: type
-        mapping:
-          summary: '#/components/schemas/SummaryWidgetWidget'
-          chart: '#/components/schemas/ChartWidgetWidget'
-          pie_chart: '#/components/schemas/PieChartWidgetWidget'
+        * `LINE` - Line'
+    DefaultSeriesChartType767Enum:
+      enum:
+      - BAR
+      - LINE
+      type: string
+      description: '* `BAR` - Bar
+
+        * `LINE` - Line'
+    PieChartWidgetUpdateWidget:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 255
+        series_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/PieChartSeriesConfig'
+          description: Provides series configuration.
+        default_series_chart_type:
+          allOf:
+          - $ref: '#/components/schemas/DefaultSeriesChartTypeC18Enum'
+          description: 'Default chart type.
+
+
+            * `PIE` - Pie
+
+            * `DOUGHNUT` - Doughnut'
   securitySchemes:
     Database_token:
       type: http

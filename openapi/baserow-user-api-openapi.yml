@@ -906,124 +906,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EmailNotificationFrequencyEnum:
-      enum:
-      - instant
-      - daily
-      - weekly
-      - never
-      type: string
-      description: '* `instant` - instant
-
-        * `daily` - daily
-
-        * `weekly` - weekly
-
-        * `never` - never'
-    VerifyEmailAddress:
+    PatchedUndoRedoRequest:
       type: object
       properties:
-        token:
-          type: string
-      required:
-      - token
-    SendChangeEmailConfirmation:
-      type: object
-      properties:
-        new_email:
-          type: string
-          format: email
-          description: The new email address to change to.
-        password:
-          type: string
-          description: The current password of the user for verification.
-        base_url:
-          type: string
-          format: uri
-          description: The base URL where the user can confirm the email change. The confirmation token is going to be appended to the base_url (base_url '/token').
-      required:
-      - base_url
-      - new_email
-      - password
-    TokenObtainPairWithUser:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        username:
-          type: string
-          format: email
-          description: Deprecated. Use `email` instead.
-          deprecated: true
-        password:
-          type: string
-          writeOnly: true
-      required:
-      - password
-    Register:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 150
-          minLength: 2
-        email:
-          type: string
-          format: email
-          description: The email address is also going to be the username.
-        password:
-          type: string
-        language:
-          type: string
-          default: en
-          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
-          maxLength: 10
-          minLength: 2
-        authenticate:
-          type: boolean
-          default: false
-          description: Indicates whether an authentication JWT should be generated and be included in the response.
-        workspace_invitation_token:
-          type: string
-          description: If provided and valid, the user accepts the workspace invitation and will have access to the workspace after signing up.
-        template_id:
-          type: integer
-          description: The id of the template that must be installed after creating the account. This only works if the `workspace_invitation_token` param is not provided.
-        captcha_token:
-          type: string
-          default: ''
-          description: The captcha response token, required when captcha is enabled.
-      required:
-      - email
-      - name
-      - password
-    TokenBlacklist:
-      type: object
-      properties:
-        refresh:
-          type: string
-          writeOnly: true
-      required:
-      - refresh
-    ChangeEmail:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The confirmation token.
-      required:
-      - token
-    ChangePasswordBodyValidation:
-      type: object
-      properties:
-        old_password:
-          type: string
-        new_password:
-          type: string
-      required:
-      - new_password
-      - old_password
+        scopes:
+          allOf:
+          - $ref: '#/components/schemas/ActionScopes'
+          description: A JSON object with keys and values representing the various action scopes to include when undoing or redoing. Every action in Baserow will be associated with a action scope, when undoing/redoing only actions which match any of the provided scope key:value pairs will included when this endpoint picks the next action to undo/redo. If no scopes are provided then all actions performed in the client session will be included when undoing/redoing.
     TokenRefreshWithUser:
       type: object
       properties:
@@ -1038,40 +927,45 @@ components:
           deprecated: true
       required:
       - access
-    Account:
+    VerifyEmailAddress:
       type: object
-      description: This serializer must be kept in sync with `UserSerializer`.
       properties:
-        first_name:
+        token:
           type: string
-          maxLength: 150
-          minLength: 2
-        language:
+      required:
+      - token
+    ChangeEmail:
+      type: object
+      properties:
+        token:
           type: string
-          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
-          maxLength: 10
-          minLength: 2
-        email_notification_frequency:
-          allOf:
-          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
-          description: 'The maximum frequency at which the user wants to receive email notifications.
+          description: The confirmation token.
+      required:
+      - token
+    EmailNotificationFrequencyEnum:
+      enum:
+      - instant
+      - daily
+      - weekly
+      - never
+      type: string
+      description: '* `instant` - instant
 
+        * `daily` - daily
 
-            * `instant` - instant
+        * `weekly` - weekly
 
-            * `daily` - daily
-
-            * `weekly` - weekly
-
-            * `never` - never'
-        completed_onboarding:
-          type: boolean
-          description: Indicates whether the user has completed the onboarding.
-        completed_guided_tours:
-          type: array
-          items:
-            type: string
-          description: Indicates which guided tour types have been completed.
+        * `never` - never'
+    ChangePasswordBodyValidation:
+      type: object
+      properties:
+        old_password:
+          type: string
+        new_password:
+          type: string
+      required:
+      - new_password
+      - old_password
     UserWorkspaceInvitation:
       type: object
       description: 'This serializer is used for displaying the invitation to the user that doesn''t
@@ -1117,15 +1011,14 @@ components:
           type: string
       required:
       - refresh_token
-    Dashboard:
+    TokenBlacklist:
       type: object
       properties:
-        workspace_invitations:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserWorkspaceInvitation'
+        refresh:
+          type: string
+          writeOnly: true
       required:
-      - workspace_invitations
+      - refresh
     UndoRedoAction:
       type: object
       properties:
@@ -1139,6 +1032,132 @@ components:
           - string
           - 'null'
           description: If an action was undone/redone/skipped due to an error this field will contain the scope of the action that was undone/redone.
+    TokenObtainPairWithUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          format: email
+          description: Deprecated. Use `email` instead.
+          deprecated: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+    PatchedAccount:
+      type: object
+      description: This serializer must be kept in sync with `UserSerializer`.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        language:
+          type: string
+          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+          maxLength: 10
+          minLength: 2
+        email_notification_frequency:
+          allOf:
+          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
+          description: 'The maximum frequency at which the user wants to receive email notifications.
+
+
+            * `instant` - instant
+
+            * `daily` - daily
+
+            * `weekly` - weekly
+
+            * `never` - never'
+        completed_onboarding:
+          type: boolean
+          description: Indicates whether the user has completed the onboarding.
+        completed_guided_tours:
+          type: array
+          items:
+            type: string
+          description: Indicates which guided tour types have been completed.
+    SendChangeEmailConfirmation:
+      type: object
+      properties:
+        new_email:
+          type: string
+          format: email
+          description: The new email address to change to.
+        password:
+          type: string
+          description: The current password of the user for verification.
+        base_url:
+          type: string
+          format: uri
+          description: The base URL where the user can confirm the email change. The confirmation token is going to be appended to the base_url (base_url '/token').
+      required:
+      - base_url
+      - new_email
+      - password
+    ResetPasswordBodyValidation:
+      type: object
+      properties:
+        token:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - token
+    Account:
+      type: object
+      description: This serializer must be kept in sync with `UserSerializer`.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        language:
+          type: string
+          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+          maxLength: 10
+          minLength: 2
+        email_notification_frequency:
+          allOf:
+          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
+          description: 'The maximum frequency at which the user wants to receive email notifications.
+
+
+            * `instant` - instant
+
+            * `daily` - daily
+
+            * `weekly` - weekly
+
+            * `never` - never'
+        completed_onboarding:
+          type: boolean
+          description: Indicates whether the user has completed the onboarding.
+        completed_guided_tours:
+          type: array
+          items:
+            type: string
+          description: Indicates which guided tour types have been completed.
+    SendResetPasswordEmailBodyValidation:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: The email address of the user that has requested a password reset.
+        base_url:
+          type: string
+          format: uri
+          description: The base URL where the user can reset his password. The reset token is going to be appended to the base_url (base_url '/token').
+      required:
+      - base_url
+      - email
     UndoRedoResponse:
       type: object
       properties:
@@ -1152,6 +1171,43 @@ components:
       required:
       - actions
       - result_code
+    Register:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        email:
+          type: string
+          format: email
+          description: The email address is also going to be the username.
+        password:
+          type: string
+        language:
+          type: string
+          default: en
+          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+          maxLength: 10
+          minLength: 2
+        authenticate:
+          type: boolean
+          default: false
+          description: Indicates whether an authentication JWT should be generated and be included in the response.
+        workspace_invitation_token:
+          type: string
+          description: If provided and valid, the user accepts the workspace invitation and will have access to the workspace after signing up.
+        template_id:
+          type: integer
+          description: The id of the template that must be installed after creating the account. This only works if the `workspace_invitation_token` param is not provided.
+        captcha_token:
+          type: string
+          default: ''
+          description: The captcha response token, required when captcha is enabled.
+      required:
+      - email
+      - name
+      - password
     ActionScopes:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -1199,71 +1255,15 @@ components:
           - 'null'
           minimum: 0
           description: If set to a workspace id then any actions directly related to that workspace will be be included when undoing or redoing.
-    PatchedUndoRedoRequest:
+    Dashboard:
       type: object
       properties:
-        scopes:
-          allOf:
-          - $ref: '#/components/schemas/ActionScopes'
-          description: A JSON object with keys and values representing the various action scopes to include when undoing or redoing. Every action in Baserow will be associated with a action scope, when undoing/redoing only actions which match any of the provided scope key:value pairs will included when this endpoint picks the next action to undo/redo. If no scopes are provided then all actions performed in the client session will be included when undoing/redoing.
-    PatchedAccount:
-      type: object
-      description: This serializer must be kept in sync with `UserSerializer`.
-      properties:
-        first_name:
-          type: string
-          maxLength: 150
-          minLength: 2
-        language:
-          type: string
-          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
-          maxLength: 10
-          minLength: 2
-        email_notification_frequency:
-          allOf:
-          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
-          description: 'The maximum frequency at which the user wants to receive email notifications.
-
-
-            * `instant` - instant
-
-            * `daily` - daily
-
-            * `weekly` - weekly
-
-            * `never` - never'
-        completed_onboarding:
-          type: boolean
-          description: Indicates whether the user has completed the onboarding.
-        completed_guided_tours:
+        workspace_invitations:
           type: array
           items:
-            type: string
-          description: Indicates which guided tour types have been completed.
-    ResetPasswordBodyValidation:
-      type: object
-      properties:
-        token:
-          type: string
-        password:
-          type: string
+            $ref: '#/components/schemas/UserWorkspaceInvitation'
       required:
-      - password
-      - token
-    SendResetPasswordEmailBodyValidation:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: The email address of the user that has requested a password reset.
-        base_url:
-          type: string
-          format: uri
-          description: The base URL where the user can reset his password. The reset token is going to be appended to the base_url (base_url '/token').
-      required:
-      - base_url
-      - email
+      - workspace_invitations
   securitySchemes:
     Database_token:
       type: http

@@ -327,108 +327,6 @@ components:
           description: How many row comments exist for this row.
         row_comments_notification_mode:
           $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    CalendarViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the view. Lower value is first.
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
-    CalendarViewExampleResponseStack:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total count of rows that are included in this group.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponse'
-          description: All the rows that belong in this group and match provided `limit` and `offset`.
-      required:
-      - count
-      - results
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    FileFieldResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
-      required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
     CalendarViewExampleResponse:
       type: object
       properties:
@@ -449,17 +347,6 @@ components:
       required:
       - field_options
       - rows
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
     ExampleRowResponse:
       type: object
       properties:
@@ -615,6 +502,119 @@ components:
       required:
       - field_27
       - id
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    CalendarViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    CalendarViewExampleResponseStack:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total count of rows that are included in this group.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponse'
+          description: All the rows that belong in this group and match provided `limit` and `offset`.
+      required:
+      - count
+      - results
   securitySchemes:
     Database_token:
       type: http

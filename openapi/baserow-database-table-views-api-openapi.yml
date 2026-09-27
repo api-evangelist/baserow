@@ -1481,963 +1481,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PublicViewSort:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: string
-          pattern: ^[-a-zA-Z0-9_]+$
-        field:
-          type: integer
-          description: The field that must be sorted on.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-        priority:
-          type: integer
-          readOnly: true
-          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
-      required:
-      - field
-      - id
-      - priority
-      - view
-    PublicViewGroupBy:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: string
-          pattern: ^[-a-zA-Z0-9_]+$
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-        priority:
-          type: integer
-          readOnly: true
-          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
-      required:
-      - field
-      - id
-      - priority
-      - view
-    form_view_update:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_password:
-          type: string
-          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
-          maxLength: 256
-          minLength: 8
-        ownership_type:
-          type: string
-          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
-          maxLength: 255
-        title:
-          type: string
-          description: The title that is displayed at the beginning of the form.
-        description:
-          type: string
-          description: The description that is displayed at the beginning of the form.
-        mode:
-          allOf:
-          - $ref: '#/components/schemas/Mode51eEnum'
-          description: 'Configurable mode of the form.
-
-
-            * `form` - form
-
-            * `survey` - survey'
-        cover_image:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          description: The cover image that must be displayed at the top of the form.
-        logo_image:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          description: The logo image that must be displayed at the top of the form.
-        submit_text:
-          type: string
-          description: The text displayed on the submit button.
-        submit_action:
-          allOf:
-          - $ref: '#/components/schemas/SubmitActionEnum'
-          description: 'The action that must be performed after the visitor has filled out the form.
-
-
-            * `MESSAGE` - Message
-
-            * `REDIRECT` - Redirect'
-        submit_action_message:
-          type: string
-          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
-        submit_action_redirect_url:
-          type: string
-          format: uri
-          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
-          maxLength: 2000
-        receive_notification_on_submit:
-          type: boolean
-          readOnly: true
-          description: A boolean indicating if the current user should be notified when the form is submitted.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - receive_notification_on_submit
-      - slug
-    RowIdentifierTypeEnum:
-      enum:
-      - id
-      - count
-      type: string
-      description: '* `id` - Id
-
-        * `count` - Count'
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
-    AggregationRawTypeEnum:
-      enum:
-      - empty_count
-      - not_empty_count
-      - unique_count
-      - min
-      - max
-      - sum
-      - average
-      - median
-      - decile
-      - variance
-      - std_dev
-      - distribution
-      type: string
-      description: '* `empty_count` - empty_count
-
-        * `not_empty_count` - not_empty_count
-
-        * `unique_count` - unique_count
-
-        * `min` - min
-
-        * `max` - max
-
-        * `sum` - sum
-
-        * `average` - average
-
-        * `median` - median
-
-        * `decile` - decile
-
-        * `variance` - variance
-
-        * `std_dev` - std_dev
-
-        * `distribution` - distribution'
-    GridViewView:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        table:
-          $ref: '#/components/schemas/TableWithoutDataSync'
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilter'
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilterGroup'
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewSort'
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupBy'
-        decorations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDecoration'
-        default_row_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDefaultValue'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_has_password:
-          type: boolean
-          description: 'Indicates whether the public view is password protected or not.
-
-
-            :return: True if the public view is password protected, False otherwise.'
-          readOnly: true
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-        owned_by_id:
-          type: integer
-        row_identifier_type:
-          $ref: '#/components/schemas/RowIdentifierTypeEnum'
-        row_height_size:
-          $ref: '#/components/schemas/RowHeightSizeEnum'
-        frozen_column_count:
-          type: integer
-          maximum: 4
-          minimum: 0
-          default: 1
-          description: Number of frozen columns including the primary field.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - id
-      - name
-      - order
-      - ownership_type
-      - public_view_has_password
-      - slug
-      - table
-      - table_id
-      - type
-    ViewSort:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: integer
-          description: The view to which the sort applies. Each view can have his own sortings.
-        field:
-          type: integer
-          description: The field that must be sorted on.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-        priority:
-          type: integer
-          readOnly: true
-          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
-      required:
-      - field
-      - id
-      - priority
-      - view
-    ViewGroupBy:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: integer
-          description: The view to which the group by applies. Each view can have his own group bys.
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-        priority:
-          type: integer
-          readOnly: true
-          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
-      required:
-      - field
-      - id
-      - priority
-      - view
-    ViewDecoration:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: integer
-          description: The view to which the decoration applies. Each view can have his own decorations.
-        type:
-          type: string
-          description: The decorator type. This is then interpreted by the frontend to display the decoration.
-          maxLength: 255
-        value_provider_type:
-          type: string
-          description: The value provider type that gives the value to the decorator.
-          maxLength: 255
-        value_provider_conf:
-          description: The configuration consumed by the value provider.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
-      required:
-      - id
-    PublicViewAuthResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-      required:
-      - access_token
-    UserFile:
-      type: object
-      properties:
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-        mime_type:
-          type: string
-          maxLength: 127
-        is_image:
-          type: boolean
-        image_width:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        image_height:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        uploaded_at:
-          type: string
-          format: date-time
-          readOnly: true
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        original_name:
-          type: string
-          maxLength: 255
-      required:
-      - name
-      - original_name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-    GalleryViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the form. Lower value is first.
-    CalendarViewView:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        table:
-          $ref: '#/components/schemas/TableWithoutDataSync'
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilter'
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilterGroup'
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewSort'
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupBy'
-        decorations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDecoration'
-        default_row_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDefaultValue'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_has_password:
-          type: boolean
-          description: 'Indicates whether the public view is password protected or not.
-
-
-            :return: True if the public view is password protected, False otherwise.'
-          readOnly: true
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-        owned_by_id:
-          type: integer
-        date_field:
-          type:
-          - integer
-          - 'null'
-        ical_feed_url:
-          type: string
-          readOnly: true
-          description: 'Read-only field with ICal feed endpoint. Note: this url will not be active if ical_public value is set to False.'
-        ical_public:
-          type:
-          - boolean
-          - 'null'
-          description: A flag to show if ical feed is exposed. Set this field to True when modifying this resource to enable ICal feed url.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - ical_feed_url
-      - id
-      - name
-      - order
-      - ownership_type
-      - public_view_has_password
-      - slug
-      - table
-      - table_id
-      - type
-    PaginationSerializerLinkRowValue:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkRowValue'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    FileFieldResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
-      required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
-    ViewView:
-      oneOf:
-      - $ref: '#/components/schemas/GridViewView'
-      - $ref: '#/components/schemas/GalleryViewView'
-      - $ref: '#/components/schemas/FormViewView'
-      - $ref: '#/components/schemas/KanbanViewView'
-      - $ref: '#/components/schemas/CalendarViewView'
-      - $ref: '#/components/schemas/TimelineViewView'
-      discriminator:
-        propertyName: type
-        mapping:
-          grid: '#/components/schemas/GridViewView'
-          gallery: '#/components/schemas/GalleryViewView'
-          form: '#/components/schemas/FormViewView'
-          kanban: '#/components/schemas/KanbanViewView'
-          calendar: '#/components/schemas/CalendarViewView'
-          timeline: '#/components/schemas/TimelineViewView'
-    ViewDefaultValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        field:
-          type: integer
-        enabled:
-          type: boolean
-          default: true
-          description: Whether this default value is active.
-        value:
-          description: The raw default value in API request format.
-        field_type:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: The field type identifier at the time the value was stored. Used to detect incompatibility when the field type changes.
-        function:
-          type:
-          - string
-          - 'null'
-          description: Optional function name (e.g. 'now') to resolve the default value dynamically at row creation time instead of using the stored value.
-          maxLength: 64
-      required:
-      - field
-      - field_type
-      - id
-    grid_view_field_options:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GridViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-      required:
-      - field_options
-    timeline_view_update:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_password:
-          type: string
-          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
-          maxLength: 256
-          minLength: 8
-        ownership_type:
-          type: string
-          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
-          maxLength: 255
-        start_date_field:
-          type:
-          - integer
-          - 'null'
-        end_date_field:
-          type:
-          - integer
-          - 'null'
-        timescale:
-          allOf:
-          - $ref: '#/components/schemas/TimescaleEnum'
-          description: 'The timescale that the timeline should be displayed in.
-
-
-            * `day` - Day
-
-            * `week` - Week
-
-            * `month` - Month
-
-            * `year` - Year'
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - slug
-    TimelineViewView:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        table:
-          $ref: '#/components/schemas/TableWithoutDataSync'
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilter'
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilterGroup'
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewSort'
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupBy'
-        decorations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDecoration'
-        default_row_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDefaultValue'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_has_password:
-          type: boolean
-          description: 'Indicates whether the public view is password protected or not.
-
-
-            :return: True if the public view is password protected, False otherwise.'
-          readOnly: true
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-        owned_by_id:
-          type: integer
-        start_date_field:
-          type:
-          - integer
-          - 'null'
-        end_date_field:
-          type:
-          - integer
-          - 'null'
-        timescale:
-          allOf:
-          - $ref: '#/components/schemas/TimescaleEnum'
-          description: 'The timescale that the timeline should be displayed in.
-
-
-            * `day` - Day
-
-            * `week` - Week
-
-            * `month` - Month
-
-            * `year` - Year'
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - id
-      - name
-      - order
-      - ownership_type
-      - public_view_has_password
-      - slug
-      - table
-      - table_id
-      - type
-    form_view_field_options:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/FormViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-      required:
-      - field_options
-    OwnershipTypeEnum:
-      enum:
-      - collaborative
-      - personal
-      - restricted
-      type: string
-      description: '* `collaborative` - collaborative
-
-        * `personal` - personal
-
-        * `restricted` - restricted'
-    TimelineViewCreateView:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        type:
-          $ref: '#/components/schemas/TypeFa6Enum'
-        ownership_type:
-          allOf:
-          - $ref: '#/components/schemas/OwnershipTypeEnum'
-          default: collaborative
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        start_date_field:
-          type:
-          - integer
-          - 'null'
-        end_date_field:
-          type:
-          - integer
-          - 'null'
-        timescale:
-          allOf:
-          - $ref: '#/components/schemas/TimescaleEnum'
-          description: 'The timescale that the timeline should be displayed in.
-
-
-            * `day` - Day
-
-            * `week` - Week
-
-            * `month` - Month
-
-            * `year` - Year'
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - name
-      - slug
-      - type
-    PatchedViewFieldOptions:
+    ViewFieldOptions:
       anyOf:
       - $ref: '#/components/schemas/grid_view_field_options'
       - $ref: '#/components/schemas/gallery_view_field_options'
@@ -2445,144 +1489,6 @@ components:
       - $ref: '#/components/schemas/kanban_view_field_options'
       - $ref: '#/components/schemas/calendar_view_field_options'
       - $ref: '#/components/schemas/timeline_view_field_options'
-    KanbanViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the view. Lower value is first.
-    KanbanViewCreateView:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        type:
-          $ref: '#/components/schemas/TypeFa6Enum'
-        ownership_type:
-          allOf:
-          - $ref: '#/components/schemas/OwnershipTypeEnum'
-          default: collaborative
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        single_select_field:
-          type:
-          - integer
-          - 'null'
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - name
-      - slug
-      - type
-    PatchedViewUpdateView:
-      anyOf:
-      - $ref: '#/components/schemas/grid_view_update'
-      - $ref: '#/components/schemas/gallery_view_update'
-      - $ref: '#/components/schemas/form_view_update'
-      - $ref: '#/components/schemas/kanban_view_update'
-      - $ref: '#/components/schemas/calendar_view_update'
-      - $ref: '#/components/schemas/timeline_view_update'
-    FormViewFieldOptionsConditionGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        parent_group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
-    GridViewCreateView:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        type:
-          $ref: '#/components/schemas/TypeFa6Enum'
-        ownership_type:
-          allOf:
-          - $ref: '#/components/schemas/OwnershipTypeEnum'
-          default: collaborative
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        row_identifier_type:
-          $ref: '#/components/schemas/RowIdentifierTypeEnum'
-        row_height_size:
-          $ref: '#/components/schemas/RowHeightSizeEnum'
-        frozen_column_count:
-          type: integer
-          maximum: 4
-          minimum: 0
-          default: 1
-          description: Number of frozen columns including the primary field.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - name
-      - slug
-      - type
-    PatchedUpdatePremiumViewAttributes:
-      type: object
-      properties:
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-    BlankEnum:
-      enum:
-      - ''
     GridViewFieldOptions:
       type: object
       properties:
@@ -2633,279 +1539,97 @@ components:
           oneOf:
           - $ref: '#/components/schemas/AggregationRawTypeEnum'
           - $ref: '#/components/schemas/BlankEnum'
-    ViewFieldOptions:
-      anyOf:
-      - $ref: '#/components/schemas/grid_view_field_options'
-      - $ref: '#/components/schemas/gallery_view_field_options'
-      - $ref: '#/components/schemas/form_view_field_options'
-      - $ref: '#/components/schemas/kanban_view_field_options'
-      - $ref: '#/components/schemas/calendar_view_field_options'
-      - $ref: '#/components/schemas/timeline_view_field_options'
-    PublicViewAuthRequest:
-      type: object
-      properties:
-        password:
-          type: string
-      required:
-      - password
-    PublicField:
+    ViewDefaultValue:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-        table_id:
+        field:
           type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        primary:
+        enabled:
           type: boolean
-          description: Indicates if the field is a primary field. If `true` the field cannot be deleted and the value should represent the whole row.
-        read_only:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the field is a read only field. If true, it's not possible to update the cell value.
-        immutable_type:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the field type is immutable. If true, then it won't be possible to change the field type via the API.
-        immutable_properties:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the field properties are immutable. If true, then it won't be possible to change the properties and the type via the API.
-        description:
+          default: true
+          description: Whether this default value is active.
+        value:
+          description: The raw default value in API request format.
+        field_type:
           type:
           - string
           - 'null'
-          description: Field description
-        database_id:
-          type: integer
           readOnly: true
-        workspace_id:
-          type: integer
-          readOnly: true
-        db_index:
-          type: boolean
-          description: If true, then an index will be added to the Baserow field to increase lookup and filter speed. Note that this comes at a performance cost when creating the row and updating the cell.
-        field_constraints:
-          type: string
-          readOnly: true
-          description: The constraints applied to this field.
+          description: The field type identifier at the time the value was stored. Used to detect incompatibility when the field type changes.
+        function:
+          type:
+          - string
+          - 'null'
+          description: Optional function name (e.g. 'now') to resolve the default value dynamically at row creation time instead of using the stored value.
+          maxLength: 64
       required:
-      - database_id
-      - field_constraints
+      - field
+      - field_type
       - id
-      - immutable_properties
-      - immutable_type
-      - name
-      - order
-      - read_only
-      - table_id
-      - type
-      - workspace_id
-    TableWithoutDataSync:
+    PublicViewTable:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
         database_id:
           type: integer
           readOnly: true
       required:
       - database_id
       - id
-      - name
-      - order
-    TimelineViewFieldOptions:
+    form_view_field_options:
       type: object
       properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the view. Lower value is first.
-    ViewFilter:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/FormViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    FileFieldResponse:
       type: object
       properties:
-        id:
-          type: integer
+        url:
+          type: string
+          format: uri
           readOnly: true
-        view:
-          type: integer
-          description: The view to which the filter applies. Each view can have his own filters.
-        field:
-          type: integer
-          description: The field of which the value must be compared to the filter value.
-        type:
-          type: string
-          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
-          maxLength: 48
-        value:
-          type: string
-          description: The filter value that must be compared to the field's value.
-        preload_values:
+        thumbnails:
           type: object
           additionalProperties: {}
           readOnly: true
-          description: Can contain unique preloaded values per filter. This is for example used by the `link_row_has` filter to communicate the display name if a value is provided.
-        group:
-          type:
-          - integer
-          - 'null'
-          description: The id of the filter group this filter belongs to. If this is null, the filter is not part of a filter group.
-      required:
-      - field
-      - id
-      - preload_values
-      - type
-      - view
-    KanbanViewView:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
+        visible_name:
+          type: string
         name:
           type: string
-          maxLength: 255
-        order:
+        size:
           type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
+        mime_type:
           type: string
-          readOnly: true
-        table:
-          $ref: '#/components/schemas/TableWithoutDataSync'
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilter'
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilterGroup'
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewSort'
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupBy'
-        decorations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDecoration'
-        default_row_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDefaultValue'
-        filters_disabled:
+        is_image:
           type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_has_password:
-          type: boolean
-          description: 'Indicates whether the public view is password protected or not.
-
-
-            :return: True if the public view is password protected, False otherwise.'
-          readOnly: true
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-        owned_by_id:
+        image_width:
           type: integer
-        single_select_field:
-          type:
-          - integer
-          - 'null'
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
+        image_height:
+          type: integer
+        uploaded_at:
           type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
+          format: date-time
       required:
-      - id
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
       - name
-      - order
-      - ownership_type
-      - public_view_has_password
-      - slug
-      - table
-      - table_id
-      - type
-    ViewFilterGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        view:
-          type: integer
-          description: The view to which the filter group applies to. Each view can have its own filter groups.
-        parent_group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
-      - view
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
     kanban_view_field_options:
       type: object
       properties:
@@ -2916,110 +1640,40 @@ components:
           description: An object containing the field id as key and the properties related to view as value.
       required:
       - field_options
-    LinkRowValue:
+    ViewDecoration:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
+        view:
+          type: integer
+          description: The view to which the decoration applies. Each view can have his own decorations.
+        type:
           type: string
-          description: The primary field's value as a string of the row in the related table.
+          description: The decorator type. This is then interpreted by the frontend to display the decoration.
+          maxLength: 255
+        value_provider_type:
+          type: string
+          description: The value provider type that gives the value to the decorator.
+          maxLength: 255
+        value_provider_conf:
+          description: The configuration consumed by the value provider.
         order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
       required:
       - id
-    TypeFa6Enum:
-      enum:
-      - grid
-      - gallery
-      - form
-      - kanban
-      - calendar
-      - timeline
-      type: string
-      description: '* `grid` - grid
-
-        * `gallery` - gallery
-
-        * `form` - form
-
-        * `kanban` - kanban
-
-        * `calendar` - calendar
-
-        * `timeline` - timeline'
-    gallery_view_field_options:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GalleryViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-      required:
-      - field_options
-    timeline_view_field_options:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/TimelineViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-      required:
-      - field_options
-    OrderEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
-    GalleryViewCreateView:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        type:
-          $ref: '#/components/schemas/TypeFa6Enum'
-        ownership_type:
-          allOf:
-          - $ref: '#/components/schemas/OwnershipTypeEnum'
-          default: collaborative
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - name
-      - slug
-      - type
+    PatchedViewFieldOptions:
+      anyOf:
+      - $ref: '#/components/schemas/grid_view_field_options'
+      - $ref: '#/components/schemas/gallery_view_field_options'
+      - $ref: '#/components/schemas/form_view_field_options'
+      - $ref: '#/components/schemas/kanban_view_field_options'
+      - $ref: '#/components/schemas/calendar_view_field_options'
+      - $ref: '#/components/schemas/timeline_view_field_options'
     FormViewView:
       type: object
       properties:
@@ -3158,6 +1812,332 @@ components:
       - table
       - table_id
       - type
+    GalleryViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    TimelineViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        start_date_field:
+          type:
+          - integer
+          - 'null'
+        end_date_field:
+          type:
+          - integer
+          - 'null'
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    PatchedUpdatePremiumViewAttributes:
+      type: object
+      properties:
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+    gallery_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    KanbanViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        single_select_field:
+          type:
+          - integer
+          - 'null'
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    TimescaleEnum:
+      enum:
+      - day
+      - week
+      - month
+      - year
+      type: string
+      description: '* `day` - Day
+
+        * `week` - Week
+
+        * `month` - Month
+
+        * `year` - Year'
     calendar_view_update:
       type: object
       properties:
@@ -3208,6 +2188,1092 @@ components:
       required:
       - ical_feed_url
       - slug
+    TimelineViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        start_date_field:
+          type:
+          - integer
+          - 'null'
+        end_date_field:
+          type:
+          - integer
+          - 'null'
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    KanbanViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    ViewView:
+      oneOf:
+      - $ref: '#/components/schemas/GridViewView'
+      - $ref: '#/components/schemas/GalleryViewView'
+      - $ref: '#/components/schemas/FormViewView'
+      - $ref: '#/components/schemas/KanbanViewView'
+      - $ref: '#/components/schemas/CalendarViewView'
+      - $ref: '#/components/schemas/TimelineViewView'
+      discriminator:
+        propertyName: type
+        mapping:
+          grid: '#/components/schemas/GridViewView'
+          gallery: '#/components/schemas/GalleryViewView'
+          form: '#/components/schemas/FormViewView'
+          kanban: '#/components/schemas/KanbanViewView'
+          calendar: '#/components/schemas/CalendarViewView'
+          timeline: '#/components/schemas/TimelineViewView'
+    KanbanViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        single_select_field:
+          type:
+          - integer
+          - 'null'
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    ViewGroupBy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the group by applies. Each view can have his own group bys.
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    TimelineViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    PublicViewSort:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        field:
+          type: integer
+          description: The field that must be sorted on.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    PublicField:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        primary:
+          type: boolean
+          description: Indicates if the field is a primary field. If `true` the field cannot be deleted and the value should represent the whole row.
+        read_only:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field is a read only field. If true, it's not possible to update the cell value.
+        immutable_type:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field type is immutable. If true, then it won't be possible to change the field type via the API.
+        immutable_properties:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the field properties are immutable. If true, then it won't be possible to change the properties and the type via the API.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Field description
+        database_id:
+          type: integer
+          readOnly: true
+        workspace_id:
+          type: integer
+          readOnly: true
+        db_index:
+          type: boolean
+          description: If true, then an index will be added to the Baserow field to increase lookup and filter speed. Note that this comes at a performance cost when creating the row and updating the cell.
+        field_constraints:
+          type: string
+          readOnly: true
+          description: The constraints applied to this field.
+      required:
+      - database_id
+      - field_constraints
+      - id
+      - immutable_properties
+      - immutable_type
+      - name
+      - order
+      - read_only
+      - table_id
+      - type
+      - workspace_id
+    FormViewFieldOptionsConditionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    PaginationSerializerLinkRowValue:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkRowValue'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PublicViewAuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+      required:
+      - access_token
+    OrderViews:
+      type: object
+      properties:
+        view_ids:
+          type: array
+          items:
+            type: integer
+          description: View ids in the desired order.
+          minItems: 1
+      required:
+      - view_ids
+    GridViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    calendar_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/CalendarViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    PublicViewInfo:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicField'
+          readOnly: true
+        view:
+          allOf:
+          - $ref: '#/components/schemas/PublicView'
+          readOnly: true
+      required:
+      - fields
+      - view
+    grid_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    AggregationRawTypeEnum:
+      enum:
+      - empty_count
+      - not_empty_count
+      - unique_count
+      - min
+      - max
+      - sum
+      - average
+      - median
+      - decile
+      - variance
+      - std_dev
+      - distribution
+      type: string
+      description: '* `empty_count` - empty_count
+
+        * `not_empty_count` - not_empty_count
+
+        * `unique_count` - unique_count
+
+        * `min` - min
+
+        * `max` - max
+
+        * `sum` - sum
+
+        * `average` - average
+
+        * `median` - median
+
+        * `decile` - decile
+
+        * `variance` - variance
+
+        * `std_dev` - std_dev
+
+        * `distribution` - distribution'
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    gallery_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GalleryViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    FormViewFieldOptions:
+      type: object
+      properties:
+        name:
+          type: string
+          description: By default, the name of the related field will be shown to the visitor. Optionally another name can be used by setting this name.
+          maxLength: 255
+        description:
+          type: string
+          description: If provided, then this value be will be shown under the field name.
+        enabled:
+          type: boolean
+          description: Indicates whether the field is included in the form.
+        required:
+          type: boolean
+          description: Indicates whether the field is required for the visitor to fill out.
+        show_when_matching_conditions:
+          type: boolean
+          description: Indicates whether this field is visible when the conditions are met.
+        condition_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all (AND) or any (OR) of the conditions should match before shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormViewFieldOptionsCondition'
+        condition_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/FormViewFieldOptionsConditionGroup'
+        field_component:
+          type: string
+          description: Indicates which field input component is used in the form. The value is only used in the frontend, and can differ per field.
+          maxLength: 32
+        include_all_select_options:
+          type: boolean
+          description: Indicates whether all fields must be included. Only works if the related field type can have select options.
+        allowed_select_options:
+          type: array
+          items:
+            type: integer
+    CalendarViewView:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        table:
+          $ref: '#/components/schemas/TableWithoutDataSync'
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilter'
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewFilterGroup'
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewSort'
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewGroupBy'
+        decorations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDecoration'
+        default_row_values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewDefaultValue'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_has_password:
+          type: boolean
+          description: 'Indicates whether the public view is password protected or not.
+
+
+            :return: True if the public view is password protected, False otherwise.'
+          readOnly: true
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+        owned_by_id:
+          type: integer
+        date_field:
+          type:
+          - integer
+          - 'null'
+        ical_feed_url:
+          type: string
+          readOnly: true
+          description: 'Read-only field with ICal feed endpoint. Note: this url will not be active if ical_public value is set to False.'
+        ical_public:
+          type:
+          - boolean
+          - 'null'
+          description: A flag to show if ical feed is exposed. Set this field to True when modifying this resource to enable ICal feed url.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - ical_feed_url
+      - id
+      - name
+      - order
+      - ownership_type
+      - public_view_has_password
+      - slug
+      - table
+      - table_id
+      - type
+    PatchedViewUpdateView:
+      anyOf:
+      - $ref: '#/components/schemas/grid_view_update'
+      - $ref: '#/components/schemas/gallery_view_update'
+      - $ref: '#/components/schemas/form_view_update'
+      - $ref: '#/components/schemas/kanban_view_update'
+      - $ref: '#/components/schemas/calendar_view_update'
+      - $ref: '#/components/schemas/timeline_view_update'
+    TypeFa6Enum:
+      enum:
+      - grid
+      - gallery
+      - form
+      - kanban
+      - calendar
+      - timeline
+      type: string
+      description: '* `grid` - grid
+
+        * `gallery` - gallery
+
+        * `form` - form
+
+        * `kanban` - kanban
+
+        * `calendar` - calendar
+
+        * `timeline` - timeline'
+    Mode51eEnum:
+      enum:
+      - form
+      - survey
+      type: string
+      description: '* `form` - form
+
+        * `survey` - survey'
+    PublicViewGroupBy:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this group by in the ordering chain. The group by with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    RowIdentifierTypeEnum:
+      enum:
+      - id
+      - count
+      type: string
+      description: '* `id` - Id
+
+        * `count` - Count'
+    timeline_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TimelineViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    TableWithoutDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+      required:
+      - database_id
+      - id
+      - name
+      - order
+    ViewCreateView:
+      oneOf:
+      - $ref: '#/components/schemas/GridViewCreateView'
+      - $ref: '#/components/schemas/GalleryViewCreateView'
+      - $ref: '#/components/schemas/FormViewCreateView'
+      - $ref: '#/components/schemas/KanbanViewCreateView'
+      - $ref: '#/components/schemas/CalendarViewCreateView'
+      - $ref: '#/components/schemas/TimelineViewCreateView'
+      discriminator:
+        propertyName: type
+        mapping:
+          grid: '#/components/schemas/GridViewCreateView'
+          gallery: '#/components/schemas/GalleryViewCreateView'
+          form: '#/components/schemas/FormViewCreateView'
+          kanban: '#/components/schemas/KanbanViewCreateView'
+          calendar: '#/components/schemas/CalendarViewCreateView'
+          timeline: '#/components/schemas/TimelineViewCreateView'
+    CalendarViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
+    kanban_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        single_select_field:
+          type:
+          - integer
+          - 'null'
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    FormViewFieldOptionsCondition:
+      type: object
+      properties:
+        id:
+          type: integer
+        field:
+          type: integer
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field
+      - id
+      - type
+    SubmitActionEnum:
+      enum:
+      - MESSAGE
+      - REDIRECT
+      type: string
+      description: '* `MESSAGE` - Message
+
+        * `REDIRECT` - Redirect'
+    OwnershipTypeEnum:
+      enum:
+      - collaborative
+      - personal
+      - restricted
+      type: string
+      description: '* `collaborative` - collaborative
+
+        * `personal` - personal
+
+        * `restricted` - restricted'
+    BlankEnum:
+      enum:
+      - ''
+    PublicView:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[-a-zA-Z0-9_]+$
+        table:
+          $ref: '#/components/schemas/PublicViewTable'
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        type:
+          type: string
+          readOnly: true
+        sortings:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewSort'
+          readOnly: true
+        group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicViewGroupBy'
+          readOnly: true
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug where the view can be accessed publicly on.
+          pattern: ^[-a-zA-Z0-9_]+$
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+        ownership_type:
+          type: string
+          readOnly: true
+      required:
+      - group_bys
+      - id
+      - name
+      - order
+      - ownership_type
+      - slug
+      - sortings
+      - table
+      - type
     View:
       type: object
       properties:
@@ -3290,14 +3356,316 @@ components:
       - table
       - table_id
       - type
-    Mode51eEnum:
-      enum:
-      - form
-      - survey
-      type: string
-      description: '* `form` - form
+    GalleryViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
 
-        * `survey` - survey'
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        card_cover_image_field:
+          type:
+          - integer
+          - 'null'
+          description: References a file field of which the first image must be shown as card cover image.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    ViewFilterGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        view:
+          type: integer
+          description: The view to which the filter group applies to. Each view can have its own filter groups.
+        parent_group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+      - view
+    PublicViewAuthRequest:
+      type: object
+      properties:
+        password:
+          type: string
+      required:
+      - password
+    grid_view_field_options:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GridViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+      required:
+      - field_options
+    timeline_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
+        start_date_field:
+          type:
+          - integer
+          - 'null'
+        end_date_field:
+          type:
+          - integer
+          - 'null'
+        timescale:
+          allOf:
+          - $ref: '#/components/schemas/TimescaleEnum'
+          description: 'The timescale that the timeline should be displayed in.
+
+
+            * `day` - Day
+
+            * `week` - Week
+
+            * `month` - Month
+
+            * `year` - Year'
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - slug
+    FormViewCreateView:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/TypeFa6Enum'
+        ownership_type:
+          allOf:
+          - $ref: '#/components/schemas/OwnershipTypeEnum'
+          default: collaborative
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        title:
+          type: string
+          description: The title that is displayed at the beginning of the form.
+        description:
+          type: string
+          description: The description that is displayed at the beginning of the form.
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode51eEnum'
+          description: 'Configurable mode of the form.
+
+
+            * `form` - form
+
+            * `survey` - survey'
+        cover_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The cover image that must be displayed at the top of the form.
+        logo_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The logo image that must be displayed at the top of the form.
+        submit_text:
+          type: string
+          description: The text displayed on the submit button.
+        submit_action:
+          allOf:
+          - $ref: '#/components/schemas/SubmitActionEnum'
+          description: 'The action that must be performed after the visitor has filled out the form.
+
+
+            * `MESSAGE` - Message
+
+            * `REDIRECT` - Redirect'
+        submit_action_message:
+          type: string
+          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
+        submit_action_redirect_url:
+          type: string
+          format: uri
+          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
+          maxLength: 2000
+        receive_notification_on_submit:
+          type: boolean
+          readOnly: true
+          description: A boolean indicating if the current user should be notified when the form is submitted.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - receive_notification_on_submit
+      - slug
+      - type
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+    ViewSort:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the sort applies. Each view can have his own sortings.
+        field:
+          type: integer
+          description: The field that must be sorted on.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+        priority:
+          type: integer
+          readOnly: true
+          description: Position of this sorting in the ordering chain. The sorting with the lowest priority is applied first.
+      required:
+      - field
+      - id
+      - priority
+      - view
+    ViewFilter:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the filter applies. Each view can have his own filters.
+        field:
+          type: integer
+          description: The field of which the value must be compared to the filter value.
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        preload_values:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: Can contain unique preloaded values per filter. This is for example used by the `link_row_has` filter to communicate the display name if a value is provided.
+        group:
+          type:
+          - integer
+          - 'null'
+          description: The id of the filter group this filter belongs to. If this is null, the filter is not part of a filter group.
+      required:
+      - field
+      - id
+      - preload_values
+      - type
+      - view
+    GalleryViewFieldOptions:
+      type: object
+      properties:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the form. Lower value is first.
     ExamplePublicRowResponseSerializerWithUserFieldNames:
       type: object
       properties:
@@ -3449,162 +3817,56 @@ components:
       required:
       - field_27
       - id
-    calendar_view_field_options:
+    UserFile:
       type: object
       properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CalendarViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-      required:
-      - field_options
-    OrderViews:
-      type: object
-      properties:
-        view_ids:
-          type: array
-          items:
-            type: integer
-          description: View ids in the desired order.
-          minItems: 1
-      required:
-      - view_ids
-    grid_view_update:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_password:
-          type: string
-          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
-          maxLength: 256
-          minLength: 8
-        ownership_type:
-          type: string
-          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
-          maxLength: 255
-        row_identifier_type:
-          $ref: '#/components/schemas/RowIdentifierTypeEnum'
-        row_height_size:
-          $ref: '#/components/schemas/RowHeightSizeEnum'
-        frozen_column_count:
+        size:
           type: integer
-          maximum: 4
+          maximum: 9223372036854775807
           minimum: 0
-          default: 1
-          description: Number of frozen columns including the primary field.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
+          format: int64
+        mime_type:
           type: string
+          maxLength: 127
+        is_image:
+          type: boolean
+        image_width:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        image_height:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        uploaded_at:
+          type: string
+          format: date-time
           readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - slug
-    RowHeightSizeEnum:
-      enum:
-      - small
-      - medium
-      - large
-      type: string
-      description: '* `small` - Small
-
-        * `medium` - Medium
-
-        * `large` - Large'
-    SubmitActionEnum:
-      enum:
-      - MESSAGE
-      - REDIRECT
-      type: string
-      description: '* `MESSAGE` - Message
-
-        * `REDIRECT` - Redirect'
-    kanban_view_update:
-      type: object
-      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
         name:
           type: string
-          maxLength: 255
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_password:
-          type: string
-          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
-          maxLength: 256
-          minLength: 8
-        ownership_type:
-          type: string
-          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
-          maxLength: 255
-        single_select_field:
-          type:
-          - integer
-          - 'null'
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
           readOnly: true
-          description: The unique slug that can be used to construct a public URL.
+        original_name:
+          type: string
+          maxLength: 255
       required:
-      - slug
-    CalendarViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the view. Lower value is first.
-    TimescaleEnum:
-      enum:
-      - day
-      - week
-      - month
-      - year
-      type: string
-      description: '* `day` - Day
-
-        * `week` - Week
-
-        * `month` - Month
-
-        * `year` - Year'
+      - name
+      - original_name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
     CalendarViewCreateView:
       type: object
       properties:
@@ -3654,46 +3916,18 @@ components:
       - name
       - slug
       - type
-    ViewCreateView:
-      oneOf:
-      - $ref: '#/components/schemas/GridViewCreateView'
-      - $ref: '#/components/schemas/GalleryViewCreateView'
-      - $ref: '#/components/schemas/FormViewCreateView'
-      - $ref: '#/components/schemas/KanbanViewCreateView'
-      - $ref: '#/components/schemas/CalendarViewCreateView'
-      - $ref: '#/components/schemas/TimelineViewCreateView'
-      discriminator:
-        propertyName: type
-        mapping:
-          grid: '#/components/schemas/GridViewCreateView'
-          gallery: '#/components/schemas/GalleryViewCreateView'
-          form: '#/components/schemas/FormViewCreateView'
-          kanban: '#/components/schemas/KanbanViewCreateView'
-          calendar: '#/components/schemas/CalendarViewCreateView'
-          timeline: '#/components/schemas/TimelineViewCreateView'
-    FormViewFieldOptionsCondition:
-      type: object
-      properties:
-        id:
-          type: integer
-        field:
-          type: integer
-        type:
-          type: string
-          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
-          maxLength: 48
-        value:
-          type: string
-          description: The filter value that must be compared to the field's value.
-        group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field
-      - id
-      - type
-    FormViewCreateView:
+    RowHeightSizeEnum:
+      enum:
+      - small
+      - medium
+      - large
+      type: string
+      description: '* `small` - Small
+
+        * `medium` - Medium
+
+        * `large` - Large'
+    GridViewCreateView:
       type: object
       properties:
         name:
@@ -3717,6 +3951,54 @@ components:
         filters_disabled:
           type: boolean
           description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        row_identifier_type:
+          $ref: '#/components/schemas/RowIdentifierTypeEnum'
+        row_height_size:
+          $ref: '#/components/schemas/RowHeightSizeEnum'
+        frozen_column_count:
+          type: integer
+          maximum: 4
+          minimum: 0
+          default: 1
+          description: Number of frozen columns including the primary field.
+        public:
+          type: boolean
+          description: Indicates whether the view is publicly accessible to visitors.
+        slug:
+          type: string
+          readOnly: true
+          description: The unique slug that can be used to construct a public URL.
+      required:
+      - name
+      - slug
+      - type
+    form_view_update:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        filters_disabled:
+          type: boolean
+          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
+        public_view_password:
+          type: string
+          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
+          maxLength: 256
+          minLength: 8
+        ownership_type:
+          type: string
+          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
+          maxLength: 255
         title:
           type: string
           description: The title that is displayed at the beginning of the form.
@@ -3772,298 +4054,16 @@ components:
           readOnly: true
           description: The unique slug that can be used to construct a public URL.
       required:
-      - name
       - receive_notification_on_submit
       - slug
-      - type
-    PublicViewTable:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        database_id:
-          type: integer
-          readOnly: true
-      required:
-      - database_id
-      - id
-    gallery_view_update:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_password:
-          type: string
-          description: The new password or an empty string to remove any previous password from the view and make it publicly accessible again.
-          maxLength: 256
-          minLength: 8
-        ownership_type:
-          type: string
-          description: Indicates how the access to the view is determined. By default, views are collaborative and shared for all users that have access to the table.
-          maxLength: 255
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - slug
-    FormViewFieldOptions:
-      type: object
-      properties:
-        name:
-          type: string
-          description: By default, the name of the related field will be shown to the visitor. Optionally another name can be used by setting this name.
-          maxLength: 255
-        description:
-          type: string
-          description: If provided, then this value be will be shown under the field name.
-        enabled:
-          type: boolean
-          description: Indicates whether the field is included in the form.
-        required:
-          type: boolean
-          description: Indicates whether the field is required for the visitor to fill out.
-        show_when_matching_conditions:
-          type: boolean
-          description: Indicates whether this field is visible when the conditions are met.
-        condition_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all (AND) or any (OR) of the conditions should match before shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the form. Lower value is first.
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FormViewFieldOptionsCondition'
-        condition_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/FormViewFieldOptionsConditionGroup'
-        field_component:
-          type: string
-          description: Indicates which field input component is used in the form. The value is only used in the frontend, and can differ per field.
-          maxLength: 32
-        include_all_select_options:
-          type: boolean
-          description: Indicates whether all fields must be included. Only works if the related field type can have select options.
-        allowed_select_options:
-          type: array
-          items:
-            type: integer
-    PublicViewInfo:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicField'
-          readOnly: true
-        view:
-          allOf:
-          - $ref: '#/components/schemas/PublicView'
-          readOnly: true
-      required:
-      - fields
-      - view
-    PublicView:
-      type: object
-      properties:
-        id:
-          type: string
-          pattern: ^[-a-zA-Z0-9_]+$
-        table:
-          $ref: '#/components/schemas/PublicViewTable'
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicViewSort'
-          readOnly: true
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicViewGroupBy'
-          readOnly: true
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug where the view can be accessed publicly on.
-          pattern: ^[-a-zA-Z0-9_]+$
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-          readOnly: true
-      required:
-      - group_bys
-      - id
-      - name
-      - order
-      - ownership_type
-      - slug
-      - sortings
-      - table
-      - type
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
-    ConditionTypeEnum:
+    OrderEnum:
       enum:
-      - AND
-      - OR
+      - ASC
+      - DESC
       type: string
-      description: '* `AND` - And
+      description: '* `ASC` - Ascending
 
-        * `OR` - Or'
-    GalleryViewView:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-        type:
-          type: string
-          readOnly: true
-        table:
-          $ref: '#/components/schemas/TableWithoutDataSync'
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilter'
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewFilterGroup'
-        sortings:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewSort'
-        group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewGroupBy'
-        decorations:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDecoration'
-        default_row_values:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewDefaultValue'
-        filters_disabled:
-          type: boolean
-          description: Allows users to see results unfiltered while still keeping the filters saved for the view.
-        public_view_has_password:
-          type: boolean
-          description: 'Indicates whether the public view is password protected or not.
-
-
-            :return: True if the public view is password protected, False otherwise.'
-          readOnly: true
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
-        ownership_type:
-          type: string
-        owned_by_id:
-          type: integer
-        card_cover_image_field:
-          type:
-          - integer
-          - 'null'
-          description: References a file field of which the first image must be shown as card cover image.
-        public:
-          type: boolean
-          description: Indicates whether the view is publicly accessible to visitors.
-        slug:
-          type: string
-          readOnly: true
-          description: The unique slug that can be used to construct a public URL.
-      required:
-      - id
-      - name
-      - order
-      - ownership_type
-      - public_view_has_password
-      - slug
-      - table
-      - table_id
-      - type
+        * `DESC` - Descending'
   securitySchemes:
     Database_token:
       type: http

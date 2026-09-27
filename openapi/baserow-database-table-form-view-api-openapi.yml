@@ -424,79 +424,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RowMetadata:
-      type: object
-      properties:
-        row_comment_count:
-          type: integer
-          minimum: 0
-          description: How many row comments exist for this row.
-        row_comments_notification_mode:
-          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
-    UserFile:
-      type: object
-      properties:
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-        mime_type:
-          type: string
-          maxLength: 127
-        is_image:
-          type: boolean
-        image_width:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        image_height:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        uploaded_at:
-          type: string
-          format: date-time
-          readOnly: true
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        original_name:
-          type: string
-          maxLength: 255
-      required:
-      - name
-      - original_name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
     FormViewSubmitted:
       type: object
       properties:
@@ -521,23 +448,6 @@ components:
           type: integer
       required:
       - row_id
-    PublicFormViewField:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-      required:
-      - id
-      - name
-      - type
     FileFieldResponse:
       type: object
       properties:
@@ -577,6 +487,330 @@ components:
       - uploaded_at
       - url
       - visible_name
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    PublicFormViewField:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+      required:
+      - id
+      - name
+      - type
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    FormViewFieldOptionsConditionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    ExampleRowRequest:
+      type: object
+      properties:
+        field_1:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. '
+        field_2:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. '
+        field_3:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. '
+        field_4:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. '
+          maxLength: 254
+        field_5:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. '
+        field_8:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. '
+        field_13:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
+        field_14:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+          description: This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
+        field_15:
+          type:
+          - array
+          - 'null'
+          items: {}
+          description: This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
+        field_16:
+          type:
+          - integer
+          - 'null'
+          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+        field_17:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+            description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+          description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+        field_18:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. '
+          maxLength: 100
+        field_23:
+          type: array
+          items:
+            type: integer
+          description: This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
+        field_26:
+          type:
+          - string
+          - 'null'
+          description: This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
+        field_28:
+          type:
+          - string
+          - 'null'
+          description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
+    Mode51eEnum:
+      enum:
+      - form
+      - survey
+      type: string
+      description: '* `form` - form
+
+        * `survey` - survey'
+    PatchedExampleUpdateRowRequest:
+      type: object
+      properties:
+        field_1:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. '
+        field_2:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. '
+        field_3:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. '
+        field_4:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. '
+          maxLength: 254
+        field_5:
+          type:
+          - string
+          - 'null'
+          format: decimal
+          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
+          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. '
+        field_6:
+          type: integer
+          maximum: 5
+          minimum: 0
+          default: 0
+          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. '
+        field_7:
+          type: boolean
+          default: false
+          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. '
+        field_8:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. '
+        field_13:
+          type:
+          - number
+          - 'null'
+          format: float
+          description: This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
+        field_14:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+          description: This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
+        field_15:
+          type:
+          - array
+          - 'null'
+          items: {}
+          description: This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
+        field_16:
+          type:
+          - integer
+          - 'null'
+          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
+        field_17:
+          type: array
+          items:
+            type:
+            - integer
+            - 'null'
+            description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+          description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
+        field_18:
+          type:
+          - string
+          - 'null'
+          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. '
+          maxLength: 100
+        field_23:
+          type: array
+          items:
+            type: integer
+          description: This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
+        field_26:
+          type:
+          - string
+          - 'null'
+          description: This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
+        field_28:
+          type:
+          - string
+          - 'null'
+          description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
+    FormViewFieldOptionsCondition:
+      type: object
+      properties:
+        id:
+          type: integer
+        field:
+          type: integer
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field
+      - id
+      - type
+    SubmitActionEnum:
+      enum:
+      - MESSAGE
+      - REDIRECT
+      type: string
+      description: '* `MESSAGE` - Message
+
+        * `REDIRECT` - Redirect'
     ExampleRowResponse:
       type: object
       properties:
@@ -732,6 +966,23 @@ components:
       required:
       - field_27
       - id
+    RowMetadata:
+      type: object
+      properties:
+        row_comment_count:
+          type: integer
+          minimum: 0
+          description: How many row comments exist for this row.
+        row_comments_notification_mode:
+          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
     PublicFormViewFieldOptions:
       type: object
       properties:
@@ -786,299 +1037,6 @@ components:
       required:
       - field
       - name
-    FormViewFieldOptionsConditionGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        parent_group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
-    Mode51eEnum:
-      enum:
-      - form
-      - survey
-      type: string
-      description: '* `form` - form
-
-        * `survey` - survey'
-    ExampleRowRequest:
-      type: object
-      properties:
-        field_1:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. '
-        field_2:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. '
-        field_3:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. '
-        field_4:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. '
-          maxLength: 254
-        field_5:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. '
-        field_6:
-          type: integer
-          maximum: 5
-          minimum: 0
-          default: 0
-          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. '
-        field_7:
-          type: boolean
-          default: false
-          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. '
-        field_8:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. '
-        field_13:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
-        field_14:
-          type: array
-          items:
-            type:
-            - integer
-            - 'null'
-          description: This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
-        field_15:
-          type:
-          - array
-          - 'null'
-          items: {}
-          description: This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
-        field_16:
-          type:
-          - integer
-          - 'null'
-          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
-        field_17:
-          type: array
-          items:
-            type:
-            - integer
-            - 'null'
-            description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
-          description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
-        field_18:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. '
-          maxLength: 100
-        field_23:
-          type: array
-          items:
-            type: integer
-          description: This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
-        field_26:
-          type:
-          - string
-          - 'null'
-          description: This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
-        field_28:
-          type:
-          - string
-          - 'null'
-          description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
-    SubmitActionEnum:
-      enum:
-      - MESSAGE
-      - REDIRECT
-      type: string
-      description: '* `MESSAGE` - Message
-
-        * `REDIRECT` - Redirect'
-    PatchedExampleUpdateRowRequest:
-      type: object
-      properties:
-        field_1:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `text` field. The number in field_1 is in a normal request or response the id of the field. '
-        field_2:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `long_text` field. The number in field_2 is in a normal request or response the id of the field. '
-        field_3:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `url` field. The number in field_3 is in a normal request or response the id of the field. '
-        field_4:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `email` field. The number in field_4 is in a normal request or response the id of the field. '
-          maxLength: 254
-        field_5:
-          type:
-          - string
-          - 'null'
-          format: decimal
-          pattern: ^-?\d{0,50}(?:\.\d{0,0})?$
-          description: 'This field represents the `number` field. The number in field_5 is in a normal request or response the id of the field. '
-        field_6:
-          type: integer
-          maximum: 5
-          minimum: 0
-          default: 0
-          description: 'This field represents the `rating` field. The number in field_6 is in a normal request or response the id of the field. '
-        field_7:
-          type: boolean
-          default: false
-          description: 'This field represents the `boolean` field. The number in field_7 is in a normal request or response the id of the field. '
-        field_8:
-          type:
-          - string
-          - 'null'
-          format: date
-          description: 'This field represents the `date` field. The number in field_8 is in a normal request or response the id of the field. '
-        field_13:
-          type:
-          - number
-          - 'null'
-          format: float
-          description: This field represents the `duration` field. The number in field_13 is in a normal request or response the id of the field. The provided value can be a string in one of the available formats or a number representing the duration in seconds. In any case, the value will be rounded to match the field's duration format.
-        field_14:
-          type: array
-          items:
-            type:
-            - integer
-            - 'null'
-          description: This field represents the `link_row` field. The number in field_14 is in a normal request or response the id of the field. This field accepts an `array` containing the ids or the names of the related rows. A name is the value of the primary key of the related row. This field also accepts a string with names separated by a comma or an array of row names. You can also provide a unique row Id.The response contains a list of objects containing the `id` and the primary field's `value` as a string for display purposes.
-        field_15:
-          type:
-          - array
-          - 'null'
-          items: {}
-          description: This field represents the `file` field. The number in field_15 is in a normal request or response the id of the field. This field accepts an `array` containing objects with the name of the file. The response contains an `array` of more detailed objects related to the files.
-        field_16:
-          type:
-          - integer
-          - 'null'
-          description: Accepts one of the following option ids as integer value This field accepts an `integer` representing the chosen select option id related to the field. Available ids can be found when getting or listing the field. The response represents chosen field, but also the value and color is exposed..
-        field_17:
-          type: array
-          items:
-            type:
-            - integer
-            - 'null'
-            description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
-          description: This field represents the `multiple_select` field. The number in field_17 is in a normal request or response the id of the field. This field accepts a list of `integer` each of which representing the chosen select option id related to the field. Available ids can be foundwhen getting or listing the field. You can also send a list of option names in which case the option are searched by name. The first one that matches is used. This field also accepts a string with names separated by a comma or an array of file names. The response represents chosen field, but also the value and color is exposed.
-        field_18:
-          type:
-          - string
-          - 'null'
-          description: 'This field represents the `phone_number` field. The number in field_18 is in a normal request or response the id of the field. '
-          maxLength: 100
-        field_23:
-          type: array
-          items:
-            type: integer
-          description: This field represents the `multiple_collaborators` field. The number in field_23 is in a normal request or response the id of the field. This field accepts a list of objects representing the chosen collaborators through the object's `id` property. The id is Baserow user id. The response objects also contains the collaborator name directly along with its id.
-        field_26:
-          type:
-          - string
-          - 'null'
-          description: This field represents the `password` field. The number in field_26 is in a normal request or response the id of the field. Allows setting a write only password value. Providing a string will set the password, `null` will unset it, `true` will be ignored. The response will respond with `true` is a password is set, but will never expose the password itself.
-        field_28:
-          type:
-          - string
-          - 'null'
-          description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
-    FormViewFieldOptionsCondition:
-      type: object
-      properties:
-        id:
-          type: integer
-        field:
-          type: integer
-        type:
-          type: string
-          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
-          maxLength: 48
-        value:
-          type: string
-          description: The filter value that must be compared to the field's value.
-        group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field
-      - id
-      - type
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
     PublicFormView:
       type: object
       properties:
@@ -1119,14 +1077,56 @@ components:
           description: Indicates whether it's allowed to export a publicly shared view.
       required:
       - fields
-    ConditionTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
+    UserFile:
+      type: object
+      properties:
+        size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mime_type:
+          type: string
+          maxLength: 127
+        is_image:
+          type: boolean
+        image_width:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        image_height:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        original_name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      - original_name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
   securitySchemes:
     Database_token:
       type: http

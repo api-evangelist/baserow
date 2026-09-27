@@ -267,6 +267,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateMCPEndpoint:
+      type: object
+      description: Used for validating the creation of a new MCP endpoint.
+      properties:
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
+        workspace_id:
+          type: integer
+      required:
+      - name
+      - workspace_id
+    PatchedUpdateMCPEndpoint:
+      type: object
+      description: Used for validating updating an existing MCP endpoint.
+      properties:
+        name:
+          type: string
+          description: The human readable name of the MCP endpoint for the user.
+          maxLength: 100
     MCPEndpoint:
       type: object
       description: Serializes a complete MCP endpoint object.
@@ -299,27 +320,6 @@ components:
       - name
       - workspace_id
       - workspace_name
-    CreateMCPEndpoint:
-      type: object
-      description: Used for validating the creation of a new MCP endpoint.
-      properties:
-        name:
-          type: string
-          description: The human readable name of the MCP endpoint for the user.
-          maxLength: 100
-        workspace_id:
-          type: integer
-      required:
-      - name
-      - workspace_id
-    PatchedUpdateMCPEndpoint:
-      type: object
-      description: Used for validating updating an existing MCP endpoint.
-      properties:
-        name:
-          type: string
-          description: The human readable name of the MCP endpoint for the user.
-          maxLength: 100
   securitySchemes:
     Database_token:
       type: http

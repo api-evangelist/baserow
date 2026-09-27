@@ -1095,138 +1095,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
-      required:
-      - generative_ai_models_enabled
-      - id
-      - name
-    OllamaSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        host:
-          type: string
-          description: The host that is used to authenticate with the Ollama API.
-    OpenRouterSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
-          type: string
-          description: The OpenRouter API key that is used to authenticate with the OpenAI API.
-        organization:
-          type: string
-          description: The organization that the OpenRouter API key belongs to.
-    WorkspaceUserEnterpriseTeam:
-      type: object
-      description: A serializer for the `WorkspaceUserSerializer.teams` field.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier for this team.
-        name:
-          type: string
-          readOnly: true
-          description: The team name that this workspace user belongs to.
-      required:
-      - id
-      - name
-    PermissionObject:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The permission manager name.
-        permissions:
-          description: The content of the permission object for this permission manager.
-      required:
-      - name
-      - permissions
-    OpenAISettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
-          type: string
-          description: The OpenAI API key that is used to authenticate with the OpenAI API.
-        organization:
-          type: string
-          description: The organization that the OpenAI API key belongs to.
-        base_url:
-          type: string
-          format: uri
-          description: https://api.openai.com/v1 by default, but can be changed to https://eu.api.openai.com/v1, https://<your-resource-name>.openai.azure.com,or any other OpenAI compatible API.
-    OrderWorkspaces:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            type: integer
-          description: Workspace ids in the desired order.
-      required:
-      - workspaces
-    PatchedUpdateWorkspaceUser:
-      type: object
-      properties:
-        permissions:
-          type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
-    ImportResource:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-          description: The size of the resource in bytes.
-      required:
-      - id
-      - name
-    PatchedWorkspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
     ListWorkspaceUsersWithMemberData:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -1289,66 +1157,81 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    GenerativeAISettings:
+    WorkspaceUser:
       type: object
-      properties:
-        openai:
-          $ref: '#/components/schemas/OpenAISettings'
-        anthropic:
-          $ref: '#/components/schemas/AnthropicSettings'
-        mistral:
-          $ref: '#/components/schemas/MistralSettings'
-        ollama:
-          $ref: '#/components/schemas/OllamaSettings'
-        openrouter:
-          $ref: '#/components/schemas/OpenRouterSettings'
-    WorkspaceUserWorkspace:
-      type: object
-      description: 'This serializers includes relevant fields of the Workspace model, but also
-
-        some WorkspaceUser specific fields related to the workspace user relation.
-
-
-        Additionally, the list of users are included for each workspace.'
       properties:
         id:
           type: integer
           readOnly: true
-          description: Workspace id.
         name:
           type: string
           readOnly: true
-          description: Workspace name.
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceUser'
+          description: User defined name.
+        email:
+          type: string
           readOnly: true
-          description: List of all workspace users.
-        order:
+          description: User email.
+        workspace:
           type: integer
-          readOnly: true
-          description: The requesting user's order within the workspace users.
+          description: The workspace that the user has access to.
         permissions:
           type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+        created_on:
+          type: string
+          format: date-time
           readOnly: true
-          description: The requesting user's permissions for the workspace.
-        unread_notifications_count:
+        user_id:
           type: integer
+          description: The user that has access to the workspace.
           readOnly: true
-          description: The number of unread notifications for the requesting user.
-        generative_ai_models_enabled:
+        to_be_deleted:
+          type: boolean
+          description: True if user account is pending deletion.
+        two_factor_auth:
           type: string
           readOnly: true
-          description: Generative AI models available in this workspace.
       required:
-      - generative_ai_models_enabled
+      - created_on
+      - email
       - id
       - name
-      - order
-      - permissions
-      - unread_notifications_count
-      - users
+      - to_be_deleted
+      - two_factor_auth
+      - user_id
+      - workspace
+    PatchedUpdateWorkspaceUser:
+      type: object
+      properties:
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+    OpenRouterSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The OpenRouter API key that is used to authenticate with the OpenAI API.
+        organization:
+          type: string
+          description: The organization that the OpenRouter API key belongs to.
+    OrderWorkspaces:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            type: integer
+          description: Workspace ids in the desired order.
+      required:
+      - workspaces
     ExportApplicationsJobTypeResponse:
       type: object
       properties:
@@ -1399,50 +1282,65 @@ components:
       - updated_on
       - url
       - workspace_id
-    ListExportWorkspaceApplications:
+    WorkspaceUserWorkspace:
       type: object
+      description: 'This serializers includes relevant fields of the Workspace model, but also
+
+        some WorkspaceUser specific fields related to the workspace user relation.
+
+
+        Additionally, the list of users are included for each workspace.'
       properties:
-        results:
+        id:
+          type: integer
+          readOnly: true
+          description: Workspace id.
+        name:
+          type: string
+          readOnly: true
+          description: Workspace name.
+        users:
           type: array
           items:
-            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
+            $ref: '#/components/schemas/WorkspaceUser'
+          readOnly: true
+          description: List of all workspace users.
+        order:
+          type: integer
+          readOnly: true
+          description: The requesting user's order within the workspace users.
+        permissions:
+          type: string
+          readOnly: true
+          description: The requesting user's permissions for the workspace.
+        unread_notifications_count:
+          type: integer
+          readOnly: true
+          description: The number of unread notifications for the requesting user.
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+          description: Generative AI models available in this workspace.
       required:
-      - results
-    PatchedGenerativeAISettings:
+      - generative_ai_models_enabled
+      - id
+      - name
+      - order
+      - permissions
+      - unread_notifications_count
+      - users
+    PatchedWorkspace:
       type: object
       properties:
-        openai:
-          $ref: '#/components/schemas/OpenAISettings'
-        anthropic:
-          $ref: '#/components/schemas/AnthropicSettings'
-        mistral:
-          $ref: '#/components/schemas/MistralSettings'
-        ollama:
-          $ref: '#/components/schemas/OllamaSettings'
-        openrouter:
-          $ref: '#/components/schemas/OpenRouterSettings'
-    AnthropicSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
+        id:
+          type: integer
+          readOnly: true
+        name:
           type: string
-          description: The Anthropic API key that is used to authenticate with the Anthropic API.
-    MistralSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
+          maxLength: 165
+        generative_ai_models_enabled:
           type: string
-          description: The Mistral API key that is used to authenticate with the Mistral API.
+          readOnly: true
     ImportApplicationsJobTypeResponse:
       type: object
       properties:
@@ -1485,7 +1383,119 @@ components:
       - type
       - updated_on
       - workspace_id
-    WorkspaceUser:
+    PermissionObject:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The permission manager name.
+        permissions:
+          description: The content of the permission object for this permission manager.
+      required:
+      - name
+      - permissions
+    WorkspaceUserEnterpriseTeam:
+      type: object
+      description: A serializer for the `WorkspaceUserSerializer.teams` field.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier for this team.
+        name:
+          type: string
+          readOnly: true
+          description: The team name that this workspace user belongs to.
+      required:
+      - id
+      - name
+    OpenAISettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The OpenAI API key that is used to authenticate with the OpenAI API.
+        organization:
+          type: string
+          description: The organization that the OpenAI API key belongs to.
+        base_url:
+          type: string
+          format: uri
+          description: https://api.openai.com/v1 by default, but can be changed to https://eu.api.openai.com/v1, https://<your-resource-name>.openai.azure.com,or any other OpenAI compatible API.
+    ListExportWorkspaceApplications:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
+      required:
+      - results
+    MistralSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The Mistral API key that is used to authenticate with the Mistral API.
+    PatchedGenerativeAISettings:
+      type: object
+      properties:
+        openai:
+          $ref: '#/components/schemas/OpenAISettings'
+        anthropic:
+          $ref: '#/components/schemas/AnthropicSettings'
+        mistral:
+          $ref: '#/components/schemas/MistralSettings'
+        ollama:
+          $ref: '#/components/schemas/OllamaSettings'
+        openrouter:
+          $ref: '#/components/schemas/OpenRouterSettings'
+    AnthropicSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The Anthropic API key that is used to authenticate with the Anthropic API.
+    OllamaSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        host:
+          type: string
+          description: The host that is used to authenticate with the Ollama API.
+    GenerativeAISettings:
+      type: object
+      properties:
+        openai:
+          $ref: '#/components/schemas/OpenAISettings'
+        anthropic:
+          $ref: '#/components/schemas/AnthropicSettings'
+        mistral:
+          $ref: '#/components/schemas/MistralSettings'
+        ollama:
+          $ref: '#/components/schemas/OllamaSettings'
+        openrouter:
+          $ref: '#/components/schemas/OpenRouterSettings'
+    ImportResource:
       type: object
       properties:
         id:
@@ -1494,41 +1504,31 @@ components:
         name:
           type: string
           readOnly: true
-          description: User defined name.
-        email:
-          type: string
-          readOnly: true
-          description: User email.
-        workspace:
+        size:
           type: integer
-          description: The workspace that the user has access to.
-        permissions:
-          type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        user_id:
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          description: The size of the resource in bytes.
+      required:
+      - id
+      - name
+    Workspace:
+      type: object
+      properties:
+        id:
           type: integer
-          description: The user that has access to the workspace.
           readOnly: true
-        to_be_deleted:
-          type: boolean
-          description: True if user account is pending deletion.
-        two_factor_auth:
+        name:
+          type: string
+          maxLength: 165
+        generative_ai_models_enabled:
           type: string
           readOnly: true
       required:
-      - created_on
-      - email
+      - generative_ai_models_enabled
       - id
       - name
-      - to_be_deleted
-      - two_factor_auth
-      - user_id
-      - workspace
   securitySchemes:
     Database_token:
       type: http

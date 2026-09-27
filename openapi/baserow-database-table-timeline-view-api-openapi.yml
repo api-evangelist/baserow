@@ -370,73 +370,6 @@ components:
           description: How many row comments exist for this row.
         row_comments_notification_mode:
           $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
-    PaginationSerializerWithTimelineViewFieldOptionsExampleRowResponse:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/TimelineViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-        row_metadata:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RowMetadata'
-          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
     PublicPaginationSerializerWithTimelineViewFieldOptionsExampleRowResponse:
       type: object
       properties:
@@ -469,25 +402,17 @@ components:
       - next
       - previous
       - results
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
-    Collaborator:
+    TimelineViewFieldOptions:
       type: object
       properties:
-        id:
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the card.
+        order:
           type: integer
-        name:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - name
+          maximum: 32767
+          minimum: -32768
+          description: The order that the field has in the view. Lower value is first.
     FileFieldResponse:
       type: object
       properties:
@@ -527,6 +452,92 @@ components:
       - uploaded_at
       - url
       - visible_name
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
+    PaginationSerializerWithTimelineViewFieldOptionsExampleRowResponse:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TimelineViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+        row_metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RowMetadata'
+          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponse'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    SelectOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
+      required:
+      - color
+      - value
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
     ExampleRowResponse:
       type: object
       properties:
@@ -682,17 +693,6 @@ components:
       required:
       - field_27
       - id
-    TimelineViewFieldOptions:
-      type: object
-      properties:
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the card.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The order that the field has in the view. Lower value is first.
   securitySchemes:
     Database_token:
       type: http

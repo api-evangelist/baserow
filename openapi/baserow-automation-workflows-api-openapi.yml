@@ -632,22 +632,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PatchedUpdateAutomationWorkflow:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        allow_test_run:
-          type: boolean
-          description: If provided, enables the workflow to be triggerable for the next 5 minutes.
-        state:
-          $ref: '#/components/schemas/UpdateAutomationWorkflowStateEnum'
-        notification_recipient_ids:
-          type: array
-          items:
-            type: integer
-          description: The user IDs of the workspace members that should receive notifications related to this workflow.
     StatusF41Enum:
       enum:
       - success
@@ -716,23 +700,6 @@ components:
           description: The ids of the workflows in the order they are supposed to be set in.
       required:
       - workflow_ids
-    UpdateAutomationWorkflowStateEnum:
-      enum:
-      - draft
-      - live
-      - paused
-      - disabled
-      - test_clone
-      type: string
-      description: '* `draft` - Draft
-
-        * `live` - Live
-
-        * `paused` - Paused
-
-        * `disabled` - Disabled
-
-        * `test_clone` - Test Clone'
     PaginationSerializerAutomationWorkflowHistory:
       type: object
       properties:
@@ -768,45 +735,6 @@ components:
       - previous
       - results
       - success_count
-    AutomationWorkflowHistory:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        started_on:
-          type: string
-          format: date-time
-        completed_on:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        message:
-          type: string
-        status:
-          $ref: '#/components/schemas/StatusF41Enum'
-        is_test_run:
-          type: boolean
-          description: True when the workflow is being simulated.
-        simulate_until_node:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
-      - is_test_run
-      - message
-      - started_on
-      - status
-    CreateAutomationWorkflow:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-      required:
-      - name
     AutomationWorkflow:
       type: object
       properties:
@@ -857,6 +785,78 @@ components:
       - published_on
       - simulate_until_node_id
       - state
+    PatchedUpdateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        allow_test_run:
+          type: boolean
+          description: If provided, enables the workflow to be triggerable for the next 5 minutes.
+        state:
+          $ref: '#/components/schemas/UpdateAutomationWorkflowStateEnum'
+        notification_recipient_ids:
+          type: array
+          items:
+            type: integer
+          description: The user IDs of the workspace members that should receive notifications related to this workflow.
+    CreateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    UpdateAutomationWorkflowStateEnum:
+      enum:
+      - draft
+      - live
+      - paused
+      - disabled
+      - test_clone
+      type: string
+      description: '* `draft` - Draft
+
+        * `live` - Live
+
+        * `paused` - Paused
+
+        * `disabled` - Disabled
+
+        * `test_clone` - Test Clone'
+    AutomationWorkflowHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        started_on:
+          type: string
+          format: date-time
+        completed_on:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        message:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusF41Enum'
+        is_test_run:
+          type: boolean
+          description: True when the workflow is being simulated.
+        simulate_until_node:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+      - is_test_run
+      - message
+      - started_on
+      - status
   securitySchemes:
     Database_token:
       type: http

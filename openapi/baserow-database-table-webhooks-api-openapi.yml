@@ -436,55 +436,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PatchedTableWebhookUpdateRequest:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL that must be called when the webhook is triggered.
-          maxLength: 2000
-        include_all_events:
-          type: boolean
-          description: Indicates whether this webhook should listen to all events.
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventsEnum'
-          description: A list containing the events that will trigger this webhook.
-        event_config:
-          type: array
-          items:
-            $ref: '#/components/schemas/TableWebhookEventConfig'
-          description: A list containing the addition event options.
-        request_method:
-          allOf:
-          - $ref: '#/components/schemas/RequestMethodEnum'
-          description: 'The request method that be used when the event occurs.
-
-
-            * `POST` - Post
-
-            * `GET` - Get
-
-            * `PUT` - Put
-
-            * `PATCH` - Patch
-
-            * `DELETE` - Delete'
-        headers:
-          type: object
-          additionalProperties: {}
-          description: The additional headers as an object where the key is the name and the value the value.
-        name:
-          type: string
-          description: An internal name of the webhook.
-          maxLength: 255
-        active:
-          type: boolean
-          description: Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.
-        use_user_field_names:
-          type: boolean
-          description: Indicates whether the field names must be used as payload key instead of the id.
     TableWebhookTestCallRequest:
       type: object
       properties:
@@ -542,72 +493,6 @@ components:
       required:
       - event_type
       - url
-    RequestMethodEnum:
-      enum:
-      - POST
-      - GET
-      - PUT
-      - PATCH
-      - DELETE
-      type: string
-      description: '* `POST` - Post
-
-        * `GET` - Get
-
-        * `PUT` - Put
-
-        * `PATCH` - Patch
-
-        * `DELETE` - Delete'
-    TableWebhookCall:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        event_id:
-          type: string
-          format: uuid
-          readOnly: true
-          description: Event ID where the call originated from.
-        event_type:
-          type: string
-          maxLength: 50
-        called_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        called_url:
-          type: string
-          maxLength: 2000
-        request:
-          type: string
-          readOnly: true
-          description: A text copy of the request headers and body.
-        response:
-          type: string
-          readOnly: true
-          description: A text copy of the response headers and body.
-        response_status:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: -2147483648
-          description: The HTTP response status code.
-        error:
-          type:
-          - string
-          - 'null'
-          description: An internal error reflecting what went wrong.
-      required:
-      - called_url
-      - event_id
-      - event_type
-      - id
-      - request
-      - response
     TableWebhookEventConfig:
       type: object
       properties:
@@ -648,143 +533,6 @@ components:
           description: A list of view IDs that are related to the event.
       required:
       - event_type
-    TableWebhookTestCallResponse:
-      type: object
-      properties:
-        request:
-          type: string
-          readOnly: true
-          description: A text copy of the request headers and body.
-        response:
-          type: string
-          readOnly: true
-          description: A text copy of the response headers and body.
-        status_code:
-          type: integer
-          readOnly: true
-          description: The HTTP response status code.
-        is_unreachable:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the provided URL could be reached.
-      required:
-      - is_unreachable
-      - request
-      - response
-      - status_code
-    EventsEnum:
-      enum:
-      - rows.created
-      - rows.updated
-      - rows.deleted
-      - field.created
-      - field.updated
-      - field.deleted
-      - view.created
-      - view.updated
-      - view.deleted
-      - view.rows_entered
-      type: string
-      description: '* `rows.created` - rows.created
-
-        * `rows.updated` - rows.updated
-
-        * `rows.deleted` - rows.deleted
-
-        * `field.created` - field.created
-
-        * `field.updated` - field.updated
-
-        * `field.deleted` - field.deleted
-
-        * `view.created` - view.created
-
-        * `view.updated` - view.updated
-
-        * `view.deleted` - view.deleted
-
-        * `view.rows_entered` - view.rows_entered'
-    TableWebhookCreateRequest:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL that must be called when the webhook is triggered.
-          maxLength: 2000
-        include_all_events:
-          type: boolean
-          description: Indicates whether this webhook should listen to all events.
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventsEnum'
-          description: A list containing the events that will trigger this webhook.
-        event_config:
-          type: array
-          items:
-            $ref: '#/components/schemas/TableWebhookEventConfig'
-          description: A list containing the addition event options.
-        request_method:
-          allOf:
-          - $ref: '#/components/schemas/RequestMethodEnum'
-          description: 'The request method that be used when the event occurs.
-
-
-            * `POST` - Post
-
-            * `GET` - Get
-
-            * `PUT` - Put
-
-            * `PATCH` - Patch
-
-            * `DELETE` - Delete'
-        headers:
-          type: object
-          additionalProperties: {}
-          description: The additional headers as an object where the key is the name and the value the value.
-        name:
-          type: string
-          description: An internal name of the webhook.
-          maxLength: 255
-        use_user_field_names:
-          type: boolean
-          description: Indicates whether the field names must be used as payload key instead of the id.
-      required:
-      - name
-      - url
-    EventTypeEnum:
-      enum:
-      - rows.created
-      - rows.updated
-      - rows.deleted
-      - field.created
-      - field.updated
-      - field.deleted
-      - view.created
-      - view.updated
-      - view.deleted
-      - view.rows_entered
-      type: string
-      description: '* `rows.created` - rows.created
-
-        * `rows.updated` - rows.updated
-
-        * `rows.deleted` - rows.deleted
-
-        * `field.created` - field.created
-
-        * `field.updated` - field.updated
-
-        * `field.deleted` - field.deleted
-
-        * `view.created` - view.created
-
-        * `view.updated` - view.updated
-
-        * `view.deleted` - view.deleted
-
-        * `view.rows_entered` - view.rows_entered'
     TableWebhook:
       type: object
       properties:
@@ -867,6 +615,258 @@ components:
       - name
       - updated_on
       - url
+    TableWebhookTestCallResponse:
+      type: object
+      properties:
+        request:
+          type: string
+          readOnly: true
+          description: A text copy of the request headers and body.
+        response:
+          type: string
+          readOnly: true
+          description: A text copy of the response headers and body.
+        status_code:
+          type: integer
+          readOnly: true
+          description: The HTTP response status code.
+        is_unreachable:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the provided URL could be reached.
+      required:
+      - is_unreachable
+      - request
+      - response
+      - status_code
+    EventsEnum:
+      enum:
+      - rows.created
+      - rows.updated
+      - rows.deleted
+      - field.created
+      - field.updated
+      - field.deleted
+      - view.created
+      - view.updated
+      - view.deleted
+      - view.rows_entered
+      type: string
+      description: '* `rows.created` - rows.created
+
+        * `rows.updated` - rows.updated
+
+        * `rows.deleted` - rows.deleted
+
+        * `field.created` - field.created
+
+        * `field.updated` - field.updated
+
+        * `field.deleted` - field.deleted
+
+        * `view.created` - view.created
+
+        * `view.updated` - view.updated
+
+        * `view.deleted` - view.deleted
+
+        * `view.rows_entered` - view.rows_entered'
+    EventTypeEnum:
+      enum:
+      - rows.created
+      - rows.updated
+      - rows.deleted
+      - field.created
+      - field.updated
+      - field.deleted
+      - view.created
+      - view.updated
+      - view.deleted
+      - view.rows_entered
+      type: string
+      description: '* `rows.created` - rows.created
+
+        * `rows.updated` - rows.updated
+
+        * `rows.deleted` - rows.deleted
+
+        * `field.created` - field.created
+
+        * `field.updated` - field.updated
+
+        * `field.deleted` - field.deleted
+
+        * `view.created` - view.created
+
+        * `view.updated` - view.updated
+
+        * `view.deleted` - view.deleted
+
+        * `view.rows_entered` - view.rows_entered'
+    PatchedTableWebhookUpdateRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        include_all_events:
+          type: boolean
+          description: Indicates whether this webhook should listen to all events.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventsEnum'
+          description: A list containing the events that will trigger this webhook.
+        event_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookEventConfig'
+          description: A list containing the addition event options.
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        headers:
+          type: object
+          additionalProperties: {}
+          description: The additional headers as an object where the key is the name and the value the value.
+        name:
+          type: string
+          description: An internal name of the webhook.
+          maxLength: 255
+        active:
+          type: boolean
+          description: Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+    TableWebhookCall:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        event_id:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Event ID where the call originated from.
+        event_type:
+          type: string
+          maxLength: 50
+        called_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        called_url:
+          type: string
+          maxLength: 2000
+        request:
+          type: string
+          readOnly: true
+          description: A text copy of the request headers and body.
+        response:
+          type: string
+          readOnly: true
+          description: A text copy of the response headers and body.
+        response_status:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The HTTP response status code.
+        error:
+          type:
+          - string
+          - 'null'
+          description: An internal error reflecting what went wrong.
+      required:
+      - called_url
+      - event_id
+      - event_type
+      - id
+      - request
+      - response
+    TableWebhookCreateRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL that must be called when the webhook is triggered.
+          maxLength: 2000
+        include_all_events:
+          type: boolean
+          description: Indicates whether this webhook should listen to all events.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventsEnum'
+          description: A list containing the events that will trigger this webhook.
+        event_config:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableWebhookEventConfig'
+          description: A list containing the addition event options.
+        request_method:
+          allOf:
+          - $ref: '#/components/schemas/RequestMethodEnum'
+          description: 'The request method that be used when the event occurs.
+
+
+            * `POST` - Post
+
+            * `GET` - Get
+
+            * `PUT` - Put
+
+            * `PATCH` - Patch
+
+            * `DELETE` - Delete'
+        headers:
+          type: object
+          additionalProperties: {}
+          description: The additional headers as an object where the key is the name and the value the value.
+        name:
+          type: string
+          description: An internal name of the webhook.
+          maxLength: 255
+        use_user_field_names:
+          type: boolean
+          description: Indicates whether the field names must be used as payload key instead of the id.
+      required:
+      - name
+      - url
+    RequestMethodEnum:
+      enum:
+      - POST
+      - GET
+      - PUT
+      - PATCH
+      - DELETE
+      type: string
+      description: '* `POST` - Post
+
+        * `GET` - Get
+
+        * `PUT` - Put
+
+        * `PATCH` - Patch
+
+        * `DELETE` - Delete'
   securitySchemes:
     Database_token:
       type: http

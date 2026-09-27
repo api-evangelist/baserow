@@ -488,6 +488,41 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PrioritizeViewGroupBys:
+      type: object
+      properties:
+        view_group_by_ids:
+          type: array
+          items:
+            type: integer
+          description: View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.
+          minItems: 1
+      required:
+      - view_group_by_ids
+    PatchedUpdateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
     ViewGroupBy:
       type: object
       properties:
@@ -564,41 +599,6 @@ components:
       description: '* `ASC` - Ascending
 
         * `DESC` - Descending'
-    PatchedUpdateViewGroupBy:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-    PrioritizeViewGroupBys:
-      type: object
-      properties:
-        view_group_by_ids:
-          type: array
-          items:
-            type: integer
-          description: View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.
-          minItems: 1
-      required:
-      - view_group_by_ids
   securitySchemes:
     Database_token:
       type: http

@@ -616,35 +616,57 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SubjectType0b2Enum:
-      enum:
-      - auth.User
-      type: string
-      description: '* `auth.User` - auth.User'
-    TeamSampleSubject:
+    TeamSubjectResponse:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         subject_id:
           type: integer
-          description: The subject's unique identifier.
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The unique subject ID.
         subject_type:
-          allOf:
-          - $ref: '#/components/schemas/SubjectType0b2Enum'
-          description: 'The type of subject who belongs to the team.
-
-
-            * `auth.User` - auth.User'
-        subject_label:
           type: string
-          description: The subject's label. Defaults to a user's first name.
-        team_subject_id:
+          description: 'Returns the TeamSubject''s `subject_type` natural key.
+
+
+            :param obj: The TeamSubject record.
+
+            :return: The subject''s content type natural key.'
+          readOnly: true
+        team:
           type: integer
-          description: The team subject unique identifier.
+          description: The team this subject belongs to.
       required:
+      - id
       - subject_id
-      - subject_label
       - subject_type
-      - team_subject_id
+      - team
+    Team:
+      type: object
+      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
+
+        is provided to the serializer.'
+      properties:
+        name:
+          type: string
+          description: A human friendly name for this team.
+          maxLength: 160
+        default_role:
+          type:
+          - string
+          - 'null'
+          description: The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.
+        subjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamSubject'
+          default: []
+          description: An array of subject ID/type objects to be used during team create and update.
+      required:
+      - name
     TeamSubject:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -710,57 +732,35 @@ components:
       - subject_count
       - updated_on
       - workspace
-    TeamSubjectResponse:
+    SubjectType0b2Enum:
+      enum:
+      - auth.User
+      type: string
+      description: '* `auth.User` - auth.User'
+    TeamSampleSubject:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
         subject_id:
           type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-          description: The unique subject ID.
+          description: The subject's unique identifier.
         subject_type:
+          allOf:
+          - $ref: '#/components/schemas/SubjectType0b2Enum'
+          description: 'The type of subject who belongs to the team.
+
+
+            * `auth.User` - auth.User'
+        subject_label:
           type: string
-          description: 'Returns the TeamSubject''s `subject_type` natural key.
-
-
-            :param obj: The TeamSubject record.
-
-            :return: The subject''s content type natural key.'
-          readOnly: true
-        team:
+          description: The subject's label. Defaults to a user's first name.
+        team_subject_id:
           type: integer
-          description: The team this subject belongs to.
+          description: The team subject unique identifier.
       required:
-      - id
       - subject_id
+      - subject_label
       - subject_type
-      - team
-    Team:
-      type: object
-      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
-
-        is provided to the serializer.'
-      properties:
-        name:
-          type: string
-          description: A human friendly name for this team.
-          maxLength: 160
-        default_role:
-          type:
-          - string
-          - 'null'
-          description: The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.
-        subjects:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamSubject'
-          default: []
-          description: An array of subject ID/type objects to be used during team create and update.
-      required:
-      - name
+      - team_subject_id
   securitySchemes:
     Database_token:
       type: http
