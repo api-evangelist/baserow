@@ -816,56 +816,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GridViewFieldOptions:
-      type: object
-      properties:
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The width of the table field in the related view.
-        hidden:
-          type: boolean
-          description: Whether or not the field should be hidden in the current view.
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The position that the field has within the view, lowest first. If there is another field with the same order value then the field with the lowest id must be shown first.
-        aggregation_type:
-          type: string
-          description: 'Indicates how the field value is aggregated. This value is different from the `aggregation_raw_type`. The `aggregation_raw_type` is the value extracted from the database, while the `aggregation_type` can implies further calculations. For example: if you want to compute an average, `sum` is going to be the `aggregation_raw_type`, the value extracted from database, and `sum / row_count` will be the aggregation result displayed to the user. This aggregation_type should be used by the client to compute the final value.'
-          maxLength: 48
-        aggregation_raw_type:
-          description: 'Indicates how to compute the raw aggregation value from database. This type must be registered in the backend prior to use it.
-
-
-            * `empty_count` - empty_count
-
-            * `not_empty_count` - not_empty_count
-
-            * `unique_count` - unique_count
-
-            * `min` - min
-
-            * `max` - max
-
-            * `sum` - sum
-
-            * `average` - average
-
-            * `median` - median
-
-            * `decile` - decile
-
-            * `variance` - variance
-
-            * `std_dev` - std_dev
-
-            * `distribution` - distribution'
-          oneOf:
-          - $ref: '#/components/schemas/AggregationRawTypeEnum'
-          - $ref: '#/components/schemas/BlankEnum'
     RowMetadata:
       type: object
       properties:
@@ -875,76 +825,6 @@ components:
           description: How many row comments exist for this row.
         row_comments_notification_mode:
           $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    FileFieldResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
-      required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
-    GridViewFilter:
-      type: object
-      properties:
-        field_ids:
-          type: array
-          items:
-            type: integer
-          description: Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.
-        row_ids:
-          type: array
-          items:
-            type: integer
-          description: Only rows related to the provided ids are added to the response.
-      required:
-      - row_ids
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
     PublicPaginationSerializerWithGridViewFieldOptionsExampleRowResponse:
       type: object
       properties:
@@ -977,65 +857,9 @@ components:
       - next
       - previous
       - results
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
-    PaginationSerializerWithGridViewFieldOptionsExampleRowResponse:
-      type: object
-      properties:
-        field_options:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/GridViewFieldOptions'
-          description: An object containing the field id as key and the properties related to view as value.
-        row_metadata:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RowMetadata'
-          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExampleRowResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    RowCommentsNotificationModeEnum:
+    BlankEnum:
       enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
+      - ''
     AggregationRawTypeEnum:
       enum:
       - empty_count
@@ -1074,20 +898,20 @@ components:
         * `std_dev` - std_dev
 
         * `distribution` - distribution'
-    Collaborator:
+    SelectOption:
       type: object
       properties:
         id:
           type: integer
-        name:
+        value:
           type: string
-          readOnly: true
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
       required:
-      - id
-      - name
-    BlankEnum:
-      enum:
-      - ''
+      - color
+      - value
     ExampleRowResponse:
       type: object
       properties:
@@ -1242,6 +1066,182 @@ components:
           description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
       required:
       - field_27
+      - id
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    GridViewFilter:
+      type: object
+      properties:
+        field_ids:
+          type: array
+          items:
+            type: integer
+          description: Only the fields related to the provided ids are added to the response. If None are provided all fields will be returned.
+        row_ids:
+          type: array
+          items:
+            type: integer
+          description: Only rows related to the provided ids are added to the response.
+      required:
+      - row_ids
+    PaginationSerializerWithGridViewFieldOptionsExampleRowResponse:
+      type: object
+      properties:
+        field_options:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/GridViewFieldOptions'
+          description: An object containing the field id as key and the properties related to view as value.
+        row_metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RowMetadata'
+          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleRowResponse'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    GridViewFieldOptions:
+      type: object
+      properties:
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The width of the table field in the related view.
+        hidden:
+          type: boolean
+          description: Whether or not the field should be hidden in the current view.
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position that the field has within the view, lowest first. If there is another field with the same order value then the field with the lowest id must be shown first.
+        aggregation_type:
+          type: string
+          description: 'Indicates how the field value is aggregated. This value is different from the `aggregation_raw_type`. The `aggregation_raw_type` is the value extracted from the database, while the `aggregation_type` can implies further calculations. For example: if you want to compute an average, `sum` is going to be the `aggregation_raw_type`, the value extracted from database, and `sum / row_count` will be the aggregation result displayed to the user. This aggregation_type should be used by the client to compute the final value.'
+          maxLength: 48
+        aggregation_raw_type:
+          description: 'Indicates how to compute the raw aggregation value from database. This type must be registered in the backend prior to use it.
+
+
+            * `empty_count` - empty_count
+
+            * `not_empty_count` - not_empty_count
+
+            * `unique_count` - unique_count
+
+            * `min` - min
+
+            * `max` - max
+
+            * `sum` - sum
+
+            * `average` - average
+
+            * `median` - median
+
+            * `decile` - decile
+
+            * `variance` - variance
+
+            * `std_dev` - std_dev
+
+            * `distribution` - distribution'
+          oneOf:
+          - $ref: '#/components/schemas/AggregationRawTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
       - id
   securitySchemes:
     Database_token:

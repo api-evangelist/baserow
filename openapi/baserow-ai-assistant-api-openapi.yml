@@ -396,6 +396,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AssistantMessageRequest:
+      type: object
+      properties:
+        content:
+          type: string
+          description: The content of the message.
+        ui_context:
+          allOf:
+          - $ref: '#/components/schemas/UIContext'
+          description: The UI context related to what the user was looking at when the message was sent.
+      required:
+      - content
+      - ui_context
     AiCancelled:
       type: object
       properties:
@@ -407,66 +420,15 @@ components:
           description: The ID of the message that was cancelled.
       required:
       - message_id
-    UIContextApplication:
+    UIContextPage:
       type: object
       properties:
         id:
           type: string
-          description: The unique ID of the application.
+          description: The unique ID of the page.
         name:
           type: string
-          description: The name of the application.
-      required:
-      - id
-      - name
-    UIContextTable:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the table.
-        name:
-          type: string
-          description: The name of the table.
-      required:
-      - id
-      - name
-    UIContextWorkflow:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of the workflow.
-        name:
-          type: string
-          description: The name of the workflow.
-      required:
-      - id
-      - name
-    AiErrorMessage:
-      type: object
-      properties:
-        type:
-          type: string
-          default: ai/error
-        code:
-          type: string
-          description: A short error code that can be used to identify the error.
-        content:
-          type: string
-          description: The error message content.
-      required:
-      - code
-      - content
-    UIContextWorkspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the workspace.
-        name:
-          type: string
-          description: The name of the workspace.
+          description: The name of the page.
       required:
       - id
       - name
@@ -482,72 +444,6 @@ components:
           description: The location to navigate to.
       required:
       - location
-    HumanMessage:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The unique ID of the message.
-        type:
-          type: string
-          default: human
-        content:
-          type: string
-          description: The content of the human message.
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the message.
-      required:
-      - content
-      - id
-    AssistantMessage:
-      oneOf:
-      - $ref: '#/components/schemas/ChatTitleMessage'
-      - $ref: '#/components/schemas/HumanMessage'
-      - $ref: '#/components/schemas/AiMessage'
-      - $ref: '#/components/schemas/AiThinking'
-      - $ref: '#/components/schemas/AiReasoning'
-      - $ref: '#/components/schemas/AiNavigation'
-      - $ref: '#/components/schemas/AiErrorMessage'
-      - $ref: '#/components/schemas/AiStarted'
-      - $ref: '#/components/schemas/AiCancelled'
-      discriminator:
-        propertyName: type
-        mapping:
-          chat/title: '#/components/schemas/ChatTitleMessage'
-          human: '#/components/schemas/HumanMessage'
-          ai/message: '#/components/schemas/AiMessage'
-          ai/thinking: '#/components/schemas/AiThinking'
-          ai/reasoning: '#/components/schemas/AiReasoning'
-          ai/navigation: '#/components/schemas/AiNavigation'
-          ai/error: '#/components/schemas/AiErrorMessage'
-          ai/started: '#/components/schemas/AiStarted'
-          ai/cancelled: '#/components/schemas/AiCancelled'
-    ChatTitleMessage:
-      type: object
-      properties:
-        type:
-          type: string
-          default: chat/title
-        content:
-          type: string
-          description: The chat title message content.
-      required:
-      - content
-    NullEnum:
-      enum:
-      - null
-    AiThinking:
-      type: object
-      properties:
-        type:
-          type: string
-          default: ai/thinking
-        content:
-          type: string
-          default: The AI is thinking...
-          description: The message to show while the AI is thinking
     AiReasoning:
       type: object
       properties:
@@ -559,22 +455,80 @@ components:
           description: The reasoning content of the AI message.
       required:
       - content
-    UIContextView:
+    AiMessage:
       type: object
       properties:
         id:
           type: integer
-          description: The ID of the view.
-        name:
-          type: string
-          description: The name of the view.
+          description: The unique ID of the message.
         type:
           type: string
-          description: The type of the view.
+          default: ai/message
+        content:
+          type: string
+          description: The content of the AI message.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message.
+        sources:
+          type: array
+          items:
+            type: string
+          description: The list of relevant source URLs referenced in the knowledge. Can be empty or null.
+        can_submit_feedback:
+          type: boolean
+          default: false
+          description: Whether the user can submit feedback for this message. Only true for messages with an associated prediction.
+        human_sentiment:
+          description: 'The sentiment for the message, if it has been rated.
+
+
+            * `LIKE` - LIKE
+
+            * `DISLIKE` - DISLIKE'
+          oneOf:
+          - $ref: '#/components/schemas/HumanSentimentEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - content
+    AiStarted:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/started
+        message_id:
+          type: string
+          description: The ID of the message being generated.
+      required:
+      - message_id
+    UIContextApplication:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the application.
+        name:
+          type: string
+          description: The name of the application.
       required:
       - id
       - name
-      - type
+    NullEnum:
+      enum:
+      - null
+    ChatTitleMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          default: chat/title
+        content:
+          type: string
+          description: The chat title message content.
+      required:
+      - content
     PaginationSerializerAssistantChat:
       type: object
       properties:
@@ -602,6 +556,93 @@ components:
       - next
       - previous
       - results
+    AssistantChatMessages:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssistantMessage'
+      required:
+      - messages
+    AssistantMessage:
+      oneOf:
+      - $ref: '#/components/schemas/ChatTitleMessage'
+      - $ref: '#/components/schemas/HumanMessage'
+      - $ref: '#/components/schemas/AiMessage'
+      - $ref: '#/components/schemas/AiThinking'
+      - $ref: '#/components/schemas/AiReasoning'
+      - $ref: '#/components/schemas/AiNavigation'
+      - $ref: '#/components/schemas/AiErrorMessage'
+      - $ref: '#/components/schemas/AiStarted'
+      - $ref: '#/components/schemas/AiCancelled'
+      discriminator:
+        propertyName: type
+        mapping:
+          chat/title: '#/components/schemas/ChatTitleMessage'
+          human: '#/components/schemas/HumanMessage'
+          ai/message: '#/components/schemas/AiMessage'
+          ai/thinking: '#/components/schemas/AiThinking'
+          ai/reasoning: '#/components/schemas/AiReasoning'
+          ai/navigation: '#/components/schemas/AiNavigation'
+          ai/error: '#/components/schemas/AiErrorMessage'
+          ai/started: '#/components/schemas/AiStarted'
+          ai/cancelled: '#/components/schemas/AiCancelled'
+    UIContextView:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the view.
+        name:
+          type: string
+          description: The name of the view.
+        type:
+          type: string
+          description: The type of the view.
+      required:
+      - id
+      - name
+      - type
+    HumanMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The unique ID of the message.
+        type:
+          type: string
+          default: human
+        content:
+          type: string
+          description: The content of the human message.
+        timestamp:
+          type: string
+          format: date-time
+          description: The timestamp of the message.
+      required:
+      - content
+      - id
+    HumanSentimentEnum:
+      enum:
+      - LIKE
+      - DISLIKE
+      type: string
+      description: '* `LIKE` - LIKE
+
+        * `DISLIKE` - DISLIKE'
+    UIContextWorkspace:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the workspace.
+        name:
+          type: string
+          description: The name of the workspace.
+      required:
+      - id
+      - name
     UIContext:
       type: object
       properties:
@@ -645,65 +686,51 @@ components:
           description: The timezone of the user, e.g. 'Europe/Amsterdam'.
       required:
       - workspace
-    AiMessage:
+    AiErrorMessage:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/error
+        code:
+          type: string
+          description: A short error code that can be used to identify the error.
+        content:
+          type: string
+          description: The error message content.
+      required:
+      - code
+      - content
+    AiThinking:
+      type: object
+      properties:
+        type:
+          type: string
+          default: ai/thinking
+        content:
+          type: string
+          default: The AI is thinking...
+          description: The message to show while the AI is thinking
+    AssistantChatStatusEnum:
+      enum:
+      - idle
+      - in_progress
+      - canceling
+      type: string
+      description: '* `idle` - Idle
+
+        * `in_progress` - In progress
+
+        * `canceling` - Canceling'
+    UIContextTable:
       type: object
       properties:
         id:
           type: integer
-          description: The unique ID of the message.
-        type:
-          type: string
-          default: ai/message
-        content:
-          type: string
-          description: The content of the AI message.
-        timestamp:
-          type: string
-          format: date-time
-          description: The timestamp of the message.
-        sources:
-          type: array
-          items:
-            type: string
-          description: The list of relevant source URLs referenced in the knowledge. Can be empty or null.
-        can_submit_feedback:
-          type: boolean
-          default: false
-          description: Whether the user can submit feedback for this message. Only true for messages with an associated prediction.
-        human_sentiment:
-          description: 'The sentiment for the message, if it has been rated.
-
-
-            * `LIKE` - LIKE
-
-            * `DISLIKE` - DISLIKE'
-          oneOf:
-          - $ref: '#/components/schemas/HumanSentimentEnum'
-          - $ref: '#/components/schemas/NullEnum'
-      required:
-      - content
-    AssistantMessageRequest:
-      type: object
-      properties:
-        content:
-          type: string
-          description: The content of the message.
-        ui_context:
-          allOf:
-          - $ref: '#/components/schemas/UIContext'
-          description: The UI context related to what the user was looking at when the message was sent.
-      required:
-      - content
-      - ui_context
-    UIContextPage:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of the page.
+          description: The ID of the table.
         name:
           type: string
-          description: The name of the page.
+          description: The name of the table.
       required:
       - id
       - name
@@ -741,45 +768,18 @@ components:
       - updated_on
       - user_id
       - workspace_id
-    AssistantChatStatusEnum:
-      enum:
-      - idle
-      - in_progress
-      - canceling
-      type: string
-      description: '* `idle` - Idle
-
-        * `in_progress` - In progress
-
-        * `canceling` - Canceling'
-    AiStarted:
+    UIContextWorkflow:
       type: object
       properties:
-        type:
+        id:
           type: string
-          default: ai/started
-        message_id:
+          description: The unique ID of the workflow.
+        name:
           type: string
-          description: The ID of the message being generated.
+          description: The name of the workflow.
       required:
-      - message_id
-    AssistantChatMessages:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssistantMessage'
-      required:
-      - messages
-    HumanSentimentEnum:
-      enum:
-      - LIKE
-      - DISLIKE
-      type: string
-      description: '* `LIKE` - LIKE
-
-        * `DISLIKE` - DISLIKE'
+      - id
+      - name
   securitySchemes:
     Database_token:
       type: http

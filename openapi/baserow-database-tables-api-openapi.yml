@@ -1324,39 +1324,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ICalCalendarDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        ical_url:
-          type: string
-          format: uri
-          maxLength: 2000
-      required:
-      - ical_url
-    HubSpotContactsDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-    LocalBaserowTableDataSyncCreateDataSync:
+    ICalCalendarDataSyncCreateDataSync:
       type: object
       properties:
         synced_properties:
@@ -1390,19 +1358,229 @@ components:
         two_way_sync:
           type: boolean
           description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        source_table_id:
-          type: integer
-          description: The ID of the source table that must be synced.
-        source_table_view_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, then only the visible fields and rows matching the filters will be synced.
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
       required:
-      - source_table_id
+      - ical_url
       - synced_properties
       - table_name
       - type
+    JiraIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+    HubSpotContactsDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - database_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    DuplicateTableJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_table:
+          allOf:
+          - $ref: '#/components/schemas/Table'
+          readOnly: true
+        duplicated_table:
+          allOf:
+          - $ref: '#/components/schemas/Table'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_table
+      - id
+      - original_table
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    DataSyncSyncedProperty:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          description: The matching `key` of the `DataSyncProperty`.
+          maxLength: 255
+        unique_primary:
+          type: boolean
+          description: Indicates whether the data sync property is used for unique identification when syncing.
+      required:
+      - field_id
+      - key
+    Data_SyncDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncDataSync'
+    TableImportConfiguration:
+      type: object
+      description: Additional table import configuration.
+      properties:
+        upsert_fields:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            minimum: 1
+          description: <function TableImportConfiguration.<lambda> at 0x7ff0ed4e2f00>
+          minItems: 1
+        upsert_values:
+          type:
+          - array
+          - 'null'
+          items:
+            type: array
+            items: {}
+            minItems: 1
+          description: "A list of values that are identifying rows in imported data.\n The number of rows in `upsert_values` should be equal to the number of rows in imported data. Each row in `upsert_values` should contain a list of values that match the number and field types of fields selected in `upsert_fields`. Based on `upsert_fields`, a similar upsert values will be calculated for each row in the table.\n There's no guarantee of uniqueness of row identification calculated from `upsert_values` nor from the table. Repeated upsert values are compared in order with matching values in the table. The imported data must be in the same order as the table rows for correct matching."
+        skipped_fields:
+          type:
+          - array
+          - 'null'
+          items:
+            type: integer
+            minimum: 1
+          description: A list of field IDs that should not be overwritten during upsert operations.
+    PatchedTableUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+    Data_SyncListDataSyncPropertiesRequest:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
+    JiraAuthenticationEnum:
+      enum:
+      - API_TOKEN
+      - PERSONAL_ACCESS_TOKEN
+      type: string
+      description: '* `API_TOKEN` - API_TOKEN
+
+        * `PERSONAL_ACCESS_TOKEN` - PERSONAL_ACCESS_TOKEN'
     PostgreSQLDataSyncListDataSyncPropertiesRequest:
       type: object
       properties:
@@ -1451,1128 +1629,6 @@ components:
       - postgresql_host
       - postgresql_table
       - postgresql_username
-      - type
-    PatchedTableUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-    JiraIssuesDataSyncDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        jira_url:
-          type: string
-          format: uri
-          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
-          maxLength: 2000
-        jira_project_key:
-          type: string
-          description: The project key of the Jira project (e.g., PROJ).
-          maxLength: 255
-        jira_authentication:
-          $ref: '#/components/schemas/JiraAuthenticationEnum'
-        jira_username:
-          type: string
-          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
-          maxLength: 255
-      required:
-      - database_id
-      - id
-      - jira_url
-      - synced_properties
-      - table_id
-      - type
-    PostgreSQLDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        postgresql_host:
-          type: string
-          maxLength: 255
-        postgresql_username:
-          type: string
-          maxLength: 255
-        postgresql_port:
-          type: integer
-          maximum: 32767
-          minimum: 0
-        postgresql_database:
-          type: string
-          maxLength: 255
-        postgresql_schema:
-          type: string
-          maxLength: 255
-        postgresql_table:
-          type: string
-          maxLength: 255
-        postgresql_sslmode:
-          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
-      required:
-      - postgresql_database
-      - postgresql_host
-      - postgresql_table
-      - postgresql_username
-    ListDataSyncProperty:
-      type: object
-      properties:
-        unique_primary:
-          type: boolean
-        key:
-          type: string
-        name:
-          type: string
-        field_type:
-          type: string
-          readOnly: true
-        initially_selected:
-          type: boolean
-      required:
-      - field_type
-      - initially_selected
-      - key
-      - name
-      - unique_primary
-    LocalBaserowTableDataSyncDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        source_table_id:
-          type: integer
-          description: The ID of the source table that must be synced.
-        source_table_view_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, then only the visible fields and rows matching the filters will be synced.
-      required:
-      - database_id
-      - id
-      - source_table_id
-      - synced_properties
-      - table_id
-      - type
-    Table:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        database_id:
-          type: integer
-          readOnly: true
-        data_sync:
-          $ref: '#/components/schemas/DataSync'
-      required:
-      - data_sync
-      - database_id
-      - id
-      - name
-      - order
-    HubSpotContactsDataSyncCreateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync table that must be created.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        table_name:
-          type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-      required:
-      - synced_properties
-      - table_name
-      - type
-    GitHubIssuesDataSyncListDataSyncPropertiesRequest:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        github_issues_owner:
-          type: string
-          description: The owner of the repository on GitHub.
-          maxLength: 255
-        github_issues_repo:
-          type: string
-          description: The name of the repository on GitHub.
-          maxLength: 255
-      required:
-      - github_issues_owner
-      - github_issues_repo
-      - type
-    PeriodicDataSyncInterval:
-      type: object
-      properties:
-        interval:
-          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
-        when:
-          type: string
-          format: time
-        automatically_deactivated:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the periodic data sync has been deactivated.
-      required:
-      - automatically_deactivated
-      - when
-    SyncDataSyncTableJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        data_sync:
-          allOf:
-          - $ref: '#/components/schemas/DataSync'
-          readOnly: true
-      required:
-      - created_on
-      - data_sync
-      - id
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    GitLabIssuesDataSyncListDataSyncPropertiesRequest:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        gitlab_url:
-          type: string
-          format: uri
-          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
-          maxLength: 2000
-        gitlab_project_id:
-          type: string
-          description: The ID of the GitLab project where to sync the issues with.
-          maxLength: 255
-      required:
-      - gitlab_project_id
-      - type
-    Report:
-      type: object
-      properties:
-        failing_rows:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                type: string
-              description: Error messages for this field.
-            description: An object containing error messages by fields. The key is the field name and the value is an array of error messages for this field. These messages are localized for the user who has created the job when the translation is available.
-          description: An object containing field in error by rows. The keys are the row indexes from original file and values are objects of errors by fields.
-      required:
-      - failing_rows
-    JiraIssuesDataSyncCreateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync table that must be created.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        table_name:
-          type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        jira_url:
-          type: string
-          format: uri
-          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
-          maxLength: 2000
-        jira_project_key:
-          type: string
-          description: The project key of the Jira project (e.g., PROJ).
-          maxLength: 255
-        jira_authentication:
-          $ref: '#/components/schemas/JiraAuthenticationEnum'
-        jira_username:
-          type: string
-          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
-          maxLength: 255
-      required:
-      - jira_url
-      - synced_properties
-      - table_name
-      - type
-    Data_SyncCreateDataSync:
-      oneOf:
-      - $ref: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
-      - $ref: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
-      discriminator:
-        propertyName: type
-        mapping:
-          ical_calendar: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
-          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
-          jira_issues: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
-          github_issues: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
-          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
-          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
-          postgresql: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
-    GitHubIssuesDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        github_issues_owner:
-          type: string
-          description: The owner of the repository on GitHub.
-          maxLength: 255
-        github_issues_repo:
-          type: string
-          description: The name of the repository on GitHub.
-          maxLength: 255
-      required:
-      - github_issues_owner
-      - github_issues_repo
-    GitLabIssuesDataSyncDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        gitlab_url:
-          type: string
-          format: uri
-          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
-          maxLength: 2000
-        gitlab_project_id:
-          type: string
-          description: The ID of the GitLab project where to sync the issues with.
-          maxLength: 255
-      required:
-      - database_id
-      - gitlab_project_id
-      - id
-      - synced_properties
-      - table_id
-      - type
-    JiraAuthenticationEnum:
-      enum:
-      - API_TOKEN
-      - PERSONAL_ACCESS_TOKEN
-      type: string
-      description: '* `API_TOKEN` - API_TOKEN
-
-        * `PERSONAL_ACCESS_TOKEN` - PERSONAL_ACCESS_TOKEN'
-    TableImportConfiguration:
-      type: object
-      description: Additional table import configuration.
-      properties:
-        upsert_fields:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            minimum: 1
-          description: <function TableImportConfiguration.<lambda> at 0x7ff0ed4e2f00>
-          minItems: 1
-        upsert_values:
-          type:
-          - array
-          - 'null'
-          items:
-            type: array
-            items: {}
-            minItems: 1
-          description: "A list of values that are identifying rows in imported data.\n The number of rows in `upsert_values` should be equal to the number of rows in imported data. Each row in `upsert_values` should contain a list of values that match the number and field types of fields selected in `upsert_fields`. Based on `upsert_fields`, a similar upsert values will be calculated for each row in the table.\n There's no guarantee of uniqueness of row identification calculated from `upsert_values` nor from the table. Repeated upsert values are compared in order with matching values in the table. The imported data must be in the same order as the table rows for correct matching."
-        skipped_fields:
-          type:
-          - array
-          - 'null'
-          items:
-            type: integer
-            minimum: 1
-          description: A list of field IDs that should not be overwritten during upsert operations.
-    Data_SyncListDataSyncPropertiesRequest:
-      oneOf:
-      - $ref: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
-      - $ref: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
-      discriminator:
-        propertyName: type
-        mapping:
-          ical_calendar: '#/components/schemas/ICalCalendarDataSyncListDataSyncPropertiesRequest'
-          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncListDataSyncPropertiesRequest'
-          jira_issues: '#/components/schemas/JiraIssuesDataSyncListDataSyncPropertiesRequest'
-          github_issues: '#/components/schemas/GitHubIssuesDataSyncListDataSyncPropertiesRequest'
-          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncListDataSyncPropertiesRequest'
-          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncListDataSyncPropertiesRequest'
-          postgresql: '#/components/schemas/PostgreSQLDataSyncListDataSyncPropertiesRequest'
-    OrderTables:
-      type: object
-      properties:
-        table_ids:
-          type: array
-          items:
-            type: integer
-          description: Table ids in the desired order.
-      required:
-      - table_ids
-    TableCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        data:
-          type: array
-          items:
-            type: array
-            items: {}
-          description: "A list of rows that needs to be created as initial table data. Each row is a list of values that are going to be added in the new table in the same order as provided.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor creating a two rows table with two fields.\n\nIf not provided, some example data is going to be created."
-          minItems: 1
-        first_row_header:
-          type: boolean
-          default: false
-          description: Indicates if the first provided row is the header. If true the field names are going to be the values of the first row. Otherwise they will be called "Field N"
-        importer_type:
-          type: string
-          default: ''
-          description: The frontend importer identifier used to parse the file.
-          maxLength: 32
-        original_file_name:
-          type: string
-          default: ''
-          description: The original name of the uploaded file.
-          maxLength: 255
-      required:
-      - name
-    JiraIssuesDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        jira_url:
-          type: string
-          format: uri
-          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
-          maxLength: 2000
-        jira_project_key:
-          type: string
-          description: The project key of the Jira project (e.g., PROJ).
-          maxLength: 255
-        jira_authentication:
-          $ref: '#/components/schemas/JiraAuthenticationEnum'
-        jira_username:
-          type: string
-          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
-          maxLength: 255
-      required:
-      - jira_url
-    LocalBaserowTableDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        source_table_id:
-          type: integer
-          description: The ID of the source table that must be synced.
-        source_table_view_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, then only the visible fields and rows matching the filters will be synced.
-      required:
-      - source_table_id
-    DuplicateTableJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        original_table:
-          allOf:
-          - $ref: '#/components/schemas/Table'
-          readOnly: true
-        duplicated_table:
-          allOf:
-          - $ref: '#/components/schemas/Table'
-          readOnly: true
-      required:
-      - created_on
-      - duplicated_table
-      - id
-      - original_table
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    PeriodicDataSyncIntervalIntervalEnum:
-      enum:
-      - MANUAL
-      - DAILY
-      - HOURLY
-      type: string
-      description: '* `MANUAL` - MANUAL
-
-        * `DAILY` - DAILY
-
-        * `HOURLY` - HOURLY'
-    Type098Enum:
-      enum:
-      - ical_calendar
-      - local_baserow_table
-      - jira_issues
-      - github_issues
-      - gitlab_issues
-      - hubspot_contacts
-      - postgresql
-      type: string
-      description: '* `ical_calendar` - ical_calendar
-
-        * `local_baserow_table` - local_baserow_table
-
-        * `jira_issues` - jira_issues
-
-        * `github_issues` - github_issues
-
-        * `gitlab_issues` - gitlab_issues
-
-        * `hubspot_contacts` - hubspot_contacts
-
-        * `postgresql` - postgresql'
-    DataSyncSyncedProperty:
-      type: object
-      properties:
-        field_id:
-          type: integer
-          readOnly: true
-        key:
-          type: string
-          description: The matching `key` of the `DataSyncProperty`.
-          maxLength: 255
-        unique_primary:
-          type: boolean
-          description: Indicates whether the data sync property is used for unique identification when syncing.
-      required:
-      - field_id
-      - key
-    TableWithoutDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        database_id:
-          type: integer
-          readOnly: true
-      required:
-      - database_id
-      - id
-      - name
-      - order
-    ICalCalendarDataSyncCreateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync table that must be created.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        table_name:
-          type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        ical_url:
-          type: string
-          format: uri
-          maxLength: 2000
-      required:
-      - ical_url
-      - synced_properties
-      - table_name
-      - type
-    DataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-      required:
-      - database_id
-      - id
-      - synced_properties
-      - table_id
-      - type
-    HubSpotContactsDataSyncDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-      required:
-      - database_id
-      - id
-      - synced_properties
-      - table_id
-      - type
-    LocalBaserowTableDataSyncListDataSyncPropertiesRequest:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        source_table_id:
-          type: integer
-          description: The ID of the source table that must be synced.
-        source_table_view_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, then only the visible fields and rows matching the filters will be synced.
-      required:
-      - source_table_id
-      - type
-    PatchedData_SyncUpdateDataSync:
-      oneOf:
-      - $ref: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
-      - $ref: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
-      discriminator:
-        propertyName: type
-        mapping:
-          ical_calendar: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
-          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
-          jira_issues: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
-          github_issues: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
-          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
-          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
-          postgresql: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
-    FileImportJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        database_id:
-          type: integer
-          description: Database id where the table will be created.
-        name:
-          type: string
-          description: The name of the new table.
-          maxLength: 255
-        table_id:
-          type: integer
-          description: Table id where the data will be imported.
-        first_row_header:
-          type: boolean
-          default: false
-        importer_type:
-          type: string
-          default: ''
-          description: The frontend importer identifier used to parse the file.
-          maxLength: 32
-        original_file_name:
-          type: string
-          default: ''
-          description: The original name of the uploaded file.
-          maxLength: 255
-        report:
-          allOf:
-          - $ref: '#/components/schemas/Report'
-          description: Import error report.
-      required:
-      - created_on
-      - database_id
-      - id
-      - progress_percentage
-      - report
-      - state
-      - type
-      - updated_on
-    TableImport:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: array
-            items: {}
-          description: "A list of rows you want to add to the specified table. Each row is a list of values, one for each **writable** field. The field values must be ordered according to the field order in the table. All values must be compatible with the corresponding field type.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor adding two rows to a table with two writable fields."
-          minItems: 1
-        configuration:
-          $ref: '#/components/schemas/TableImportConfiguration'
-        importer_type:
-          type: string
-          default: ''
-          description: The frontend importer identifier used to parse the file.
-          maxLength: 32
-        original_file_name:
-          type: string
-          default: ''
-          description: The original name of the uploaded file.
-          maxLength: 255
-      required:
-      - data
-    GitLabIssuesDataSyncUpdateDataSync:
-      type: object
-      properties:
-        synced_properties:
-          type: array
-          items:
-            type: string
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        gitlab_url:
-          type: string
-          format: uri
-          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
-          maxLength: 2000
-        gitlab_project_id:
-          type: string
-          description: The ID of the GitLab project where to sync the issues with.
-          maxLength: 255
-      required:
-      - gitlab_project_id
-    Data_SyncDataSync:
-      oneOf:
-      - $ref: '#/components/schemas/ICalCalendarDataSyncDataSync'
-      - $ref: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
-      - $ref: '#/components/schemas/JiraIssuesDataSyncDataSync'
-      - $ref: '#/components/schemas/GitHubIssuesDataSyncDataSync'
-      - $ref: '#/components/schemas/GitLabIssuesDataSyncDataSync'
-      - $ref: '#/components/schemas/HubSpotContactsDataSyncDataSync'
-      - $ref: '#/components/schemas/PostgreSQLDataSyncDataSync'
-      discriminator:
-        propertyName: type
-        mapping:
-          ical_calendar: '#/components/schemas/ICalCalendarDataSyncDataSync'
-          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncDataSync'
-          jira_issues: '#/components/schemas/JiraIssuesDataSyncDataSync'
-          github_issues: '#/components/schemas/GitHubIssuesDataSyncDataSync'
-          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncDataSync'
-          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncDataSync'
-          postgresql: '#/components/schemas/PostgreSQLDataSyncDataSync'
-    HubSpotContactsDataSyncListDataSyncPropertiesRequest:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-      required:
       - type
     PostgreSQLDataSyncDataSync:
       type: object
@@ -2641,111 +1697,23 @@ components:
       - synced_properties
       - table_id
       - type
-    PatchedPeriodicDataSyncInterval:
+    Report:
       type: object
       properties:
-        interval:
-          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
-        when:
-          type: string
-          format: time
-        automatically_deactivated:
-          type: boolean
-          readOnly: true
-          description: Indicates whether the periodic data sync has been deactivated.
-    GitHubIssuesDataSyncDataSync:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          description: The table where the data is synced into.
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        synced_properties:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataSyncSyncedProperty'
-        last_sync:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the table was last synced.
-        last_error:
-          type:
-          - string
-          - 'null'
-        auto_add_new_properties:
-          type: boolean
-          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
-        two_way_sync:
-          type: boolean
-          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        github_issues_owner:
-          type: string
-          description: The owner of the repository on GitHub.
-          maxLength: 255
-        github_issues_repo:
-          type: string
-          description: The name of the repository on GitHub.
-          maxLength: 255
+        failing_rows:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+              description: Error messages for this field.
+            description: An object containing error messages by fields. The key is the field name and the value is an array of error messages for this field. These messages are localized for the user who has created the job when the translation is available.
+          description: An object containing field in error by rows. The keys are the row indexes from original file and values are objects of errors by fields.
       required:
-      - database_id
-      - github_issues_owner
-      - github_issues_repo
-      - id
-      - synced_properties
-      - table_id
-      - type
-    JiraIssuesDataSyncListDataSyncPropertiesRequest:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        jira_url:
-          type: string
-          format: uri
-          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
-          maxLength: 2000
-        jira_project_key:
-          type: string
-          description: The project key of the Jira project (e.g., PROJ).
-          maxLength: 255
-        jira_authentication:
-          $ref: '#/components/schemas/JiraAuthenticationEnum'
-        jira_username:
-          type: string
-          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
-          maxLength: 255
-      required:
-      - jira_url
-      - type
-    GitHubIssuesDataSyncCreateDataSync:
+      - failing_rows
+    LocalBaserowTableDataSyncCreateDataSync:
       type: object
       properties:
         synced_properties:
@@ -2779,20 +1747,43 @@ components:
         two_way_sync:
           type: boolean
           description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
-        github_issues_owner:
-          type: string
-          description: The owner of the repository on GitHub.
-          maxLength: 255
-        github_issues_repo:
-          type: string
-          description: The name of the repository on GitHub.
-          maxLength: 255
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
       required:
-      - github_issues_owner
-      - github_issues_repo
+      - source_table_id
       - synced_properties
       - table_name
       - type
+    TableImport:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: "A list of rows you want to add to the specified table. Each row is a list of values, one for each **writable** field. The field values must be ordered according to the field order in the table. All values must be compatible with the corresponding field type.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor adding two rows to a table with two writable fields."
+          minItems: 1
+        configuration:
+          $ref: '#/components/schemas/TableImportConfiguration'
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+      required:
+      - data
     PostgreSQLDataSyncCreateDataSync:
       type: object
       properties:
@@ -2856,6 +1847,473 @@ components:
       - synced_properties
       - table_name
       - type
+    FileImportJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        database_id:
+          type: integer
+          description: Database id where the table will be created.
+        name:
+          type: string
+          description: The name of the new table.
+          maxLength: 255
+        table_id:
+          type: integer
+          description: Table id where the data will be imported.
+        first_row_header:
+          type: boolean
+          default: false
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+        report:
+          allOf:
+          - $ref: '#/components/schemas/Report'
+          description: Import error report.
+      required:
+      - created_on
+      - database_id
+      - id
+      - progress_percentage
+      - report
+      - state
+      - type
+      - updated_on
+    GitLabIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - gitlab_project_id
+    ICalCalendarDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - ical_url
+      - type
+    LocalBaserowTableDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - source_table_id
+    HubSpotContactsDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+    PatchedPeriodicDataSyncInterval:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
+        when:
+          type: string
+          format: time
+        automatically_deactivated:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the periodic data sync has been deactivated.
+    ICalCalendarDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        ical_url:
+          type: string
+          format: uri
+          maxLength: 2000
+      required:
+      - ical_url
+    SyncDataSyncTableJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        data_sync:
+          allOf:
+          - $ref: '#/components/schemas/DataSync'
+          readOnly: true
+      required:
+      - created_on
+      - data_sync
+      - id
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    JiraIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+      - type
+    GitLabIssuesDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - database_id
+      - gitlab_project_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    HubSpotContactsDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+      required:
+      - type
+    GitHubIssuesDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - database_id
+      - github_issues_owner
+      - github_issues_repo
+      - id
+      - synced_properties
+      - table_id
+      - type
+    GitLabIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        gitlab_url:
+          type: string
+          format: uri
+          description: The base URL to your GitLab instance (e.g. https://gitlab.com)
+          maxLength: 2000
+        gitlab_project_id:
+          type: string
+          description: The ID of the GitLab project where to sync the issues with.
+          maxLength: 255
+      required:
+      - gitlab_project_id
+      - type
+    PatchedData_SyncUpdateDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncUpdateDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncUpdateDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncUpdateDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncUpdateDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncUpdateDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncUpdateDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncUpdateDataSync'
+    GitHubIssuesDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
     GitLabIssuesDataSyncCreateDataSync:
       type: object
       properties:
@@ -2904,34 +2362,63 @@ components:
       - synced_properties
       - table_name
       - type
-    ICalCalendarDataSyncListDataSyncPropertiesRequest:
+    JiraIssuesDataSyncDataSync:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         type:
-          allOf:
-          - $ref: '#/components/schemas/Type098Enum'
-          description: 'The type of the data sync to get the properties from.
-
-
-            * `ical_calendar` - ical_calendar
-
-            * `local_baserow_table` - local_baserow_table
-
-            * `jira_issues` - jira_issues
-
-            * `github_issues` - github_issues
-
-            * `gitlab_issues` - gitlab_issues
-
-            * `hubspot_contacts` - hubspot_contacts
-
-            * `postgresql` - postgresql'
-        ical_url:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
           type: string
           format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
           maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
       required:
-      - ical_url
+      - database_id
+      - id
+      - jira_url
+      - synced_properties
+      - table_id
       - type
     ICalCalendarDataSyncDataSync:
       type: object
@@ -2980,6 +2467,98 @@ components:
       - synced_properties
       - table_id
       - type
+    PeriodicDataSyncInterval:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/PeriodicDataSyncIntervalIntervalEnum'
+        when:
+          type: string
+          format: time
+        automatically_deactivated:
+          type: boolean
+          readOnly: true
+          description: Indicates whether the periodic data sync has been deactivated.
+      required:
+      - automatically_deactivated
+      - when
+    JiraIssuesDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        jira_url:
+          type: string
+          format: uri
+          description: The base URL of your Jira instance (e.g., https://your-domain.atlassian.net).
+          maxLength: 2000
+        jira_project_key:
+          type: string
+          description: The project key of the Jira project (e.g., PROJ).
+          maxLength: 255
+        jira_authentication:
+          $ref: '#/components/schemas/JiraAuthenticationEnum'
+        jira_username:
+          type: string
+          description: The username of the Jira account used to authenticate. Is only used if the `jira_authentication` is equal `API_TOKEN`
+          maxLength: 255
+      required:
+      - jira_url
+      - synced_properties
+      - table_name
+      - type
+    Type098Enum:
+      enum:
+      - ical_calendar
+      - local_baserow_table
+      - jira_issues
+      - github_issues
+      - gitlab_issues
+      - hubspot_contacts
+      - postgresql
+      type: string
+      description: '* `ical_calendar` - ical_calendar
+
+        * `local_baserow_table` - local_baserow_table
+
+        * `jira_issues` - jira_issues
+
+        * `github_issues` - github_issues
+
+        * `gitlab_issues` - gitlab_issues
+
+        * `hubspot_contacts` - hubspot_contacts
+
+        * `postgresql` - postgresql'
     PostgresqlSslmodeEnum:
       enum:
       - disable
@@ -3000,6 +2579,427 @@ components:
         * `verify-ca` - verify-ca
 
         * `verify-full` - verify-full'
+    TableCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        data:
+          type: array
+          items:
+            type: array
+            items: {}
+          description: "A list of rows that needs to be created as initial table data. Each row is a list of values that are going to be added in the new table in the same order as provided.\n\nEx: \n```json\n[\n  [\"row1_field1_value\", \"row1_field2_value\"],\n  [\"row2_field1_value\", \"row2_field2_value\"],\n]\n```\nfor creating a two rows table with two fields.\n\nIf not provided, some example data is going to be created."
+          minItems: 1
+        first_row_header:
+          type: boolean
+          default: false
+          description: Indicates if the first provided row is the header. If true the field names are going to be the values of the first row. Otherwise they will be called "Field N"
+        importer_type:
+          type: string
+          default: ''
+          description: The frontend importer identifier used to parse the file.
+          maxLength: 32
+        original_file_name:
+          type: string
+          default: ''
+          description: The original name of the uploaded file.
+          maxLength: 255
+      required:
+      - name
+    HubSpotContactsDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - synced_properties
+      - table_name
+      - type
+    LocalBaserowTableDataSyncDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - database_id
+      - id
+      - source_table_id
+      - synced_properties
+      - table_id
+      - type
+    ListDataSyncProperty:
+      type: object
+      properties:
+        unique_primary:
+          type: boolean
+        key:
+          type: string
+        name:
+          type: string
+        field_type:
+          type: string
+          readOnly: true
+        initially_selected:
+          type: boolean
+      required:
+      - field_type
+      - initially_selected
+      - key
+      - name
+      - unique_primary
+    GitHubIssuesDataSyncCreateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync table that must be created.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        table_name:
+          type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
+      - synced_properties
+      - table_name
+      - type
+    PostgreSQLDataSyncUpdateDataSync:
+      type: object
+      properties:
+        synced_properties:
+          type: array
+          items:
+            type: string
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+        postgresql_host:
+          type: string
+          maxLength: 255
+        postgresql_username:
+          type: string
+          maxLength: 255
+        postgresql_port:
+          type: integer
+          maximum: 32767
+          minimum: 0
+        postgresql_database:
+          type: string
+          maxLength: 255
+        postgresql_schema:
+          type: string
+          maxLength: 255
+        postgresql_table:
+          type: string
+          maxLength: 255
+        postgresql_sslmode:
+          $ref: '#/components/schemas/PostgresqlSslmodeEnum'
+      required:
+      - postgresql_database
+      - postgresql_host
+      - postgresql_table
+      - postgresql_username
+    OrderTables:
+      type: object
+      properties:
+        table_ids:
+          type: array
+          items:
+            type: integer
+          description: Table ids in the desired order.
+      required:
+      - table_ids
+    Data_SyncCreateDataSync:
+      oneOf:
+      - $ref: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
+      - $ref: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
+      discriminator:
+        propertyName: type
+        mapping:
+          ical_calendar: '#/components/schemas/ICalCalendarDataSyncCreateDataSync'
+          local_baserow_table: '#/components/schemas/LocalBaserowTableDataSyncCreateDataSync'
+          jira_issues: '#/components/schemas/JiraIssuesDataSyncCreateDataSync'
+          github_issues: '#/components/schemas/GitHubIssuesDataSyncCreateDataSync'
+          gitlab_issues: '#/components/schemas/GitLabIssuesDataSyncCreateDataSync'
+          hubspot_contacts: '#/components/schemas/HubSpotContactsDataSyncCreateDataSync'
+          postgresql: '#/components/schemas/PostgreSQLDataSyncCreateDataSync'
+    LocalBaserowTableDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        source_table_id:
+          type: integer
+          description: The ID of the source table that must be synced.
+        source_table_view_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, then only the visible fields and rows matching the filters will be synced.
+      required:
+      - source_table_id
+      - type
+    PeriodicDataSyncIntervalIntervalEnum:
+      enum:
+      - MANUAL
+      - DAILY
+      - HOURLY
+      type: string
+      description: '* `MANUAL` - MANUAL
+
+        * `DAILY` - DAILY
+
+        * `HOURLY` - HOURLY'
+    DataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          description: The table where the data is synced into.
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        synced_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSyncSyncedProperty'
+        last_sync:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the table was last synced.
+        last_error:
+          type:
+          - string
+          - 'null'
+        auto_add_new_properties:
+          type: boolean
+          description: If enabled and new properties are detected on sync, then they're automatically added. Note that this means all properties will always be added.
+        two_way_sync:
+          type: boolean
+          description: If enabled, then it's possible to make changes to the synced table. They will automatically be synced with the source data. Note that this is only possible if the data sync type has a two-way sync strategy.
+      required:
+      - database_id
+      - id
+      - synced_properties
+      - table_id
+      - type
+    Table:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+        data_sync:
+          $ref: '#/components/schemas/DataSync'
+      required:
+      - data_sync
+      - database_id
+      - id
+      - name
+      - order
+    TableWithoutDataSync:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        database_id:
+          type: integer
+          readOnly: true
+      required:
+      - database_id
+      - id
+      - name
+      - order
+    GitHubIssuesDataSyncListDataSyncPropertiesRequest:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type098Enum'
+          description: 'The type of the data sync to get the properties from.
+
+
+            * `ical_calendar` - ical_calendar
+
+            * `local_baserow_table` - local_baserow_table
+
+            * `jira_issues` - jira_issues
+
+            * `github_issues` - github_issues
+
+            * `gitlab_issues` - gitlab_issues
+
+            * `hubspot_contacts` - hubspot_contacts
+
+            * `postgresql` - postgresql'
+        github_issues_owner:
+          type: string
+          description: The owner of the repository on GitHub.
+          maxLength: 255
+        github_issues_repo:
+          type: string
+          description: The name of the repository on GitHub.
+          maxLength: 255
+      required:
+      - github_issues_owner
+      - github_issues_repo
+      - type
   securitySchemes:
     Database_token:
       type: http

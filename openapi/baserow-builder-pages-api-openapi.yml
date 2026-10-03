@@ -413,25 +413,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    VisibilityC5fEnum:
-      enum:
-      - all
-      - logged-in
-      type: string
-      description: '* `all` - All
-
-        * `logged-in` - Logged In'
-    RoleTypeEnum:
-      enum:
-      - allow_all
-      - allow_all_except
-      - disallow_all_except
-      type: string
-      description: '* `allow_all` - Allow All
-
-        * `allow_all_except` - Allow All Except
-
-        * `disallow_all_except` - Disallow All Except'
     OrderPages:
       type: object
       properties:
@@ -442,136 +423,6 @@ components:
           description: The ids of the pages in the order they are supposed to be set in
       required:
       - page_ids
-    PathParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
-    PatchedUpdatePage:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        path:
-          type: string
-          maxLength: 255
-        path_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathParam'
-        visibility:
-          allOf:
-          - $ref: '#/components/schemas/VisibilityC5fEnum'
-          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
-
-
-            * `all` - All
-
-            * `logged-in` - Logged In'
-        role_type:
-          allOf:
-          - $ref: '#/components/schemas/RoleTypeEnum'
-          description: 'Role type is used in conjunction with roles to control access to this page.
-
-
-            * `allow_all` - Allow All
-
-            * `allow_all_except` - Allow All Except
-
-            * `disallow_all_except` - Disallow All Except'
-        roles:
-          description: List of user roles that are associated with this page. Used in conjunction with role_type.
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
-    TypeC70Enum:
-      enum:
-      - text
-      - numeric
-      type: string
-      description: '* `text` - text
-
-        * `numeric` - numeric'
-    DuplicatePageJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        original_page:
-          allOf:
-          - $ref: '#/components/schemas/Page'
-          readOnly: true
-        duplicated_page:
-          allOf:
-          - $ref: '#/components/schemas/Page'
-          readOnly: true
-      required:
-      - created_on
-      - duplicated_page
-      - id
-      - original_page
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    CreatePage:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        path:
-          type: string
-          maxLength: 255
-        path_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathParam'
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathParam'
-      required:
-      - name
-      - path
     Page:
       type: object
       description: '👉 Mind to update the
@@ -643,6 +494,108 @@ components:
       - roles
       - shared
       - visibility
+    RoleTypeEnum:
+      enum:
+      - allow_all
+      - allow_all_except
+      - disallow_all_except
+      type: string
+      description: '* `allow_all` - Allow All
+
+        * `allow_all_except` - Allow All Except
+
+        * `disallow_all_except` - Disallow All Except'
+    CreatePage:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        path:
+          type: string
+          maxLength: 255
+        path_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathParam'
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathParam'
+      required:
+      - name
+      - path
+    DuplicatePageJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          readOnly: true
+        duplicated_page:
+          allOf:
+          - $ref: '#/components/schemas/Page'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_page
+      - id
+      - original_page
+      - progress_percentage
+      - state
+      - type
+      - updated_on
+    TypeC70Enum:
+      enum:
+      - text
+      - numeric
+      type: string
+      description: '* `text` - text
+
+        * `numeric` - numeric'
+    PathParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
     QueryParam:
       type: object
       properties:
@@ -662,6 +615,53 @@ components:
       required:
       - name
       - type
+    PatchedUpdatePage:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        path:
+          type: string
+          maxLength: 255
+        path_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathParam'
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/VisibilityC5fEnum'
+          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
+
+
+            * `all` - All
+
+            * `logged-in` - Logged In'
+        role_type:
+          allOf:
+          - $ref: '#/components/schemas/RoleTypeEnum'
+          description: 'Role type is used in conjunction with roles to control access to this page.
+
+
+            * `allow_all` - Allow All
+
+            * `allow_all_except` - Allow All Except
+
+            * `disallow_all_except` - Disallow All Except'
+        roles:
+          description: List of user roles that are associated with this page. Used in conjunction with role_type.
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
+    VisibilityC5fEnum:
+      enum:
+      - all
+      - logged-in
+      type: string
+      description: '* `all` - All
+
+        * `logged-in` - Logged In'
   securitySchemes:
     Database_token:
       type: http

@@ -632,109 +632,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StatusF41Enum:
-      enum:
-      - success
-      - error
-      - disabled
-      - started
-      type: string
-      description: '* `success` - Success
-
-        * `error` - Error
-
-        * `disabled` - Disabled
-
-        * `started` - Started'
-    DuplicateAutomationWorkflowJobTypeResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
-          type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        original_automation_workflow:
-          allOf:
-          - $ref: '#/components/schemas/AutomationWorkflow'
-          readOnly: true
-        duplicated_automation_workflow:
-          allOf:
-          - $ref: '#/components/schemas/AutomationWorkflow'
-          readOnly: true
-      required:
-      - created_on
-      - duplicated_automation_workflow
-      - id
-      - original_automation_workflow
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-    OrderAutomationWorkflows:
-      type: object
-      properties:
-        workflow_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the workflows in the order they are supposed to be set in.
-      required:
-      - workflow_ids
-    PaginationSerializerAutomationWorkflowHistory:
-      type: object
-      properties:
-        success_count:
-          type: integer
-          description: The total number of successful workflow runs.
-        fail_count:
-          type: integer
-          description: The total number of failed workflow runs.
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AutomationWorkflowHistory'
-      required:
-      - count
-      - fail_count
-      - next
-      - previous
-      - results
-      - success_count
     AutomationWorkflow:
       type: object
       properties:
@@ -785,6 +682,50 @@ components:
       - published_on
       - simulate_until_node_id
       - state
+    DuplicateAutomationWorkflowJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        original_automation_workflow:
+          allOf:
+          - $ref: '#/components/schemas/AutomationWorkflow'
+          readOnly: true
+        duplicated_automation_workflow:
+          allOf:
+          - $ref: '#/components/schemas/AutomationWorkflow'
+          readOnly: true
+      required:
+      - created_on
+      - duplicated_automation_workflow
+      - id
+      - original_automation_workflow
+      - progress_percentage
+      - state
+      - type
+      - updated_on
     PatchedUpdateAutomationWorkflow:
       type: object
       properties:
@@ -826,6 +767,41 @@ components:
         * `disabled` - Disabled
 
         * `test_clone` - Test Clone'
+    PaginationSerializerAutomationWorkflowHistory:
+      type: object
+      properties:
+        success_count:
+          type: integer
+          description: The total number of successful workflow runs.
+        fail_count:
+          type: integer
+          description: The total number of failed workflow runs.
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationWorkflowHistory'
+      required:
+      - count
+      - fail_count
+      - next
+      - previous
+      - results
+      - success_count
     AutomationWorkflowHistory:
       type: object
       properties:
@@ -857,6 +833,30 @@ components:
       - message
       - started_on
       - status
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
+    OrderAutomationWorkflows:
+      type: object
+      properties:
+        workflow_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the workflows in the order they are supposed to be set in.
+      required:
+      - workflow_ids
   securitySchemes:
     Database_token:
       type: http

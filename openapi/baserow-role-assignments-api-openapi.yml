@@ -266,15 +266,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BatchCreateRoleAssignment:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateRoleAssignment'
-      required:
-      - items
     ScopeTypeEnum:
       enum:
       - core
@@ -379,6 +370,32 @@ components:
         * `team_subject` - team_subject
 
         * `license` - license'
+    SubjectType129Enum:
+      enum:
+      - auth.User
+      - anonymous
+      - user_source.user
+      - core.Token
+      - baserow_enterprise.Team
+      type: string
+      description: '* `auth.User` - auth.User
+
+        * `anonymous` - anonymous
+
+        * `user_source.user` - user_source.user
+
+        * `core.Token` - core.Token
+
+        * `baserow_enterprise.Team` - baserow_enterprise.Team'
+    BatchCreateRoleAssignment:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateRoleAssignment'
+      required:
+      - items
     OpenApiSubjectField:
       type: object
       properties:
@@ -386,6 +403,117 @@ components:
           type: integer
       required:
       - id
+    CreateRoleAssignment:
+      type: object
+      description: The create role assignment serializer.
+      properties:
+        subject_id:
+          type: integer
+          minimum: 1
+          description: The subject ID. A subject is an actor that can do operations.
+        subject_type:
+          allOf:
+          - $ref: '#/components/schemas/SubjectType129Enum'
+          description: 'The subject type.
+
+
+            * `auth.User` - auth.User
+
+            * `anonymous` - anonymous
+
+            * `user_source.user` - user_source.user
+
+            * `core.Token` - core.Token
+
+            * `baserow_enterprise.Team` - baserow_enterprise.Team'
+        role:
+          type:
+          - string
+          - 'null'
+          description: The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.
+        scope_id:
+          type: integer
+          minimum: 1
+          description: The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.
+        scope_type:
+          allOf:
+          - $ref: '#/components/schemas/ScopeTypeEnum'
+          description: 'The scope object type.
+
+
+            * `core` - core
+
+            * `application` - application
+
+            * `workspace` - workspace
+
+            * `workspace_invitation` - workspace_invitation
+
+            * `snapshot` - snapshot
+
+            * `workspace_user` - workspace_user
+
+            * `integration` - integration
+
+            * `user_source` - user_source
+
+            * `mcp_endpoint` - mcp_endpoint
+
+            * `database` - database
+
+            * `database_table` - database_table
+
+            * `database_field` - database_field
+
+            * `database_view` - database_view
+
+            * `database_view_decoration` - database_view_decoration
+
+            * `database_view_sort` - database_view_sort
+
+            * `database_view_group` - database_view_group
+
+            * `database_view_filter` - database_view_filter
+
+            * `database_view_filter_group` - database_view_filter_group
+
+            * `token` - token
+
+            * `builder` - builder
+
+            * `builder_page` - builder_page
+
+            * `builder_element` - builder_element
+
+            * `builder_domain` - builder_domain
+
+            * `builder_data_source` - builder_data_source
+
+            * `builder_workflow_action` - builder_workflow_action
+
+            * `dashboard` - dashboard
+
+            * `dashboard_data_source` - dashboard_data_source
+
+            * `dashboard_widget` - dashboard_widget
+
+            * `automation` - automation
+
+            * `automation_workflow` - automation_workflow
+
+            * `automation_node` - automation_node
+
+            * `team` - team
+
+            * `team_subject` - team_subject
+
+            * `license` - license'
+      required:
+      - role
+      - scope_id
+      - scope_type
+      - subject_id
+      - subject_type
     OpenApiRoleAssignment:
       type: object
       description: Serializer for RoleAssignment used for the Open API spec
@@ -506,134 +634,6 @@ components:
       - subject
       - subject_id
       - subject_type
-    CreateRoleAssignment:
-      type: object
-      description: The create role assignment serializer.
-      properties:
-        subject_id:
-          type: integer
-          minimum: 1
-          description: The subject ID. A subject is an actor that can do operations.
-        subject_type:
-          allOf:
-          - $ref: '#/components/schemas/SubjectType129Enum'
-          description: 'The subject type.
-
-
-            * `auth.User` - auth.User
-
-            * `anonymous` - anonymous
-
-            * `user_source.user` - user_source.user
-
-            * `core.Token` - core.Token
-
-            * `baserow_enterprise.Team` - baserow_enterprise.Team'
-        role:
-          type:
-          - string
-          - 'null'
-          description: The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.
-        scope_id:
-          type: integer
-          minimum: 1
-          description: The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.
-        scope_type:
-          allOf:
-          - $ref: '#/components/schemas/ScopeTypeEnum'
-          description: 'The scope object type.
-
-
-            * `core` - core
-
-            * `application` - application
-
-            * `workspace` - workspace
-
-            * `workspace_invitation` - workspace_invitation
-
-            * `snapshot` - snapshot
-
-            * `workspace_user` - workspace_user
-
-            * `integration` - integration
-
-            * `user_source` - user_source
-
-            * `mcp_endpoint` - mcp_endpoint
-
-            * `database` - database
-
-            * `database_table` - database_table
-
-            * `database_field` - database_field
-
-            * `database_view` - database_view
-
-            * `database_view_decoration` - database_view_decoration
-
-            * `database_view_sort` - database_view_sort
-
-            * `database_view_group` - database_view_group
-
-            * `database_view_filter` - database_view_filter
-
-            * `database_view_filter_group` - database_view_filter_group
-
-            * `token` - token
-
-            * `builder` - builder
-
-            * `builder_page` - builder_page
-
-            * `builder_element` - builder_element
-
-            * `builder_domain` - builder_domain
-
-            * `builder_data_source` - builder_data_source
-
-            * `builder_workflow_action` - builder_workflow_action
-
-            * `dashboard` - dashboard
-
-            * `dashboard_data_source` - dashboard_data_source
-
-            * `dashboard_widget` - dashboard_widget
-
-            * `automation` - automation
-
-            * `automation_workflow` - automation_workflow
-
-            * `automation_node` - automation_node
-
-            * `team` - team
-
-            * `team_subject` - team_subject
-
-            * `license` - license'
-      required:
-      - role
-      - scope_id
-      - scope_type
-      - subject_id
-      - subject_type
-    SubjectType129Enum:
-      enum:
-      - auth.User
-      - anonymous
-      - user_source.user
-      - core.Token
-      - baserow_enterprise.Team
-      type: string
-      description: '* `auth.User` - auth.User
-
-        * `anonymous` - anonymous
-
-        * `user_source.user` - user_source.user
-
-        * `core.Token` - core.Token
-
-        * `baserow_enterprise.Team` - baserow_enterprise.Team'
   securitySchemes:
     Database_token:
       type: http

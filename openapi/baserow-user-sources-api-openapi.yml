@@ -672,70 +672,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    User_SourceCreateUserSource:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowUserSourceCreateUserSource'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow: '#/components/schemas/LocalBaserowUserSourceCreateUserSource'
-    User_SourceUserSource:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowUserSourceUserSource'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow: '#/components/schemas/LocalBaserowUserSourceUserSource'
-    LocalBaserowUserSourceCreateUserSource:
+    LocalBaserowPasswordAppAuthProviderAppAuthProvider:
       type: object
-      description: 'This serializer allow to set the type of an user_source and the user_source id
-
-        before which we want to insert the new user_source.'
+      description: Basic app_auth_provider serializer mostly for returned values.
       properties:
-        before_id:
-          type: integer
-          description: If provided, creates the user_source before the user_source with the given id.
         type:
-          allOf:
-          - $ref: '#/components/schemas/LocalBaserowUserSourceCreateUserSourceTypeEnum'
-          description: 'The type of the user_source.
-
-
-            * `local_baserow` - local_baserow'
-        name:
           type: string
-          maxLength: 255
-        integration_id:
+          readOnly: true
+          description: The type of the app_auth_provider.
+        id:
           type: integer
-          description: The related integration id.
-        auth_providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/App_Auth_ProviderBaseAppAuthProvider'
-          description: Auth providers related to this user source.
-        table_id:
+          readOnly: true
+        domain:
+          type:
+          - string
+          - 'null'
+          description: The email domain registered with this provider.
+          maxLength: 255
+        password_field_id:
           type:
           - integer
           - 'null'
-          description: The id of the Baserow table we want the data for.
-        email_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field to use as email for the user account.
-        name_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field that contains the user name.
-        role_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field that contains the user role.
+          description: The id of the field to use as password for the user account.
       required:
-      - integration_id
-      - name
+      - id
       - type
     App_Auth_ProviderBaseAppAuthProvider:
       oneOf:
@@ -748,15 +708,6 @@ components:
           local_baserow_password: '#/components/schemas/LocalBaserowPasswordAppAuthProviderBaseAppAuthProvider'
           saml: '#/components/schemas/SamlAppAuthProviderModelBaseAppAuthProvider'
           openid_connect: '#/components/schemas/OpenIdConnectAppAuthProviderModelBaseAppAuthProvider'
-    PatchedMoveUserSource:
-      type: object
-      description: Serializer used when moving a user source.
-      properties:
-        before_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page.
     UserSourceUser:
       type: object
       description: A serializer used to serialize a UserSourceUser object.
@@ -778,140 +729,6 @@ components:
       - role
       - user_source_id
       - username
-    TokenBlacklist:
-      type: object
-      properties:
-        refresh:
-          type: string
-          writeOnly: true
-      required:
-      - refresh
-    Type6b3Enum:
-      enum:
-      - local_baserow_password
-      - saml
-      - openid_connect
-      type: string
-      description: '* `local_baserow_password` - local_baserow_password
-
-        * `saml` - saml
-
-        * `openid_connect` - openid_connect'
-    App_Auth_ProviderAppAuthProvider:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowPasswordAppAuthProviderAppAuthProvider'
-      - $ref: '#/components/schemas/SamlAppAuthProviderModelAppAuthProvider'
-      - $ref: '#/components/schemas/OpenIdConnectAppAuthProviderModelAppAuthProvider'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow_password: '#/components/schemas/LocalBaserowPasswordAppAuthProviderAppAuthProvider'
-          saml: '#/components/schemas/SamlAppAuthProviderModelAppAuthProvider'
-          openid_connect: '#/components/schemas/OpenIdConnectAppAuthProviderModelAppAuthProvider'
-    SamlAppAuthProviderModelAppAuthProvider:
-      type: object
-      description: Basic app_auth_provider serializer mostly for returned values.
-      properties:
-        type:
-          type: string
-          readOnly: true
-          description: The type of the app_auth_provider.
-        id:
-          type: integer
-          readOnly: true
-        domain:
-          type:
-          - string
-          - 'null'
-          description: The email domain registered with this provider.
-          maxLength: 255
-        metadata:
-          type: string
-          description: The SAML metadata XML provided by the IdP.
-        is_verified:
-          type: boolean
-          readOnly: true
-          description: Whether or not a user sign in correctly with this SAML provider.
-        email_attr_key:
-          type: string
-          description: The key in the SAML response that contains the email address of the user.
-        first_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the first name of the user.
-        last_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
-      required:
-      - id
-      - is_verified
-      - metadata
-      - type
-    OpenIdConnectAppAuthProviderModelAppAuthProvider:
-      type: object
-      description: Basic app_auth_provider serializer mostly for returned values.
-      properties:
-        type:
-          type: string
-          readOnly: true
-          description: The type of the app_auth_provider.
-        id:
-          type: integer
-          readOnly: true
-        domain:
-          type:
-          - string
-          - 'null'
-          description: The email domain registered with this provider.
-          maxLength: 255
-        name:
-          type: string
-          maxLength: 255
-        base_url:
-          type: string
-          description: The provider base url.
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
-        use_id_token:
-          type: boolean
-          description: Whether to use the id_token instead of user_info endpoint to get user data
-        email_attr_key:
-          type: string
-          description: The name of the claim that contains the email address of the user.
-          maxLength: 32
-        first_name_attr_key:
-          type: string
-          description: The key in the OIDC response that contains the first name of the user.
-          maxLength: 32
-        last_name_attr_key:
-          type: string
-          description: The key in the OIDC response that contains the last name of the user. If empty in response, first name will be used.
-          maxLength: 32
-      required:
-      - base_url
-      - client_id
-      - id
-      - name
-      - secret
-      - type
-    UsersPerUserSource:
-      type: object
-      description: The response of the list user source users endpoint.
-      properties:
-        users_per_user_sources:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/UserSourceUser'
-          description: An object keyed by the id of the user source and the value being the list of users for this user source.
-      required:
-      - users_per_user_sources
     OpenIdConnectAppAuthProviderModelBaseAppAuthProvider:
       type: object
       description: 'This serializer allow to set the type of an app_auth_provider and the
@@ -973,165 +790,6 @@ components:
       - secret
       - type
       - user_source_id
-    SamlAppAuthProviderModelBaseAppAuthProvider:
-      type: object
-      description: 'This serializer allow to set the type of an app_auth_provider and the
-
-        app_auth_provider id before which we want to insert the new app_auth_provider.'
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type6b3Enum'
-          description: 'The type of the app_auth_provider.
-
-
-            * `local_baserow_password` - local_baserow_password
-
-            * `saml` - saml
-
-            * `openid_connect` - openid_connect'
-        user_source_id:
-          type: integer
-          readOnly: true
-        domain:
-          type:
-          - string
-          - 'null'
-          description: The email domain registered with this provider.
-        metadata:
-          type: string
-          description: The SAML metadata XML provided by the IdP.
-        is_verified:
-          type: boolean
-          readOnly: true
-          description: Whether or not a user sign in correctly with this SAML provider.
-        email_attr_key:
-          type: string
-          description: The key in the SAML response that contains the email address of the user.
-        first_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the first name of the user.
-        last_name_attr_key:
-          type: string
-          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
-      required:
-      - is_verified
-      - metadata
-      - type
-      - user_source_id
-    CommonSAMLResponse:
-      type: object
-      properties:
-        SAMLResponse:
-          type: string
-          description: The encoded SAML response from the IdP.
-        RelayState:
-          type: string
-          description: The frontend URL where redirect the authenticated user.
-      required:
-      - RelayState
-      - SAMLResponse
-    PatchedUser_SourceUpdateUserSource:
-      anyOf:
-      - $ref: '#/components/schemas/LocalBaserowUserSourceUpdateUserSource'
-    LocalBaserowPasswordAppAuthProviderAppAuthProvider:
-      type: object
-      description: Basic app_auth_provider serializer mostly for returned values.
-      properties:
-        type:
-          type: string
-          readOnly: true
-          description: The type of the app_auth_provider.
-        id:
-          type: integer
-          readOnly: true
-        domain:
-          type:
-          - string
-          - 'null'
-          description: The email domain registered with this provider.
-          maxLength: 255
-        password_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field to use as password for the user account.
-      required:
-      - id
-      - type
-    LocalBaserowPasswordAppAuthProviderBaseAppAuthProvider:
-      type: object
-      description: 'This serializer allow to set the type of an app_auth_provider and the
-
-        app_auth_provider id before which we want to insert the new app_auth_provider.'
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type6b3Enum'
-          description: 'The type of the app_auth_provider.
-
-
-            * `local_baserow_password` - local_baserow_password
-
-            * `saml` - saml
-
-            * `openid_connect` - openid_connect'
-        user_source_id:
-          type: integer
-          readOnly: true
-        domain:
-          type:
-          - string
-          - 'null'
-          description: The email domain registered with this provider.
-        password_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field to use as password for the user account.
-      required:
-      - type
-      - user_source_id
-    LocalBaserowUserSourceUpdateUserSource:
-      type: object
-      description: A serializer to update a user source.
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        integration_id:
-          type: integer
-          description: The related integration id.
-        auth_providers:
-          type: array
-          items:
-            $ref: '#/components/schemas/App_Auth_ProviderBaseAppAuthProvider'
-          description: Auth providers related to this user source.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        email_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field to use as email for the user account.
-        name_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field that contains the user name.
-        role_field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the field that contains the user role.
-    LocalBaserowUserSourceCreateUserSourceTypeEnum:
-      enum:
-      - local_baserow
-      type: string
-      description: '* `local_baserow` - local_baserow'
     LocalBaserowUserSourceUserSource:
       type: object
       description: Basic user_source serializer mostly for returned values.
@@ -1209,6 +867,327 @@ components:
       - uid
       - user_count
       - user_count_updated_at
+    App_Auth_ProviderAppAuthProvider:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowPasswordAppAuthProviderAppAuthProvider'
+      - $ref: '#/components/schemas/SamlAppAuthProviderModelAppAuthProvider'
+      - $ref: '#/components/schemas/OpenIdConnectAppAuthProviderModelAppAuthProvider'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow_password: '#/components/schemas/LocalBaserowPasswordAppAuthProviderAppAuthProvider'
+          saml: '#/components/schemas/SamlAppAuthProviderModelAppAuthProvider'
+          openid_connect: '#/components/schemas/OpenIdConnectAppAuthProviderModelAppAuthProvider'
+    OpenIdConnectAppAuthProviderModelAppAuthProvider:
+      type: object
+      description: Basic app_auth_provider serializer mostly for returned values.
+      properties:
+        type:
+          type: string
+          readOnly: true
+          description: The type of the app_auth_provider.
+        id:
+          type: integer
+          readOnly: true
+        domain:
+          type:
+          - string
+          - 'null'
+          description: The email domain registered with this provider.
+          maxLength: 255
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          description: The provider base url.
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+        use_id_token:
+          type: boolean
+          description: Whether to use the id_token instead of user_info endpoint to get user data
+        email_attr_key:
+          type: string
+          description: The name of the claim that contains the email address of the user.
+          maxLength: 32
+        first_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the first name of the user.
+          maxLength: 32
+        last_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the last name of the user. If empty in response, first name will be used.
+          maxLength: 32
+      required:
+      - base_url
+      - client_id
+      - id
+      - name
+      - secret
+      - type
+    LocalBaserowUserSourceUpdateUserSource:
+      type: object
+      description: A serializer to update a user source.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        integration_id:
+          type: integer
+          description: The related integration id.
+        auth_providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/App_Auth_ProviderBaseAppAuthProvider'
+          description: Auth providers related to this user source.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        email_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field to use as email for the user account.
+        name_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field that contains the user name.
+        role_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field that contains the user role.
+    PatchedUser_SourceUpdateUserSource:
+      anyOf:
+      - $ref: '#/components/schemas/LocalBaserowUserSourceUpdateUserSource'
+    LocalBaserowUserSourceCreateUserSourceTypeEnum:
+      enum:
+      - local_baserow
+      type: string
+      description: '* `local_baserow` - local_baserow'
+    Type6b3Enum:
+      enum:
+      - local_baserow_password
+      - saml
+      - openid_connect
+      type: string
+      description: '* `local_baserow_password` - local_baserow_password
+
+        * `saml` - saml
+
+        * `openid_connect` - openid_connect'
+    User_SourceUserSource:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowUserSourceUserSource'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow: '#/components/schemas/LocalBaserowUserSourceUserSource'
+    User_SourceCreateUserSource:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowUserSourceCreateUserSource'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow: '#/components/schemas/LocalBaserowUserSourceCreateUserSource'
+    LocalBaserowPasswordAppAuthProviderBaseAppAuthProvider:
+      type: object
+      description: 'This serializer allow to set the type of an app_auth_provider and the
+
+        app_auth_provider id before which we want to insert the new app_auth_provider.'
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type6b3Enum'
+          description: 'The type of the app_auth_provider.
+
+
+            * `local_baserow_password` - local_baserow_password
+
+            * `saml` - saml
+
+            * `openid_connect` - openid_connect'
+        user_source_id:
+          type: integer
+          readOnly: true
+        domain:
+          type:
+          - string
+          - 'null'
+          description: The email domain registered with this provider.
+        password_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field to use as password for the user account.
+      required:
+      - type
+      - user_source_id
+    SamlAppAuthProviderModelAppAuthProvider:
+      type: object
+      description: Basic app_auth_provider serializer mostly for returned values.
+      properties:
+        type:
+          type: string
+          readOnly: true
+          description: The type of the app_auth_provider.
+        id:
+          type: integer
+          readOnly: true
+        domain:
+          type:
+          - string
+          - 'null'
+          description: The email domain registered with this provider.
+          maxLength: 255
+        metadata:
+          type: string
+          description: The SAML metadata XML provided by the IdP.
+        is_verified:
+          type: boolean
+          readOnly: true
+          description: Whether or not a user sign in correctly with this SAML provider.
+        email_attr_key:
+          type: string
+          description: The key in the SAML response that contains the email address of the user.
+        first_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the first name of the user.
+        last_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
+      required:
+      - id
+      - is_verified
+      - metadata
+      - type
+    PatchedMoveUserSource:
+      type: object
+      description: Serializer used when moving a user source.
+      properties:
+        before_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, the user_source is moved before the user_source with this Id. Otherwise the user_source is placed at the end of the page.
+    SamlAppAuthProviderModelBaseAppAuthProvider:
+      type: object
+      description: 'This serializer allow to set the type of an app_auth_provider and the
+
+        app_auth_provider id before which we want to insert the new app_auth_provider.'
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type6b3Enum'
+          description: 'The type of the app_auth_provider.
+
+
+            * `local_baserow_password` - local_baserow_password
+
+            * `saml` - saml
+
+            * `openid_connect` - openid_connect'
+        user_source_id:
+          type: integer
+          readOnly: true
+        domain:
+          type:
+          - string
+          - 'null'
+          description: The email domain registered with this provider.
+        metadata:
+          type: string
+          description: The SAML metadata XML provided by the IdP.
+        is_verified:
+          type: boolean
+          readOnly: true
+          description: Whether or not a user sign in correctly with this SAML provider.
+        email_attr_key:
+          type: string
+          description: The key in the SAML response that contains the email address of the user.
+        first_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the first name of the user.
+        last_name_attr_key:
+          type: string
+          description: The key in the SAML response that contains the last name of the user. If this is not set, the first name attr will be used as full name.
+      required:
+      - is_verified
+      - metadata
+      - type
+      - user_source_id
+    LocalBaserowUserSourceCreateUserSource:
+      type: object
+      description: 'This serializer allow to set the type of an user_source and the user_source id
+
+        before which we want to insert the new user_source.'
+      properties:
+        before_id:
+          type: integer
+          description: If provided, creates the user_source before the user_source with the given id.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/LocalBaserowUserSourceCreateUserSourceTypeEnum'
+          description: 'The type of the user_source.
+
+
+            * `local_baserow` - local_baserow'
+        name:
+          type: string
+          maxLength: 255
+        integration_id:
+          type: integer
+          description: The related integration id.
+        auth_providers:
+          type: array
+          items:
+            $ref: '#/components/schemas/App_Auth_ProviderBaseAppAuthProvider'
+          description: Auth providers related to this user source.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        email_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field to use as email for the user account.
+        name_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field that contains the user name.
+        role_field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the field that contains the user role.
+      required:
+      - integration_id
+      - name
+      - type
+    CommonSAMLResponse:
+      type: object
+      properties:
+        SAMLResponse:
+          type: string
+          description: The encoded SAML response from the IdP.
+        RelayState:
+          type: string
+          description: The frontend URL where redirect the authenticated user.
+      required:
+      - RelayState
+      - SAMLResponse
     TokenObtainPair:
       type: object
       properties:
@@ -1229,6 +1208,27 @@ components:
       - password
       - refresh
       - username
+    UsersPerUserSource:
+      type: object
+      description: The response of the list user source users endpoint.
+      properties:
+        users_per_user_sources:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserSourceUser'
+          description: An object keyed by the id of the user source and the value being the list of users for this user source.
+      required:
+      - users_per_user_sources
+    TokenBlacklist:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - refresh
   securitySchemes:
     Database_token:
       type: http

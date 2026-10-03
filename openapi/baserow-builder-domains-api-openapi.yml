@@ -494,25 +494,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OrderDomains:
-      type: object
-      properties:
-        domain_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the domains in the order they are supposed to be set in
-      required:
-      - domain_ids
-    Domain_TypeCreateDomain:
-      oneOf:
-      - $ref: '#/components/schemas/CustomDomainCreateDomain'
-      - $ref: '#/components/schemas/SubDomainCreateDomain'
-      discriminator:
-        propertyName: type
-        mapping:
-          custom: '#/components/schemas/CustomDomainCreateDomain'
-          sub_domain: '#/components/schemas/SubDomainCreateDomain'
     CustomDomainCreateDomain:
       type: object
       properties:
@@ -531,15 +512,47 @@ components:
       required:
       - domain_name
       - type
-    Domain_TypeDomain:
+    SubDomainCreateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+          maxLength: 255
+      required:
+      - domain_name
+      - type
+    PatchedUpdateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+    Domain_TypeCreateDomain:
       oneOf:
-      - $ref: '#/components/schemas/CustomDomainDomain'
-      - $ref: '#/components/schemas/SubDomainDomain'
+      - $ref: '#/components/schemas/CustomDomainCreateDomain'
+      - $ref: '#/components/schemas/SubDomainCreateDomain'
       discriminator:
         propertyName: type
         mapping:
-          custom: '#/components/schemas/CustomDomainDomain'
-          sub_domain: '#/components/schemas/SubDomainDomain'
+          custom: '#/components/schemas/CustomDomainCreateDomain'
+          sub_domain: '#/components/schemas/SubDomainCreateDomain'
     SubDomainDomain:
       type: object
       properties:
@@ -573,24 +586,6 @@ components:
       - id
       - order
       - type
-    SubDomainCreateDomain:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type509Enum'
-          description: 'The type of the domain.
-
-
-            * `custom` - custom
-
-            * `sub_domain` - sub_domain'
-        domain_name:
-          type: string
-          maxLength: 255
-      required:
-      - domain_name
-      - type
     Type509Enum:
       enum:
       - custom
@@ -599,20 +594,16 @@ components:
       description: '* `custom` - custom
 
         * `sub_domain` - sub_domain'
-    PatchedUpdateDomain:
+    OrderDomains:
       type: object
       properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type509Enum'
-          description: 'The type of the domain.
-
-
-            * `custom` - custom
-
-            * `sub_domain` - sub_domain'
-        domain_name:
-          type: string
+        domain_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the domains in the order they are supposed to be set in
+      required:
+      - domain_ids
     CustomDomainDomain:
       type: object
       properties:
@@ -646,6 +637,15 @@ components:
       - id
       - order
       - type
+    Domain_TypeDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainDomain'
+      - $ref: '#/components/schemas/SubDomainDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainDomain'
+          sub_domain: '#/components/schemas/SubDomainDomain'
   securitySchemes:
     Database_token:
       type: http

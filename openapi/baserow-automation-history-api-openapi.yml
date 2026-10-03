@@ -121,6 +121,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AutomationNodeResult:
+      type: object
+      properties:
+        result:
+          description: Contains node results.
+      required:
+      - result
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
     AutomationNodeHistory:
       type: object
       properties:
@@ -174,27 +195,6 @@ components:
       - started_on
       - status
       - workflow_history
-    StatusF41Enum:
-      enum:
-      - success
-      - error
-      - disabled
-      - started
-      type: string
-      description: '* `success` - Success
-
-        * `error` - Error
-
-        * `disabled` - Disabled
-
-        * `started` - Started'
-    AutomationNodeResult:
-      type: object
-      properties:
-        result:
-          description: Contains node results.
-      required:
-      - result
   securitySchemes:
     Database_token:
       type: http

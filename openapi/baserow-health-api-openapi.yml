@@ -111,6 +111,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    EmailTesterRequest:
+      type: object
+      properties:
+        target_email:
+          type: string
+          format: email
+      required:
+      - target_email
     EmailTesterResponse:
       type: object
       properties:
@@ -134,14 +142,6 @@ components:
           description: A short message describing the error that occured if the test email failed
       required:
       - succeeded
-    EmailTesterRequest:
-      type: object
-      properties:
-        target_email:
-          type: string
-          format: email
-      required:
-      - target_email
     FullHealthCheck:
       type: object
       properties:

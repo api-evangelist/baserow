@@ -906,13 +906,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PatchedUndoRedoRequest:
+    UndoRedoAction:
       type: object
       properties:
-        scopes:
-          allOf:
-          - $ref: '#/components/schemas/ActionScopes'
-          description: A JSON object with keys and values representing the various action scopes to include when undoing or redoing. Every action in Baserow will be associated with a action scope, when undoing/redoing only actions which match any of the provided scope key:value pairs will included when this endpoint picks the next action to undo/redo. If no scopes are provided then all actions performed in the client session will be included when undoing/redoing.
+        action_type:
+          type:
+          - string
+          - 'null'
+          description: If an action was undone/redone/skipped due to an error this field will contain the type of the action that was undone/redone.
+        action_scope:
+          type:
+          - string
+          - 'null'
+          description: If an action was undone/redone/skipped due to an error this field will contain the scope of the action that was undone/redone.
     TokenRefreshWithUser:
       type: object
       properties:
@@ -927,35 +933,6 @@ components:
           deprecated: true
       required:
       - access
-    VerifyEmailAddress:
-      type: object
-      properties:
-        token:
-          type: string
-      required:
-      - token
-    ChangeEmail:
-      type: object
-      properties:
-        token:
-          type: string
-          description: The confirmation token.
-      required:
-      - token
-    EmailNotificationFrequencyEnum:
-      enum:
-      - instant
-      - daily
-      - weekly
-      - never
-      type: string
-      description: '* `instant` - instant
-
-        * `daily` - daily
-
-        * `weekly` - weekly
-
-        * `never` - never'
     ChangePasswordBodyValidation:
       type: object
       properties:
@@ -966,211 +943,6 @@ components:
       required:
       - new_password
       - old_password
-    UserWorkspaceInvitation:
-      type: object
-      description: 'This serializer is used for displaying the invitation to the user that doesn''t
-
-        have access to the workspace yet, so not for invitation management purposes.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        invited_by:
-          type: string
-          readOnly: true
-        workspace:
-          type: string
-          readOnly: true
-        email:
-          type: string
-          format: email
-          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
-          maxLength: 254
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        email_exists:
-          type: boolean
-          readOnly: true
-      required:
-      - created_on
-      - email
-      - email_exists
-      - id
-      - invited_by
-      - workspace
-    TokenVerifyWithUser:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Deprecated. Use `refresh_token` instead.
-          deprecated: true
-        refresh_token:
-          type: string
-      required:
-      - refresh_token
-    TokenBlacklist:
-      type: object
-      properties:
-        refresh:
-          type: string
-          writeOnly: true
-      required:
-      - refresh
-    UndoRedoAction:
-      type: object
-      properties:
-        action_type:
-          type:
-          - string
-          - 'null'
-          description: If an action was undone/redone/skipped due to an error this field will contain the type of the action that was undone/redone.
-        action_scope:
-          type:
-          - string
-          - 'null'
-          description: If an action was undone/redone/skipped due to an error this field will contain the scope of the action that was undone/redone.
-    TokenObtainPairWithUser:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        username:
-          type: string
-          format: email
-          description: Deprecated. Use `email` instead.
-          deprecated: true
-        password:
-          type: string
-          writeOnly: true
-      required:
-      - password
-    PatchedAccount:
-      type: object
-      description: This serializer must be kept in sync with `UserSerializer`.
-      properties:
-        first_name:
-          type: string
-          maxLength: 150
-          minLength: 2
-        language:
-          type: string
-          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
-          maxLength: 10
-          minLength: 2
-        email_notification_frequency:
-          allOf:
-          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
-          description: 'The maximum frequency at which the user wants to receive email notifications.
-
-
-            * `instant` - instant
-
-            * `daily` - daily
-
-            * `weekly` - weekly
-
-            * `never` - never'
-        completed_onboarding:
-          type: boolean
-          description: Indicates whether the user has completed the onboarding.
-        completed_guided_tours:
-          type: array
-          items:
-            type: string
-          description: Indicates which guided tour types have been completed.
-    SendChangeEmailConfirmation:
-      type: object
-      properties:
-        new_email:
-          type: string
-          format: email
-          description: The new email address to change to.
-        password:
-          type: string
-          description: The current password of the user for verification.
-        base_url:
-          type: string
-          format: uri
-          description: The base URL where the user can confirm the email change. The confirmation token is going to be appended to the base_url (base_url '/token').
-      required:
-      - base_url
-      - new_email
-      - password
-    ResetPasswordBodyValidation:
-      type: object
-      properties:
-        token:
-          type: string
-        password:
-          type: string
-      required:
-      - password
-      - token
-    Account:
-      type: object
-      description: This serializer must be kept in sync with `UserSerializer`.
-      properties:
-        first_name:
-          type: string
-          maxLength: 150
-          minLength: 2
-        language:
-          type: string
-          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
-          maxLength: 10
-          minLength: 2
-        email_notification_frequency:
-          allOf:
-          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
-          description: 'The maximum frequency at which the user wants to receive email notifications.
-
-
-            * `instant` - instant
-
-            * `daily` - daily
-
-            * `weekly` - weekly
-
-            * `never` - never'
-        completed_onboarding:
-          type: boolean
-          description: Indicates whether the user has completed the onboarding.
-        completed_guided_tours:
-          type: array
-          items:
-            type: string
-          description: Indicates which guided tour types have been completed.
-    SendResetPasswordEmailBodyValidation:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: The email address of the user that has requested a password reset.
-        base_url:
-          type: string
-          format: uri
-          description: The base URL where the user can reset his password. The reset token is going to be appended to the base_url (base_url '/token').
-      required:
-      - base_url
-      - email
-    UndoRedoResponse:
-      type: object
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/UndoRedoAction'
-        result_code:
-          type: string
-          description: Indicates the result of the undo/redo operation. Will be 'SUCCESS' on success, 'NOTHING_TO_DO' when there is no action to undo/redo and 'SKIPPED_DUE_TO_ERROR' when the undo/redo failed due to a conflict or error and was skipped over.
-      required:
-      - actions
-      - result_code
     Register:
       type: object
       properties:
@@ -1208,6 +980,196 @@ components:
       - email
       - name
       - password
+    EmailNotificationFrequencyEnum:
+      enum:
+      - instant
+      - daily
+      - weekly
+      - never
+      type: string
+      description: '* `instant` - instant
+
+        * `daily` - daily
+
+        * `weekly` - weekly
+
+        * `never` - never'
+    TokenObtainPairWithUser:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+          format: email
+          description: Deprecated. Use `email` instead.
+          deprecated: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+    ChangeEmail:
+      type: object
+      properties:
+        token:
+          type: string
+          description: The confirmation token.
+      required:
+      - token
+    Account:
+      type: object
+      description: This serializer must be kept in sync with `UserSerializer`.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        language:
+          type: string
+          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+          maxLength: 10
+          minLength: 2
+        email_notification_frequency:
+          allOf:
+          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
+          description: 'The maximum frequency at which the user wants to receive email notifications.
+
+
+            * `instant` - instant
+
+            * `daily` - daily
+
+            * `weekly` - weekly
+
+            * `never` - never'
+        completed_onboarding:
+          type: boolean
+          description: Indicates whether the user has completed the onboarding.
+        completed_guided_tours:
+          type: array
+          items:
+            type: string
+          description: Indicates which guided tour types have been completed.
+    TokenVerifyWithUser:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Deprecated. Use `refresh_token` instead.
+          deprecated: true
+        refresh_token:
+          type: string
+      required:
+      - refresh_token
+    SendResetPasswordEmailBodyValidation:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: The email address of the user that has requested a password reset.
+        base_url:
+          type: string
+          format: uri
+          description: The base URL where the user can reset his password. The reset token is going to be appended to the base_url (base_url '/token').
+      required:
+      - base_url
+      - email
+    VerifyEmailAddress:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+    PatchedUndoRedoRequest:
+      type: object
+      properties:
+        scopes:
+          allOf:
+          - $ref: '#/components/schemas/ActionScopes'
+          description: A JSON object with keys and values representing the various action scopes to include when undoing or redoing. Every action in Baserow will be associated with a action scope, when undoing/redoing only actions which match any of the provided scope key:value pairs will included when this endpoint picks the next action to undo/redo. If no scopes are provided then all actions performed in the client session will be included when undoing/redoing.
+    UserWorkspaceInvitation:
+      type: object
+      description: 'This serializer is used for displaying the invitation to the user that doesn''t
+
+        have access to the workspace yet, so not for invitation management purposes.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        invited_by:
+          type: string
+          readOnly: true
+        workspace:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          description: The email address of the user that the invitation is meant for. Only a user with that email address can accept it.
+          maxLength: 254
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        email_exists:
+          type: boolean
+          readOnly: true
+      required:
+      - created_on
+      - email
+      - email_exists
+      - id
+      - invited_by
+      - workspace
+    Dashboard:
+      type: object
+      properties:
+        workspace_invitations:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserWorkspaceInvitation'
+      required:
+      - workspace_invitations
+    SendChangeEmailConfirmation:
+      type: object
+      properties:
+        new_email:
+          type: string
+          format: email
+          description: The new email address to change to.
+        password:
+          type: string
+          description: The current password of the user for verification.
+        base_url:
+          type: string
+          format: uri
+          description: The base URL where the user can confirm the email change. The confirmation token is going to be appended to the base_url (base_url '/token').
+      required:
+      - base_url
+      - new_email
+      - password
+    ResetPasswordBodyValidation:
+      type: object
+      properties:
+        token:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - token
+    TokenBlacklist:
+      type: object
+      properties:
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - refresh
     ActionScopes:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -1255,15 +1217,53 @@ components:
           - 'null'
           minimum: 0
           description: If set to a workspace id then any actions directly related to that workspace will be be included when undoing or redoing.
-    Dashboard:
+    PatchedAccount:
       type: object
+      description: This serializer must be kept in sync with `UserSerializer`.
       properties:
-        workspace_invitations:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        language:
+          type: string
+          description: 'An ISO 639 language code (with optional variant) selected by the user. Ex: en-GB.'
+          maxLength: 10
+          minLength: 2
+        email_notification_frequency:
+          allOf:
+          - $ref: '#/components/schemas/EmailNotificationFrequencyEnum'
+          description: 'The maximum frequency at which the user wants to receive email notifications.
+
+
+            * `instant` - instant
+
+            * `daily` - daily
+
+            * `weekly` - weekly
+
+            * `never` - never'
+        completed_onboarding:
+          type: boolean
+          description: Indicates whether the user has completed the onboarding.
+        completed_guided_tours:
           type: array
           items:
-            $ref: '#/components/schemas/UserWorkspaceInvitation'
+            type: string
+          description: Indicates which guided tour types have been completed.
+    UndoRedoResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/UndoRedoAction'
+        result_code:
+          type: string
+          description: Indicates the result of the undo/redo operation. Will be 'SUCCESS' on success, 'NOTHING_TO_DO' when there is no action to undo/redo and 'SKIPPED_DUE_TO_ERROR' when the undo/redo failed due to a conflict or error and was skipped over.
       required:
-      - workspace_invitations
+      - actions
+      - result_code
   securitySchemes:
     Database_token:
       type: http

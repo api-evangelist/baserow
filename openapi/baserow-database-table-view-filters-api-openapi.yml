@@ -718,9 +718,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PatchedUpdateViewFilterGroup:
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+    ViewFilterGroup:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         filter_type:
           allOf:
           - $ref: '#/components/schemas/ConditionTypeEnum'
@@ -730,14 +741,16 @@ components:
             * `AND` - And
 
             * `OR` - Or'
-    ConditionTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
+        view:
+          type: integer
+          description: The view to which the filter group applies to. Each view can have its own filter groups.
+        parent_group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
+      - view
     ViewFilter:
       type: object
       properties:
@@ -773,6 +786,22 @@ components:
       - preload_values
       - type
       - view
+    CreateViewFilterGroup:
+      type: object
+      properties:
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type:
+          - integer
+          - 'null'
     Type4e1Enum:
       enum:
       - equal
@@ -1048,7 +1077,7 @@ components:
         * `has_date_within` - has_date_within
 
         * `has_not_date_within` - has_not_date_within'
-    CreateViewFilterGroup:
+    PatchedUpdateViewFilterGroup:
       type: object
       properties:
         filter_type:
@@ -1060,10 +1089,6 @@ components:
             * `AND` - And
 
             * `OR` - Or'
-        parent_group:
-          type:
-          - integer
-          - 'null'
     PatchedUpdateViewFilter:
       type: object
       properties:
@@ -1465,31 +1490,6 @@ components:
       required:
       - field
       - type
-    ViewFilterGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        view:
-          type: integer
-          description: The view to which the filter group applies to. Each view can have its own filter groups.
-        parent_group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
-      - view
   securitySchemes:
     Database_token:
       type: http

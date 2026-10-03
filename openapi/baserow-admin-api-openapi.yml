@@ -1020,36 +1020,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    WorkspaceAdminUsers:
+    UserAdminCreate:
       type: object
+      description: 'Serializes a request body for creating a new user. Do not use for returning user
+
+        data as the password will be returned also.'
       properties:
-        id:
-          type: integer
-        email:
-          type: string
-        permissions:
-          type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
-      required:
-      - email
-      - id
-    LicenseUser:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        first_name:
-          type: string
-          maxLength: 150
-        email:
+        username:
           type: string
           format: email
-          title: Email address
-          maxLength: 254
+        name:
+          type: string
+          maxLength: 150
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Set this to false instead of deleting accounts.
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: 'Designates whether this user is an admin and has access to all workspaces and Baserow''s admin areas. '
+        password:
+          type: string
       required:
-      - id
+      - name
+      - password
+      - username
     UserAdminResponse:
       type: object
       description: Serializes the safe user attributes to expose for a response back to the user.
@@ -1088,6 +1084,399 @@ components:
       - name
       - username
       - workspaces
+    PatchedUserAdminUpdate:
+      type: object
+      description: 'Serializes a request body for updating a given user. Do not use for returning user
+
+        data as the password will be returned also.'
+      properties:
+        username:
+          type: string
+          format: email
+        name:
+          type: string
+          maxLength: 150
+        is_active:
+          type: boolean
+          title: Active
+          description: Designates whether this user should be treated as active. Set this to false instead of deleting accounts.
+        is_staff:
+          type: boolean
+          title: Staff status
+          description: 'Designates whether this user is an admin and has access to all workspaces and Baserow''s admin areas. '
+        password:
+          type: string
+    PaginationSerializerWorkspacesAdminResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspacesAdminResponse'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    AdminDashboardPerDay:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        count:
+          type: integer
+      required:
+      - count
+      - date
+    LicenseUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+      required:
+      - id
+    WorkspaceAdminUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+      required:
+      - email
+      - id
+    AdminDashboard:
+      type: object
+      properties:
+        total_users:
+          type: integer
+        total_workspaces:
+          type: integer
+        total_applications:
+          type: integer
+        new_users_last_24_hours:
+          type: integer
+        new_users_last_7_days:
+          type: integer
+        new_users_last_30_days:
+          type: integer
+        previous_new_users_last_24_hours:
+          type: integer
+        previous_new_users_last_7_days:
+          type: integer
+        previous_new_users_last_30_days:
+          type: integer
+        active_users_last_24_hours:
+          type: integer
+        active_users_last_7_days:
+          type: integer
+        active_users_last_30_days:
+          type: integer
+        previous_active_users_last_24_hours:
+          type: integer
+        previous_active_users_last_7_days:
+          type: integer
+        previous_active_users_last_30_days:
+          type: integer
+        new_users_per_day:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminDashboardPerDay'
+        active_users_per_day:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminDashboardPerDay'
+      required:
+      - active_users_last_24_hours
+      - active_users_last_30_days
+      - active_users_last_7_days
+      - active_users_per_day
+      - new_users_last_24_hours
+      - new_users_last_30_days
+      - new_users_last_7_days
+      - new_users_per_day
+      - previous_active_users_last_24_hours
+      - previous_active_users_last_30_days
+      - previous_active_users_last_7_days
+      - previous_new_users_last_24_hours
+      - previous_new_users_last_30_days
+      - previous_new_users_last_7_days
+      - total_applications
+      - total_users
+      - total_workspaces
+    UserAdminWorkspaces:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        permissions:
+          type: string
+          description: The permissions that the user has within the workspace.
+          maxLength: 32
+      required:
+      - id
+      - name
+    LicenseUserLookup:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        value:
+          type: string
+          description: The name and the email address of the user.
+          readOnly: true
+      required:
+      - id
+      - value
+    PaginationSerializerAdminWorkspaceOptions:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminWorkspaceOptions'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PaginationSerializerUserAdminResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAdminResponse'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    LicenseWithUsers:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        license_id:
+          type: string
+          description: Unique identifier of the license.
+        is_active:
+          type: boolean
+          description: Indicates if the backend deems the license valid.
+        last_check:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        valid_from:
+          type: string
+          format: date-time
+          description: From which timestamp the license becomes active.
+        valid_through:
+          type: string
+          format: date-time
+          description: Until which timestamp the license is active.
+        free_users_count:
+          type: integer
+          readOnly: true
+          description: The amount of free users that are currently using the license.
+        seats_taken:
+          type: integer
+          readOnly: true
+          description: The amount of users that are currently using the license.
+        seats:
+          type: integer
+          description: The maximum amount of users that can use the license.
+        application_users_taken:
+          type: integer
+          readOnly: true
+          description: The amount of application builder users used so far in this license.
+        application_users:
+          type: integer
+          description: The amount of application builder users permitted in this license.
+        product_code:
+          type: string
+          description: The product code that indicates what the license unlocks.
+        issued_on:
+          type: string
+          format: date-time
+          description: The date when the license was issued. It could be that a new license is issued with the same `license_id` because it was updated. In that case, the one that has been issued last should be used.
+        issued_to_email:
+          type: string
+          format: email
+          description: Indicates to which email address the license has been issued.
+        issued_to_name:
+          type: string
+          description: Indicates to whom the license has been issued.
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseUser'
+          readOnly: true
+      required:
+      - application_users
+      - application_users_taken
+      - free_users_count
+      - id
+      - is_active
+      - issued_on
+      - issued_to_email
+      - issued_to_name
+      - license_id
+      - product_code
+      - seats
+      - seats_taken
+      - users
+      - valid_from
+      - valid_through
+    BaserowImpersonateAuthToken:
+      type: object
+      description: Serializer used for impersonation.
+      properties:
+        user:
+          type: integer
+      required:
+      - user
+    WorkspacesAdminResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 165
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceAdminUsers'
+        application_count:
+          type: integer
+        row_count:
+          type: integer
+          readOnly: true
+        storage_usage:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: -2147483648
+        seats_taken:
+          type: integer
+        free_users:
+          type: integer
+          readOnly: true
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - application_count
+      - created_on
+      - free_users
+      - id
+      - name
+      - row_count
+      - seats_taken
+      - users
+    PaginationSerializerLicenseUserLookup:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseUserLookup'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    RegisterLicense:
+      type: object
+      properties:
+        license:
+          type: string
+          description: The license that you want to register.
+      required:
+      - license
     AdminWorkspaceOptions:
       type: object
       properties:
@@ -1171,395 +1560,6 @@ components:
       - seats_taken
       - valid_from
       - valid_through
-    AdminDashboardPerDay:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-        count:
-          type: integer
-      required:
-      - count
-      - date
-    AdminDashboard:
-      type: object
-      properties:
-        total_users:
-          type: integer
-        total_workspaces:
-          type: integer
-        total_applications:
-          type: integer
-        new_users_last_24_hours:
-          type: integer
-        new_users_last_7_days:
-          type: integer
-        new_users_last_30_days:
-          type: integer
-        previous_new_users_last_24_hours:
-          type: integer
-        previous_new_users_last_7_days:
-          type: integer
-        previous_new_users_last_30_days:
-          type: integer
-        active_users_last_24_hours:
-          type: integer
-        active_users_last_7_days:
-          type: integer
-        active_users_last_30_days:
-          type: integer
-        previous_active_users_last_24_hours:
-          type: integer
-        previous_active_users_last_7_days:
-          type: integer
-        previous_active_users_last_30_days:
-          type: integer
-        new_users_per_day:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdminDashboardPerDay'
-        active_users_per_day:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdminDashboardPerDay'
-      required:
-      - active_users_last_24_hours
-      - active_users_last_30_days
-      - active_users_last_7_days
-      - active_users_per_day
-      - new_users_last_24_hours
-      - new_users_last_30_days
-      - new_users_last_7_days
-      - new_users_per_day
-      - previous_active_users_last_24_hours
-      - previous_active_users_last_30_days
-      - previous_active_users_last_7_days
-      - previous_new_users_last_24_hours
-      - previous_new_users_last_30_days
-      - previous_new_users_last_7_days
-      - total_applications
-      - total_users
-      - total_workspaces
-    PaginationSerializerLicenseUserLookup:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseUserLookup'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    UserAdminWorkspaces:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        permissions:
-          type: string
-          description: The permissions that the user has within the workspace.
-          maxLength: 32
-      required:
-      - id
-      - name
-    LicenseWithUsers:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        license_id:
-          type: string
-          description: Unique identifier of the license.
-        is_active:
-          type: boolean
-          description: Indicates if the backend deems the license valid.
-        last_check:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        valid_from:
-          type: string
-          format: date-time
-          description: From which timestamp the license becomes active.
-        valid_through:
-          type: string
-          format: date-time
-          description: Until which timestamp the license is active.
-        free_users_count:
-          type: integer
-          readOnly: true
-          description: The amount of free users that are currently using the license.
-        seats_taken:
-          type: integer
-          readOnly: true
-          description: The amount of users that are currently using the license.
-        seats:
-          type: integer
-          description: The maximum amount of users that can use the license.
-        application_users_taken:
-          type: integer
-          readOnly: true
-          description: The amount of application builder users used so far in this license.
-        application_users:
-          type: integer
-          description: The amount of application builder users permitted in this license.
-        product_code:
-          type: string
-          description: The product code that indicates what the license unlocks.
-        issued_on:
-          type: string
-          format: date-time
-          description: The date when the license was issued. It could be that a new license is issued with the same `license_id` because it was updated. In that case, the one that has been issued last should be used.
-        issued_to_email:
-          type: string
-          format: email
-          description: Indicates to which email address the license has been issued.
-        issued_to_name:
-          type: string
-          description: Indicates to whom the license has been issued.
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseUser'
-          readOnly: true
-      required:
-      - application_users
-      - application_users_taken
-      - free_users_count
-      - id
-      - is_active
-      - issued_on
-      - issued_to_email
-      - issued_to_name
-      - license_id
-      - product_code
-      - seats
-      - seats_taken
-      - users
-      - valid_from
-      - valid_through
-    PaginationSerializerUserAdminResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAdminResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    UserAdminCreate:
-      type: object
-      description: 'Serializes a request body for creating a new user. Do not use for returning user
-
-        data as the password will be returned also.'
-      properties:
-        username:
-          type: string
-          format: email
-        name:
-          type: string
-          maxLength: 150
-        is_active:
-          type: boolean
-          title: Active
-          description: Designates whether this user should be treated as active. Set this to false instead of deleting accounts.
-        is_staff:
-          type: boolean
-          title: Staff status
-          description: 'Designates whether this user is an admin and has access to all workspaces and Baserow''s admin areas. '
-        password:
-          type: string
-      required:
-      - name
-      - password
-      - username
-    PaginationSerializerAdminWorkspaceOptions:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdminWorkspaceOptions'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    PaginationSerializerWorkspacesAdminResponse:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspacesAdminResponse'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    BaserowImpersonateAuthToken:
-      type: object
-      description: Serializer used for impersonation.
-      properties:
-        user:
-          type: integer
-      required:
-      - user
-    WorkspacesAdminResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceAdminUsers'
-        application_count:
-          type: integer
-        row_count:
-          type: integer
-          readOnly: true
-        storage_usage:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: -2147483648
-        seats_taken:
-          type: integer
-        free_users:
-          type: integer
-          readOnly: true
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-      required:
-      - application_count
-      - created_on
-      - free_users
-      - id
-      - name
-      - row_count
-      - seats_taken
-      - users
-    LicenseUserLookup:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        value:
-          type: string
-          description: The name and the email address of the user.
-          readOnly: true
-      required:
-      - id
-      - value
-    PatchedUserAdminUpdate:
-      type: object
-      description: 'Serializes a request body for updating a given user. Do not use for returning user
-
-        data as the password will be returned also.'
-      properties:
-        username:
-          type: string
-          format: email
-        name:
-          type: string
-          maxLength: 150
-        is_active:
-          type: boolean
-          title: Active
-          description: Designates whether this user should be treated as active. Set this to false instead of deleting accounts.
-        is_staff:
-          type: boolean
-          title: Staff status
-          description: 'Designates whether this user is an admin and has access to all workspaces and Baserow''s admin areas. '
-        password:
-          type: string
-    RegisterLicense:
-      type: object
-      properties:
-        license:
-          type: string
-          description: The license that you want to register.
-      required:
-      - license
   securitySchemes:
     Database_token:
       type: http

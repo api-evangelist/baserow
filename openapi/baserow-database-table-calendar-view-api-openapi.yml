@@ -327,26 +327,67 @@ components:
           description: How many row comments exist for this row.
         row_comments_notification_mode:
           $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
-    CalendarViewExampleResponse:
+    RowCommentsNotificationModeEnum:
+      enum:
+      - all
+      - mentions
+      type: string
+      description: '* `all` - all
+
+        * `mentions` - mentions'
+    SelectOption:
       type: object
       properties:
-        rows:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/CalendarViewExampleResponseStack'
-          description: Every date bucket (e.g. '2023-01-01') related to the view's date field can have its own entry like this.
-        field_options:
-          type: array
-          items:
-            $ref: '#/components/schemas/CalendarViewFieldOptions'
-        row_metadata:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/RowMetadata'
-          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
+        id:
+          type: integer
+        value:
+          type: string
+          maxLength: 255
+        color:
+          type: string
+          maxLength: 255
       required:
-      - field_options
-      - rows
+      - color
+      - value
+    FileFieldResponse:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
+          type: string
+        name:
+          type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
     ExampleRowResponse:
       type: object
       properties:
@@ -502,75 +543,26 @@ components:
       required:
       - field_27
       - id
-    FileFieldResponse:
+    CalendarViewExampleResponse:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
+        rows:
           type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
+          additionalProperties:
+            $ref: '#/components/schemas/CalendarViewExampleResponseStack'
+          description: Every date bucket (e.g. '2023-01-01') related to the view's date field can have its own entry like this.
+        field_options:
+          type: array
+          items:
+            $ref: '#/components/schemas/CalendarViewFieldOptions'
+        row_metadata:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/RowMetadata'
+          description: An object keyed by row id with a value being an object containing additional metadata about that row. A row might not have metadata and will not be present as a key if so.
       required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
-    SelectOption:
-      type: object
-      properties:
-        id:
-          type: integer
-        value:
-          type: string
-          maxLength: 255
-        color:
-          type: string
-          maxLength: 255
-      required:
-      - color
-      - value
+      - field_options
+      - rows
     CalendarViewFieldOptions:
       type: object
       properties:
@@ -582,14 +574,6 @@ components:
           maximum: 32767
           minimum: -32768
           description: The order that the field has in the view. Lower value is first.
-    RowCommentsNotificationModeEnum:
-      enum:
-      - all
-      - mentions
-      type: string
-      description: '* `all` - all
-
-        * `mentions` - mentions'
     Collaborator:
       type: object
       properties:
@@ -615,6 +599,22 @@ components:
       required:
       - count
       - results
+    LinkRowValue:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
+          type: string
+          description: The primary field's value as a string of the row in the related table.
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+      required:
+      - id
   securitySchemes:
     Database_token:
       type: http
