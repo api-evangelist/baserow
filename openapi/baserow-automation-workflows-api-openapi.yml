@@ -632,6 +632,41 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateAutomationWorkflow:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    UpdateAutomationWorkflowStateEnum:
+      enum:
+      - draft
+      - live
+      - paused
+      - disabled
+      - test_clone
+      type: string
+      description: '* `draft` - Draft
+
+        * `live` - Live
+
+        * `paused` - Paused
+
+        * `disabled` - Disabled
+
+        * `test_clone` - Test Clone'
+    OrderAutomationWorkflows:
+      type: object
+      properties:
+        workflow_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the workflows in the order they are supposed to be set in.
+      required:
+      - workflow_ids
     AutomationWorkflow:
       type: object
       properties:
@@ -742,31 +777,6 @@ components:
           items:
             type: integer
           description: The user IDs of the workspace members that should receive notifications related to this workflow.
-    CreateAutomationWorkflow:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-      required:
-      - name
-    UpdateAutomationWorkflowStateEnum:
-      enum:
-      - draft
-      - live
-      - paused
-      - disabled
-      - test_clone
-      type: string
-      description: '* `draft` - Draft
-
-        * `live` - Live
-
-        * `paused` - Paused
-
-        * `disabled` - Disabled
-
-        * `test_clone` - Test Clone'
     PaginationSerializerAutomationWorkflowHistory:
       type: object
       properties:
@@ -802,6 +812,20 @@ components:
       - previous
       - results
       - success_count
+    StatusF41Enum:
+      enum:
+      - success
+      - error
+      - disabled
+      - started
+      type: string
+      description: '* `success` - Success
+
+        * `error` - Error
+
+        * `disabled` - Disabled
+
+        * `started` - Started'
     AutomationWorkflowHistory:
       type: object
       properties:
@@ -833,30 +857,6 @@ components:
       - message
       - started_on
       - status
-    StatusF41Enum:
-      enum:
-      - success
-      - error
-      - disabled
-      - started
-      type: string
-      description: '* `success` - Success
-
-        * `error` - Error
-
-        * `disabled` - Disabled
-
-        * `started` - Started'
-    OrderAutomationWorkflows:
-      type: object
-      properties:
-        workflow_ids:
-          type: array
-          items:
-            type: integer
-          description: The ids of the workflows in the order they are supposed to be set in.
-      required:
-      - workflow_ids
   securitySchemes:
     Database_token:
       type: http

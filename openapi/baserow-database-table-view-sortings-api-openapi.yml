@@ -488,7 +488,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateViewSort:
+    PatchedUpdateViewSort:
       type: object
       properties:
         field:
@@ -497,7 +497,6 @@ components:
         order:
           allOf:
           - $ref: '#/components/schemas/OrderEnum'
-          default: ASC
           description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
 
 
@@ -508,27 +507,6 @@ components:
           type: string
           description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
           maxLength: 32
-      required:
-      - field
-    OrderEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
-    PrioritizeViewSortings:
-      type: object
-      properties:
-        view_sort_ids:
-          type: array
-          items:
-            type: integer
-          description: View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.
-          minItems: 1
-      required:
-      - view_sort_ids
     ViewSort:
       type: object
       properties:
@@ -563,7 +541,7 @@ components:
       - id
       - priority
       - view
-    PatchedUpdateViewSort:
+    CreateViewSort:
       type: object
       properties:
         field:
@@ -572,6 +550,7 @@ components:
         order:
           allOf:
           - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
           description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
 
 
@@ -582,6 +561,27 @@ components:
           type: string
           description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
           maxLength: 32
+      required:
+      - field
+    PrioritizeViewSortings:
+      type: object
+      properties:
+        view_sort_ids:
+          type: array
+          items:
+            type: integer
+          description: View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.
+          minItems: 1
+      required:
+      - view_sort_ids
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
   securitySchemes:
     Database_token:
       type: http

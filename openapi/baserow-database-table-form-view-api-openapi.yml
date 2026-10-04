@@ -424,6 +424,123 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    FormViewFieldOptionsCondition:
+      type: object
+      properties:
+        id:
+          type: integer
+        field:
+          type: integer
+        type:
+          type: string
+          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
+          maxLength: 48
+        value:
+          type: string
+          description: The filter value that must be compared to the field's value.
+        group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field
+      - id
+      - type
+    Collaborator:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - name
+    PublicFormView:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title that is displayed at the beginning of the form.
+        description:
+          type: string
+          description: The description that is displayed at the beginning of the form.
+        mode:
+          allOf:
+          - $ref: '#/components/schemas/Mode51eEnum'
+          description: 'Configurable mode of the form.
+
+
+            * `form` - form
+
+            * `survey` - survey'
+        cover_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The user file cover image that is displayed at the top of the form.
+        logo_image:
+          allOf:
+          - $ref: '#/components/schemas/UserFile'
+          description: The user file logo image that is displayed at the top of the form.
+        submit_text:
+          type: string
+          description: The text displayed on the submit button.
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicFormViewFieldOptions'
+        show_logo:
+          type: boolean
+        allow_public_export:
+          type: boolean
+          description: Indicates whether it's allowed to export a publicly shared view.
+      required:
+      - fields
+    FormViewSubmitted:
+      type: object
+      properties:
+        submit_action:
+          allOf:
+          - $ref: '#/components/schemas/SubmitActionEnum'
+          description: 'The action that must be performed after the visitor has filled out the form.
+
+
+            * `MESSAGE` - Message
+
+            * `REDIRECT` - Redirect'
+        submit_action_message:
+          type: string
+          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
+        submit_action_redirect_url:
+          type: string
+          format: uri
+          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
+          maxLength: 2000
+        row_id:
+          type: integer
+      required:
+      - row_id
+    FormViewFieldOptionsConditionGroup:
+      type: object
+      properties:
+        id:
+          type: integer
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        parent_group:
+          type:
+          - integer
+          - 'null'
+      required:
+      - id
     ExampleRowResponse:
       type: object
       properties:
@@ -579,7 +696,57 @@ components:
       required:
       - field_27
       - id
-    ExampleRowRequest:
+    UserFile:
+      type: object
+      properties:
+        size:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        mime_type:
+          type: string
+          maxLength: 127
+        is_image:
+          type: boolean
+        image_width:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        image_height:
+          type:
+          - integer
+          - 'null'
+          maximum: 2147483647
+          minimum: 0
+        uploaded_at:
+          type: string
+          format: date-time
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        original_name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      - original_name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+    PatchedExampleUpdateRowRequest:
       type: object
       properties:
         field_1:
@@ -687,15 +854,6 @@ components:
       description: '* `MESSAGE` - Message
 
         * `REDIRECT` - Redirect'
-    RowMetadata:
-      type: object
-      properties:
-        row_comment_count:
-          type: integer
-          minimum: 0
-          description: How many row comments exist for this row.
-        row_comments_notification_mode:
-          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
     SelectOption:
       type: object
       properties:
@@ -710,48 +868,63 @@ components:
       required:
       - color
       - value
-    FormViewFieldOptionsCondition:
+    FileFieldResponse:
       type: object
       properties:
-        id:
-          type: integer
-        field:
-          type: integer
-        type:
+        url:
           type: string
-          description: 'Indicates how the field''s value must be compared to the filter''s value. The filter is always in this order `field` `type` `value` (example: `field_1` `contains` `Test`).'
-          maxLength: 48
-        value:
+          format: uri
+          readOnly: true
+        thumbnails:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        visible_name:
           type: string
-          description: The filter value that must be compared to the field's value.
-        group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field
-      - id
-      - type
-    Collaborator:
-      type: object
-      properties:
-        id:
-          type: integer
         name:
           type: string
+        size:
+          type: integer
+        mime_type:
+          type: string
+        is_image:
+          type: boolean
+        image_width:
+          type: integer
+        image_height:
+          type: integer
+        uploaded_at:
+          type: string
+          format: date-time
+      required:
+      - image_height
+      - image_width
+      - is_image
+      - mime_type
+      - name
+      - size
+      - thumbnails
+      - uploaded_at
+      - url
+      - visible_name
+    PublicFormViewField:
+      type: object
+      properties:
+        id:
+          type: integer
           readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
       required:
       - id
       - name
-    ConditionTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
-    PatchedExampleUpdateRowRequest:
+      - type
+    ExampleRowRequest:
       type: object
       properties:
         field_1:
@@ -851,113 +1024,14 @@ components:
           - string
           - 'null'
           description: This field represents the `ai` field. The number in field_28 is in a normal request or response the id of the field. Holds a value that is generated by a generative AI model using a dynamic prompt.
-    FormViewSubmitted:
-      type: object
-      properties:
-        submit_action:
-          allOf:
-          - $ref: '#/components/schemas/SubmitActionEnum'
-          description: 'The action that must be performed after the visitor has filled out the form.
+    Mode51eEnum:
+      enum:
+      - form
+      - survey
+      type: string
+      description: '* `form` - form
 
-
-            * `MESSAGE` - Message
-
-            * `REDIRECT` - Redirect'
-        submit_action_message:
-          type: string
-          description: If the `submit_action` is MESSAGE, then this message will be shown to the visitor after submitting the form.
-        submit_action_redirect_url:
-          type: string
-          format: uri
-          description: If the `submit_action` is REDIRECT,then the visitors will be redirected to the this URL after submitting the form.
-          maxLength: 2000
-        row_id:
-          type: integer
-      required:
-      - row_id
-    UserFile:
-      type: object
-      properties:
-        size:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: 0
-          format: int64
-        mime_type:
-          type: string
-          maxLength: 127
-        is_image:
-          type: boolean
-        image_width:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        image_height:
-          type:
-          - integer
-          - 'null'
-          maximum: 2147483647
-          minimum: 0
-        uploaded_at:
-          type: string
-          format: date-time
-          readOnly: true
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        name:
-          type: string
-          readOnly: true
-        original_name:
-          type: string
-          maxLength: 255
-      required:
-      - name
-      - original_name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-    PublicFormViewField:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 255
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-      required:
-      - id
-      - name
-      - type
-    LinkRowValue:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: The unique identifier of the row in the related table.
-        value:
-          type: string
-          description: The primary field's value as a string of the row in the related table.
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-      required:
-      - id
+        * `survey` - survey'
     PublicFormViewFieldOptions:
       type: object
       properties:
@@ -1012,65 +1086,6 @@ components:
       required:
       - field
       - name
-    FileFieldResponse:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        thumbnails:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-        visible_name:
-          type: string
-        name:
-          type: string
-        size:
-          type: integer
-        mime_type:
-          type: string
-        is_image:
-          type: boolean
-        image_width:
-          type: integer
-        image_height:
-          type: integer
-        uploaded_at:
-          type: string
-          format: date-time
-      required:
-      - image_height
-      - image_width
-      - is_image
-      - mime_type
-      - name
-      - size
-      - thumbnails
-      - uploaded_at
-      - url
-      - visible_name
-    FormViewFieldOptionsConditionGroup:
-      type: object
-      properties:
-        id:
-          type: integer
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR) in the group to be shown.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        parent_group:
-          type:
-          - integer
-          - 'null'
-      required:
-      - id
     RowCommentsNotificationModeEnum:
       enum:
       - all
@@ -1079,54 +1094,39 @@ components:
       description: '* `all` - all
 
         * `mentions` - mentions'
-    PublicFormView:
+    LinkRowValue:
       type: object
       properties:
-        title:
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the row in the related table.
+        value:
           type: string
-          description: The title that is displayed at the beginning of the form.
-        description:
+          description: The primary field's value as a string of the row in the related table.
+        order:
           type: string
-          description: The description that is displayed at the beginning of the form.
-        mode:
-          allOf:
-          - $ref: '#/components/schemas/Mode51eEnum'
-          description: 'Configurable mode of the form.
-
-
-            * `form` - form
-
-            * `survey` - survey'
-        cover_image:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          description: The user file cover image that is displayed at the top of the form.
-        logo_image:
-          allOf:
-          - $ref: '#/components/schemas/UserFile'
-          description: The user file logo image that is displayed at the top of the form.
-        submit_text:
-          type: string
-          description: The text displayed on the submit button.
-        fields:
-          type: array
-          items:
-            $ref: '#/components/schemas/PublicFormViewFieldOptions'
-        show_logo:
-          type: boolean
-        allow_public_export:
-          type: boolean
-          description: Indicates whether it's allowed to export a publicly shared view.
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
       required:
-      - fields
-    Mode51eEnum:
+      - id
+    ConditionTypeEnum:
       enum:
-      - form
-      - survey
+      - AND
+      - OR
       type: string
-      description: '* `form` - form
+      description: '* `AND` - And
 
-        * `survey` - survey'
+        * `OR` - Or'
+    RowMetadata:
+      type: object
+      properties:
+        row_comment_count:
+          type: integer
+          minimum: 0
+          description: How many row comments exist for this row.
+        row_comments_notification_mode:
+          $ref: '#/components/schemas/RowCommentsNotificationModeEnum'
   securitySchemes:
     Database_token:
       type: http

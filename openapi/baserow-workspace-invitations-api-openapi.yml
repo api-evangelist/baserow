@@ -558,53 +558,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    WorkspaceUserWorkspace:
-      type: object
-      description: 'This serializers includes relevant fields of the Workspace model, but also
-
-        some WorkspaceUser specific fields related to the workspace user relation.
-
-
-        Additionally, the list of users are included for each workspace.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Workspace id.
-        name:
-          type: string
-          readOnly: true
-          description: Workspace name.
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceUser'
-          readOnly: true
-          description: List of all workspace users.
-        order:
-          type: integer
-          readOnly: true
-          description: The requesting user's order within the workspace users.
-        permissions:
-          type: string
-          readOnly: true
-          description: The requesting user's permissions for the workspace.
-        unread_notifications_count:
-          type: integer
-          readOnly: true
-          description: The number of unread notifications for the requesting user.
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
-          description: Generative AI models available in this workspace.
-      required:
-      - generative_ai_models_enabled
-      - id
-      - name
-      - order
-      - permissions
-      - unread_notifications_count
-      - users
     WorkspaceInvitation:
       type: object
       properties:
@@ -676,13 +629,53 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    PatchedUpdateWorkspaceInvitation:
+    WorkspaceUserWorkspace:
       type: object
+      description: 'This serializers includes relevant fields of the Workspace model, but also
+
+        some WorkspaceUser specific fields related to the workspace user relation.
+
+
+        Additionally, the list of users are included for each workspace.'
       properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Workspace id.
+        name:
+          type: string
+          readOnly: true
+          description: Workspace name.
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceUser'
+          readOnly: true
+          description: List of all workspace users.
+        order:
+          type: integer
+          readOnly: true
+          description: The requesting user's order within the workspace users.
         permissions:
           type: string
-          description: The permissions that the user is going to get within the workspace after accepting the invitation.
-          maxLength: 32
+          readOnly: true
+          description: The requesting user's permissions for the workspace.
+        unread_notifications_count:
+          type: integer
+          readOnly: true
+          description: The number of unread notifications for the requesting user.
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+          description: Generative AI models available in this workspace.
+      required:
+      - generative_ai_models_enabled
+      - id
+      - name
+      - order
+      - permissions
+      - unread_notifications_count
+      - users
     UserWorkspaceInvitation:
       type: object
       description: 'This serializer is used for displaying the invitation to the user that doesn''t
@@ -717,6 +710,13 @@ components:
       - id
       - invited_by
       - workspace
+    PatchedUpdateWorkspaceInvitation:
+      type: object
+      properties:
+        permissions:
+          type: string
+          description: The permissions that the user is going to get within the workspace after accepting the invitation.
+          maxLength: 32
     CreateWorkspaceInvitation:
       type: object
       properties:

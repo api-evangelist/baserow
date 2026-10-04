@@ -580,33 +580,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    LocalBaserowAggregateRowsActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    LocalBaserowAggregateRowsActionNodeCreateAutomationNode:
+    CoreRouterActionNodeCreateAutomationNode:
       type: object
       properties:
         id:
@@ -672,6 +646,346 @@ components:
       required:
       - id
       - type
+    DirectionEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    SlackWriteMessageActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    AIAgentActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreRouterActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    LocalBaserowGetRowActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    LocalBaserowTableServiceAggregationSeries:
+      type: object
+      properties:
+        id:
+          type: integer
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+        field_id:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field_id
+    LocalBaserowListRowsActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    CoreIteratorServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        source:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The path of the array.
+      required:
+      - id
+    CorePeriodicTriggerNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    SlackWriteMessageServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Slack bot integration.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        channel:
+          type: string
+          default: ''
+          description: The Slack channel ID where the message will be sent.
+        text:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The text content of the Slack message.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    LocalBaserowCreateRowActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    LocalBaserowGroupedAggregateRowsBasePolymorphicRequest:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        aggregation_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
+        aggregation_group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
+        aggregation_sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
+      required:
+      - id
+    LocalBaserowRowsCreatedTriggerNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
     LocalBaserowUpsertRowService:
       type: object
       description: Basic service serializer mostly for returned values.
@@ -731,170 +1045,7 @@ components:
       - sample_data
       - schema
       - type
-    LocalBaserowGetRowActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    LocalBaserowTableServiceAggregationSortBy:
-      type: object
-      properties:
-        order:
-          type: integer
-          readOnly: true
-        sort_on:
-          $ref: '#/components/schemas/SortOnEnum'
-        reference:
-          type: string
-          maxLength: 255
-        direction:
-          $ref: '#/components/schemas/DirectionEnum'
-      required:
-      - direction
-      - order
-      - reference
-      - sort_on
-    CoreIteratorServiceBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        source:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The path of the array.
-      required:
-      - id
-    DirectionEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
-    LocalBaserowTableServiceFieldMapping:
-      type: object
-      properties:
-        field_id:
-          type: integer
-          description: The primary key of the associated database table field.
-        enabled:
-          type: boolean
-          description: Indicates whether the field mapping is enabled or not.
-        value:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - enabled
-      - field_id
-    BlankEnum:
-      enum:
-      - ''
-    CoreSMTPEmailActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    BodyType870Enum:
-      enum:
-      - json
-      - form
-      - raw
-      - none
-      type: string
-      description: '* `json` - JSON
-
-        * `form` - Form Data
-
-        * `raw` - Raw
-
-        * `none` - None'
-    AiOutputType5efEnum:
-      enum:
-      - text
-      - choice
-      type: string
-      description: '* `text` - Text
-
-        * `choice` - Choice'
-    CoreHTTPTriggerNodeAutomationNode:
+    SlackWriteMessageActionNodeAutomationNode:
       type: object
       description: Basic automation node serializer.
       properties:
@@ -920,430 +1071,6 @@ components:
       - service
       - type
       - workflow
-    LocalBaserowListRowsBasePolymorphicRequest:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        default_result_count:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The default record count returned with each page.
-      required:
-      - id
-    LocalBaserowRowsDeletedTriggerNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    TypeFbcEnum:
-      enum:
-      - local_baserow_create_row
-      - local_baserow_update_row
-      - local_baserow_delete_row
-      - local_baserow_get_row
-      - local_baserow_list_rows
-      - local_baserow_aggregate_rows
-      - http_request
-      - iterator
-      - smtp_email
-      - router
-      - local_baserow_rows_created
-      - local_baserow_rows_updated
-      - local_baserow_rows_deleted
-      - periodic
-      - http_trigger
-      - ai_agent
-      - slack_write_message
-      type: string
-      description: '* `local_baserow_create_row` - local_baserow_create_row
-
-        * `local_baserow_update_row` - local_baserow_update_row
-
-        * `local_baserow_delete_row` - local_baserow_delete_row
-
-        * `local_baserow_get_row` - local_baserow_get_row
-
-        * `local_baserow_list_rows` - local_baserow_list_rows
-
-        * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-        * `http_request` - http_request
-
-        * `iterator` - iterator
-
-        * `smtp_email` - smtp_email
-
-        * `router` - router
-
-        * `local_baserow_rows_created` - local_baserow_rows_created
-
-        * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-        * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-        * `periodic` - periodic
-
-        * `http_trigger` - http_trigger
-
-        * `ai_agent` - ai_agent
-
-        * `slack_write_message` - slack_write_message'
-    LocalBaserowUpdateRowActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    CorePeriodicTriggerNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    LocalBaserowDeleteRowActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    Automation_Node_TypeCreateAutomationNode:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CoreIteratorActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CoreRouterActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CorePeriodicTriggerNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPTriggerNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/AIAgentActionNodeCreateAutomationNode'
-      - $ref: '#/components/schemas/SlackWriteMessageActionNodeCreateAutomationNode'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeCreateAutomationNode'
-          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeCreateAutomationNode'
-          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeCreateAutomationNode'
-          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeCreateAutomationNode'
-          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeCreateAutomationNode'
-          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeCreateAutomationNode'
-          http_request: '#/components/schemas/CoreHTTPRequestActionNodeCreateAutomationNode'
-          iterator: '#/components/schemas/CoreIteratorActionNodeCreateAutomationNode'
-          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeCreateAutomationNode'
-          router: '#/components/schemas/CoreRouterActionNodeCreateAutomationNode'
-          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode'
-          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode'
-          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode'
-          periodic: '#/components/schemas/CorePeriodicTriggerNodeCreateAutomationNode'
-          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeCreateAutomationNode'
-          ai_agent: '#/components/schemas/AIAgentActionNodeCreateAutomationNode'
-          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeCreateAutomationNode'
-    ReplaceAutomationNode:
-      type: object
-      properties:
-        new_type:
-          allOf:
-          - $ref: '#/components/schemas/NewTypeEnum'
-          description: 'The type of the new automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-      required:
-      - new_type
-    AIAgentActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    PositionEnum:
-      enum:
-      - south
-      - child
-      type: string
-      description: '* `south` - South
-
-        * `child` - Child'
-    CoreHTTPTriggerServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        uid:
-          type: string
-          format: uuid
-          description: The service identifier for the webhook.
-        exclude_get:
-          type: boolean
-          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
-        is_public:
-          type: boolean
-          description: Defines whether the service is published or not.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - integration_id
-      - sample_data
-      - schema
-      - type
-    CoreHTTPRequestActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    AIAgentActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
     CoreSMTPEmailServiceBasePolymorphicRequest:
       type: object
       properties:
@@ -1432,31 +1159,7 @@ components:
       required:
       - id
       - instance_smtp_settings_enabled
-    SortOnEnum:
-      enum:
-      - SERIES
-      - GROUP_BY
-      - PRIMARY
-      type: string
-      description: '* `SERIES` - Series
-
-        * `GROUP_BY` - Group by
-
-        * `PRIMARY` - Primary'
-    LocalBaserowTableServiceAggregationGroupBy:
-      type: object
-      properties:
-        order:
-          type: integer
-          readOnly: true
-        field_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field_id
-      - order
-    CoreSMTPEmailActionNodeCreateAutomationNode:
+    LocalBaserowAggregateRowsActionNodeCreateAutomationNode:
       type: object
       properties:
         id:
@@ -1522,14 +1225,58 @@ components:
       required:
       - id
       - type
-    MoveAutomationNode:
+    LocalBaserowCreateRowActionNodeCreateAutomationNode:
       type: object
       properties:
-        reference_node_id:
+        id:
           type: integer
-          description: The reference node.
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
         position:
-          description: 'The new position relative to the reference node.
+          description: 'The position of the new node relative to the reference node.
 
 
             * `south` - South
@@ -1540,8 +1287,275 @@ components:
           - $ref: '#/components/schemas/BlankEnum'
         output:
           type: string
-          description: The new output.
-    LocalBaserowCreateRowActionNodeUpdateAutomationNode:
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreHTTPTriggerServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        uid:
+          type: string
+          format: uuid
+          description: The service identifier for the webhook.
+        exclude_get:
+          type: boolean
+          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
+        is_public:
+          type: boolean
+          description: Defines whether the service is published or not.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - integration_id
+      - sample_data
+      - schema
+      - type
+    LocalBaserowRowsCreatedService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    HttpMethodEnum:
+      enum:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - HEAD
+      - OPTIONS
+      type: string
+      description: '* `GET` - GET
+
+        * `POST` - POST
+
+        * `PUT` - PUT
+
+        * `DELETE` - DELETE
+
+        * `PATCH` - PATCH
+
+        * `HEAD` - HEAD
+
+        * `OPTIONS` - OPTIONS'
+    LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    LocalBaserowGroupedAggregateRowsService:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        aggregation_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
+        aggregation_group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
+        aggregation_sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    CorePeriodicTriggerNodeUpdateAutomationNode:
       type: object
       properties:
         label:
@@ -1552,17 +1566,125 @@ components:
           allOf:
           - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
           description: The service associated with this automation node.
-    HTTPFormData:
+    LocalBaserowAggregateRowsActionNodeUpdateAutomationNode:
       type: object
-      description: Serializer for the Form data model.
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    CoreRouterServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
       properties:
         id:
           type: integer
           readOnly: true
-        key:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
           type: string
-          maxLength: 255
-        value:
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        default_edge_label:
+          type: string
+          description: The label to apply next to router edge.
+          maxLength: 75
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreRouterServiceEdge'
+          description: The edges associated with this service.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - integration_id
+      - sample_data
+      - schema
+      - type
+    Automation_Node_TypeAutomationNode:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeAutomationNode'
+      - $ref: '#/components/schemas/CoreIteratorActionNodeAutomationNode'
+      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeAutomationNode'
+      - $ref: '#/components/schemas/CoreRouterActionNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeAutomationNode'
+      - $ref: '#/components/schemas/CorePeriodicTriggerNodeAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPTriggerNodeAutomationNode'
+      - $ref: '#/components/schemas/AIAgentActionNodeAutomationNode'
+      - $ref: '#/components/schemas/SlackWriteMessageActionNodeAutomationNode'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeAutomationNode'
+          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeAutomationNode'
+          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeAutomationNode'
+          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeAutomationNode'
+          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeAutomationNode'
+          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeAutomationNode'
+          http_request: '#/components/schemas/CoreHTTPRequestActionNodeAutomationNode'
+          iterator: '#/components/schemas/CoreIteratorActionNodeAutomationNode'
+          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeAutomationNode'
+          router: '#/components/schemas/CoreRouterActionNodeAutomationNode'
+          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeAutomationNode'
+          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeAutomationNode'
+          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeAutomationNode'
+          periodic: '#/components/schemas/CorePeriodicTriggerNodeAutomationNode'
+          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeAutomationNode'
+          ai_agent: '#/components/schemas/AIAgentActionNodeAutomationNode'
+          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeAutomationNode'
+    CoreRouterServiceEdge:
+      type: object
+      properties:
+        uid:
+          type: string
+          format: uuid
+        label:
+          type: string
+          description: The label to apply next to router edge.
+          maxLength: 75
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        condition:
           type: object
           additionalProperties: {}
           default:
@@ -1570,101 +1692,62 @@ components:
             version: '0.1'
             mode: simple
       required:
-      - id
-      - key
-    CoreHTTPTriggerNodeCreateAutomationNode:
+      - order
+    LocalBaserowDeleteRowService:
       type: object
+      description: Basic service serializer mostly for returned values.
       properties:
         id:
           type: integer
           readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
+        integration_id:
           type:
           - integer
           - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    CoreIteratorActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
+          description: The id of the Baserow integration we want the data for.
         type:
           type: string
           readOnly: true
-          description: The automation node type.
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
       required:
+      - context_data
+      - context_data_schema
       - id
-      - service
+      - sample_data
+      - schema
       - type
-      - workflow
-    LocalBaserowGetRowService:
+    LocalBaserowListRowsService:
       type: object
       description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
 
@@ -1729,199 +1812,17 @@ components:
             version: '0.1'
             mode: simple
           description: Any search queries to apply to the service when it is dispatched.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
+        default_result_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The default record count returned with each page.
       required:
       - context_data
       - context_data_schema
       - id
       - sample_data
       - schema
-      - type
-    HTTPHeader:
-      type: object
-      description: Serializer for the HTTPHeader model.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        key:
-          type: string
-          maxLength: 255
-        value:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - id
-      - key
-    Interval3bdEnum:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY
-      - WEEK
-      - MONTH
-      type: string
-      description: '* `MINUTE` - MINUTE
-
-        * `HOUR` - HOUR
-
-        * `DAY` - DAY
-
-        * `WEEK` - WEEK
-
-        * `MONTH` - MONTH'
-    CoreHTTPTriggerNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    LocalBaserowAggregateRowsBasePolymorphicRequest:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow field we want to aggregate on.
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-      required:
-      - id
-    CoreIteratorActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    LocalBaserowListRowsActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
       - type
     CoreHTTPRequestServiceService:
       type: object
@@ -2036,123 +1937,6 @@ components:
       - sample_data
       - schema
       - type
-    LocalBaserowRowsUpdatedTriggerNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    LocalBaserowGetRowActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    SlackWriteMessageActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    Automation_Node_TypeAutomationNode:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeAutomationNode'
-      - $ref: '#/components/schemas/CoreIteratorActionNodeAutomationNode'
-      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeAutomationNode'
-      - $ref: '#/components/schemas/CoreRouterActionNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeAutomationNode'
-      - $ref: '#/components/schemas/CorePeriodicTriggerNodeAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPTriggerNodeAutomationNode'
-      - $ref: '#/components/schemas/AIAgentActionNodeAutomationNode'
-      - $ref: '#/components/schemas/SlackWriteMessageActionNodeAutomationNode'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeAutomationNode'
-          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeAutomationNode'
-          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeAutomationNode'
-          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeAutomationNode'
-          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeAutomationNode'
-          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeAutomationNode'
-          http_request: '#/components/schemas/CoreHTTPRequestActionNodeAutomationNode'
-          iterator: '#/components/schemas/CoreIteratorActionNodeAutomationNode'
-          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeAutomationNode'
-          router: '#/components/schemas/CoreRouterActionNodeAutomationNode'
-          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeAutomationNode'
-          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeAutomationNode'
-          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeAutomationNode'
-          periodic: '#/components/schemas/CorePeriodicTriggerNodeAutomationNode'
-          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeAutomationNode'
-          ai_agent: '#/components/schemas/AIAgentActionNodeAutomationNode'
-          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeAutomationNode'
     LocalBaserowRowsDeletedBasePolymorphicRequest:
       type: object
       properties:
@@ -2171,164 +1955,52 @@ components:
           description: The id of the Baserow integration we want the data for.
       required:
       - id
-    CorePeriodicTriggerNodeCreateAutomationNode:
+    LocalBaserowTableServiceAggregationSortBy:
       type: object
       properties:
-        id:
+        order:
           type: integer
           readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
+        sort_on:
+          $ref: '#/components/schemas/SortOnEnum'
+        reference:
           type: string
-          description: The unique ID of the branch this node is an output for.
+          maxLength: 255
+        direction:
+          $ref: '#/components/schemas/DirectionEnum'
       required:
-      - id
-      - type
-    LocalBaserowDeleteRowActionNodeAutomationNode:
+      - direction
+      - order
+      - reference
+      - sort_on
+    Interval3bdEnum:
+      enum:
+      - MINUTE
+      - HOUR
+      - DAY
+      - WEEK
+      - MONTH
+      type: string
+      description: '* `MINUTE` - MINUTE
+
+        * `HOUR` - HOUR
+
+        * `DAY` - DAY
+
+        * `WEEK` - WEEK
+
+        * `MONTH` - MONTH'
+    CoreSMTPEmailActionNodeUpdateAutomationNode:
       type: object
-      description: Basic automation node serializer.
       properties:
-        id:
-          type: integer
-          readOnly: true
         label:
           type: string
           description: A label to use when displaying this node in a graph.
           maxLength: 75
         service:
           allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
           description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    CoreHTTPRequestActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
     NewTypeEnum:
       enum:
       - local_baserow_create_row
@@ -2382,7 +2054,7 @@ components:
         * `ai_agent` - ai_agent
 
         * `slack_write_message` - slack_write_message'
-    LocalBaserowCreateRowActionNodeAutomationNode:
+    CoreHTTPTriggerNodeAutomationNode:
       type: object
       description: Basic automation node serializer.
       properties:
@@ -2408,1057 +2080,6 @@ components:
       - service
       - type
       - workflow
-    LocalBaserowRowsCreatedTriggerNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    CoreIteratorServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        source:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The path of the array.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - integration_id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowUpdateRowActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    CoreIteratorActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    Integration_ServiceBasePolymorphicRequest:
-      anyOf:
-      - $ref: '#/components/schemas/LocalBaserowGetRowBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowListRowsBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowAggregateRowsBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowUpsertRowBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowDeleteRowBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowRowsCreatedBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowRowsDeletedBasePolymorphicRequest'
-      - $ref: '#/components/schemas/SlackWriteMessageServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CoreHTTPRequestServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CoreSMTPEmailServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CoreRouterServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CoreHTTPTriggerServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CoreIteratorServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/CorePeriodicServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/AIAgentServiceBasePolymorphicRequest'
-      - $ref: '#/components/schemas/LocalBaserowGroupedAggregateRowsBasePolymorphicRequest'
-    CoreRouterServiceBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        default_edge_label:
-          type: string
-          description: The label to apply next to router edge.
-          maxLength: 75
-        edges:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreRouterServiceEdge'
-          description: The edges associated with this service.
-      required:
-      - id
-    LocalBaserowAggregateRowsService:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow field we want to aggregate on.
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsCreatedService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowGetRowActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    LocalBaserowGroupedAggregateRowsBasePolymorphicRequest:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        aggregation_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
-        aggregation_group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
-        aggregation_sorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
-      required:
-      - id
-    LocalBaserowRowsDeletedService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowDeleteRowActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    LocalBaserowTableServiceAggregationSeries:
-      type: object
-      properties:
-        id:
-          type: integer
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-        field_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field_id
-    LocalBaserowListRowsActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    ConditionTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
-    CorePeriodicServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        interval:
-          allOf:
-          - $ref: '#/components/schemas/Interval3bdEnum'
-          description: 'The interval frequency for running the service.
-
-
-            * `MINUTE` - MINUTE
-
-            * `HOUR` - HOUR
-
-            * `DAY` - DAY
-
-            * `WEEK` - WEEK
-
-            * `MONTH` - MONTH'
-        minute:
-          type:
-          - integer
-          - 'null'
-          maximum: 59
-          minimum: 0
-          description: The minute of the hour when to run (0-59). Required for hourly, daily, weekly, monthly intervals.
-        hour:
-          type:
-          - integer
-          - 'null'
-          maximum: 23
-          minimum: 0
-          description: The hour of the day when to run (0-23). Required for daily, weekly, monthly intervals.
-        day_of_week:
-          type:
-          - integer
-          - 'null'
-          maximum: 6
-          minimum: 0
-          description: The day of the week when to run (0=Monday, 6=Sunday). Required for weekly intervals.
-        day_of_month:
-          type:
-          - integer
-          - 'null'
-          maximum: 31
-          minimum: 1
-          description: The day of the month when to run (1-31). Required for monthly intervals.
-        next_run_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The next scheduled time for this service to run. Automatically calculated based on the interval and schedule fields.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - integration_id
-      - interval
-      - sample_data
-      - schema
-      - type
-    LocalBaserowUpsertRowBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        field_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
-          description: The field mapping associated with this service.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-      required:
-      - id
-    PatchedAutomation_Node_TypeUpdateAutomationNode:
-      oneOf:
-      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CoreIteratorActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CoreRouterActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CorePeriodicTriggerNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/CoreHTTPTriggerNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/AIAgentActionNodeUpdateAutomationNode'
-      - $ref: '#/components/schemas/SlackWriteMessageActionNodeUpdateAutomationNode'
-      discriminator:
-        propertyName: type
-        mapping:
-          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeUpdateAutomationNode'
-          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeUpdateAutomationNode'
-          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeUpdateAutomationNode'
-          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeUpdateAutomationNode'
-          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeUpdateAutomationNode'
-          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeUpdateAutomationNode'
-          http_request: '#/components/schemas/CoreHTTPRequestActionNodeUpdateAutomationNode'
-          iterator: '#/components/schemas/CoreIteratorActionNodeUpdateAutomationNode'
-          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeUpdateAutomationNode'
-          router: '#/components/schemas/CoreRouterActionNodeUpdateAutomationNode'
-          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode'
-          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode'
-          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode'
-          periodic: '#/components/schemas/CorePeriodicTriggerNodeUpdateAutomationNode'
-          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeUpdateAutomationNode'
-          ai_agent: '#/components/schemas/AIAgentActionNodeUpdateAutomationNode'
-          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeUpdateAutomationNode'
-    HttpMethodEnum:
-      enum:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-      - PATCH
-      - HEAD
-      - OPTIONS
-      type: string
-      description: '* `GET` - GET
-
-        * `POST` - POST
-
-        * `PUT` - PUT
-
-        * `DELETE` - DELETE
-
-        * `PATCH` - PATCH
-
-        * `HEAD` - HEAD
-
-        * `OPTIONS` - OPTIONS'
-    CoreRouterServiceEdge:
-      type: object
-      properties:
-        uid:
-          type: string
-          format: uuid
-        label:
-          type: string
-          description: The label to apply next to router edge.
-          maxLength: 75
-        order:
-          type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
-          readOnly: true
-          description: Lowest first.
-        condition:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - order
-    LocalBaserowRowsCreatedBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-      required:
-      - id
-    CoreSMTPEmailActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    AIAgentActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    LocalBaserowListRowsActionNodeAutomationNode:
-      type: object
-      description: Basic automation node serializer.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceService'
-          description: The service associated with this automation node.
-        workflow:
-          type: integer
-        type:
-          type: string
-          readOnly: true
-          description: The automation node type.
-      required:
-      - id
-      - service
-      - type
-      - workflow
-    CoreRouterActionNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    BodyTypeD6eEnum:
-      enum:
-      - plain
-      - html
-      type: string
-      description: '* `plain` - Plain Text
-
-        * `html` - HTML'
-    SlackWriteMessageServiceBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Slack bot integration.
-        channel:
-          type: string
-          default: ''
-          description: The Slack channel ID where the message will be sent.
-        text:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The text content of the Slack message.
-      required:
-      - id
-    AIAgentServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The ID of the AI integration to use for this service.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        ai_generative_ai_type:
-          type:
-          - string
-          - 'null'
-          description: The generative AI provider type (e.g., 'openai', 'anthropic').
-        ai_generative_ai_model:
-          type:
-          - string
-          - 'null'
-          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
-        ai_output_type:
-          allOf:
-          - $ref: '#/components/schemas/AiOutputType5efEnum'
-          default: text
-          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
-
-
-            * `text` - Text
-
-            * `choice` - Choice'
-        ai_temperature:
-          type:
-          - number
-          - 'null'
-          format: double
-          maximum: 2
-          minimum: 0
-          description: Temperature for response randomness (0-2). Lower is more focused.
-        ai_prompt:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The prompt to send to the AI model. Can be a formula.
-        ai_choices:
-          type: array
-          items:
-            type: string
-          description: List of choice options for 'choice' output type.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
     Integration_ServiceService:
       oneOf:
       - $ref: '#/components/schemas/LocalBaserowGetRowService'
@@ -3498,18 +2119,99 @@ components:
           periodic: '#/components/schemas/CorePeriodicServiceService'
           ai_agent: '#/components/schemas/AIAgentServiceService'
           local_baserow_grouped_aggregate_rows: '#/components/schemas/LocalBaserowGroupedAggregateRowsService'
-    LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode:
+    Automation_Node_TypeCreateAutomationNode:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CoreIteratorActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CoreRouterActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CorePeriodicTriggerNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPTriggerNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/AIAgentActionNodeCreateAutomationNode'
+      - $ref: '#/components/schemas/SlackWriteMessageActionNodeCreateAutomationNode'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeCreateAutomationNode'
+          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeCreateAutomationNode'
+          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeCreateAutomationNode'
+          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeCreateAutomationNode'
+          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeCreateAutomationNode'
+          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeCreateAutomationNode'
+          http_request: '#/components/schemas/CoreHTTPRequestActionNodeCreateAutomationNode'
+          iterator: '#/components/schemas/CoreIteratorActionNodeCreateAutomationNode'
+          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeCreateAutomationNode'
+          router: '#/components/schemas/CoreRouterActionNodeCreateAutomationNode'
+          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode'
+          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode'
+          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode'
+          periodic: '#/components/schemas/CorePeriodicTriggerNodeCreateAutomationNode'
+          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeCreateAutomationNode'
+          ai_agent: '#/components/schemas/AIAgentActionNodeCreateAutomationNode'
+          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeCreateAutomationNode'
+    MoveAutomationNode:
       type: object
       properties:
-        label:
+        reference_node_id:
+          type: integer
+          description: The reference node.
+        position:
+          description: 'The new position relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
           type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    CorePeriodicTriggerNodeAutomationNode:
+          description: The new output.
+    LocalBaserowDeleteRowBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
+      required:
+      - id
+    BodyTypeD6eEnum:
+      enum:
+      - plain
+      - html
+      type: string
+      description: '* `plain` - Plain Text
+
+        * `html` - HTML'
+    LocalBaserowGetRowActionNodeAutomationNode:
       type: object
       description: Basic automation node serializer.
       properties:
@@ -3535,61 +2237,53 @@ components:
       - service
       - type
       - workflow
-    LocalBaserowDeleteRowService:
+    LocalBaserowUpdateRowActionNodeAutomationNode:
       type: object
-      description: Basic service serializer mostly for returned values.
+      description: Basic automation node serializer.
       properties:
         id:
           type: integer
           readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
         type:
           type: string
           readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    HTTPFormData:
+      type: object
+      description: Serializer for the Form data model.
+      properties:
+        id:
+          type: integer
           readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        row_id:
+        key:
+          type: string
+          maxLength: 255
+        value:
           type: object
           additionalProperties: {}
           default:
             formula: ''
             version: '0.1'
             mode: simple
-          description: A formula for defining the intended row.
       required:
-      - context_data
-      - context_data_schema
       - id
-      - sample_data
-      - schema
-      - type
-    SlackWriteMessageActionNodeCreateAutomationNode:
+      - key
+    LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode:
       type: object
       properties:
         id:
@@ -3655,6 +2349,20 @@ components:
       required:
       - id
       - type
+    BodyType870Enum:
+      enum:
+      - json
+      - form
+      - raw
+      - none
+      type: string
+      description: '* `json` - JSON
+
+        * `form` - Form Data
+
+        * `raw` - Raw
+
+        * `none` - None'
     CoreSMTPEmailServiceService:
       type: object
       description: Basic service serializer mostly for returned values.
@@ -3771,7 +2479,241 @@ components:
       - sample_data
       - schema
       - type
-    LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode:
+    CoreRouterActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    PositionEnum:
+      enum:
+      - south
+      - child
+      type: string
+      description: '* `south` - South
+
+        * `child` - Child'
+    SortOnEnum:
+      enum:
+      - SERIES
+      - GROUP_BY
+      - PRIMARY
+      type: string
+      description: '* `SERIES` - Series
+
+        * `GROUP_BY` - Group by
+
+        * `PRIMARY` - Primary'
+    CoreSMTPEmailActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    TypeFbcEnum:
+      enum:
+      - local_baserow_create_row
+      - local_baserow_update_row
+      - local_baserow_delete_row
+      - local_baserow_get_row
+      - local_baserow_list_rows
+      - local_baserow_aggregate_rows
+      - http_request
+      - iterator
+      - smtp_email
+      - router
+      - local_baserow_rows_created
+      - local_baserow_rows_updated
+      - local_baserow_rows_deleted
+      - periodic
+      - http_trigger
+      - ai_agent
+      - slack_write_message
+      type: string
+      description: '* `local_baserow_create_row` - local_baserow_create_row
+
+        * `local_baserow_update_row` - local_baserow_update_row
+
+        * `local_baserow_delete_row` - local_baserow_delete_row
+
+        * `local_baserow_get_row` - local_baserow_get_row
+
+        * `local_baserow_list_rows` - local_baserow_list_rows
+
+        * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+        * `http_request` - http_request
+
+        * `iterator` - iterator
+
+        * `smtp_email` - smtp_email
+
+        * `router` - router
+
+        * `local_baserow_rows_created` - local_baserow_rows_created
+
+        * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+        * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+        * `periodic` - periodic
+
+        * `http_trigger` - http_trigger
+
+        * `ai_agent` - ai_agent
+
+        * `slack_write_message` - slack_write_message'
+    LocalBaserowRowsUpdatedService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    HTTPQueryParam:
+      type: object
+      description: Serializer for the HTTPQueryParam model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 255
+        value:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - id
+      - key
+    LocalBaserowRowsCreatedBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+      required:
+      - id
+    CoreHTTPRequestActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    SlackWriteMessageActionNodeCreateAutomationNode:
       type: object
       properties:
         id:
@@ -3837,12 +2779,326 @@ components:
       required:
       - id
       - type
-    CorePeriodicServiceBasePolymorphicRequest:
+    LocalBaserowAggregateRowsService:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow field we want to aggregate on.
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    CoreHTTPRequestActionNodeCreateAutomationNode:
       type: object
       properties:
         id:
           type: integer
           readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreSMTPEmailActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    LocalBaserowListRowsBasePolymorphicRequest:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        default_result_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The default record count returned with each page.
+      required:
+      - id
+    CoreHTTPRequestActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    CorePeriodicServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
         interval:
           allOf:
           - $ref: '#/components/schemas/Interval3bdEnum'
@@ -3893,348 +3149,17 @@ components:
           format: date-time
           description: The next scheduled time for this service to run. Automatically calculated based on the interval and schedule fields.
       required:
-      - id
-      - interval
-    CoreHTTPTriggerServiceBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        uid:
-          type: string
-          format: uuid
-          description: The service identifier for the webhook.
-        exclude_get:
-          type: boolean
-          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
-      required:
-      - id
-    CoreRouterActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    SlackWriteMessageServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Slack bot integration.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        channel:
-          type: string
-          default: ''
-          description: The Slack channel ID where the message will be sent.
-        text:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The text content of the Slack message.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    AIAgentServiceBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The ID of the AI integration to use for this service.
-        ai_generative_ai_type:
-          type:
-          - string
-          - 'null'
-          description: The generative AI provider type (e.g., 'openai', 'anthropic').
-        ai_generative_ai_model:
-          type:
-          - string
-          - 'null'
-          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
-        ai_output_type:
-          allOf:
-          - $ref: '#/components/schemas/AiOutputType5efEnum'
-          default: text
-          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
-
-
-            * `text` - Text
-
-            * `choice` - Choice'
-        ai_temperature:
-          type:
-          - number
-          - 'null'
-          format: double
-          maximum: 2
-          minimum: 0
-          description: Temperature for response randomness (0-2). Lower is more focused.
-        ai_prompt:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The prompt to send to the AI model. Can be a formula.
-        ai_choices:
-          type: array
-          items:
-            type: string
-          description: List of choice options for 'choice' output type.
-      required:
-      - id
-    SlackWriteMessageActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    CoreRouterServiceService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        default_edge_label:
-          type: string
-          description: The label to apply next to router edge.
-          maxLength: 75
-        edges:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreRouterServiceEdge'
-          description: The edges associated with this service.
-      required:
       - context_data
       - context_data_schema
       - id
       - integration_id
+      - interval
       - sample_data
       - schema
       - type
-    LocalBaserowGetRowBasePolymorphicRequest:
+    HTTPHeader:
       type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-      required:
-      - id
-    LocalBaserowListRowsService:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        default_result_count:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The default record count returned with each page.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    HTTPQueryParam:
-      type: object
-      description: Serializer for the HTTPQueryParam model.
+      description: Serializer for the HTTPHeader model.
       properties:
         id:
           type: integer
@@ -4252,206 +3177,10 @@ components:
       required:
       - id
       - key
-    LocalBaserowGroupedAggregateRowsService:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        aggregation_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
-        aggregation_group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
-        aggregation_sorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsUpdatedService:
-      type: object
-      description: Basic service serializer mostly for returned values.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the service.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-      required:
-      - context_data
-      - context_data_schema
-      - id
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsCreatedTriggerNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
-    LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    CoreHTTPRequestActionNodeAutomationNode:
+    BlankEnum:
+      enum:
+      - ''
+    LocalBaserowRowsDeletedTriggerNodeAutomationNode:
       type: object
       description: Basic automation node serializer.
       properties:
@@ -4477,98 +3206,6 @@ components:
       - service
       - type
       - workflow
-    LocalBaserowDeleteRowBasePolymorphicRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-      required:
-      - id
-    LocalBaserowRowsUpdatedTriggerNodeCreateAutomationNode:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeFbcEnum'
-          description: 'The type of the automation node
-
-
-            * `local_baserow_create_row` - local_baserow_create_row
-
-            * `local_baserow_update_row` - local_baserow_update_row
-
-            * `local_baserow_delete_row` - local_baserow_delete_row
-
-            * `local_baserow_get_row` - local_baserow_get_row
-
-            * `local_baserow_list_rows` - local_baserow_list_rows
-
-            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
-
-            * `http_request` - http_request
-
-            * `iterator` - iterator
-
-            * `smtp_email` - smtp_email
-
-            * `router` - router
-
-            * `local_baserow_rows_created` - local_baserow_rows_created
-
-            * `local_baserow_rows_updated` - local_baserow_rows_updated
-
-            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
-
-            * `periodic` - periodic
-
-            * `http_trigger` - http_trigger
-
-            * `ai_agent` - ai_agent
-
-            * `slack_write_message` - slack_write_message'
-        reference_node_id:
-          type:
-          - integer
-          - 'null'
-          description: If provided, creates the node relative to the node with the given id.
-        position:
-          description: 'The position of the new node relative to the reference node.
-
-
-            * `south` - South
-
-            * `child` - Child'
-          oneOf:
-          - $ref: '#/components/schemas/PositionEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        output:
-          type: string
-          description: The unique ID of the branch this node is an output for.
-      required:
-      - id
-      - type
     CoreHTTPRequestServiceBasePolymorphicRequest:
       type: object
       properties:
@@ -4647,7 +3284,7 @@ components:
           description: The timeout for the HTTP request in seconds.
       required:
       - id
-    LocalBaserowUpdateRowActionNodeUpdateAutomationNode:
+    CoreIteratorActionNodeUpdateAutomationNode:
       type: object
       properties:
         label:
@@ -4658,7 +3295,260 @@ components:
           allOf:
           - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
           description: The service associated with this automation node.
-    LocalBaserowCreateRowActionNodeCreateAutomationNode:
+    LocalBaserowRowsDeletedService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    AiOutputType5efEnum:
+      enum:
+      - text
+      - choice
+      type: string
+      description: '* `text` - Text
+
+        * `choice` - Choice'
+    LocalBaserowGetRowService:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    LocalBaserowRowsUpdatedBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+      required:
+      - id
+    Integration_ServiceBasePolymorphicRequest:
+      anyOf:
+      - $ref: '#/components/schemas/LocalBaserowGetRowBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowListRowsBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowAggregateRowsBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowUpsertRowBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowDeleteRowBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowRowsCreatedBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowRowsDeletedBasePolymorphicRequest'
+      - $ref: '#/components/schemas/SlackWriteMessageServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CoreHTTPRequestServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CoreSMTPEmailServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CoreRouterServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CoreHTTPTriggerServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CoreIteratorServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/CorePeriodicServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/AIAgentServiceBasePolymorphicRequest'
+      - $ref: '#/components/schemas/LocalBaserowGroupedAggregateRowsBasePolymorphicRequest'
+    LocalBaserowTableServiceAggregationGroupBy:
+      type: object
+      properties:
+        order:
+          type: integer
+          readOnly: true
+        field_id:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field_id
+      - order
+    CorePeriodicServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        interval:
+          allOf:
+          - $ref: '#/components/schemas/Interval3bdEnum'
+          description: 'The interval frequency for running the service.
+
+
+            * `MINUTE` - MINUTE
+
+            * `HOUR` - HOUR
+
+            * `DAY` - DAY
+
+            * `WEEK` - WEEK
+
+            * `MONTH` - MONTH'
+        minute:
+          type:
+          - integer
+          - 'null'
+          maximum: 59
+          minimum: 0
+          description: The minute of the hour when to run (0-59). Required for hourly, daily, weekly, monthly intervals.
+        hour:
+          type:
+          - integer
+          - 'null'
+          maximum: 23
+          minimum: 0
+          description: The hour of the day when to run (0-23). Required for daily, weekly, monthly intervals.
+        day_of_week:
+          type:
+          - integer
+          - 'null'
+          maximum: 6
+          minimum: 0
+          description: The day of the week when to run (0=Monday, 6=Sunday). Required for weekly intervals.
+        day_of_month:
+          type:
+          - integer
+          - 'null'
+          maximum: 31
+          minimum: 1
+          description: The day of the month when to run (1-31). Required for monthly intervals.
+        next_run_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The next scheduled time for this service to run. Automatically calculated based on the interval and schedule fields.
+      required:
+      - id
+      - interval
+    LocalBaserowCreateRowActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    LocalBaserowRowsDeletedTriggerNodeCreateAutomationNode:
       type: object
       properties:
         id:
@@ -4724,18 +3614,7 @@ components:
       required:
       - id
       - type
-    LocalBaserowAggregateRowsActionNodeUpdateAutomationNode:
-      type: object
-      properties:
-        label:
-          type: string
-          description: A label to use when displaying this node in a graph.
-          maxLength: 75
-        service:
-          allOf:
-          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
-          description: The service associated with this automation node.
-    CoreRouterActionNodeAutomationNode:
+    LocalBaserowRowsUpdatedTriggerNodeAutomationNode:
       type: object
       description: Basic automation node serializer.
       properties:
@@ -4761,7 +3640,1085 @@ components:
       - service
       - type
       - workflow
-    LocalBaserowRowsUpdatedBasePolymorphicRequest:
+    CorePeriodicTriggerNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreIteratorActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    CoreIteratorActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreHTTPTriggerServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        uid:
+          type: string
+          format: uuid
+          description: The service identifier for the webhook.
+        exclude_get:
+          type: boolean
+          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
+      required:
+      - id
+    LocalBaserowUpdateRowActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    CoreHTTPTriggerNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    LocalBaserowGetRowActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    SlackWriteMessageServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Slack bot integration.
+        channel:
+          type: string
+          default: ''
+          description: The Slack channel ID where the message will be sent.
+        text:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The text content of the Slack message.
+      required:
+      - id
+    AIAgentServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The ID of the AI integration to use for this service.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        ai_generative_ai_type:
+          type:
+          - string
+          - 'null'
+          description: The generative AI provider type (e.g., 'openai', 'anthropic').
+        ai_generative_ai_model:
+          type:
+          - string
+          - 'null'
+          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
+        ai_output_type:
+          allOf:
+          - $ref: '#/components/schemas/AiOutputType5efEnum'
+          default: text
+          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
+
+
+            * `text` - Text
+
+            * `choice` - Choice'
+        ai_temperature:
+          type:
+          - number
+          - 'null'
+          format: double
+          maximum: 2
+          minimum: 0
+          description: Temperature for response randomness (0-2). Lower is more focused.
+        ai_prompt:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The prompt to send to the AI model. Can be a formula.
+        ai_choices:
+          type: array
+          items:
+            type: string
+          description: List of choice options for 'choice' output type.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - sample_data
+      - schema
+      - type
+    LocalBaserowUpdateRowActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    LocalBaserowListRowsActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    LocalBaserowDeleteRowActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    CoreRouterServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        default_edge_label:
+          type: string
+          description: The label to apply next to router edge.
+          maxLength: 75
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreRouterServiceEdge'
+          description: The edges associated with this service.
+      required:
+      - id
+    ReplaceAutomationNode:
+      type: object
+      properties:
+        new_type:
+          allOf:
+          - $ref: '#/components/schemas/NewTypeEnum'
+          description: 'The type of the new automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+      required:
+      - new_type
+    CoreIteratorServiceService:
+      type: object
+      description: Basic service serializer mostly for returned values.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the service.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        source:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The path of the array.
+      required:
+      - context_data
+      - context_data_schema
+      - id
+      - integration_id
+      - sample_data
+      - schema
+      - type
+    PatchedAutomation_Node_TypeUpdateAutomationNode:
+      oneOf:
+      - $ref: '#/components/schemas/LocalBaserowCreateRowActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowUpdateRowActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowDeleteRowActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowGetRowActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowListRowsActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowAggregateRowsActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPRequestActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CoreIteratorActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CoreSMTPEmailActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CoreRouterActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CorePeriodicTriggerNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/CoreHTTPTriggerNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/AIAgentActionNodeUpdateAutomationNode'
+      - $ref: '#/components/schemas/SlackWriteMessageActionNodeUpdateAutomationNode'
+      discriminator:
+        propertyName: type
+        mapping:
+          local_baserow_create_row: '#/components/schemas/LocalBaserowCreateRowActionNodeUpdateAutomationNode'
+          local_baserow_update_row: '#/components/schemas/LocalBaserowUpdateRowActionNodeUpdateAutomationNode'
+          local_baserow_delete_row: '#/components/schemas/LocalBaserowDeleteRowActionNodeUpdateAutomationNode'
+          local_baserow_get_row: '#/components/schemas/LocalBaserowGetRowActionNodeUpdateAutomationNode'
+          local_baserow_list_rows: '#/components/schemas/LocalBaserowListRowsActionNodeUpdateAutomationNode'
+          local_baserow_aggregate_rows: '#/components/schemas/LocalBaserowAggregateRowsActionNodeUpdateAutomationNode'
+          http_request: '#/components/schemas/CoreHTTPRequestActionNodeUpdateAutomationNode'
+          iterator: '#/components/schemas/CoreIteratorActionNodeUpdateAutomationNode'
+          smtp_email: '#/components/schemas/CoreSMTPEmailActionNodeUpdateAutomationNode'
+          router: '#/components/schemas/CoreRouterActionNodeUpdateAutomationNode'
+          local_baserow_rows_created: '#/components/schemas/LocalBaserowRowsCreatedTriggerNodeUpdateAutomationNode'
+          local_baserow_rows_updated: '#/components/schemas/LocalBaserowRowsUpdatedTriggerNodeUpdateAutomationNode'
+          local_baserow_rows_deleted: '#/components/schemas/LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode'
+          periodic: '#/components/schemas/CorePeriodicTriggerNodeUpdateAutomationNode'
+          http_trigger: '#/components/schemas/CoreHTTPTriggerNodeUpdateAutomationNode'
+          ai_agent: '#/components/schemas/AIAgentActionNodeUpdateAutomationNode'
+          slack_write_message: '#/components/schemas/SlackWriteMessageActionNodeUpdateAutomationNode'
+    LocalBaserowAggregateRowsActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    LocalBaserowDeleteRowActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    LocalBaserowTableServiceFieldMapping:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          description: The primary key of the associated database table field.
+        enabled:
+          type: boolean
+          description: Indicates whether the field mapping is enabled or not.
+        value:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - enabled
+      - field_id
+    CoreHTTPTriggerNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    LocalBaserowGetRowBasePolymorphicRequest:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
+      required:
+      - id
+    AIAgentActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    AIAgentServiceBasePolymorphicRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The ID of the AI integration to use for this service.
+        ai_generative_ai_type:
+          type:
+          - string
+          - 'null'
+          description: The generative AI provider type (e.g., 'openai', 'anthropic').
+        ai_generative_ai_model:
+          type:
+          - string
+          - 'null'
+          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
+        ai_output_type:
+          allOf:
+          - $ref: '#/components/schemas/AiOutputType5efEnum'
+          default: text
+          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
+
+
+            * `text` - Text
+
+            * `choice` - Choice'
+        ai_temperature:
+          type:
+          - number
+          - 'null'
+          format: double
+          maximum: 2
+          minimum: 0
+          description: Temperature for response randomness (0-2). Lower is more focused.
+        ai_prompt:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The prompt to send to the AI model. Can be a formula.
+        ai_choices:
+          type: array
+          items:
+            type: string
+          description: List of choice options for 'choice' output type.
+      required:
+      - id
+    LocalBaserowListRowsActionNodeCreateAutomationNode:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeFbcEnum'
+          description: 'The type of the automation node
+
+
+            * `local_baserow_create_row` - local_baserow_create_row
+
+            * `local_baserow_update_row` - local_baserow_update_row
+
+            * `local_baserow_delete_row` - local_baserow_delete_row
+
+            * `local_baserow_get_row` - local_baserow_get_row
+
+            * `local_baserow_list_rows` - local_baserow_list_rows
+
+            * `local_baserow_aggregate_rows` - local_baserow_aggregate_rows
+
+            * `http_request` - http_request
+
+            * `iterator` - iterator
+
+            * `smtp_email` - smtp_email
+
+            * `router` - router
+
+            * `local_baserow_rows_created` - local_baserow_rows_created
+
+            * `local_baserow_rows_updated` - local_baserow_rows_updated
+
+            * `local_baserow_rows_deleted` - local_baserow_rows_deleted
+
+            * `periodic` - periodic
+
+            * `http_trigger` - http_trigger
+
+            * `ai_agent` - ai_agent
+
+            * `slack_write_message` - slack_write_message'
+        reference_node_id:
+          type:
+          - integer
+          - 'null'
+          description: If provided, creates the node relative to the node with the given id.
+        position:
+          description: 'The position of the new node relative to the reference node.
+
+
+            * `south` - South
+
+            * `child` - Child'
+          oneOf:
+          - $ref: '#/components/schemas/PositionEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        output:
+          type: string
+          description: The unique ID of the branch this node is an output for.
+      required:
+      - id
+      - type
+    AIAgentActionNodeAutomationNode:
+      type: object
+      description: Basic automation node serializer.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceService'
+          description: The service associated with this automation node.
+        workflow:
+          type: integer
+        type:
+          type: string
+          readOnly: true
+          description: The automation node type.
+      required:
+      - id
+      - service
+      - type
+      - workflow
+    LocalBaserowAggregateRowsBasePolymorphicRequest:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow field we want to aggregate on.
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+      required:
+      - id
+    LocalBaserowUpsertRowBasePolymorphicRequest:
       type: object
       properties:
         id:
@@ -4777,8 +4734,51 @@ components:
           - integer
           - 'null'
           description: The id of the Baserow integration we want the data for.
+        field_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
+          description: The field mapping associated with this service.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
       required:
       - id
+    LocalBaserowDeleteRowActionNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+    LocalBaserowRowsDeletedTriggerNodeUpdateAutomationNode:
+      type: object
+      properties:
+        label:
+          type: string
+          description: A label to use when displaying this node in a graph.
+          maxLength: 75
+        service:
+          allOf:
+          - $ref: '#/components/schemas/Integration_ServiceBasePolymorphicRequest'
+          description: The service associated with this automation node.
   securitySchemes:
     Database_token:
       type: http

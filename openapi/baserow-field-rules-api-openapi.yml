@@ -399,13 +399,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Field_RulesRequestUpdateFieldRule:
+    Type908Enum:
+      enum:
+      - date_dependency
+      type: string
+      description: '* `date_dependency` - date_dependency'
+    Field_RulesRequestFieldRule:
       oneOf:
-      - $ref: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+      - $ref: '#/components/schemas/DateDependencyRequestFieldRule'
       discriminator:
         propertyName: type
         mapping:
-          date_dependency: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+          date_dependency: '#/components/schemas/DateDependencyRequestFieldRule'
     InvalidRow:
       type: object
       properties:
@@ -414,42 +419,47 @@ components:
           readOnly: true
       required:
       - id
-    Type908Enum:
-      enum:
-      - date_dependency
-      type: string
-      description: '* `date_dependency` - date_dependency'
-    DateDependencyRequestUpdateFieldRule:
+    PaginationSerializerInvalidRow:
       type: object
-      description: Serializes inbound date dependency configuration. Requires `table` in the context.
       properties:
-        is_active:
-          type: boolean
-          description: Whether the date dependency is active or not. If set to false, all other values in the payload will be ignored.
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type908Enum'
-          description: 'The type of the field rule that must be created.
-
-
-            * `date_dependency` - date_dependency'
-        start_date_field_id:
+        count:
           type: integer
-          description: Start date field id
-        end_date_field_id:
-          type: integer
-          description: End date field id
-        duration_field_id:
-          type: integer
-          description: Duration field id
-        dependency_linkrow_field_id:
+          description: The total amount of results.
+        next:
           type:
-          - integer
+          - string
           - 'null'
-          description: Linkrow field id
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidRow'
       required:
-      - is_active
-      - type
+      - count
+      - next
+      - previous
+      - results
+    Field_RulesResponseFieldRule:
+      oneOf:
+      - $ref: '#/components/schemas/DateDependencyResponseFieldRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          date_dependency: '#/components/schemas/DateDependencyResponseFieldRule'
+    Field_RulesRequestUpdateFieldRule:
+      oneOf:
+      - $ref: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
+      discriminator:
+        propertyName: type
+        mapping:
+          date_dependency: '#/components/schemas/DateDependencyRequestUpdateFieldRule'
     DateDependencyResponseFieldRule:
       type: object
       description: Serializes inbound date dependency configuration. Requires `table` in the context.
@@ -502,40 +512,37 @@ components:
       - is_valid
       - table_id
       - type
-    Field_RulesResponseFieldRule:
-      oneOf:
-      - $ref: '#/components/schemas/DateDependencyResponseFieldRule'
-      discriminator:
-        propertyName: type
-        mapping:
-          date_dependency: '#/components/schemas/DateDependencyResponseFieldRule'
-    PaginationSerializerInvalidRow:
+    DateDependencyRequestUpdateFieldRule:
       type: object
+      description: Serializes inbound date dependency configuration. Requires `table` in the context.
       properties:
-        count:
+        is_active:
+          type: boolean
+          description: Whether the date dependency is active or not. If set to false, all other values in the payload will be ignored.
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type908Enum'
+          description: 'The type of the field rule that must be created.
+
+
+            * `date_dependency` - date_dependency'
+        start_date_field_id:
           type: integer
-          description: The total amount of results.
-        next:
+          description: Start date field id
+        end_date_field_id:
+          type: integer
+          description: End date field id
+        duration_field_id:
+          type: integer
+          description: Duration field id
+        dependency_linkrow_field_id:
           type:
-          - string
+          - integer
           - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidRow'
+          description: Linkrow field id
       required:
-      - count
-      - next
-      - previous
-      - results
+      - is_active
+      - type
     DateDependencyRequestFieldRule:
       type: object
       description: Serializes inbound date dependency configuration. Requires `table` in the context.
@@ -567,13 +574,6 @@ components:
       required:
       - is_active
       - type
-    Field_RulesRequestFieldRule:
-      oneOf:
-      - $ref: '#/components/schemas/DateDependencyRequestFieldRule'
-      discriminator:
-        propertyName: type
-        mapping:
-          date_dependency: '#/components/schemas/DateDependencyRequestFieldRule'
   securitySchemes:
     Database_token:
       type: http

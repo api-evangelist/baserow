@@ -274,6 +274,64 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    LocalBaserowTableServiceAggregationGroupBy:
+      type: object
+      properties:
+        order:
+          type: integer
+          readOnly: true
+        field_id:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field_id
+      - order
+    SlackWriteMessageServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Slack bot integration.
+        name:
+          type: string
+        channel:
+          type: string
+          default: ''
+          description: The Slack channel ID where the message will be sent.
+        text:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The text content of the Slack message.
+    DirectionEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    LocalBaserowRowsCreatedUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
     Integration_ServiceDashboardDataSource:
       oneOf:
       - $ref: '#/components/schemas/LocalBaserowGetRowDashboardDataSource'
@@ -313,403 +371,6 @@ components:
           periodic: '#/components/schemas/CorePeriodicServiceDashboardDataSource'
           ai_agent: '#/components/schemas/AIAgentServiceDashboardDataSource'
           local_baserow_grouped_aggregate_rows: '#/components/schemas/LocalBaserowGroupedAggregateRowsDashboardDataSource'
-    HTTPFormData:
-      type: object
-      description: Serializer for the Form data model.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        key:
-          type: string
-          maxLength: 255
-        value:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - id
-      - key
-    LocalBaserowGetRowUpdateDashboardDataSource:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-    LocalBaserowTableServiceAggregationSortBy:
-      type: object
-      properties:
-        order:
-          type: integer
-          readOnly: true
-        sort_on:
-          $ref: '#/components/schemas/SortOnEnum'
-        reference:
-          type: string
-          maxLength: 255
-        direction:
-          $ref: '#/components/schemas/DirectionEnum'
-      required:
-      - direction
-      - order
-      - reference
-      - sort_on
-    HTTPHeader:
-      type: object
-      description: Serializer for the HTTPHeader model.
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        key:
-          type: string
-          maxLength: 255
-        value:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - id
-      - key
-    Interval3bdEnum:
-      enum:
-      - MINUTE
-      - HOUR
-      - DAY
-      - WEEK
-      - MONTH
-      type: string
-      description: '* `MINUTE` - MINUTE
-
-        * `HOUR` - HOUR
-
-        * `DAY` - DAY
-
-        * `WEEK` - WEEK
-
-        * `MONTH` - MONTH'
-    LocalBaserowAggregateRowsUpdateDashboardDataSource:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow field we want to aggregate on.
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-    DirectionEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
-    LocalBaserowTableServiceFieldMapping:
-      type: object
-      properties:
-        field_id:
-          type: integer
-          description: The primary key of the associated database table field.
-        enabled:
-          type: boolean
-          description: Indicates whether the field mapping is enabled or not.
-        value:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-      required:
-      - enabled
-      - field_id
-    CoreIteratorServiceDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        source:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The path of the array.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - integration_id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsCreatedUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-    LocalBaserowRowsDeletedDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    LocalBaserowUpsertRowUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        field_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
-          description: The field mapping associated with this service.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-    BodyType870Enum:
-      enum:
-      - json
-      - form
-      - raw
-      - none
-      type: string
-      description: '* `json` - JSON
-
-        * `form` - Form Data
-
-        * `raw` - Raw
-
-        * `none` - None'
     HTTPQueryParam:
       type: object
       description: Serializer for the HTTPQueryParam model.
@@ -730,511 +391,6 @@ components:
       required:
       - id
       - key
-    CorePeriodicServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The related integration id.
-        name:
-          type: string
-        interval:
-          allOf:
-          - $ref: '#/components/schemas/Interval3bdEnum'
-          description: 'The interval frequency for running the service.
-
-
-            * `MINUTE` - MINUTE
-
-            * `HOUR` - HOUR
-
-            * `DAY` - DAY
-
-            * `WEEK` - WEEK
-
-            * `MONTH` - MONTH'
-        minute:
-          type:
-          - integer
-          - 'null'
-          maximum: 59
-          minimum: 0
-          description: The minute of the hour when to run (0-59). Required for hourly, daily, weekly, monthly intervals.
-        hour:
-          type:
-          - integer
-          - 'null'
-          maximum: 23
-          minimum: 0
-          description: The hour of the day when to run (0-23). Required for daily, weekly, monthly intervals.
-        day_of_week:
-          type:
-          - integer
-          - 'null'
-          maximum: 6
-          minimum: 0
-          description: The day of the week when to run (0=Monday, 6=Sunday). Required for weekly intervals.
-        day_of_month:
-          type:
-          - integer
-          - 'null'
-          maximum: 31
-          minimum: 1
-          description: The day of the month when to run (1-31). Required for monthly intervals.
-        next_run_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The next scheduled time for this service to run. Automatically calculated based on the interval and schedule fields.
-      required:
-      - interval
-    LocalBaserowTableServiceAggregationSeries:
-      type: object
-      properties:
-        id:
-          type: integer
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-        field_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field_id
-    CoreHTTPTriggerServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The related integration id.
-        name:
-          type: string
-        uid:
-          type: string
-          format: uuid
-          description: The service identifier for the webhook.
-        exclude_get:
-          type: boolean
-          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
-        is_public:
-          type: boolean
-          description: Defines whether the service is published or not.
-    LocalBaserowGroupedAggregateRowsUpdateDashboardDataSource:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        aggregation_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
-        aggregation_group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
-        aggregation_sorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
-    AiOutputType5efEnum:
-      enum:
-      - text
-      - choice
-      type: string
-      description: '* `text` - Text
-
-        * `choice` - Choice'
-    ConditionTypeEnum:
-      enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
-    AIAgentServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The ID of the AI integration to use for this service.
-        name:
-          type: string
-        ai_generative_ai_type:
-          type:
-          - string
-          - 'null'
-          description: The generative AI provider type (e.g., 'openai', 'anthropic').
-        ai_generative_ai_model:
-          type:
-          - string
-          - 'null'
-          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
-        ai_output_type:
-          allOf:
-          - $ref: '#/components/schemas/AiOutputType5efEnum'
-          default: text
-          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
-
-
-            * `text` - Text
-
-            * `choice` - Choice'
-        ai_temperature:
-          type:
-          - number
-          - 'null'
-          format: double
-          maximum: 2
-          minimum: 0
-          description: Temperature for response randomness (0-2). Lower is more focused.
-        ai_prompt:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The prompt to send to the AI model. Can be a formula.
-        ai_choices:
-          type: array
-          items:
-            type: string
-          description: List of choice options for 'choice' output type.
-    CoreRouterServiceDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        default_edge_label:
-          type: string
-          description: The label to apply next to router edge.
-          maxLength: 75
-        edges:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreRouterServiceEdge'
-          description: The edges associated with this service.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - integration_id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    SlackWriteMessageServiceDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Slack bot integration.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        channel:
-          type: string
-          default: ''
-          description: The Slack channel ID where the message will be sent.
-        text:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The text content of the Slack message.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    CoreHTTPRequestServiceDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The integration used to establish the connection with the service.
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        http_method:
-          allOf:
-          - $ref: '#/components/schemas/HttpMethodEnum'
-          default: GET
-          description: 'The HTTP method to use for the request (e.g., GET, POST).
-
-
-            * `GET` - GET
-
-            * `POST` - POST
-
-            * `PUT` - PUT
-
-            * `DELETE` - DELETE
-
-            * `PATCH` - PATCH
-
-            * `HEAD` - HEAD
-
-            * `OPTIONS` - OPTIONS'
-        url:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The URL to which the HTTP request will be sent.
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPHeader'
-          description: The headers for the request.
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPQueryParam'
-          description: The query params for the request.
-        form_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPFormData'
-          description: The form data for the request.
-        body_type:
-          allOf:
-          - $ref: '#/components/schemas/BodyType870Enum'
-          default: none
-          description: 'The type of the body content (e.g., JSON, Form Data).
-
-
-            * `json` - JSON
-
-            * `form` - Form Data
-
-            * `raw` - Raw
-
-            * `none` - None'
-        body_content:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The content of the body of the HTTP request.
-        timeout:
-          type: integer
-          maximum: 120
-          minimum: 1
-          description: The timeout for the HTTP request in seconds.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - integration_id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    CoreIteratorServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The related integration id.
-        name:
-          type: string
-        source:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The path of the array.
     LocalBaserowListRowsUpdateDashboardDataSource:
       type: object
       description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
@@ -1282,6 +438,49 @@ components:
           maximum: 2147483647
           minimum: 0
           description: The default record count returned with each page.
+    CoreIteratorServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The related integration id.
+        name:
+          type: string
+        source:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The path of the array.
+    CoreRouterServiceEdge:
+      type: object
+      properties:
+        uid:
+          type: string
+          format: uuid
+        label:
+          type: string
+          description: The label to apply next to router edge.
+          maxLength: 75
+        order:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
+          readOnly: true
+          description: Lowest first.
+        condition:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - order
     CoreRouterServiceUpdateDashboardDataSource:
       type: object
       properties:
@@ -1301,188 +500,6 @@ components:
           items:
             $ref: '#/components/schemas/CoreRouterServiceEdge'
           description: The edges associated with this service.
-    LocalBaserowAggregateRowsDashboardDataSource:
-      type: object
-      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
-
-        It ensures that when serialize the service, *all* filters (including those pointing
-
-        to trashed fields) are serialized.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        search_query:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Any search queries to apply to the service when it is dispatched.
-        field_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow field we want to aggregate on.
-        aggregation_type:
-          type: string
-          description: The field aggregation type.
-          maxLength: 48
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    CoreHTTPRequestServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The related integration id.
-        name:
-          type: string
-        http_method:
-          allOf:
-          - $ref: '#/components/schemas/HttpMethodEnum'
-          default: GET
-          description: 'The HTTP method to use for the request (e.g., GET, POST).
-
-
-            * `GET` - GET
-
-            * `POST` - POST
-
-            * `PUT` - PUT
-
-            * `DELETE` - DELETE
-
-            * `PATCH` - PATCH
-
-            * `HEAD` - HEAD
-
-            * `OPTIONS` - OPTIONS'
-        url:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The URL to which the HTTP request will be sent.
-        headers:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPHeader'
-          description: The headers for the request.
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPQueryParam'
-          description: The query params for the request.
-        form_data:
-          type: array
-          items:
-            $ref: '#/components/schemas/HTTPFormData'
-          description: The form data for the request.
-        body_type:
-          allOf:
-          - $ref: '#/components/schemas/BodyType870Enum'
-          default: none
-          description: 'The type of the body content (e.g., JSON, Form Data).
-
-
-            * `json` - JSON
-
-            * `form` - Form Data
-
-            * `raw` - Raw
-
-            * `none` - None'
-        body_content:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The content of the body of the HTTP request.
-        timeout:
-          type: integer
-          maximum: 120
-          minimum: 1
-          description: The timeout for the HTTP request in seconds.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-      required:
-      - sample_data
     CorePeriodicServiceDashboardDataSource:
       type: object
       description: 'Basic data source serializer mostly for returned values.
@@ -1596,13 +613,101 @@ components:
       - sample_data
       - schema
       - type
-    LocalBaserowGroupedAggregateRowsDashboardDataSource:
+    LocalBaserowDeleteRowUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
+    LocalBaserowTableServiceAggregationSeries:
+      type: object
+      properties:
+        id:
+          type: integer
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+        field_id:
+          type:
+          - integer
+          - 'null'
+      required:
+      - field_id
+    LocalBaserowGetRowUpdateDashboardDataSource:
       type: object
       description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
 
         It ensures that when serialize the service, *all* filters (including those pointing
 
         to trashed fields) are serialized.'
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
+    LocalBaserowDeleteRowDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
       properties:
         id:
           type: integer
@@ -1652,32 +757,14 @@ components:
           - integer
           - 'null'
           description: The id of the Baserow table we want the data for.
-        view_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow view we want the data for.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        aggregation_series:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
-        aggregation_group_bys:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
-        aggregation_sorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
+        row_id:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: A formula for defining the intended row.
       required:
       - context_data
       - context_data_schema
@@ -1781,30 +868,237 @@ components:
       - sample_data
       - schema
       - type
-    HttpMethodEnum:
+    CoreHTTPRequestServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The related integration id.
+        name:
+          type: string
+        http_method:
+          allOf:
+          - $ref: '#/components/schemas/HttpMethodEnum'
+          default: GET
+          description: 'The HTTP method to use for the request (e.g., GET, POST).
+
+
+            * `GET` - GET
+
+            * `POST` - POST
+
+            * `PUT` - PUT
+
+            * `DELETE` - DELETE
+
+            * `PATCH` - PATCH
+
+            * `HEAD` - HEAD
+
+            * `OPTIONS` - OPTIONS'
+        url:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The URL to which the HTTP request will be sent.
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPHeader'
+          description: The headers for the request.
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPQueryParam'
+          description: The query params for the request.
+        form_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPFormData'
+          description: The form data for the request.
+        body_type:
+          allOf:
+          - $ref: '#/components/schemas/BodyType870Enum'
+          default: none
+          description: 'The type of the body content (e.g., JSON, Form Data).
+
+
+            * `json` - JSON
+
+            * `form` - Form Data
+
+            * `raw` - Raw
+
+            * `none` - None'
+        body_content:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The content of the body of the HTTP request.
+        timeout:
+          type: integer
+          maximum: 120
+          minimum: 1
+          description: The timeout for the HTTP request in seconds.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+      required:
+      - sample_data
+    CoreHTTPTriggerServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The related integration id.
+        name:
+          type: string
+        uid:
+          type: string
+          format: uuid
+          description: The service identifier for the webhook.
+        exclude_get:
+          type: boolean
+          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
+        is_public:
+          type: boolean
+          description: Defines whether the service is published or not.
+    PatchedIntegration_ServiceUpdateDashboardDataSource:
+      anyOf:
+      - $ref: '#/components/schemas/LocalBaserowGetRowUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowListRowsUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowAggregateRowsUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowUpsertRowUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowDeleteRowUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowRowsCreatedUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowRowsDeletedUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/SlackWriteMessageServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CoreHTTPRequestServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CoreSMTPEmailServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CoreRouterServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CoreHTTPTriggerServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CoreIteratorServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/CorePeriodicServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/AIAgentServiceUpdateDashboardDataSource'
+      - $ref: '#/components/schemas/LocalBaserowGroupedAggregateRowsUpdateDashboardDataSource'
+    Interval3bdEnum:
       enum:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-      - PATCH
-      - HEAD
-      - OPTIONS
+      - MINUTE
+      - HOUR
+      - DAY
+      - WEEK
+      - MONTH
       type: string
-      description: '* `GET` - GET
+      description: '* `MINUTE` - MINUTE
 
-        * `POST` - POST
+        * `HOUR` - HOUR
 
-        * `PUT` - PUT
+        * `DAY` - DAY
 
-        * `DELETE` - DELETE
+        * `WEEK` - WEEK
 
-        * `PATCH` - PATCH
+        * `MONTH` - MONTH'
+    LocalBaserowTableServiceAggregationSortBy:
+      type: object
+      properties:
+        order:
+          type: integer
+          readOnly: true
+        sort_on:
+          $ref: '#/components/schemas/SortOnEnum'
+        reference:
+          type: string
+          maxLength: 255
+        direction:
+          $ref: '#/components/schemas/DirectionEnum'
+      required:
+      - direction
+      - order
+      - reference
+      - sort_on
+    CoreIteratorServiceDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
 
-        * `HEAD` - HEAD
+        This serializer flatten the service properties so that from
 
-        * `OPTIONS` - OPTIONS'
-    LocalBaserowDeleteRowUpdateDashboardDataSource:
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        source:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The path of the array.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - integration_id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    LocalBaserowUpsertRowUpdateDashboardDataSource:
       type: object
       properties:
         integration_id:
@@ -1819,6 +1113,11 @@ components:
           - integer
           - 'null'
           description: The id of the Baserow table we want the data for.
+        field_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
+          description: The field mapping associated with this service.
         row_id:
           type: object
           additionalProperties: {}
@@ -1827,31 +1126,396 @@ components:
             version: '0.1'
             mode: simple
           description: A formula for defining the intended row.
-    CoreRouterServiceEdge:
+    CoreRouterServiceDashboardDataSource:
       type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
       properties:
-        uid:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
           type: string
-          format: uuid
-        label:
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        default_edge_label:
           type: string
           description: The label to apply next to router edge.
           maxLength: 75
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreRouterServiceEdge'
+          description: The edges associated with this service.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - integration_id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    LocalBaserowUpsertRowDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
         order:
           type: string
-          format: decimal
-          pattern: ^-?\d{0,20}(?:\.\d{0,20})?$
           readOnly: true
           description: Lowest first.
-        condition:
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        field_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
+          description: The field mapping associated with this service.
+        row_id:
           type: object
           additionalProperties: {}
           default:
             formula: ''
             version: '0.1'
             mode: simple
+          description: A formula for defining the intended row.
       required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
       - order
+      - sample_data
+      - schema
+      - type
+    LocalBaserowRowsUpdatedUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+    SlackWriteMessageServiceDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Slack bot integration.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        channel:
+          type: string
+          default: ''
+          description: The Slack channel ID where the message will be sent.
+        text:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The text content of the Slack message.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    BodyTypeD6eEnum:
+      enum:
+      - plain
+      - html
+      type: string
+      description: '* `plain` - Plain Text
+
+        * `html` - HTML'
+    AIAgentServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The ID of the AI integration to use for this service.
+        name:
+          type: string
+        ai_generative_ai_type:
+          type:
+          - string
+          - 'null'
+          description: The generative AI provider type (e.g., 'openai', 'anthropic').
+        ai_generative_ai_model:
+          type:
+          - string
+          - 'null'
+          description: The specific AI model to use (e.g., 'gpt-4', 'claude-3-opus').
+        ai_output_type:
+          allOf:
+          - $ref: '#/components/schemas/AiOutputType5efEnum'
+          default: text
+          description: 'The output type: ''text'' for raw text, ''choice'' for constrained selection.
+
+
+            * `text` - Text
+
+            * `choice` - Choice'
+        ai_temperature:
+          type:
+          - number
+          - 'null'
+          format: double
+          maximum: 2
+          minimum: 0
+          description: Temperature for response randomness (0-2). Lower is more focused.
+        ai_prompt:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The prompt to send to the AI model. Can be a formula.
+        ai_choices:
+          type: array
+          items:
+            type: string
+          description: List of choice options for 'choice' output type.
+    LocalBaserowGroupedAggregateRowsDashboardDataSource:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        aggregation_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
+        aggregation_group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
+        aggregation_sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
     LocalBaserowGetRowDashboardDataSource:
       type: object
       description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
@@ -1948,92 +1612,596 @@ components:
       - sample_data
       - schema
       - type
-    CoreSMTPEmailServiceUpdateDashboardDataSource:
+    HTTPFormData:
+      type: object
+      description: Serializer for the Form data model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 255
+        value:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - id
+      - key
+    HTTPHeader:
+      type: object
+      description: Serializer for the HTTPHeader model.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        key:
+          type: string
+          maxLength: 255
+        value:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - id
+      - key
+    LocalBaserowRowsCreatedDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    BodyType870Enum:
+      enum:
+      - json
+      - form
+      - raw
+      - none
+      type: string
+      description: '* `json` - JSON
+
+        * `form` - Form Data
+
+        * `raw` - Raw
+
+        * `none` - None'
+    CoreHTTPTriggerServiceDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The integration used to establish the connection with the service.
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        uid:
+          type: string
+          format: uuid
+          description: The service identifier for the webhook.
+        exclude_get:
+          type: boolean
+          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
+        is_public:
+          type: boolean
+          description: Defines whether the service is published or not.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - integration_id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    LocalBaserowAggregateRowsDashboardDataSource:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Any search queries to apply to the service when it is dispatched.
+        field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow field we want to aggregate on.
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    LocalBaserowGroupedAggregateRowsUpdateDashboardDataSource:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        aggregation_series:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSeries'
+        aggregation_group_bys:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationGroupBy'
+        aggregation_sorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/LocalBaserowTableServiceAggregationSortBy'
+    LocalBaserowTableServiceFieldMapping:
+      type: object
+      properties:
+        field_id:
+          type: integer
+          description: The primary key of the associated database table field.
+        enabled:
+          type: boolean
+          description: Indicates whether the field mapping is enabled or not.
+        value:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+      required:
+      - enabled
+      - field_id
+    LocalBaserowRowsDeletedDashboardDataSource:
+      type: object
+      description: 'Basic data source serializer mostly for returned values.
+
+        This serializer flatten the service properties so that from
+
+        an API POV only the data source object exists.'
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: Data source id.
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        type:
+          type: string
+          readOnly: true
+          description: The type of the data source.
+        schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema of the service.
+        context_data:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The context data of the service.
+        context_data_schema:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+          description: The schema context data of the service.
+        sample_data:
+          readOnly: true
+          description: Store the sample data used for generating a schema.
+        name:
+          type: string
+          readOnly: true
+          description: Human name for this data source.
+        dashboard_id:
+          type: integer
+          readOnly: true
+          description: Dashboard this data source is linked to.
+        order:
+          type: string
+          readOnly: true
+          description: Lowest first.
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+      required:
+      - context_data
+      - context_data_schema
+      - dashboard_id
+      - id
+      - name
+      - order
+      - sample_data
+      - schema
+      - type
+    CorePeriodicServiceUpdateDashboardDataSource:
       type: object
       properties:
         integration_id:
           type:
           - integer
           - 'null'
-          description: The id of the SMTP integration.
+          description: The related integration id.
         name:
           type: string
-        use_instance_smtp_settings:
-          type: boolean
-          default: false
-          description: Whether to use the instance-level Django SMTP configuration.
-        instance_smtp_settings_enabled:
-          type: boolean
-          readOnly: true
-          description: Whether the instance SMTP configuration can be used and should be the default option in the UI.
-        from_email:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The sender's email address.
-        from_name:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The sender's name.
-        to_emails:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Comma-separated list of recipient email addresses.
-        cc_emails:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Comma-separated list of CC email addresses.
-        bcc_emails:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: Comma-separated list of BCC email addresses.
-        subject:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The email subject.
-        body_type:
+        interval:
           allOf:
-          - $ref: '#/components/schemas/BodyTypeD6eEnum'
-          default: plain
-          description: 'The type of the email body (plain text or HTML).
+          - $ref: '#/components/schemas/Interval3bdEnum'
+          description: 'The interval frequency for running the service.
 
 
-            * `plain` - Plain Text
+            * `MINUTE` - MINUTE
 
-            * `html` - HTML'
-        body:
+            * `HOUR` - HOUR
+
+            * `DAY` - DAY
+
+            * `WEEK` - WEEK
+
+            * `MONTH` - MONTH'
+        minute:
+          type:
+          - integer
+          - 'null'
+          maximum: 59
+          minimum: 0
+          description: The minute of the hour when to run (0-59). Required for hourly, daily, weekly, monthly intervals.
+        hour:
+          type:
+          - integer
+          - 'null'
+          maximum: 23
+          minimum: 0
+          description: The hour of the day when to run (0-23). Required for daily, weekly, monthly intervals.
+        day_of_week:
+          type:
+          - integer
+          - 'null'
+          maximum: 6
+          minimum: 0
+          description: The day of the week when to run (0=Monday, 6=Sunday). Required for weekly intervals.
+        day_of_month:
+          type:
+          - integer
+          - 'null'
+          maximum: 31
+          minimum: 1
+          description: The day of the month when to run (1-31). Required for monthly intervals.
+        next_run_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The next scheduled time for this service to run. Automatically calculated based on the interval and schedule fields.
+      required:
+      - interval
+    LocalBaserowRowsDeletedUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+    HttpMethodEnum:
+      enum:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - HEAD
+      - OPTIONS
+      type: string
+      description: '* `GET` - GET
+
+        * `POST` - POST
+
+        * `PUT` - PUT
+
+        * `DELETE` - DELETE
+
+        * `PATCH` - PATCH
+
+        * `HEAD` - HEAD
+
+        * `OPTIONS` - OPTIONS'
+    LocalBaserowAggregateRowsUpdateDashboardDataSource:
+      type: object
+      description: 'A serializer mixin for services which implement the local Baserow filterable mixin.
+
+        It ensures that when serialize the service, *all* filters (including those pointing
+
+        to trashed fields) are serialized.'
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow integration we want the data for.
+        name:
+          type: string
+        table_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow table we want the data for.
+        view_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow view we want the data for.
+        filter_type:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: 'Indicates whether all the rows should apply to all filters (AND) or to any filter (OR).
+
+
+            * `AND` - And
+
+            * `OR` - Or'
+        search_query:
           type: object
           additionalProperties: {}
           default:
             formula: ''
             version: '0.1'
             mode: simple
-          description: The email body content.
-      required:
-      - instance_smtp_settings_enabled
+          description: Any search queries to apply to the service when it is dispatched.
+        field_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the Baserow field we want to aggregate on.
+        aggregation_type:
+          type: string
+          description: The field aggregation type.
+          maxLength: 48
+    AiOutputType5efEnum:
+      enum:
+      - text
+      - choice
+      type: string
+      description: '* `text` - Text
+
+        * `choice` - Choice'
+    SortOnEnum:
+      enum:
+      - SERIES
+      - GROUP_BY
+      - PRIMARY
+      type: string
+      description: '* `SERIES` - Series
+
+        * `GROUP_BY` - Group by
+
+        * `PRIMARY` - Primary'
     CoreSMTPEmailServiceDashboardDataSource:
       type: object
       description: 'Basic data source serializer mostly for returned values.
@@ -2272,250 +2440,7 @@ components:
       - sample_data
       - schema
       - type
-    SlackWriteMessageServiceUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Slack bot integration.
-        name:
-          type: string
-        channel:
-          type: string
-          default: ''
-          description: The Slack channel ID where the message will be sent.
-        text:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: The text content of the Slack message.
-    BodyTypeD6eEnum:
-      enum:
-      - plain
-      - html
-      type: string
-      description: '* `plain` - Plain Text
-
-        * `html` - HTML'
-    PatchedIntegration_ServiceUpdateDashboardDataSource:
-      anyOf:
-      - $ref: '#/components/schemas/LocalBaserowGetRowUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowListRowsUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowAggregateRowsUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowUpsertRowUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowDeleteRowUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowRowsCreatedUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowRowsUpdatedUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowRowsDeletedUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/SlackWriteMessageServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CoreHTTPRequestServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CoreSMTPEmailServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CoreRouterServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CoreHTTPTriggerServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CoreIteratorServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/CorePeriodicServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/AIAgentServiceUpdateDashboardDataSource'
-      - $ref: '#/components/schemas/LocalBaserowGroupedAggregateRowsUpdateDashboardDataSource'
-    LocalBaserowRowsUpdatedUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-    LocalBaserowRowsCreatedDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    SortOnEnum:
-      enum:
-      - SERIES
-      - GROUP_BY
-      - PRIMARY
-      type: string
-      description: '* `SERIES` - Series
-
-        * `GROUP_BY` - Group by
-
-        * `PRIMARY` - Primary'
-    LocalBaserowDeleteRowDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
-
-        This serializer flatten the service properties so that from
-
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        row_id:
-          type: object
-          additionalProperties: {}
-          default:
-            formula: ''
-            version: '0.1'
-            mode: simple
-          description: A formula for defining the intended row.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    LocalBaserowRowsDeletedUpdateDashboardDataSource:
-      type: object
-      properties:
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        name:
-          type: string
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-    LocalBaserowTableServiceAggregationGroupBy:
-      type: object
-      properties:
-        order:
-          type: integer
-          readOnly: true
-        field_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - field_id
-      - order
-    CoreHTTPTriggerServiceDashboardDataSource:
+    CoreHTTPRequestServiceDashboardDataSource:
       type: object
       description: 'Basic data source serializer mostly for returned values.
 
@@ -2567,101 +2492,82 @@ components:
           type: string
           readOnly: true
           description: Lowest first.
-        uid:
-          type: string
-          format: uuid
-          description: The service identifier for the webhook.
-        exclude_get:
-          type: boolean
-          description: Whether the service should exclude GET requests for added security. By default all HTTP methods listed in the API endpoint are supported.
-        is_public:
-          type: boolean
-          description: Defines whether the service is published or not.
-      required:
-      - context_data
-      - context_data_schema
-      - dashboard_id
-      - id
-      - integration_id
-      - name
-      - order
-      - sample_data
-      - schema
-      - type
-    LocalBaserowUpsertRowDashboardDataSource:
-      type: object
-      description: 'Basic data source serializer mostly for returned values.
+        http_method:
+          allOf:
+          - $ref: '#/components/schemas/HttpMethodEnum'
+          default: GET
+          description: 'The HTTP method to use for the request (e.g., GET, POST).
 
-        This serializer flatten the service properties so that from
 
-        an API POV only the data source object exists.'
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          description: Data source id.
-        integration_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow integration we want the data for.
-        type:
-          type: string
-          readOnly: true
-          description: The type of the data source.
-        schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema of the service.
-        context_data:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The context data of the service.
-        context_data_schema:
-          type: object
-          additionalProperties: {}
-          readOnly: true
-          description: The schema context data of the service.
-        sample_data:
-          readOnly: true
-          description: Store the sample data used for generating a schema.
-        name:
-          type: string
-          readOnly: true
-          description: Human name for this data source.
-        dashboard_id:
-          type: integer
-          readOnly: true
-          description: Dashboard this data source is linked to.
-        order:
-          type: string
-          readOnly: true
-          description: Lowest first.
-        table_id:
-          type:
-          - integer
-          - 'null'
-          description: The id of the Baserow table we want the data for.
-        field_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/LocalBaserowTableServiceFieldMapping'
-          description: The field mapping associated with this service.
-        row_id:
+            * `GET` - GET
+
+            * `POST` - POST
+
+            * `PUT` - PUT
+
+            * `DELETE` - DELETE
+
+            * `PATCH` - PATCH
+
+            * `HEAD` - HEAD
+
+            * `OPTIONS` - OPTIONS'
+        url:
           type: object
           additionalProperties: {}
           default:
             formula: ''
             version: '0.1'
             mode: simple
-          description: A formula for defining the intended row.
+          description: The URL to which the HTTP request will be sent.
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPHeader'
+          description: The headers for the request.
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPQueryParam'
+          description: The query params for the request.
+        form_data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPFormData'
+          description: The form data for the request.
+        body_type:
+          allOf:
+          - $ref: '#/components/schemas/BodyType870Enum'
+          default: none
+          description: 'The type of the body content (e.g., JSON, Form Data).
+
+
+            * `json` - JSON
+
+            * `form` - Form Data
+
+            * `raw` - Raw
+
+            * `none` - None'
+        body_content:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The content of the body of the HTTP request.
+        timeout:
+          type: integer
+          maximum: 120
+          minimum: 1
+          description: The timeout for the HTTP request in seconds.
       required:
       - context_data
       - context_data_schema
       - dashboard_id
       - id
+      - integration_id
       - name
       - order
       - sample_data
@@ -2733,6 +2639,100 @@ components:
       - sample_data
       - schema
       - type
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
+    CoreSMTPEmailServiceUpdateDashboardDataSource:
+      type: object
+      properties:
+        integration_id:
+          type:
+          - integer
+          - 'null'
+          description: The id of the SMTP integration.
+        name:
+          type: string
+        use_instance_smtp_settings:
+          type: boolean
+          default: false
+          description: Whether to use the instance-level Django SMTP configuration.
+        instance_smtp_settings_enabled:
+          type: boolean
+          readOnly: true
+          description: Whether the instance SMTP configuration can be used and should be the default option in the UI.
+        from_email:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The sender's email address.
+        from_name:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The sender's name.
+        to_emails:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Comma-separated list of recipient email addresses.
+        cc_emails:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Comma-separated list of CC email addresses.
+        bcc_emails:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: Comma-separated list of BCC email addresses.
+        subject:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The email subject.
+        body_type:
+          allOf:
+          - $ref: '#/components/schemas/BodyTypeD6eEnum'
+          default: plain
+          description: 'The type of the email body (plain text or HTML).
+
+
+            * `plain` - Plain Text
+
+            * `html` - HTML'
+        body:
+          type: object
+          additionalProperties: {}
+          default:
+            formula: ''
+            version: '0.1'
+            mode: simple
+          description: The email body content.
+      required:
+      - instance_smtp_settings_enabled
   securitySchemes:
     Database_token:
       type: http

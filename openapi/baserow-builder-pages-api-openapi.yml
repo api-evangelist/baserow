@@ -413,16 +413,64 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OrderPages:
+    PathParam:
       type: object
       properties:
-        page_ids:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
+    PatchedUpdatePage:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        path:
+          type: string
+          maxLength: 255
+        path_params:
           type: array
           items:
-            type: integer
-          description: The ids of the pages in the order they are supposed to be set in
-      required:
-      - page_ids
+            $ref: '#/components/schemas/PathParam'
+        visibility:
+          allOf:
+          - $ref: '#/components/schemas/VisibilityC5fEnum'
+          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
+
+
+            * `all` - All
+
+            * `logged-in` - Logged In'
+        role_type:
+          allOf:
+          - $ref: '#/components/schemas/RoleTypeEnum'
+          description: 'Role type is used in conjunction with roles to control access to this page.
+
+
+            * `allow_all` - Allow All
+
+            * `allow_all_except` - Allow All Except
+
+            * `disallow_all_except` - Disallow All Except'
+        roles:
+          description: List of user roles that are associated with this page. Used in conjunction with role_type.
+        query_params:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryParam'
     Page:
       type: object
       description: '👉 Mind to update the
@@ -494,6 +542,16 @@ components:
       - roles
       - shared
       - visibility
+    OrderPages:
+      type: object
+      properties:
+        page_ids:
+          type: array
+          items:
+            type: integer
+          description: The ids of the pages in the order they are supposed to be set in
+      required:
+      - page_ids
     RoleTypeEnum:
       enum:
       - allow_all
@@ -525,6 +583,25 @@ components:
       required:
       - name
       - path
+    QueryParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the parameter.
+          maxLength: 255
+        type:
+          allOf:
+          - $ref: '#/components/schemas/TypeC70Enum'
+          description: 'The type of the parameter.
+
+
+            * `text` - text
+
+            * `numeric` - numeric'
+      required:
+      - name
+      - type
     DuplicatePageJobTypeResponse:
       type: object
       properties:
@@ -577,83 +654,6 @@ components:
       description: '* `text` - text
 
         * `numeric` - numeric'
-    PathParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
-    QueryParam:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the parameter.
-          maxLength: 255
-        type:
-          allOf:
-          - $ref: '#/components/schemas/TypeC70Enum'
-          description: 'The type of the parameter.
-
-
-            * `text` - text
-
-            * `numeric` - numeric'
-      required:
-      - name
-      - type
-    PatchedUpdatePage:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        path:
-          type: string
-          maxLength: 255
-        path_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathParam'
-        visibility:
-          allOf:
-          - $ref: '#/components/schemas/VisibilityC5fEnum'
-          description: 'Controls the page''s visibility. When set to ''logged-in'', the builder''s login_page must also be set.
-
-
-            * `all` - All
-
-            * `logged-in` - Logged In'
-        role_type:
-          allOf:
-          - $ref: '#/components/schemas/RoleTypeEnum'
-          description: 'Role type is used in conjunction with roles to control access to this page.
-
-
-            * `allow_all` - Allow All
-
-            * `allow_all_except` - Allow All Except
-
-            * `disallow_all_except` - Disallow All Except'
-        roles:
-          description: List of user roles that are associated with this page. Used in conjunction with role_type.
-        query_params:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryParam'
     VisibilityC5fEnum:
       enum:
       - all

@@ -284,50 +284,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PaginationSerializerNotificationRecipient:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationRecipient'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    Sender:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        username:
-          type: string
-          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-          pattern: ^[\w.@+-]+$
-          maxLength: 150
-        first_name:
-          type: string
-          maxLength: 150
-      required:
-      - id
-      - username
     NotificationRecipient:
       type: object
       description: 'Serialize notification data along with the recipient information about the
@@ -364,6 +320,50 @@ components:
       - sender
       - type
       - workspace
+    Sender:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+      required:
+      - id
+      - username
+    PaginationSerializerNotificationRecipient:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationRecipient'
+      required:
+      - count
+      - next
+      - previous
+      - results
   securitySchemes:
     Database_token:
       type: http
