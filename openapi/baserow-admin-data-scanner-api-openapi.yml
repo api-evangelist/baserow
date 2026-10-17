@@ -563,6 +563,89 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PaginationSerializerDataScan:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScan'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    CsvColumnSeparatorEnum:
+      enum:
+      - ','
+      - ;
+      - '|'
+      - tab
+      - record_separator
+      - unit_separator
+      type: string
+      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
+    ScanTypeEnum:
+      enum:
+      - pattern
+      - list_of_values
+      - list_table
+      type: string
+      description: '* `pattern` - Pattern
+
+        * `list_of_values` - List of values
+
+        * `list_table` - List Table'
+    PatchedDataScanUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        frequency:
+          $ref: '#/components/schemas/FrequencyEnum'
+        scan_all_workspaces:
+          type: boolean
+        workspace_ids:
+          type: array
+          items:
+            type: integer
+        list_items:
+          type: array
+          items:
+            type: string
+        source_table_id:
+          type:
+          - integer
+          - 'null'
+        source_field_id:
+          type:
+          - integer
+          - 'null'
+        whole_words:
+          type: boolean
     DataScan:
       type: object
       properties:
@@ -642,33 +725,102 @@ components:
       - source_workspace_id
       - updated_on
       - workspace_ids
-    PaginationSerializerDataScan:
+    DataScanCreate:
       type: object
       properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
+        name:
+          type: string
+          maxLength: 255
+        scan_type:
+          $ref: '#/components/schemas/ScanTypeEnum'
+        pattern:
+          type: string
+          maxLength: 100
+        frequency:
+          allOf:
+          - $ref: '#/components/schemas/FrequencyEnum'
+          default: manual
+        scan_all_workspaces:
+          type: boolean
+          default: true
+        workspace_ids:
           type: array
           items:
-            $ref: '#/components/schemas/DataScan'
+            type: integer
+        list_items:
+          type: array
+          items:
+            type: string
+        source_table_id:
+          type:
+          - integer
+          - 'null'
+        source_field_id:
+          type:
+          - integer
+          - 'null'
+        whole_words:
+          type: boolean
+          default: true
       required:
-      - count
-      - next
-      - previous
-      - results
+      - name
+      - scan_type
+    DataScanResult:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        scan_id:
+          type: integer
+          readOnly: true
+        scan_name:
+          type: string
+          readOnly: true
+        workspace_name:
+          type: string
+          readOnly: true
+        database_id:
+          type: string
+          readOnly: true
+        database_name:
+          type: string
+          readOnly: true
+        table_id:
+          type: integer
+          readOnly: true
+        table_name:
+          type: string
+          readOnly: true
+        field_name:
+          type: string
+          readOnly: true
+        row_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        matched_value:
+          type: string
+        first_identified_on:
+          type: string
+          format: date-time
+        last_identified_on:
+          type: string
+          format: date-time
+      required:
+      - database_id
+      - database_name
+      - field_name
+      - first_identified_on
+      - id
+      - last_identified_on
+      - matched_value
+      - row_id
+      - scan_id
+      - scan_name
+      - table_id
+      - table_name
+      - workspace_name
     ExportCharsetEnum:
       enum:
       - utf-8
@@ -770,110 +922,6 @@ components:
         * `windows-1252` - windows-1252
 
         * `iso-8859-3` - iso-8859-3'
-    CsvColumnSeparatorEnum:
-      enum:
-      - ','
-      - ;
-      - '|'
-      - tab
-      - record_separator
-      - unit_separator
-      type: string
-      description: "* `,` - ,\n* `;` - ;\n* `|` - |\n* `tab` - \t\n* `record_separator` - \n* `unit_separator` - "
-    DataScanResult:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        scan_id:
-          type: integer
-          readOnly: true
-        scan_name:
-          type: string
-          readOnly: true
-        workspace_name:
-          type: string
-          readOnly: true
-        database_id:
-          type: string
-          readOnly: true
-        database_name:
-          type: string
-          readOnly: true
-        table_id:
-          type: integer
-          readOnly: true
-        table_name:
-          type: string
-          readOnly: true
-        field_name:
-          type: string
-          readOnly: true
-        row_id:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-        matched_value:
-          type: string
-        first_identified_on:
-          type: string
-          format: date-time
-        last_identified_on:
-          type: string
-          format: date-time
-      required:
-      - database_id
-      - database_name
-      - field_name
-      - first_identified_on
-      - id
-      - last_identified_on
-      - matched_value
-      - row_id
-      - scan_id
-      - scan_name
-      - table_id
-      - table_name
-      - workspace_name
-    ScanTypeEnum:
-      enum:
-      - pattern
-      - list_of_values
-      - list_table
-      type: string
-      description: '* `pattern` - Pattern
-
-        * `list_of_values` - List of values
-
-        * `list_table` - List Table'
-    PaginationSerializerDataScanResult:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/DataScanResult'
-      required:
-      - count
-      - next
-      - previous
-      - results
     SingleDataScanResultExportJobRequest:
       type: object
       description: 'When mixed in to a model serializer for an ExportJob this will add an url field
@@ -971,95 +1019,6 @@ components:
           description: 'Optional: Filter results by scan ID.'
       required:
       - url
-    PatchedDataScanUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        scan_type:
-          $ref: '#/components/schemas/ScanTypeEnum'
-        pattern:
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-        frequency:
-          $ref: '#/components/schemas/FrequencyEnum'
-        scan_all_workspaces:
-          type: boolean
-        workspace_ids:
-          type: array
-          items:
-            type: integer
-        list_items:
-          type: array
-          items:
-            type: string
-        source_table_id:
-          type:
-          - integer
-          - 'null'
-        source_field_id:
-          type:
-          - integer
-          - 'null'
-        whole_words:
-          type: boolean
-    FrequencyEnum:
-      enum:
-      - manual
-      - hourly
-      - daily
-      - weekly
-      type: string
-      description: '* `manual` - Manual
-
-        * `hourly` - Hourly
-
-        * `daily` - Daily
-
-        * `weekly` - Weekly'
-    DataScanCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        scan_type:
-          $ref: '#/components/schemas/ScanTypeEnum'
-        pattern:
-          type: string
-          maxLength: 100
-        frequency:
-          allOf:
-          - $ref: '#/components/schemas/FrequencyEnum'
-          default: manual
-        scan_all_workspaces:
-          type: boolean
-          default: true
-        workspace_ids:
-          type: array
-          items:
-            type: integer
-        list_items:
-          type: array
-          items:
-            type: string
-        source_table_id:
-          type:
-          - integer
-          - 'null'
-        source_field_id:
-          type:
-          - integer
-          - 'null'
-        whole_words:
-          type: boolean
-          default: true
-      required:
-      - name
-      - scan_type
     SingleDataScanResultExportJobResponse:
       type: object
       description: 'When mixed in to a model serializer for an ExportJob this will add an url field
@@ -1169,6 +1128,20 @@ components:
       - created_on
       - exported_file_name
       - url
+    FrequencyEnum:
+      enum:
+      - manual
+      - hourly
+      - daily
+      - weekly
+      type: string
+      description: '* `manual` - Manual
+
+        * `hourly` - Hourly
+
+        * `daily` - Daily
+
+        * `weekly` - Weekly'
     WorkspaceStructureDatabase:
       type: object
       properties:
@@ -1183,6 +1156,33 @@ components:
       - id
       - name
       - tables
+    PaginationSerializerDataScanResult:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataScanResult'
+      required:
+      - count
+      - next
+      - previous
+      - results
   securitySchemes:
     Database_token:
       type: http

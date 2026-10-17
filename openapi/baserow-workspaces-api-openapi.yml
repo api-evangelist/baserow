@@ -1095,17 +1095,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OllamaSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        host:
-          type: string
-          description: The host that is used to authenticate with the Ollama API.
     OpenAISettings:
       type: object
       properties:
@@ -1124,7 +1113,7 @@ components:
           type: string
           format: uri
           description: https://api.openai.com/v1 by default, but can be changed to https://eu.api.openai.com/v1, https://<your-resource-name>.openai.azure.com,or any other OpenAI compatible API.
-    ImportApplicationsJobTypeResponse:
+    ExportApplicationsJobTypeResponse:
       type: object
       properties:
         id:
@@ -1151,20 +1140,28 @@ components:
           type: string
           format: date-time
           readOnly: true
-        installed_applications: {}
+        exported_file_name:
+          type: string
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
         workspace_id:
-          type: integer
-        resource:
-          $ref: '#/components/schemas/ImportResource'
+          type:
+          - integer
+          - 'null'
+          description: The workspace that the applications are going to be exported from.
+          readOnly: true
       required:
       - created_on
+      - exported_file_name
       - id
-      - installed_applications
       - progress_percentage
-      - resource
       - state
       - type
       - updated_on
+      - url
       - workspace_id
     GenerativeAISettings:
       type: object
@@ -1179,29 +1176,7 @@ components:
           $ref: '#/components/schemas/OllamaSettings'
         openrouter:
           $ref: '#/components/schemas/OpenRouterSettings'
-    PatchedGenerativeAISettings:
-      type: object
-      properties:
-        openai:
-          $ref: '#/components/schemas/OpenAISettings'
-        anthropic:
-          $ref: '#/components/schemas/AnthropicSettings'
-        mistral:
-          $ref: '#/components/schemas/MistralSettings'
-        ollama:
-          $ref: '#/components/schemas/OllamaSettings'
-        openrouter:
-          $ref: '#/components/schemas/OpenRouterSettings'
-    ListExportWorkspaceApplications:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
-      required:
-      - results
-    MistralSettings:
+    OllamaSettings:
       type: object
       properties:
         models:
@@ -1209,20 +1184,9 @@ components:
           items:
             type: string
           description: The models that are enabled for this AI type.
-        api_key:
+        host:
           type: string
-          description: The Mistral API key that is used to authenticate with the Mistral API.
-    AnthropicSettings:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: The models that are enabled for this AI type.
-        api_key:
-          type: string
-          description: The Anthropic API key that is used to authenticate with the Anthropic API.
+          description: The host that is used to authenticate with the Ollama API.
     PatchedUpdateWorkspaceUser:
       type: object
       properties:
@@ -1230,6 +1194,22 @@ components:
           type: string
           description: The permissions that the user has within the workspace.
           maxLength: 32
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 165
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
+      required:
+      - generative_ai_models_enabled
+      - id
+      - name
     ImportResource:
       type: object
       properties:
@@ -1248,17 +1228,18 @@ components:
       required:
       - id
       - name
-    PermissionObject:
+    PatchedWorkspace:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
         name:
           type: string
-          description: The permission manager name.
-        permissions:
-          description: The content of the permission object for this permission manager.
-      required:
-      - name
-      - permissions
+          maxLength: 165
+        generative_ai_models_enabled:
+          type: string
+          readOnly: true
     WorkspaceUserEnterpriseTeam:
       type: object
       description: A serializer for the `WorkspaceUserSerializer.teams` field.
@@ -1274,6 +1255,17 @@ components:
       required:
       - id
       - name
+    MistralSettings:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
+          type: string
+          description: The Mistral API key that is used to authenticate with the Mistral API.
     ListWorkspaceUsersWithMemberData:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -1336,16 +1328,6 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    OrderWorkspaces:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            type: integer
-          description: Workspace ids in the desired order.
-      required:
-      - workspaces
     WorkspaceUserWorkspace:
       type: object
       description: 'This serializers includes relevant fields of the Workspace model, but also
@@ -1393,23 +1375,26 @@ components:
       - permissions
       - unread_notifications_count
       - users
-    Workspace:
+    OrderWorkspaces:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
+        workspaces:
+          type: array
+          items:
+            type: integer
+          description: Workspace ids in the desired order.
       required:
-      - generative_ai_models_enabled
-      - id
-      - name
-    OpenRouterSettings:
+      - workspaces
+    ListExportWorkspaceApplications:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportApplicationsJobTypeResponse'
+      required:
+      - results
+    AnthropicSettings:
       type: object
       properties:
         models:
@@ -1419,10 +1404,73 @@ components:
           description: The models that are enabled for this AI type.
         api_key:
           type: string
-          description: The OpenRouter API key that is used to authenticate with the OpenAI API.
-        organization:
+          description: The Anthropic API key that is used to authenticate with the Anthropic API.
+    ImportApplicationsJobTypeResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
           type: string
-          description: The organization that the OpenRouter API key belongs to.
+          readOnly: true
+          description: The type of the job.
+        progress_percentage:
+          type: integer
+          description: A percentage indicating how far along the job is. 100 means that it's finished.
+        state:
+          type: string
+          description: Indicates the state of the import job.
+        human_readable_error:
+          type: string
+          description: A human readable error message indicating what went wrong.
+        created_on:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_on:
+          type: string
+          format: date-time
+          readOnly: true
+        installed_applications: {}
+        workspace_id:
+          type: integer
+        resource:
+          $ref: '#/components/schemas/ImportResource'
+      required:
+      - created_on
+      - id
+      - installed_applications
+      - progress_percentage
+      - resource
+      - state
+      - type
+      - updated_on
+      - workspace_id
+    PermissionObject:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The permission manager name.
+        permissions:
+          description: The content of the permission object for this permission manager.
+      required:
+      - name
+      - permissions
+    PatchedGenerativeAISettings:
+      type: object
+      properties:
+        openai:
+          $ref: '#/components/schemas/OpenAISettings'
+        anthropic:
+          $ref: '#/components/schemas/AnthropicSettings'
+        mistral:
+          $ref: '#/components/schemas/MistralSettings'
+        ollama:
+          $ref: '#/components/schemas/OllamaSettings'
+        openrouter:
+          $ref: '#/components/schemas/OpenRouterSettings'
     WorkspaceUser:
       type: object
       properties:
@@ -1467,68 +1515,20 @@ components:
       - two_factor_auth
       - user_id
       - workspace
-    ExportApplicationsJobTypeResponse:
+    OpenRouterSettings:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
+        models:
+          type: array
+          items:
+            type: string
+          description: The models that are enabled for this AI type.
+        api_key:
           type: string
-          readOnly: true
-          description: The type of the job.
-        progress_percentage:
-          type: integer
-          description: A percentage indicating how far along the job is. 100 means that it's finished.
-        state:
+          description: The OpenRouter API key that is used to authenticate with the OpenAI API.
+        organization:
           type: string
-          description: Indicates the state of the import job.
-        human_readable_error:
-          type: string
-          description: A human readable error message indicating what went wrong.
-        created_on:
-          type: string
-          format: date-time
-          readOnly: true
-        updated_on:
-          type: string
-          format: date-time
-          readOnly: true
-        exported_file_name:
-          type: string
-          readOnly: true
-        url:
-          type: string
-          format: uri
-          readOnly: true
-        workspace_id:
-          type:
-          - integer
-          - 'null'
-          description: The workspace that the applications are going to be exported from.
-          readOnly: true
-      required:
-      - created_on
-      - exported_file_name
-      - id
-      - progress_percentage
-      - state
-      - type
-      - updated_on
-      - url
-      - workspace_id
-    PatchedWorkspace:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 165
-        generative_ai_models_enabled:
-          type: string
-          readOnly: true
+          description: The organization that the OpenRouter API key belongs to.
   securitySchemes:
     Database_token:
       type: http

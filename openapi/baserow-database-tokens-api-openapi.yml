@@ -409,19 +409,6 @@ components:
           type: boolean
           default: false
           description: Indicates if a new key must be generated.
-    TokenCreate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The human readable name of the database token for the user.
-          maxLength: 100
-        workspace:
-          type: integer
-          description: Only the tables of the workspace can be accessed.
-      required:
-      - name
-      - workspace
     Token:
       type: object
       properties:
@@ -520,6 +507,19 @@ components:
       - key
       - name
       - permissions
+      - workspace
+    TokenCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The human readable name of the database token for the user.
+          maxLength: 100
+        workspace:
+          type: integer
+          description: Only the tables of the workspace can be accessed.
+      required:
+      - name
       - workspace
   securitySchemes:
     Database_token:

@@ -78,17 +78,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EmailVerificationEnum:
-      enum:
-      - no_verification
-      - recommended
-      - enforced
-      type: string
-      description: '* `no_verification` - no_verification
-
-        * `recommended` - recommended
-
-        * `enforced` - enforced'
     UserFile:
       type: object
       properties:
@@ -139,18 +128,17 @@ components:
       - thumbnails
       - uploaded_at
       - url
-    InstanceId:
-      type: object
-      properties:
-        instance_id:
-          type: string
-          readOnly: true
-          pattern: ^[-a-zA-Z0-9_]+$
-      required:
-      - instance_id
-    NullEnum:
+    EmailVerificationEnum:
       enum:
-      - null
+      - no_verification
+      - recommended
+      - enforced
+      type: string
+      description: '* `no_verification` - no_verification
+
+        * `recommended` - recommended
+
+        * `enforced` - enforced'
     PatchedSettings:
       type: object
       properties:
@@ -199,6 +187,9 @@ components:
         verify_import_signature:
           type: boolean
           description: Indicates whether the signature of imported files should be verified.
+    NullEnum:
+      enum:
+      - null
     Settings:
       type: object
       properties:
@@ -247,6 +238,15 @@ components:
         verify_import_signature:
           type: boolean
           description: Indicates whether the signature of imported files should be verified.
+    InstanceId:
+      type: object
+      properties:
+        instance_id:
+          type: string
+          readOnly: true
+          pattern: ^[-a-zA-Z0-9_]+$
+      required:
+      - instance_id
   securitySchemes:
     Database_token:
       type: http

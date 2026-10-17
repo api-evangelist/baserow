@@ -621,6 +621,58 @@ components:
       - auth.User
       type: string
       description: '* `auth.User` - auth.User'
+    TeamSubjectResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        subject_id:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          description: The unique subject ID.
+        subject_type:
+          type: string
+          description: 'Returns the TeamSubject''s `subject_type` natural key.
+
+
+            :param obj: The TeamSubject record.
+
+            :return: The subject''s content type natural key.'
+          readOnly: true
+        team:
+          type: integer
+          description: The team this subject belongs to.
+      required:
+      - id
+      - subject_id
+      - subject_type
+      - team
+    TeamSampleSubject:
+      type: object
+      properties:
+        subject_id:
+          type: integer
+          description: The subject's unique identifier.
+        subject_type:
+          allOf:
+          - $ref: '#/components/schemas/SubjectType0b2Enum'
+          description: 'The type of subject who belongs to the team.
+
+
+            * `auth.User` - auth.User'
+        subject_label:
+          type: string
+          description: The subject's label. Defaults to a user's first name.
+        team_subject_id:
+          type: integer
+          description: The team subject unique identifier.
+      required:
+      - subject_id
+      - subject_label
+      - subject_type
+      - team_subject_id
     TeamSubject:
       type: object
       description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
@@ -709,58 +761,6 @@ components:
       - subject_count
       - updated_on
       - workspace
-    TeamSampleSubject:
-      type: object
-      properties:
-        subject_id:
-          type: integer
-          description: The subject's unique identifier.
-        subject_type:
-          allOf:
-          - $ref: '#/components/schemas/SubjectType0b2Enum'
-          description: 'The type of subject who belongs to the team.
-
-
-            * `auth.User` - auth.User'
-        subject_label:
-          type: string
-          description: The subject's label. Defaults to a user's first name.
-        team_subject_id:
-          type: integer
-          description: The team subject unique identifier.
-      required:
-      - subject_id
-      - subject_label
-      - subject_type
-      - team_subject_id
-    TeamSubjectResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        subject_id:
-          type: integer
-          maximum: 2147483647
-          minimum: -2147483648
-          description: The unique subject ID.
-        subject_type:
-          type: string
-          description: 'Returns the TeamSubject''s `subject_type` natural key.
-
-
-            :param obj: The TeamSubject record.
-
-            :return: The subject''s content type natural key.'
-          readOnly: true
-        team:
-          type: integer
-          description: The team this subject belongs to.
-      required:
-      - id
-      - subject_id
-      - subject_type
-      - team
   securitySchemes:
     Database_token:
       type: http

@@ -726,66 +726,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    OpenIdConnectAuthProviderModelAuthProvider:
+    VerifyTOTP:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
+        email:
           type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
+          format: email
+        code:
           type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        name:
+        backup_code:
           type: string
-          maxLength: 255
-        base_url:
-          type: string
-          format: uri
-          description: Base URL of the authorization server
-          maxLength: 200
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
-        use_id_token:
-          type: boolean
-          description: Whether to use the id_token instead of user_info endpoint to get user data
-        email_attr_key:
-          type: string
-          description: The name of the claim that contains the email address of the user.
-          maxLength: 32
-        first_name_attr_key:
-          type: string
-          description: The key in the OIDC response that contains the first name of the user.
-          maxLength: 32
-        last_name_attr_key:
-          type: string
-          description: The key in the OIDC response that contains the last name of the user. If empty in response, first name will be used.
-          maxLength: 32
       required:
-      - base_url
-      - client_id
-      - domain
-      - id
-      - name
-      - secret
-      - type
-    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
-      enum:
-      - totp
-      type: string
-      description: '* `totp` - totp'
+      - email
+    Two_Factor_Auth_TypeTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
     DisableTwoFactorAuth:
       type: object
       properties:
@@ -793,7 +752,35 @@ components:
           type: string
       required:
       - password
-    GitLabAuthProviderModelAuthProvider:
+    TOTPAuthProviderModelTwoFactorAuth:
+      type: object
+      properties:
+        type:
+          type: string
+          readOnly: true
+        is_enabled:
+          type: boolean
+          readOnly: true
+        provisioning_url:
+          type: string
+        provisioning_qr_code:
+          type: string
+        backup_codes:
+          type: array
+          items:
+            type: string
+      required:
+      - backup_codes
+      - is_enabled
+      - provisioning_qr_code
+      - provisioning_url
+      - type
+    TOTPAuthProviderModelCreateTwoFactorAuthTypeEnum:
+      enum:
+      - totp
+      type: string
+      description: '* `totp` - totp'
+    FacebookAuthProviderModelAuthProvider:
       type: object
       properties:
         id:
@@ -812,11 +799,6 @@ components:
         name:
           type: string
           maxLength: 255
-        base_url:
-          type: string
-          format: uri
-          description: Base URL of the authorization server
-          maxLength: 200
         client_id:
           type: string
           description: App ID, or consumer key
@@ -826,7 +808,6 @@ components:
           description: API secret, client secret, or consumer secret
           maxLength: 191
       required:
-      - base_url
       - client_id
       - domain
       - id
@@ -871,13 +852,18 @@ components:
       - is_verified
       - metadata
       - type
-    Two_Factor_Auth_TypeCreateTwoFactorAuth:
-      oneOf:
-      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
-      discriminator:
-        propertyName: type
-        mapping:
-          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+    SAMLResponse:
+      type: object
+      properties:
+        SAMLResponse:
+          type: string
+          description: The encoded SAML response from the IdP.
+        RelayState:
+          type: string
+          description: The frontend URL where redirect the authenticated user.
+      required:
+      - RelayState
+      - SAMLResponse
     PasswordAuthProviderModelAuthProvider:
       type: object
       properties:
@@ -897,59 +883,6 @@ components:
       required:
       - id
       - type
-    GoogleAuthProviderModelAuthProvider:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the related field.
-        domain:
-          type: string
-          description: The email domain registered with this provider.
-        enabled:
-          type: boolean
-          description: Whether the provider is enabled or not.
-        name:
-          type: string
-          maxLength: 255
-        client_id:
-          type: string
-          description: App ID, or consumer key
-          maxLength: 191
-        secret:
-          type: string
-          description: API secret, client secret, or consumer secret
-          maxLength: 191
-      required:
-      - client_id
-      - domain
-      - id
-      - name
-      - secret
-      - type
-    VerifyTOTP:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        code:
-          type: string
-        backup_code:
-          type: string
-      required:
-      - email
-    Two_Factor_Auth_TypeTwoFactorAuth:
-      oneOf:
-      - $ref: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
-      discriminator:
-        propertyName: type
-        mapping:
-          totp: '#/components/schemas/TOTPAuthProviderModelTwoFactorAuth'
     TOTPAuthProviderModelCreateTwoFactorAuth:
       type: object
       properties:
@@ -973,42 +906,7 @@ components:
       - provisioning_qr_code
       - provisioning_url
       - type
-    TOTPAuthProviderModelTwoFactorAuth:
-      type: object
-      properties:
-        type:
-          type: string
-          readOnly: true
-        is_enabled:
-          type: boolean
-          readOnly: true
-        provisioning_url:
-          type: string
-        provisioning_qr_code:
-          type: string
-        backup_codes:
-          type: array
-          items:
-            type: string
-      required:
-      - backup_codes
-      - is_enabled
-      - provisioning_qr_code
-      - provisioning_url
-      - type
-    SAMLResponse:
-      type: object
-      properties:
-        SAMLResponse:
-          type: string
-          description: The encoded SAML response from the IdP.
-        RelayState:
-          type: string
-          description: The frontend URL where redirect the authenticated user.
-      required:
-      - RelayState
-      - SAMLResponse
-    FacebookAuthProviderModelAuthProvider:
+    GoogleAuthProviderModelAuthProvider:
       type: object
       properties:
         id:
@@ -1076,6 +974,108 @@ components:
       - name
       - secret
       - type
+    OpenIdConnectAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          format: uri
+          description: Base URL of the authorization server
+          maxLength: 200
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+        use_id_token:
+          type: boolean
+          description: Whether to use the id_token instead of user_info endpoint to get user data
+        email_attr_key:
+          type: string
+          description: The name of the claim that contains the email address of the user.
+          maxLength: 32
+        first_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the first name of the user.
+          maxLength: 32
+        last_name_attr_key:
+          type: string
+          description: The key in the OIDC response that contains the last name of the user. If empty in response, first name will be used.
+          maxLength: 32
+      required:
+      - base_url
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    GitLabAuthProviderModelAuthProvider:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the related field.
+        domain:
+          type: string
+          description: The email domain registered with this provider.
+        enabled:
+          type: boolean
+          description: Whether the provider is enabled or not.
+        name:
+          type: string
+          maxLength: 255
+        base_url:
+          type: string
+          format: uri
+          description: Base URL of the authorization server
+          maxLength: 200
+        client_id:
+          type: string
+          description: App ID, or consumer key
+          maxLength: 191
+        secret:
+          type: string
+          description: API secret, client secret, or consumer secret
+          maxLength: 191
+      required:
+      - base_url
+      - client_id
+      - domain
+      - id
+      - name
+      - secret
+      - type
+    Two_Factor_Auth_TypeCreateTwoFactorAuth:
+      oneOf:
+      - $ref: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
+      discriminator:
+        propertyName: type
+        mapping:
+          totp: '#/components/schemas/TOTPAuthProviderModelCreateTwoFactorAuth'
     Authentication_ProviderAuthProvider:
       oneOf:
       - $ref: '#/components/schemas/PasswordAuthProviderModelAuthProvider'

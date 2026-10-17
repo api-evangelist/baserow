@@ -488,6 +488,67 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    PatchedUpdateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    CreateViewGroupBy:
+      type: object
+      properties:
+        field:
+          type: integer
+          description: The field that must be grouped by.
+        order:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
+
+
+            * `ASC` - Ascending
+
+            * `DESC` - Descending'
+        width:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          default: 200
+          description: The pixel width of the group by in the related view.
+        type:
+          type: string
+          default: default
+          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
+          maxLength: 32
+      required:
+      - field
     ViewGroupBy:
       type: object
       properties:
@@ -527,59 +588,6 @@ components:
       - id
       - priority
       - view
-    CreateViewGroupBy:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          default: ASC
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          default: 200
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          default: default
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
-      required:
-      - field
-    PatchedUpdateViewGroupBy:
-      type: object
-      properties:
-        field:
-          type: integer
-          description: The field that must be grouped by.
-        order:
-          allOf:
-          - $ref: '#/components/schemas/OrderEnum'
-          description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
-
-
-            * `ASC` - Ascending
-
-            * `DESC` - Descending'
-        width:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: The pixel width of the group by in the related view.
-        type:
-          type: string
-          description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
-          maxLength: 32
     PrioritizeViewGroupBys:
       type: object
       properties:
@@ -591,14 +599,6 @@ components:
           minItems: 1
       required:
       - view_group_by_ids
-    OrderEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
   securitySchemes:
     Database_token:
       type: http

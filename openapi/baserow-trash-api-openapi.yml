@@ -191,24 +191,35 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TrashStructureApplication:
+    TrashStructureWorkspace:
       type: object
       properties:
         id:
           type: integer
-          readOnly: true
-        name:
-          type: string
-          maxLength: 160
+          minimum: 0
         trashed:
           type: boolean
-        type:
+        name:
           type: string
-          readOnly: true
+        applications:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrashStructureApplication'
       required:
+      - applications
       - id
       - name
-      - type
+      - trashed
+    TrashStructure:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrashStructureWorkspace'
+          description: An array of workspace trash structure records
+      required:
+      - workspaces
     TrashContents:
       type: object
       properties:
@@ -260,78 +271,24 @@ components:
       - trashed_at
       - user_who_trashed
       - workspace
-    PaginationSerializerTrashContents:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total amount of results.
-        next:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the next page.
-        previous:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: URL to the previous page.
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrashContents'
-      required:
-      - count
-      - next
-      - previous
-      - results
-    TrashStructureWorkspace:
+    TrashStructureApplication:
       type: object
       properties:
         id:
           type: integer
-          minimum: 0
-        trashed:
-          type: boolean
+          readOnly: true
         name:
           type: string
-        applications:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrashStructureApplication'
+          maxLength: 160
+        trashed:
+          type: boolean
+        type:
+          type: string
+          readOnly: true
       required:
-      - applications
       - id
       - name
-      - trashed
-    TrashStructure:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrashStructureWorkspace'
-          description: An array of workspace trash structure records
-      required:
-      - workspaces
-    PatchedTrashEntryRequest:
-      type: object
-      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
-
-        is provided to the serializer.'
-      properties:
-        trash_item_id:
-          type: integer
-          minimum: 0
-        parent_trash_item_id:
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-        trash_item_type:
-          $ref: '#/components/schemas/TrashItemTypeEnum'
+      - type
     TrashItemTypeEnum:
       enum:
       - workspace
@@ -376,6 +333,49 @@ components:
         * `row_comment` - row_comment
 
         * `team` - team'
+    PaginationSerializerTrashContents:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total amount of results.
+        next:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the next page.
+        previous:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL to the previous page.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrashContents'
+      required:
+      - count
+      - next
+      - previous
+      - results
+    PatchedTrashEntryRequest:
+      type: object
+      description: 'Mixin to a DRF serializer class to raise an exception if data with unknown fields
+
+        is provided to the serializer.'
+      properties:
+        trash_item_id:
+          type: integer
+          minimum: 0
+        parent_trash_item_id:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        trash_item_type:
+          $ref: '#/components/schemas/TrashItemTypeEnum'
   securitySchemes:
     Database_token:
       type: http

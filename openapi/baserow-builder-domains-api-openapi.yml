@@ -512,39 +512,6 @@ components:
       required:
       - domain_name
       - type
-    SubDomainDomain:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        type:
-          type: string
-          readOnly: true
-          description: The type of the domain.
-        domain_name:
-          type: string
-          maxLength: 255
-        order:
-          type: integer
-          maximum: 2147483647
-          minimum: 0
-          description: Lowest first.
-        builder_id:
-          type: integer
-          readOnly: true
-        last_published:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Last publication date of this domain
-      required:
-      - builder_id
-      - domain_name
-      - id
-      - order
-      - type
     PatchedUpdateDomain:
       type: object
       properties:
@@ -559,33 +526,6 @@ components:
             * `sub_domain` - sub_domain'
         domain_name:
           type: string
-    CustomDomainCreateDomain:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type509Enum'
-          description: 'The type of the domain.
-
-
-            * `custom` - custom
-
-            * `sub_domain` - sub_domain'
-        domain_name:
-          type: string
-          maxLength: 255
-      required:
-      - domain_name
-      - type
-    Domain_TypeDomain:
-      oneOf:
-      - $ref: '#/components/schemas/CustomDomainDomain'
-      - $ref: '#/components/schemas/SubDomainDomain'
-      discriminator:
-        propertyName: type
-        mapping:
-          custom: '#/components/schemas/CustomDomainDomain'
-          sub_domain: '#/components/schemas/SubDomainDomain'
     CustomDomainDomain:
       type: object
       properties:
@@ -619,6 +559,83 @@ components:
       - id
       - order
       - type
+    Type509Enum:
+      enum:
+      - custom
+      - sub_domain
+      type: string
+      description: '* `custom` - custom
+
+        * `sub_domain` - sub_domain'
+    CustomDomainCreateDomain:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type509Enum'
+          description: 'The type of the domain.
+
+
+            * `custom` - custom
+
+            * `sub_domain` - sub_domain'
+        domain_name:
+          type: string
+          maxLength: 255
+      required:
+      - domain_name
+      - type
+    SubDomainDomain:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: The type of the domain.
+        domain_name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+          description: Lowest first.
+        builder_id:
+          type: integer
+          readOnly: true
+        last_published:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Last publication date of this domain
+      required:
+      - builder_id
+      - domain_name
+      - id
+      - order
+      - type
+    Domain_TypeDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainDomain'
+      - $ref: '#/components/schemas/SubDomainDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainDomain'
+          sub_domain: '#/components/schemas/SubDomainDomain'
+    Domain_TypeCreateDomain:
+      oneOf:
+      - $ref: '#/components/schemas/CustomDomainCreateDomain'
+      - $ref: '#/components/schemas/SubDomainCreateDomain'
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/CustomDomainCreateDomain'
+          sub_domain: '#/components/schemas/SubDomainCreateDomain'
     OrderDomains:
       type: object
       properties:
@@ -629,23 +646,6 @@ components:
           description: The ids of the domains in the order they are supposed to be set in
       required:
       - domain_ids
-    Type509Enum:
-      enum:
-      - custom
-      - sub_domain
-      type: string
-      description: '* `custom` - custom
-
-        * `sub_domain` - sub_domain'
-    Domain_TypeCreateDomain:
-      oneOf:
-      - $ref: '#/components/schemas/CustomDomainCreateDomain'
-      - $ref: '#/components/schemas/SubDomainCreateDomain'
-      discriminator:
-        propertyName: type
-        mapping:
-          custom: '#/components/schemas/CustomDomainCreateDomain'
-          sub_domain: '#/components/schemas/SubDomainCreateDomain'
   securitySchemes:
     Database_token:
       type: http

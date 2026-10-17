@@ -488,7 +488,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PatchedUpdateViewSort:
+    CreateViewSort:
       type: object
       properties:
         field:
@@ -497,6 +497,7 @@ components:
         order:
           allOf:
           - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
           description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
 
 
@@ -507,6 +508,8 @@ components:
           type: string
           description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
           maxLength: 32
+      required:
+      - field
     ViewSort:
       type: object
       properties:
@@ -541,7 +544,15 @@ components:
       - id
       - priority
       - view
-    CreateViewSort:
+    OrderEnum:
+      enum:
+      - ASC
+      - DESC
+      type: string
+      description: '* `ASC` - Ascending
+
+        * `DESC` - Descending'
+    PatchedUpdateViewSort:
       type: object
       properties:
         field:
@@ -550,7 +561,6 @@ components:
         order:
           allOf:
           - $ref: '#/components/schemas/OrderEnum'
-          default: ASC
           description: 'Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.
 
 
@@ -561,8 +571,6 @@ components:
           type: string
           description: Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.
           maxLength: 32
-      required:
-      - field
     PrioritizeViewSortings:
       type: object
       properties:
@@ -574,14 +582,6 @@ components:
           minItems: 1
       required:
       - view_sort_ids
-    OrderEnum:
-      enum:
-      - ASC
-      - DESC
-      type: string
-      description: '* `ASC` - Ascending
-
-        * `DESC` - Descending'
   securitySchemes:
     Database_token:
       type: http

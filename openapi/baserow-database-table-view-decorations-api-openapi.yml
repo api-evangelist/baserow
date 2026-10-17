@@ -395,91 +395,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Decorator_Value_Provider_TypeViewDecoration:
+    BlankEnum:
+      enum:
+      - ''
+    PatchedDecorator_Value_Provider_TypeUpdateViewDecoration:
       oneOf:
-      - $ref: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
-      - $ref: '#/components/schemas/GeneratedConditional_colorViewDecoration'
+      - $ref: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
+      - $ref: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
       discriminator:
         propertyName: value_provider_type
         mapping:
-          single_select_color: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
-          conditional_color: '#/components/schemas/GeneratedConditional_colorViewDecoration'
-    ValueProviderTypeEnum:
-      enum:
-      - single_select_color
-      - conditional_color
-      type: string
-      description: "* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
-    GeneratedSingle_select_colorCreateViewDecoration:
-      type: object
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/Type516Enum'
-          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
-
-
-            * `left_border_color` - left_border_color
-
-            * `background_color` - background_color'
-        value_provider_type:
-          default: ''
-          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
-          oneOf:
-          - $ref: '#/components/schemas/ValueProviderTypeEnum'
-          - $ref: '#/components/schemas/BlankEnum'
-        value_provider_conf:
-          allOf:
-          - $ref: '#/components/schemas/SelectColorValueProviderConf'
-          description: The configuration of the value provider
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
-      required:
-      - type
-    Type516Enum:
-      enum:
-      - left_border_color
-      - background_color
-      type: string
-      description: '* `left_border_color` - left_border_color
-
-        * `background_color` - background_color'
-    SelectColorValueProviderConf:
-      type: object
-      properties:
-        field_id:
-          type:
-          - integer
-          - 'null'
-          description: An id of a select field of the table. The value provider return the color of the selected option for each row.
-      required:
-      - field_id
-    NullEnum:
-      enum:
-      - null
-    ConditionalColorValueProviderConfColor:
+          single_select_color: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
+          conditional_color: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
+    ConditionalColorValueProviderConfColorFilterGroup:
       type: object
       properties:
         id:
           type: string
           description: A unique identifier for this condition.
-        color:
-          type: string
-          description: The color the decorator should take if the defined conditions apply.
-        filters:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilter'
-          description: A list of conditions that the row must meet to get the selected color. This list of conditions can be empty, in that case, this color will always match the row values.
-        filter_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilterGroup'
-          description: 'A list of filter groups that the row must meet to get the selected color. '
-        operator:
+        filter_type:
           allOf:
           - $ref: '#/components/schemas/ConditionTypeEnum'
           default: AND
@@ -489,9 +423,12 @@ components:
             * `AND` - And
 
             * `OR` - Or'
+        parent_group:
+          type:
+          - string
+          - 'null'
+          description: The id of the parent filter group.
       required:
-      - color
-      - filters
       - id
     GeneratedConditional_colorViewDecoration:
       type: object
@@ -796,6 +733,91 @@ components:
         * `has_date_within` - has_date_within
 
         * `has_not_date_within` - has_not_date_within'
+    ConditionalColorValueProviderConfColors:
+      type: object
+      properties:
+        colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColor'
+          description: A list of color items. For each row, the value provider try to match the defined colors one by one in the given order. The first matching color is returned to the decorator.
+      required:
+      - colors
+    GeneratedSingle_select_colorCreateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          default: ''
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/SelectColorValueProviderConf'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - type
+    GeneratedConditional_colorCreateViewDecoration:
+      type: object
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/Type516Enum'
+          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
+
+
+            * `left_border_color` - left_border_color
+
+            * `background_color` - background_color'
+        value_provider_type:
+          default: ''
+          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+          oneOf:
+          - $ref: '#/components/schemas/ValueProviderTypeEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        value_provider_conf:
+          allOf:
+          - $ref: '#/components/schemas/ConditionalColorValueProviderConfColors'
+          description: The configuration of the value provider
+        order:
+          type: integer
+          maximum: 32767
+          minimum: -32768
+          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+      required:
+      - type
+    Decorator_Value_Provider_TypeViewDecoration:
+      oneOf:
+      - $ref: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
+      - $ref: '#/components/schemas/GeneratedConditional_colorViewDecoration'
+      discriminator:
+        propertyName: value_provider_type
+        mapping:
+          single_select_color: '#/components/schemas/GeneratedSingle_select_colorViewDecoration'
+          conditional_color: '#/components/schemas/GeneratedConditional_colorViewDecoration'
+    Type516Enum:
+      enum:
+      - left_border_color
+      - background_color
+      type: string
+      description: '* `left_border_color` - left_border_color
+
+        * `background_color` - background_color'
     GeneratedSingle_select_colorUpdateViewDecoration:
       type: object
       properties:
@@ -822,6 +844,14 @@ components:
           maximum: 32767
           minimum: -32768
           description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
+    ConditionTypeEnum:
+      enum:
+      - AND
+      - OR
+      type: string
+      description: '* `AND` - And
+
+        * `OR` - Or'
     GeneratedConditional_colorUpdateViewDecoration:
       type: object
       properties:
@@ -848,41 +878,6 @@ components:
           maximum: 32767
           minimum: -32768
           description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
-    ConditionalColorValueProviderConfColorFilterGroup:
-      type: object
-      properties:
-        id:
-          type: string
-          description: A unique identifier for this condition.
-        filter_type:
-          allOf:
-          - $ref: '#/components/schemas/ConditionTypeEnum'
-          default: AND
-          description: 'The boolean operator used to group all conditions.
-
-
-            * `AND` - And
-
-            * `OR` - Or'
-        parent_group:
-          type:
-          - string
-          - 'null'
-          description: The id of the parent filter group.
-      required:
-      - id
-    BlankEnum:
-      enum:
-      - ''
-    PatchedDecorator_Value_Provider_TypeUpdateViewDecoration:
-      oneOf:
-      - $ref: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
-      - $ref: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
-      discriminator:
-        propertyName: value_provider_type
-        mapping:
-          single_select_color: '#/components/schemas/GeneratedSingle_select_colorUpdateViewDecoration'
-          conditional_color: '#/components/schemas/GeneratedConditional_colorUpdateViewDecoration'
     Decorator_Value_Provider_TypeCreateViewDecoration:
       oneOf:
       - $ref: '#/components/schemas/GeneratedSingle_select_colorCreateViewDecoration'
@@ -892,34 +887,6 @@ components:
         mapping:
           single_select_color: '#/components/schemas/GeneratedSingle_select_colorCreateViewDecoration'
           conditional_color: '#/components/schemas/GeneratedConditional_colorCreateViewDecoration'
-    GeneratedSingle_select_colorViewDecoration:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        view:
-          type: integer
-          description: The view to which the decoration applies. Each view can have his own decorations.
-        type:
-          type: string
-          description: The decorator type. This is then interpreted by the frontend to display the decoration.
-          maxLength: 255
-        value_provider_type:
-          type: string
-          description: The value provider type that gives the value to the decorator.
-          maxLength: 255
-        value_provider_conf:
-          allOf:
-          - $ref: '#/components/schemas/SelectColorValueProviderConf'
-          description: The configuration of the value provider
-        order:
-          type: integer
-          maximum: 32767
-          minimum: -32768
-          description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
-      required:
-      - id
     ConditionalColorValueProviderConfColorFilter:
       type: object
       properties:
@@ -1132,37 +1099,65 @@ components:
       - field
       - id
       - type
-    ConditionalColorValueProviderConfColors:
+    ConditionalColorValueProviderConfColor:
       type: object
       properties:
-        colors:
+        id:
+          type: string
+          description: A unique identifier for this condition.
+        color:
+          type: string
+          description: The color the decorator should take if the defined conditions apply.
+        filters:
           type: array
           items:
-            $ref: '#/components/schemas/ConditionalColorValueProviderConfColor'
-          description: A list of color items. For each row, the value provider try to match the defined colors one by one in the given order. The first matching color is returned to the decorator.
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilter'
+          description: A list of conditions that the row must meet to get the selected color. This list of conditions can be empty, in that case, this color will always match the row values.
+        filter_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConditionalColorValueProviderConfColorFilterGroup'
+          description: 'A list of filter groups that the row must meet to get the selected color. '
+        operator:
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          default: AND
+          description: 'The boolean operator used to group all conditions.
+
+
+            * `AND` - And
+
+            * `OR` - Or'
       required:
-      - colors
-    GeneratedConditional_colorCreateViewDecoration:
+      - color
+      - filters
+      - id
+    ValueProviderTypeEnum:
+      enum:
+      - single_select_color
+      - conditional_color
+      type: string
+      description: "* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
+    GeneratedSingle_select_colorViewDecoration:
       type: object
       properties:
+        id:
+          type: integer
+          readOnly: true
+        view:
+          type: integer
+          description: The view to which the decoration applies. Each view can have his own decorations.
         type:
-          allOf:
-          - $ref: '#/components/schemas/Type516Enum'
-          description: 'The decorator type. This is then interpreted by the frontend to display the decoration.
-
-
-            * `left_border_color` - left_border_color
-
-            * `background_color` - background_color'
+          type: string
+          description: The decorator type. This is then interpreted by the frontend to display the decoration.
+          maxLength: 255
         value_provider_type:
-          default: ''
-          description: "The value provider type that gives the value to the decorator.\n\n* `` - \n* `single_select_color` - single_select_color\n* `conditional_color` - conditional_color"
-          oneOf:
-          - $ref: '#/components/schemas/ValueProviderTypeEnum'
-          - $ref: '#/components/schemas/BlankEnum'
+          type: string
+          description: The value provider type that gives the value to the decorator.
+          maxLength: 255
         value_provider_conf:
           allOf:
-          - $ref: '#/components/schemas/ConditionalColorValueProviderConfColors'
+          - $ref: '#/components/schemas/SelectColorValueProviderConf'
           description: The configuration of the value provider
         order:
           type: integer
@@ -1170,15 +1165,20 @@ components:
           minimum: -32768
           description: The position of the decorator has within the view, lowest first. If there is another decorator with the same order value then the decorator with the lowest id must be shown first.
       required:
-      - type
-    ConditionTypeEnum:
+      - id
+    NullEnum:
       enum:
-      - AND
-      - OR
-      type: string
-      description: '* `AND` - And
-
-        * `OR` - Or'
+      - null
+    SelectColorValueProviderConf:
+      type: object
+      properties:
+        field_id:
+          type:
+          - integer
+          - 'null'
+          description: An id of a select field of the table. The value provider return the color of the selected option for each row.
+      required:
+      - field_id
   securitySchemes:
     Database_token:
       type: http
