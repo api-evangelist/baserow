@@ -1,954 +1,926 @@
 {
+  "info": {
+    "_postman_id": "18bd577a-493f-422f-b48f-f3ea0f7cc2cb",
+    "name": "Baserow API spec Notifications API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:11.000Z",
+    "updatedAt": "2026-10-21T20:11:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-18bd577a-493f-422f-b48f-f3ea0f7cc2cb"
+  },
   "item": [
     {
-      "id": "7b406144-684e-4cf4-9052-e681e4ad6926",
-      "name": "Notifications",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "48f492e7-388e-4a5f-87f4-b80d45eef64d",
-          "name": "list workspace notifications",
-          "request": {
-            "name": "list workspace notifications",
-            "description": {
-              "content": "Lists the notifications for the given workspace and the current user. The response is paginated and the limit and offset parameters can be controlled using the query parameters.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "notifications",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Defines how many notifications should be returned."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<integer>",
-                  "description": "Defines the offset of the notifications that should be returned."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace id that the notifications belong to."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "notifications",
+          "item": [
             {
-              "id": "95b0ddf6-c3b2-4cb0-b644-ed24874437bf",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{workspace_id}",
+              "item": [
+                {
+                  "name": "{notification_id}",
+                  "item": [
                     {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "<integer>"
+                      "name": "Mark notification as read",
+                      "id": "3a4ec4d2-7331-4021-b7c2-6a559ce5851d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/:notification_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ":notification_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "bdd056b1-0305-4ac7-885d-486d72eb49e2",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) The workspace the notification is in."
+                            },
+                            {
+                              "id": "2af01afb-8d51-4d06-8b42-ffaa5d75a318",
+                              "key": "notification_id",
+                              "value": "<integer>",
+                              "description": "(Required) The notification id to update."
+                            }
+                          ]
+                        },
+                        "description": "Marks a notification as read."
+                      },
+                      "response": [
+                        {
+                          "id": "c1639c1f-4085-44b4-9ff3-830d0883d75d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/:notification_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                ":notification_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                },
+                                {
+                                  "key": "notification_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"data\": {\n    \"description\": \"The data associated with the notification.\"\n  },\n  \"id\": \"<integer>\",\n  \"sender\": {\n    \"id\": \"<integer>\",\n    \"username\": \"xvFu3\",\n    \"first_name\": \"<string>\"\n  },\n  \"type\": \"<string>\",\n  \"workspace\": \"<string>\",\n  \"read\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-c1639c1f-4085-44b4-9ff3-830d0883d75d"
+                        },
+                        {
+                          "id": "9902cf1c-d476-43cf-a811-ceb343451a93",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/:notification_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                ":notification_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                },
+                                {
+                                  "key": "notification_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-9902cf1c-d476-43cf-a811-ceb343451a93"
+                        },
+                        {
+                          "id": "bbe69df5-e7e0-4746-82c1-923a1a6609f0",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/:notification_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                ":notification_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                },
+                                {
+                                  "key": "notification_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-bbe69df5-e7e0-4746-82c1-923a1a6609f0"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-3a4ec4d2-7331-4021-b7c2-6a559ce5851d"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace id that the notifications belong to."
-                    }
-                  ]
+                  "id": "d5bb98db-2d2e-4a0e-a8f2-78057609ab5a",
+                  "createdAt": "2026-10-21T20:11:11.000Z",
+                  "updatedAt": "2026-10-21T20:11:11.000Z",
+                  "uid": "35240-d5bb98db-2d2e-4a0e-a8f2-78057609ab5a"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "mark-all-as-read",
+                  "item": [
+                    {
+                      "name": "Mark all workspace notifications as read",
+                      "id": "540af8f9-2923-4471-92ff-f98308773038",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/mark-all-as-read/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            "mark-all-as-read",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "a803cb21-dbac-476f-b53c-b9a8d9d015d3",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) The workspace the notifications are in."
+                            }
+                          ]
+                        },
+                        "description": "Mark as read all the notifications for the given workspace and user."
+                      },
+                      "response": [
+                        {
+                          "id": "4851b9c0-5203-4f2f-a582-1eb01300dc36",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/mark-all-as-read/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                "mark-all-as-read",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-4851b9c0-5203-4f2f-a582-1eb01300dc36"
+                        },
+                        {
+                          "id": "4f2ef386-4d25-40ff-a226-a3140dc3af4f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/mark-all-as-read/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                "mark-all-as-read",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-4f2ef386-4d25-40ff-a226-a3140dc3af4f"
+                        },
+                        {
+                          "id": "ccd18eab-c60f-47b3-89c1-a10ff16046c5",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/notifications/:workspace_id/mark-all-as-read/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "notifications",
+                                ":workspace_id",
+                                "mark-all-as-read",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:12.000Z",
+                          "updatedAt": "2026-10-21T20:11:12.000Z",
+                          "uid": "35240-ccd18eab-c60f-47b3-89c1-a10ff16046c5"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-540af8f9-2923-4471-92ff-f98308773038"
+                    }
+                  ],
+                  "id": "2f340e57-f10a-413a-8c3c-686a6bd9e5ed",
+                  "createdAt": "2026-10-21T20:11:11.000Z",
+                  "updatedAt": "2026-10-21T20:11:11.000Z",
+                  "uid": "35240-2f340e57-f10a-413a-8c3c-686a6bd9e5ed"
+                },
+                {
+                  "name": "List workspace notifications",
+                  "id": "3a8a2258-4d18-4155-a44c-8773be51c8f0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"count\": 1271,\n  \"next\": \"http://Wel.ysikDP0yzw+wne,\",\n  \"previous\": \"https://jOUcPTKPRUsjTHtsndpP.rgzSwaHr3bhy5jqeDcGbzUVyCcSwVmycWQVBSsgV-MPuSXkxaNSQqL\",\n  \"results\": [\n    {\n      \"created_on\": \"1967-06-18T09:04:11.787Z\",\n      \"data\": {},\n      \"id\": 7701,\n      \"sender\": {\n        \"id\": 6904,\n        \"username\": \"zG1849pa\",\n        \"first_name\": \"string\"\n      },\n      \"type\": \"string\",\n      \"workspace\": \"string\",\n      \"read\": true\n    },\n    {\n      \"created_on\": \"1958-07-24T11:45:24.675Z\",\n      \"data\": {},\n      \"id\": 9270,\n      \"sender\": {\n        \"id\": 898,\n        \"username\": \"rJ24\",\n        \"first_name\": \"string\"\n      },\n      \"type\": \"string\",\n      \"workspace\": \"string\",\n      \"read\": false\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ce389b43-3387-4186-ac0f-7625853e1de9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "key": "offset",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace id that the notifications belong to."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notifications/:workspace_id/?limit=<integer>&offset=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notifications",
+                        ":workspace_id",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Defines how many notifications should be returned.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Defines the offset of the notifications that should be returned.",
+                          "key": "offset",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d15f222a-1d47-4c06-8929-2e310efaf4c1",
+                          "key": "workspace_id",
+                          "value": "<integer>",
+                          "description": "(Required) The workspace id that the notifications belong to."
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "Lists the notifications for the given workspace and the current user. The response is paginated and the limit and offset parameters can be controlled using the query parameters."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f4bbf44e-96f2-4e1f-811d-5f0a9c0ed4cc",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "response": [
                     {
-                      "key": "limit",
-                      "value": "<integer>"
+                      "id": "12f04116-92c3-4d29-a329-8671e01398da",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/?limit=<integer>&offset=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Defines how many notifications should be returned.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Defines the offset of the notifications that should be returned.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"count\": \"<integer>\",\n  \"next\": \"<string,null-uri>\",\n  \"previous\": \"<string,null-uri>\",\n  \"results\": [\n    {\n      \"created_on\": \"<dateTime>\",\n      \"data\": {\n        \"description\": \"The data associated with the notification.\"\n      },\n      \"id\": \"<integer>\",\n      \"sender\": {\n        \"id\": \"<integer>\",\n        \"username\": \"P\",\n        \"first_name\": \"<string>\"\n      },\n      \"type\": \"<string>\",\n      \"workspace\": \"<string>\",\n      \"read\": \"<boolean>\"\n    },\n    {\n      \"created_on\": \"<dateTime>\",\n      \"data\": {\n        \"description\": \"The data associated with the notification.\"\n      },\n      \"id\": \"<integer>\",\n      \"sender\": {\n        \"id\": \"<integer>\",\n        \"username\": \"sLFgE.-B4+g\",\n        \"first_name\": \"<string>\"\n      },\n      \"type\": \"<string>\",\n      \"workspace\": \"<string>\",\n      \"read\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-12f04116-92c3-4d29-a329-8671e01398da"
                     },
                     {
-                      "key": "offset",
-                      "value": "<integer>"
+                      "id": "f9b4abd6-716e-4364-bd10-275369a85a48",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/?limit=<integer>&offset=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Defines how many notifications should be returned.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Defines the offset of the notifications that should be returned.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-f9b4abd6-716e-4364-bd10-275369a85a48"
+                    },
+                    {
+                      "id": "b734870b-9f23-4f0b-96eb-14c77d3e9c82",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/?limit=<integer>&offset=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Defines how many notifications should be returned.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Defines the offset of the notifications that should be returned.",
+                              "key": "offset",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-b734870b-9f23-4f0b-96eb-14c77d3e9c82"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace id that the notifications belong to."
-                    }
-                  ]
+                  "createdAt": "2026-10-21T20:11:12.000Z",
+                  "updatedAt": "2026-10-21T20:11:12.000Z",
+                  "uid": "35240-3a8a2258-4d18-4155-a44c-8773be51c8f0"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "Clear workspace notifications",
+                  "id": "39631b9f-6286-4e31-a464-2dc4b712b6b5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "40a4ee83-2553-45de-b0f2-2e6da3d5f384",
-          "name": "clear workspace notifications",
-          "request": {
-            "name": "clear workspace notifications",
-            "description": {
-              "content": "Clear all the notifications for the given workspace and user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "notifications",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace the notifications are in."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "b7875481-8c62-450d-a7c0-432512d9435d",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "41e51569-74e8-47fb-9a4e-3442558a3308",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/notifications/:workspace_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "notifications",
+                        ":workspace_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "84b11320-2640-4e71-9a4f-d3f0463843d5",
+                          "key": "workspace_id",
+                          "value": "<integer>",
+                          "description": "(Required) The workspace the notifications are in."
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "Clear all the notifications for the given workspace and user."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "93991703-e3a7-4e76-af89-6e6b5c258bd6",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
+                      "id": "a6c774a5-7ed1-4b10-83fe-baa131c3457c",
+                      "name": "No response body",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-a6c774a5-7ed1-4b10-83fe-baa131c3457c"
+                    },
+                    {
+                      "id": "ccf7303a-1fd6-4209-8879-cb750dea99ec",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-ccf7303a-1fd6-4209-8879-cb750dea99ec"
+                    },
+                    {
+                      "id": "7ea9a0c7-6414-44e4-b913-dfd701a4b34d",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/notifications/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "notifications",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:12.000Z",
+                      "updatedAt": "2026-10-21T20:11:12.000Z",
+                      "uid": "35240-7ea9a0c7-6414-44e4-b913-dfd701a4b34d"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T20:11:12.000Z",
+                  "updatedAt": "2026-10-21T20:11:12.000Z",
+                  "uid": "35240-39631b9f-6286-4e31-a464-2dc4b712b6b5"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f3ffe61a-80e7-435e-814b-32f1fa8c2f18",
-          "name": "mark notification as read",
-          "request": {
-            "name": "mark notification as read",
-            "description": {
-              "content": "Marks a notification as read.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "notifications",
-                ":workspace_id",
-                ":notification_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "notification_id",
-                  "description": "(Required) The notification id to update."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace the notification is in."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "ed1de8e0-fe72-48aa-89b2-ed83588ab629",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ":notification_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "notification_id",
-                      "description": "(Required) The notification id to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notification is in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"1991-05-26T04:41:08.024Z\",\n  \"data\": {},\n  \"id\": 2193,\n  \"sender\": {\n    \"id\": 9410,\n    \"username\": \"qRygCiVYIc\",\n    \"first_name\": \"string\"\n  },\n  \"type\": \"string\",\n  \"workspace\": \"string\",\n  \"read\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "26639452-f47d-4fd6-a346-95d713cc33de",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ":notification_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "notification_id",
-                      "description": "(Required) The notification id to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notification is in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "790b6ffe-bf7f-4eeb-80ce-852da6cbc0f9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    ":notification_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "notification_id",
-                      "description": "(Required) The notification id to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notification is in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"NOTIFICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3ab6edf7-0af6-4edc-94a9-255e7605476a",
-          "name": "mark all workspace notifications as read",
-          "request": {
-            "name": "mark all workspace notifications as read",
-            "description": {
-              "content": "Mark as read all the notifications for the given workspace and user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "notifications",
-                ":workspace_id",
-                "mark-all-as-read",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace the notifications are in."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "28748050-26a1-4bad-8cf6-c11da23e75e3",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    "mark-all-as-read",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "372e45fd-f759-45f0-b821-4fdd4179b4b0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    "mark-all-as-read",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "41fcf520-2c5b-4aa6-82ba-7f24b0bba45e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "notifications",
-                    ":workspace_id",
-                    "mark-all-as-read",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace the notifications are in."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "3bf17450-f6da-4a59-a22b-ecaf76500811",
+              "createdAt": "2026-10-21T20:11:11.000Z",
+              "updatedAt": "2026-10-21T20:11:11.000Z",
+              "uid": "35240-3bf17450-f6da-4a59-a22b-ecaf76500811"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "099b751c-71cc-4eb5-92f3-172614b39aa4",
+          "createdAt": "2026-10-21T20:11:11.000Z",
+          "updatedAt": "2026-10-21T20:11:11.000Z",
+          "uid": "35240-099b751c-71cc-4eb5-92f3-172614b39aa4"
         }
       ],
-      "event": []
+      "id": "5a0291f2-f79b-4a57-89ef-77ae7cc81323",
+      "createdAt": "2026-10-21T20:11:11.000Z",
+      "updatedAt": "2026-10-21T20:11:11.000Z",
+      "uid": "35240-5a0291f2-f79b-4a57-89ef-77ae7cc81323"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "1f1a619a-ec2a-4829-b17f-a6d7a5ce1779",
-    "name": "Baserow API spec Admin Notifications API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

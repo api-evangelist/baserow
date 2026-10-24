@@ -1,1956 +1,1872 @@
 {
+  "info": {
+    "_postman_id": "85b6b4cd-1a1e-4396-a20c-858754940a01",
+    "name": "Baserow API spec Workspace invitations API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:58.000Z",
+    "updatedAt": "2026-10-21T20:11:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-85b6b4cd-1a1e-4396-a20c-858754940a01"
+  },
   "item": [
     {
-      "id": "ceae231b-8ec5-4105-bd35-7955ba8ac0e4",
-      "name": "Workspace invitations",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "1eecb4c6-2ff3-4a0f-bd8e-fe95c3bedcb2",
-          "name": "get workspace invitation",
-          "request": {
-            "name": "get workspace invitation",
-            "description": {
-              "content": "Returns the requested workspace invitation if the authorized user has admin right to the related workspace",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                ":workspace_invitation_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_invitation_id",
-                  "description": "(Required) Returns the workspace invitation related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "workspaces",
+          "item": [
             {
-              "id": "cc403a63-8e03-4287-97bd-47b175a609fe",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Returns the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "invitations",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{workspace_invitation_id}",
+                  "item": [
+                    {
+                      "name": "accept",
+                      "item": [
+                        {
+                          "name": "Accept workspace invitation",
+                          "id": "4ee0e2f2-3b05-4ec3-b32f-74520149bc39",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/accept/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                "accept",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "e466d07d-88e3-4af0-b488-b1a64d1ad408",
+                                  "key": "workspace_invitation_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Accepts the workspace invitation related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Accepts a workspace invitation with the given id if the email address of the user matches that of the invitation."
+                          },
+                          "response": [
+                            {
+                              "id": "cc800b61-33c0-40dc-a92a-726e332309b4",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/accept/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "accept",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"generative_ai_models_enabled\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"order\": \"<integer>\",\n  \"permissions\": \"<string>\",\n  \"unread_notifications_count\": \"<integer>\",\n  \"users\": [\n    {\n      \"created_on\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"to_be_deleted\": \"<boolean>\",\n      \"two_factor_auth\": \"<string>\",\n      \"user_id\": \"<integer>\",\n      \"workspace\": \"<integer>\",\n      \"permissions\": \"<string>\"\n    },\n    {\n      \"created_on\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"to_be_deleted\": \"<boolean>\",\n      \"two_factor_auth\": \"<string>\",\n      \"user_id\": \"<integer>\",\n      \"workspace\": \"<integer>\",\n      \"permissions\": \"<string>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-cc800b61-33c0-40dc-a92a-726e332309b4"
+                            },
+                            {
+                              "id": "b0de3313-030c-49bb-8e12-2d85698fe4eb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/accept/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "accept",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_EMAIL_MISMATCH\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-b0de3313-030c-49bb-8e12-2d85698fe4eb"
+                            },
+                            {
+                              "id": "c90b30b9-bbad-45a0-9a2a-d4d04d9f9ad2",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/accept/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "accept",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-c90b30b9-bbad-45a0-9a2a-d4d04d9f9ad2"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-4ee0e2f2-3b05-4ec3-b32f-74520149bc39"
+                        }
+                      ],
+                      "id": "79f1a8db-6fd8-4031-9dd5-0955500c7215",
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-79f1a8db-6fd8-4031-9dd5-0955500c7215"
+                    },
+                    {
+                      "name": "reject",
+                      "item": [
+                        {
+                          "name": "Reject workspace invitation",
+                          "id": "739ac1a6-a373-46c0-826f-2b3e10e9b6d3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/reject/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                "reject",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "97248689-8721-48eb-b827-a0fb248828f5",
+                                  "key": "workspace_invitation_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Rejects the workspace invitation related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Rejects a workspace invitation with the given id if the email address of the user matches that of the invitation."
+                          },
+                          "response": [
+                            {
+                              "id": "c2a8bd69-a4f3-4cd7-accb-93fc8bcccd57",
+                              "name": "No response body",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/reject/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "reject",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-c2a8bd69-a4f3-4cd7-accb-93fc8bcccd57"
+                            },
+                            {
+                              "id": "b0a684b9-0b9c-4669-ba85-c80ebfa0899e",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/reject/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "reject",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_EMAIL_MISMATCH\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-b0a684b9-0b9c-4669-ba85-c80ebfa0899e"
+                            },
+                            {
+                              "id": "b074bfa5-18c1-49e8-b050-999c4e87bfde",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/reject/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    ":workspace_invitation_id",
+                                    "reject",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_invitation_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-b074bfa5-18c1-49e8-b050-999c4e87bfde"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-739ac1a6-a373-46c0-826f-2b3e10e9b6d3"
+                        }
+                      ],
+                      "id": "925cccd4-7f4f-446a-b4c7-0050bfdfbbb8",
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-925cccd4-7f4f-446a-b4c7-0050bfdfbbb8"
+                    },
+                    {
+                      "name": "Get workspace invitation",
+                      "id": "3b574a33-21de-40d9-ae7a-9c6a227214be",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "workspaces",
+                            "invitations",
+                            ":workspace_invitation_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "15838dd2-9b68-4c12-9ae4-be8ade476a06",
+                              "key": "workspace_invitation_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns the workspace invitation related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Returns the requested workspace invitation if the authorized user has admin right to the related workspace"
+                      },
+                      "response": [
+                        {
+                          "id": "08f8535f-7d9e-4fbb-9389-aa75bdfef74f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"email\": \"<email>\",\n  \"id\": \"<integer>\",\n  \"workspace\": \"<integer>\",\n  \"permissions\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-08f8535f-7d9e-4fbb-9389-aa75bdfef74f"
+                        },
+                        {
+                          "id": "36461eaf-159a-4b80-b7db-1335a72b32d8",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-36461eaf-159a-4b80-b7db-1335a72b32d8"
+                        },
+                        {
+                          "id": "8a945bc8-070f-4621-9cf1-8142076e6f9a",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-8a945bc8-070f-4621-9cf1-8142076e6f9a"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-3b574a33-21de-40d9-ae7a-9c6a227214be"
+                    },
+                    {
+                      "name": "Update workspace invitation",
+                      "id": "c8a16ed4-085b-43ee-9b57-c2bf44edf530",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"permissions\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "workspaces",
+                            "invitations",
+                            ":workspace_invitation_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "af64c16e-8ff2-4225-99e9-4e793faeaacb",
+                              "key": "workspace_invitation_id",
+                              "value": "<integer>",
+                              "description": "(Required) Updates the workspace invitation related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Updates the existing workspace invitation related to the provided `workspace_invitation_id` param if the authorized user has admin rights to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "2ca50cc6-cd6e-4552-9629-902aabd926cc",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"permissions\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"email\": \"<email>\",\n  \"id\": \"<integer>\",\n  \"workspace\": \"<integer>\",\n  \"permissions\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-2ca50cc6-cd6e-4552-9629-902aabd926cc"
+                        },
+                        {
+                          "id": "14eb974a-f264-42ec-82d2-3db46d67fced",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"permissions\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-14eb974a-f264-42ec-82d2-3db46d67fced"
+                        },
+                        {
+                          "id": "bdcda596-f7a7-43cd-86d3-80d4e536f33c",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"permissions\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-bdcda596-f7a7-43cd-86d3-80d4e536f33c"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-c8a16ed4-085b-43ee-9b57-c2bf44edf530"
+                    },
+                    {
+                      "name": "Delete workspace invitation",
+                      "id": "c0198698-622a-4699-9b7f-1377cbbf25b1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "workspaces",
+                            "invitations",
+                            ":workspace_invitation_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "99cebf91-c0e4-48c8-88c2-f737d99063fb",
+                              "key": "workspace_invitation_id",
+                              "value": "<integer>",
+                              "description": "(Required) Deletes the workspace invitation related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a workspace invitation if the authorized user has admin rights to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "6aa1e21c-e8db-41f1-8d33-1572dd65b2ec",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-6aa1e21c-e8db-41f1-8d33-1572dd65b2ec"
+                        },
+                        {
+                          "id": "de3af076-fafa-41de-8d89-ad9fadd75fde",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-de3af076-fafa-41de-8d89-ad9fadd75fde"
+                        },
+                        {
+                          "id": "0524613c-7b79-487c-a8ab-c7082707f1a9",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/:workspace_invitation_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                ":workspace_invitation_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_invitation_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-0524613c-7b79-487c-a8ab-c7082707f1a9"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-c0198698-622a-4699-9b7f-1377cbbf25b1"
+                    }
+                  ],
+                  "id": "ac5eb376-84b7-491b-80b8-6d606b14bab4",
+                  "createdAt": "2026-10-21T20:11:58.000Z",
+                  "updatedAt": "2026-10-21T20:11:58.000Z",
+                  "uid": "35240-ac5eb376-84b7-491b-80b8-6d606b14bab4"
+                },
+                {
+                  "name": "token",
+                  "item": [
+                    {
+                      "name": "{token}",
+                      "item": [
+                        {
+                          "name": "Get workspace invitation by token",
+                          "id": "75b6c7c1-86d7-419f-b074-c48facf5ba58",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/token/:token/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                "token",
+                                ":token",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3a832a44-17c1-4884-a637-a547697d1dcb",
+                                  "key": "token",
+                                  "value": "<string>",
+                                  "description": "(Required) Returns the workspace invitation related to the provided token."
+                                }
+                              ]
+                            },
+                            "description": "Responds with the serialized workspace invitation if an invitation with the provided token is found."
+                          },
+                          "response": [
+                            {
+                              "id": "6f6179a1-7c1f-49a4-94b8-b8e9205bff34",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/token/:token/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "token",
+                                    ":token",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"email\": \"<email>\",\n  \"email_exists\": \"<boolean>\",\n  \"id\": \"<integer>\",\n  \"invited_by\": \"<string>\",\n  \"workspace\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-6f6179a1-7c1f-49a4-94b8-b8e9205bff34"
+                            },
+                            {
+                              "id": "5c00d123-e981-495f-8f10-d5adf0722e72",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/token/:token/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "token",
+                                    ":token",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"BAD_TOKEN_SIGNATURE\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-5c00d123-e981-495f-8f10-d5adf0722e72"
+                            },
+                            {
+                              "id": "15f9a121-c894-4e6d-a051-11bcf51c1052",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/token/:token/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "token",
+                                    ":token",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "token"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-15f9a121-c894-4e6d-a051-11bcf51c1052"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-75b6c7c1-86d7-419f-b074-c48facf5ba58"
+                        }
+                      ],
+                      "id": "544b5f54-70d9-414a-82d4-022e6a478405",
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-544b5f54-70d9-414a-82d4-022e6a478405"
+                    }
+                  ],
+                  "id": "5ea32bb8-0a77-44cc-ade4-4ef9e256df62",
+                  "createdAt": "2026-10-21T20:11:58.000Z",
+                  "updatedAt": "2026-10-21T20:11:58.000Z",
+                  "uid": "35240-5ea32bb8-0a77-44cc-ade4-4ef9e256df62"
+                },
+                {
+                  "name": "workspace",
+                  "item": [
+                    {
+                      "name": "{workspace_id}",
+                      "item": [
+                        {
+                          "name": "List workspace invitations",
+                          "id": "5349d43f-5567-4ab3-b373-80c9d5169e63",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "513bfedb-c7ea-4947-9476-c76d8f6c3423",
+                                  "key": "workspace_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns only invitations that are in the workspace related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Lists all the workspace invitations of the workspace related to the provided `workspace_id` parameter if the authorized user has admin rights to that workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "1d02834d-8315-4be4-bcb0-9d8fa9abf037",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"created_on\": \"<dateTime>\",\n    \"email\": \"<email>\",\n    \"id\": \"<integer>\",\n    \"workspace\": \"<integer>\",\n    \"permissions\": \"<string>\"\n  },\n  {\n    \"created_on\": \"<dateTime>\",\n    \"email\": \"<email>\",\n    \"id\": \"<integer>\",\n    \"workspace\": \"<integer>\",\n    \"permissions\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-1d02834d-8315-4be4-bcb0-9d8fa9abf037"
+                            },
+                            {
+                              "id": "1c746a8f-e325-446c-8409-5ba5be54a172",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-1c746a8f-e325-446c-8409-5ba5be54a172"
+                            },
+                            {
+                              "id": "b4d39efb-b651-4228-9d99-190d6a6cc82a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-b4d39efb-b651-4228-9d99-190d6a6cc82a"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-5349d43f-5567-4ab3-b373-80c9d5169e63"
+                        },
+                        {
+                          "name": "Create workspace invitation",
+                          "id": "58699480-5b66-49ee-a8f7-505f02492882",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"base_url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"permissions\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "workspaces",
+                                "invitations",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "350132d7-cff0-43b9-9440-0ecba6e86dd8",
+                                  "key": "workspace_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Creates a workspace invitation to the workspace related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new workspace invitations for an email address if the authorized user has admin rights to the related workspace. An email containing a sign up link will be send to the user."
+                          },
+                          "response": [
+                            {
+                              "id": "fbe75ef9-95d6-4561-b2e3-df13e41c4684",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"base_url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"permissions\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"email\": \"<email>\",\n  \"id\": \"<integer>\",\n  \"workspace\": \"<integer>\",\n  \"permissions\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-fbe75ef9-95d6-4561-b2e3-df13e41c4684"
+                            },
+                            {
+                              "id": "99229a8d-755f-482b-b7ff-681a2cca2a9e",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"base_url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"permissions\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-99229a8d-755f-482b-b7ff-681a2cca2a9e"
+                            },
+                            {
+                              "id": "7dc37b62-bb4d-4eea-802f-8b6ba914ac87",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"base_url\": \"<uri>\",\n  \"email\": \"<email>\",\n  \"permissions\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/workspaces/invitations/workspace/:workspace_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "workspaces",
+                                    "invitations",
+                                    "workspace",
+                                    ":workspace_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:58.000Z",
+                              "updatedAt": "2026-10-21T20:11:58.000Z",
+                              "uid": "35240-7dc37b62-bb4d-4eea-802f-8b6ba914ac87"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:58.000Z",
+                          "updatedAt": "2026-10-21T20:11:58.000Z",
+                          "uid": "35240-58699480-5b66-49ee-a8f7-505f02492882"
+                        }
+                      ],
+                      "id": "262e6d7e-3839-4df0-aeb9-9f887a8a9c90",
+                      "createdAt": "2026-10-21T20:11:58.000Z",
+                      "updatedAt": "2026-10-21T20:11:58.000Z",
+                      "uid": "35240-262e6d7e-3839-4df0-aeb9-9f887a8a9c90"
+                    }
+                  ],
+                  "id": "948c5338-ef7e-4b42-81db-06fa930d40af",
+                  "createdAt": "2026-10-21T20:11:58.000Z",
+                  "updatedAt": "2026-10-21T20:11:58.000Z",
+                  "uid": "35240-948c5338-ef7e-4b42-81db-06fa930d40af"
                 }
               ],
-              "body": "{\n  \"created_on\": \"1949-08-28T19:44:47.756Z\",\n  \"email\": \"Oqu@rArgxOcFda.guz\",\n  \"id\": 4352,\n  \"workspace\": 1584,\n  \"permissions\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ac819a7a-f23c-4415-a66d-cdf97fd38411",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Returns the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3f762b98-8034-48ce-8520-4d33b482918b",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Returns the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "956f8790-9de4-472e-87a6-63c3f2670fcb",
+              "createdAt": "2026-10-21T20:11:58.000Z",
+              "updatedAt": "2026-10-21T20:11:58.000Z",
+              "uid": "35240-956f8790-9de4-472e-87a6-63c3f2670fcb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d3f5a746-5a02-4ab4-a985-6ea00d77b0ed",
-          "name": "update workspace invitation",
-          "request": {
-            "name": "update workspace invitation",
-            "description": {
-              "content": "Updates the existing workspace invitation related to the provided `workspace_invitation_id` param if the authorized user has admin rights to the related workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                ":workspace_invitation_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_invitation_id",
-                  "description": "(Required) Updates the workspace invitation related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "permissions",
-                  "value": "<string>",
-                  "description": "The permissions that the user is going to get within the workspace after accepting the invitation."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "13e40a65-54f7-4461-8b36-6a961b723cd3",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Updates the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"1949-08-28T19:44:47.756Z\",\n  \"email\": \"Oqu@rArgxOcFda.guz\",\n  \"id\": 4352,\n  \"workspace\": 1584,\n  \"permissions\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d40e2927-c8aa-4ac4-82e6-906af145ce9c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Updates the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ce82677c-b617-4a62-b8a1-ce3cd3e90f42",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Updates the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0bc30740-a97a-4bb2-a600-61deb9789047",
-          "name": "delete workspace invitation",
-          "request": {
-            "name": "delete workspace invitation",
-            "description": {
-              "content": "Deletes a workspace invitation if the authorized user has admin rights to the related workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                ":workspace_invitation_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_invitation_id",
-                  "description": "(Required) Deletes the workspace invitation related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "20010882-f864-4b44-9ffd-3998d46de6f7",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Deletes the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "663cf24d-acdc-4af3-bcc5-0dde03f9352f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Deletes the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3bb6339a-8aba-4b07-aae8-ed8a25d4aabf",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Deletes the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "0aff71dc-e721-4903-a87b-b05fc5d09926",
-          "name": "accept workspace invitation",
-          "request": {
-            "name": "accept workspace invitation",
-            "description": {
-              "content": "Accepts a workspace invitation with the given id if the email address of the user matches that of the invitation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                ":workspace_invitation_id",
-                "accept",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_invitation_id",
-                  "description": "(Required) Accepts the workspace invitation related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "93bbf514-9b46-4625-9e1f-78d377523224",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "accept",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Accepts the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"generative_ai_models_enabled\": \"string\",\n  \"id\": 9378,\n  \"name\": \"string\",\n  \"order\": 679,\n  \"permissions\": \"string\",\n  \"unread_notifications_count\": 2597,\n  \"users\": [\n    {\n      \"created_on\": \"2013-08-29T23:45:38.752Z\",\n      \"email\": \"string\",\n      \"id\": 2499,\n      \"name\": \"string\",\n      \"to_be_deleted\": false,\n      \"two_factor_auth\": \"string\",\n      \"user_id\": 5369,\n      \"workspace\": 335,\n      \"permissions\": \"string\"\n    },\n    {\n      \"created_on\": \"1966-08-24T10:38:13.363Z\",\n      \"email\": \"string\",\n      \"id\": 7136,\n      \"name\": \"string\",\n      \"to_be_deleted\": false,\n      \"two_factor_auth\": \"string\",\n      \"user_id\": 6174,\n      \"workspace\": 3921,\n      \"permissions\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9816d2e3-b499-45c1-ab05-1dd2635693e3",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "accept",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Accepts the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_EMAIL_MISMATCH\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "77d0e98d-ba58-41f9-a903-13bd68ebb912",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "accept",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Accepts the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "59a17deb-adcc-4ad3-b24c-b416eeeee2d7",
-          "name": "reject workspace invitation",
-          "request": {
-            "name": "reject workspace invitation",
-            "description": {
-              "content": "Rejects a workspace invitation with the given id if the email address of the user matches that of the invitation.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                ":workspace_invitation_id",
-                "reject",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_invitation_id",
-                  "description": "(Required) Rejects the workspace invitation related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e377c37f-f0d5-447d-bc77-51f6b9cb9280",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "reject",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Rejects the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f09b3581-cfc8-44f1-84ee-c720314e108e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "reject",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Rejects the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_EMAIL_MISMATCH\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "49cb4b56-100a-4c29-8800-be1c2b5c0ccb",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    ":workspace_invitation_id",
-                    "reject",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_invitation_id",
-                      "description": "(Required) Rejects the workspace invitation related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "49dfa861-4e53-483c-8f7c-c644697f7a23",
-          "name": "get workspace invitation by token",
-          "request": {
-            "name": "get workspace invitation by token",
-            "description": {
-              "content": "Responds with the serialized workspace invitation if an invitation with the provided token is found.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                "token",
-                ":token",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "token",
-                  "description": "(Required) Returns the workspace invitation related to the provided token."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "c4d6336e-71de-48af-94b6-2e665e8b248e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "token",
-                    ":token",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "token",
-                      "description": "(Required) Returns the workspace invitation related to the provided token."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"2005-07-24T05:00:45.898Z\",\n  \"email\": \"G-l-OeYE-zrT@hdShqCYaKhf.hz\",\n  \"email_exists\": false,\n  \"id\": 1921,\n  \"invited_by\": \"string\",\n  \"workspace\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9b4e3303-a45e-4c36-9cd2-edc0831e1c70",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "token",
-                    ":token",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "token",
-                      "description": "(Required) Returns the workspace invitation related to the provided token."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"BAD_TOKEN_SIGNATURE\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ab667d61-06ea-4e0b-a693-74c4afd63a0c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "token",
-                    ":token",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "token",
-                      "description": "(Required) Returns the workspace invitation related to the provided token."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_INVITATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "43a80b80-ebe6-46b3-a11a-a3a447066495",
-          "name": "list workspace invitations",
-          "request": {
-            "name": "list workspace invitations",
-            "description": {
-              "content": "Lists all the workspace invitations of the workspace related to the provided `workspace_id` parameter if the authorized user has admin rights to that workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) Returns only invitations that are in the workspace related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e82d3874-2c2e-438d-bb33-aeb6557b6dcd",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Returns only invitations that are in the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"created_on\": \"1998-11-01T17:01:48.815Z\",\n    \"email\": \"q2MxCOl@XXxmmsryTcRlIJCBLWFDJgdYMPIHu.upre\",\n    \"id\": 5963,\n    \"workspace\": 1187,\n    \"permissions\": \"string\"\n  },\n  {\n    \"created_on\": \"1986-10-13T12:20:24.739Z\",\n    \"email\": \"lN9V7T@ksSLViNzCQUouxUQIPS.rfin\",\n    \"id\": 4191,\n    \"workspace\": 5897,\n    \"permissions\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d5df72a0-853e-42f9-a08d-89c75f4df09c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Returns only invitations that are in the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_INVALID_GROUP_PERMISSIONS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f39d366e-4140-4df9-a080-3f1c4d3f3eb0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Returns only invitations that are in the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "2bef150a-7ce2-44c6-ae2e-a522488dc4a8",
-          "name": "create workspace invitation",
-          "request": {
-            "name": "create workspace invitation",
-            "description": {
-              "content": "Creates a new workspace invitations for an email address if the authorized user has admin rights to the related workspace. An email containing a sign up link will be send to the user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "workspaces",
-                "invitations",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) Creates a workspace invitation to the workspace related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "base_url",
-                  "value": "<uri>",
-                  "description": "(Required) The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token')."
-                },
-                {
-                  "disabled": false,
-                  "key": "email",
-                  "value": "<email>",
-                  "description": "(Required) The email address of the user that the invitation is meant for. Only a user with that email address can accept it."
-                },
-                {
-                  "disabled": false,
-                  "key": "permissions",
-                  "value": "<string>",
-                  "description": "The permissions that the user is going to get within the workspace after accepting the invitation."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "58ce639b-1275-40a7-9a07-5ad66bfcacc5",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Creates a workspace invitation to the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').",
-                        "type": "text/plain"
-                      },
-                      "key": "base_url",
-                      "value": "<uri>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The email address of the user that the invitation is meant for. Only a user with that email address can accept it.",
-                        "type": "text/plain"
-                      },
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"1949-08-28T19:44:47.756Z\",\n  \"email\": \"Oqu@rArgxOcFda.guz\",\n  \"id\": 4352,\n  \"workspace\": 1584,\n  \"permissions\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "be32cf16-b2f5-420e-87ae-f859900adf63",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Creates a workspace invitation to the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').",
-                        "type": "text/plain"
-                      },
-                      "key": "base_url",
-                      "value": "<uri>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The email address of the user that the invitation is meant for. Only a user with that email address can accept it.",
-                        "type": "text/plain"
-                      },
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "78efc817-722a-4bd4-9c60-02b9f03a0736",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "workspaces",
-                    "invitations",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Creates a workspace invitation to the workspace related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The base URL where the user can publicly accept his invitation.The accept token is going to be appended to the base_url (base_url '/token').",
-                        "type": "text/plain"
-                      },
-                      "key": "base_url",
-                      "value": "<uri>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The email address of the user that the invitation is meant for. Only a user with that email address can accept it.",
-                        "type": "text/plain"
-                      },
-                      "key": "email",
-                      "value": "<email>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The permissions that the user is going to get within the workspace after accepting the invitation.",
-                        "type": "text/plain"
-                      },
-                      "key": "permissions",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "ee51a4fa-6967-4d90-8848-93a0b8ded306",
+          "createdAt": "2026-10-21T20:11:58.000Z",
+          "updatedAt": "2026-10-21T20:11:58.000Z",
+          "uid": "35240-ee51a4fa-6967-4d90-8848-93a0b8ded306"
         }
       ],
-      "event": []
+      "id": "49b6c7a2-6435-49bf-8e60-25991d3c1697",
+      "createdAt": "2026-10-21T20:11:58.000Z",
+      "updatedAt": "2026-10-21T20:11:58.000Z",
+      "uid": "35240-49b6c7a2-6435-49bf-8e60-25991d3c1697"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "df67b5c3-2aa6-4f94-8742-a6410c2a39b9",
-    "name": "Baserow API spec Admin Workspace invitations API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

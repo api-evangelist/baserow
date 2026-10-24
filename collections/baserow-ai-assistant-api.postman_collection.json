@@ -1,1906 +1,1416 @@
 {
+  "info": {
+    "_postman_id": "8c904849-523e-4319-8f29-c5868515858e",
+    "name": "Baserow API spec AI Assistant API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:08:15.000Z",
+    "updatedAt": "2026-10-21T20:08:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8c904849-523e-4319-8f29-c5868515858e"
+  },
   "item": [
     {
-      "id": "e9ab1db8-aec9-4274-ac2f-c3a48e2f21dd",
-      "name": "AI Assistant",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "assistant",
       "item": [
         {
-          "id": "5ccdcbeb-e2be-4df3-9394-5fcc7348ea94",
-          "name": "list assistant chats",
-          "request": {
-            "name": "list assistant chats",
-            "description": {
-              "content": "List all AI assistant chats for the current user in the specified workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "100",
-                  "description": "The number of results to return per page."
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "0",
-                  "description": "The initial index from which to return the results."
-                },
-                {
-                  "disabled": false,
-                  "key": "workspace_id",
-                  "value": "<integer>",
-                  "description": "(Required) The ID of the workspace."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "chat",
+          "item": [
             {
-              "id": "7b575a94-3f40-47bf-be85-4e35aa1a78e3",
-              "originalRequest": {
+              "name": "{chat_uuid}",
+              "item": [
+                {
+                  "name": "cancel",
+                  "item": [
+                    {
+                      "name": "List assistant chat messages",
+                      "id": "01025b2d-b2d4-42b5-99ec-f61f65e051ff",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "cancel",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "a94e12cd-bae7-4d84-b497-e1ca9cb57a7b",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "List all messages in the specified AI assistant chat."
+                      },
+                      "response": [
+                        {
+                          "id": "db1eeee0-9c15-4150-a3a3-b9429e9447b6",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"type\": \"chat/title\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"type\": \"chat/title\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-db1eeee0-9c15-4150-a3a3-b9429e9447b6"
+                        },
+                        {
+                          "id": "203379e6-053a-4e18-820f-8e91a12a6abd",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-203379e6-053a-4e18-820f-8e91a12a6abd"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-01025b2d-b2d4-42b5-99ec-f61f65e051ff"
+                    },
+                    {
+                      "name": "Send message to assistant chat",
+                      "id": "358f6826-131a-44f0-bec5-1c97faacc001",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "cancel",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "0dead2f1-9e01-43b3-b89c-d5fde8d71db0",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Send a message to the specified AI assistant chat and stream back the response."
+                      },
+                      "response": [
+                        {
+                          "id": "7f0f8f15-9f72-4225-a0a7-42857107ca72",
+                          "name": "A text/event-stream of the assistant\u2019s partial responses",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-7f0f8f15-9f72-4225-a0a7-42857107ca72"
+                        },
+                        {
+                          "id": "135865d2-39cb-4453-a2ff-4e7f09bf4ce1",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-135865d2-39cb-4453-a2ff-4e7f09bf4ce1"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-358f6826-131a-44f0-bec5-1c97faacc001"
+                    },
+                    {
+                      "name": "Cancel assistant message",
+                      "id": "414c0348-9607-4ac4-ba8e-20b2137129b8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "cancel",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "50891b2c-7e83-426a-bf0b-29b7e771d3de",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Cancel an ongoing assistant message generation in the specified chat."
+                      },
+                      "response": [
+                        {
+                          "id": "e6f596bc-58bc-4444-9516-3e60c44e368f",
+                          "name": "Message generation cancelled",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-e6f596bc-58bc-4444-9516-3e60c44e368f"
+                        },
+                        {
+                          "id": "277d549d-d142-4a02-9328-5009061c6444",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-277d549d-d142-4a02-9328-5009061c6444"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-414c0348-9607-4ac4-ba8e-20b2137129b8"
+                    }
+                  ],
+                  "id": "9643c217-9d67-4685-a7da-8d12009564b6",
+                  "createdAt": "2026-10-21T20:08:15.000Z",
+                  "updatedAt": "2026-10-21T20:08:15.000Z",
+                  "uid": "35240-9643c217-9d67-4685-a7da-8d12009564b6"
+                },
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "List assistant chat messages 2",
+                      "id": "62694346-cdaf-4793-9c87-05a3d6b716b4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "messages",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "509ad7cb-26a4-4ccb-ac28-822c0fae1fb6",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "List all messages in the specified AI assistant chat."
+                      },
+                      "response": [
+                        {
+                          "id": "48851304-e671-4c70-bbb3-99babff3e2ec",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"type\": \"chat/title\"\n    },\n    {\n      \"content\": \"<string>\",\n      \"type\": \"chat/title\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-48851304-e671-4c70-bbb3-99babff3e2ec"
+                        },
+                        {
+                          "id": "d7a195b9-46c6-4925-b521-bb76a245c6de",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-d7a195b9-46c6-4925-b521-bb76a245c6de"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-62694346-cdaf-4793-9c87-05a3d6b716b4"
+                    },
+                    {
+                      "name": "Send message to assistant chat 2",
+                      "id": "58dcfcdd-e7d2-420f-a5df-035d77c43341",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "messages",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "71480d03-1188-43b9-8b6b-9c3fc33ecede",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Send a message to the specified AI assistant chat and stream back the response."
+                      },
+                      "response": [
+                        {
+                          "id": "85056c5f-98e7-40ed-a801-4889ce68e4c3",
+                          "name": "A text/event-stream of the assistant\u2019s partial responses",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-85056c5f-98e7-40ed-a801-4889ce68e4c3"
+                        },
+                        {
+                          "id": "dab64009-197b-4e3b-9abd-2b0dd5882eaa",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"content\": \"<string>\",\n  \"ui_context\": {\n    \"workspace\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"database\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"table\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    \"view\": {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    \"application\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"page\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"automation\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"workflow\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"dashboard\": {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    \"timezone\": \"UTC\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-dab64009-197b-4e3b-9abd-2b0dd5882eaa"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-58dcfcdd-e7d2-420f-a5df-035d77c43341"
+                    },
+                    {
+                      "name": "Cancel assistant message 2",
+                      "id": "0d165892-f9bb-4236-8f73-0e3593a839e4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "chat",
+                            ":chat_uuid",
+                            "messages",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "0ee7c375-fa8d-4cbd-a3c6-6b8560cc8242",
+                              "key": "chat_uuid",
+                              "value": "<uuid>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Cancel an ongoing assistant message generation in the specified chat."
+                      },
+                      "response": [
+                        {
+                          "id": "0a0b4a99-543f-4547-8aaa-0f02429eeacd",
+                          "name": "Message generation cancelled",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-0a0b4a99-543f-4547-8aaa-0f02429eeacd"
+                        },
+                        {
+                          "id": "558e087a-3db8-4a5f-a9aa-5c7b5dd3ff72",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/chat/:chat_uuid/messages/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "chat",
+                                ":chat_uuid",
+                                "messages",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat_uuid"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-558e087a-3db8-4a5f-a9aa-5c7b5dd3ff72"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-0d165892-f9bb-4236-8f73-0e3593a839e4"
+                    }
+                  ],
+                  "id": "efa2db8b-d241-4fc5-8ce8-c2c665bb2538",
+                  "createdAt": "2026-10-21T20:08:15.000Z",
+                  "updatedAt": "2026-10-21T20:08:15.000Z",
+                  "uid": "35240-efa2db8b-d241-4fc5-8ce8-c2c665bb2538"
+                }
+              ],
+              "id": "bc42f8c5-7d0f-4e04-97e9-a43da343749f",
+              "createdAt": "2026-10-21T20:08:15.000Z",
+              "updatedAt": "2026-10-21T20:08:15.000Z",
+              "uid": "35240-bc42f8c5-7d0f-4e04-97e9-a43da343749f"
+            },
+            {
+              "name": "List assistant chats",
+              "id": "be40c086-88a6-4f42-b64e-21f57216d6bb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/assistant/chat/?limit=100&offset=0&workspace_id=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "assistant",
                     "chat",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "The number of results to return per page.",
                       "key": "limit",
                       "value": "100"
                     },
                     {
+                      "description": "The initial index from which to return the results.",
                       "key": "offset",
                       "value": "0"
                     },
                     {
+                      "description": "(Required) The ID of the workspace.",
                       "key": "workspace_id",
                       "value": "<integer>"
                     }
-                  ],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "List all AI assistant chats for the current user in the specified workspace."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"count\": 5434,\n  \"next\": \"https://DveUwzNBgTy.wruKLYaZVXev+\",\n  \"previous\": \"https://pHkHYpoAIzKFSffoKPLpxKvJDIqMJWknZ.febiOkH7+IdCbnUpwAtOBK\",\n  \"results\": [\n    {\n      \"created_on\": \"2007-03-16T06:20:42.305Z\",\n      \"updated_on\": \"2019-03-21T15:09:39.518Z\",\n      \"user_id\": 8655,\n      \"workspace_id\": 2119,\n      \"uuid\": \"0e5d0a76-905d-9c67-5d64-8b18051b0d02\",\n      \"title\": \"string\",\n      \"status\": \"in_progress\"\n    },\n    {\n      \"created_on\": \"1956-05-20T17:46:15.638Z\",\n      \"updated_on\": \"1957-08-25T04:17:13.384Z\",\n      \"user_id\": 5626,\n      \"workspace_id\": 4161,\n      \"uuid\": \"35313d73-3a12-c664-c8c4-d09c9b31b2d3\",\n      \"title\": \"string\",\n      \"status\": \"in_progress\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b776db1e-54c5-4a6c-9206-4a98fa1c80e0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "id": "1d3a0265-7bd1-4bf0-bb85-79dd9b9e3f23",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/assistant/chat/?limit=100&offset=0&workspace_id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "assistant",
+                        "chat",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results to return per page.",
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "description": "The initial index from which to return the results.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "(Required) The ID of the workspace.",
+                          "key": "workspace_id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "limit",
-                      "value": "100"
-                    },
-                    {
-                      "key": "offset",
-                      "value": "0"
-                    },
-                    {
-                      "key": "workspace_id",
-                      "value": "<integer>"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"next\": \"<string,null-uri>\",\n  \"previous\": \"<string,null-uri>\",\n  \"results\": [\n    {\n      \"created_on\": \"<dateTime>\",\n      \"updated_on\": \"<dateTime>\",\n      \"user_id\": \"<integer>\",\n      \"workspace_id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"title\": \"<string>\",\n      \"status\": \"idle\"\n    },\n    {\n      \"created_on\": \"<dateTime>\",\n      \"updated_on\": \"<dateTime>\",\n      \"user_id\": \"<integer>\",\n      \"workspace_id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"title\": \"<string>\",\n      \"status\": \"canceling\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:08:15.000Z",
+                  "updatedAt": "2026-10-21T20:08:15.000Z",
+                  "uid": "35240-1d3a0265-7bd1-4bf0-bb85-79dd9b9e3f23"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "7ecab70d-a935-438b-8c6b-2220c961af99",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/assistant/chat/?limit=100&offset=0&workspace_id=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "assistant",
+                        "chat",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results to return per page.",
+                          "key": "limit",
+                          "value": "100"
+                        },
+                        {
+                          "description": "The initial index from which to return the results.",
+                          "key": "offset",
+                          "value": "0"
+                        },
+                        {
+                          "description": "(Required) The ID of the workspace.",
+                          "key": "workspace_id",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:08:15.000Z",
+                  "updatedAt": "2026-10-21T20:08:15.000Z",
+                  "uid": "35240-7ecab70d-a935-438b-8c6b-2220c961af99"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:08:15.000Z",
+              "updatedAt": "2026-10-21T20:08:15.000Z",
+              "uid": "35240-be40c086-88a6-4f42-b64e-21f57216d6bb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "9a7458a4-b749-4dde-a3d4-eb90e2331080",
+          "createdAt": "2026-10-21T20:08:15.000Z",
+          "updatedAt": "2026-10-21T20:08:15.000Z",
+          "uid": "35240-9a7458a4-b749-4dde-a3d4-eb90e2331080"
         },
         {
-          "id": "48c8b031-47cd-4c13-9876-d71ce8181076",
-          "name": "list assistant chat messages",
-          "request": {
-            "name": "list assistant chat messages",
-            "description": {
-              "content": "List all messages in the specified AI assistant chat.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "cancel",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "messages",
+          "item": [
             {
-              "id": "e5f76e60-a001-42e2-8c7f-42fffd5eae81",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{message_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "feedback",
+                  "item": [
+                    {
+                      "name": "Submit assistant message feedback",
+                      "id": "b4874367-6325-492a-84b1-f7957edfe77b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/assistant/messages/:message_id/feedback/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assistant",
+                            "messages",
+                            ":message_id",
+                            "feedback",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "0ca6ab92-4c80-4915-bd6b-d1899d211964",
+                              "key": "message_id",
+                              "value": "<integer>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Provide sentiment and feedback for the given AI assistant chat message."
+                      },
+                      "response": [
+                        {
+                          "id": "2af6f841-655d-469c-a14c-d15e286540bc",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/messages/:message_id/feedback/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "messages",
+                                ":message_id",
+                                "feedback",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "message_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-2af6f841-655d-469c-a14c-d15e286540bc"
+                        },
+                        {
+                          "id": "dbaf7609-66d9-44c0-b7e2-8b81002f3fa8",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/assistant/messages/:message_id/feedback/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "assistant",
+                                "messages",
+                                ":message_id",
+                                "feedback",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "message_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:15.000Z",
+                          "updatedAt": "2026-10-21T20:08:15.000Z",
+                          "uid": "35240-dbaf7609-66d9-44c0-b7e2-8b81002f3fa8"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:15.000Z",
+                      "updatedAt": "2026-10-21T20:08:15.000Z",
+                      "uid": "35240-b4874367-6325-492a-84b1-f7957edfe77b"
+                    }
+                  ],
+                  "id": "4e1d625e-829f-49dc-8a1b-e74dd49bd1cc",
+                  "createdAt": "2026-10-21T20:08:15.000Z",
+                  "updatedAt": "2026-10-21T20:08:15.000Z",
+                  "uid": "35240-4e1d625e-829f-49dc-8a1b-e74dd49bd1cc"
                 }
               ],
-              "body": "{\n  \"messages\": [\n    {\n      \"content\": \"string\",\n      \"type\": \"chat/title\"\n    },\n    {\n      \"content\": \"string\",\n      \"type\": \"chat/title\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ac32f85b-9652-45b7-b641-1208078c26f9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "625e1c6d-833e-4970-a213-f530ded210bc",
-          "name": "send message to assistant chat",
-          "request": {
-            "name": "send message to assistant chat",
-            "description": {
-              "content": "Send a message to the specified AI assistant chat and stream back the response.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "cancel",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "content",
-                  "value": "<string>",
-                  "description": "(Required) The content of the message."
-                },
-                {
-                  "disabled": false,
-                  "key": "workspace",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "database",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "table",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "view",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "application",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "automation",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "workflow",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "dashboard",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "timezone",
-                  "value": "UTC",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "82af02a6-83b2-40c9-80e0-73415a763dd4",
-              "name": "A text/event-stream of the assistant’s partial responses",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The content of the message.",
-                        "type": "text/plain"
-                      },
-                      "key": "content",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workspace",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "database",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "table",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "view",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "application",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "page",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "automation",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workflow",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "dashboard",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "timezone",
-                      "value": "UTC"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "\"string\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "77a1a028-6c08-4411-8692-0f86bbd48c81",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The content of the message.",
-                        "type": "text/plain"
-                      },
-                      "key": "content",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workspace",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "database",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "table",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "view",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "application",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "page",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "automation",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workflow",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "dashboard",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "timezone",
-                      "value": "UTC"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "48920ad0-d41d-4e99-9fe0-e0436ed160f5",
+              "createdAt": "2026-10-21T20:08:15.000Z",
+              "updatedAt": "2026-10-21T20:08:15.000Z",
+              "uid": "35240-48920ad0-d41d-4e99-9fe0-e0436ed160f5"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3dd00282-6264-4490-bd86-efb70a5e407a",
-          "name": "cancel assistant message",
-          "request": {
-            "name": "cancel assistant message",
-            "description": {
-              "content": "Cancel an ongoing assistant message generation in the specified chat.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "cancel",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "aa8b7b56-5740-4552-841b-1e013aa81a9f",
-              "name": "Message generation cancelled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8760f87b-8dd0-4d77-9f42-125acca6c78d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b0194bc7-056d-42ae-8032-cf5c41999d9f",
-          "name": "list assistant chat messages 2",
-          "request": {
-            "name": "list assistant chat messages 2",
-            "description": {
-              "content": "List all messages in the specified AI assistant chat.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "messages",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "1fbffa06-551b-4120-bf2d-12b19803e542",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"messages\": [\n    {\n      \"content\": \"string\",\n      \"type\": \"chat/title\"\n    },\n    {\n      \"content\": \"string\",\n      \"type\": \"chat/title\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9bee8244-dbf3-4285-aaa0-f8c90a80025a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9847e464-da7e-4fa8-8fb0-6d84f8b2c970",
-          "name": "send message to assistant chat 2",
-          "request": {
-            "name": "send message to assistant chat 2",
-            "description": {
-              "content": "Send a message to the specified AI assistant chat and stream back the response.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "messages",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "content",
-                  "value": "<string>",
-                  "description": "(Required) The content of the message."
-                },
-                {
-                  "disabled": false,
-                  "key": "workspace",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "database",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "table",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "view",
-                  "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "application",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "automation",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "workflow",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "dashboard",
-                  "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                },
-                {
-                  "disabled": false,
-                  "key": "timezone",
-                  "value": "UTC",
-                  "description": "(Required) The UI context related to what the user was looking at when the message was sent."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "2b511aad-cac2-4ae1-a49d-8611bc52dd87",
-              "name": "A text/event-stream of the assistant’s partial responses",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The content of the message.",
-                        "type": "text/plain"
-                      },
-                      "key": "content",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workspace",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "database",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "table",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "view",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "application",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "page",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "automation",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workflow",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "dashboard",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "timezone",
-                      "value": "UTC"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "\"string\"",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a1919b16-0cd6-456f-b20a-aea4f5c0b93f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The content of the message.",
-                        "type": "text/plain"
-                      },
-                      "key": "content",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workspace",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "database",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "table",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "view",
-                      "value": "{\"id\":\"<integer>\",\"name\":\"<string>\",\"type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "application",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "page",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "automation",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "workflow",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "dashboard",
-                      "value": "{\"id\":\"<string>\",\"name\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The UI context related to what the user was looking at when the message was sent.",
-                        "type": "text/plain"
-                      },
-                      "key": "timezone",
-                      "value": "UTC"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a639de23-9c4e-43fa-8622-5c53b4819f9b",
-          "name": "cancel assistant message 2",
-          "request": {
-            "name": "cancel assistant message 2",
-            "description": {
-              "content": "Cancel an ongoing assistant message generation in the specified chat.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "chat",
-                ":chat_uuid",
-                "messages",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "chat_uuid",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "1dc2c971-0e96-45c0-a5e7-9a4666c1a69c",
-              "name": "Message generation cancelled",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0814d81c-6fa8-4d4f-ab82-872916f1dc8d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "chat",
-                    ":chat_uuid",
-                    "messages",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "chat_uuid",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "985bccbe-bd93-4eaf-9ee6-a0eb953ac231",
-          "name": "submit assistant message feedback",
-          "request": {
-            "name": "submit assistant message feedback",
-            "description": {
-              "content": "Provide sentiment and feedback for the given AI assistant chat message.\n\n",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "assistant",
-                "messages",
-                ":message_id",
-                "feedback",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "message_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "622e9c4c-3d01-444c-9f7e-a0c86986c386",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "messages",
-                    ":message_id",
-                    "feedback",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "message_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "0a258603-f6e1-4f27-9494-d713a4c2fa61",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "assistant",
-                    "messages",
-                    ":message_id",
-                    "feedback",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "message_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "506680e7-6fad-4a7e-bdba-f12b857b5b86",
+          "createdAt": "2026-10-21T20:08:15.000Z",
+          "updatedAt": "2026-10-21T20:08:15.000Z",
+          "uid": "35240-506680e7-6fad-4a7e-bdba-f12b857b5b86"
         }
       ],
-      "event": []
+      "id": "2a78bf24-6ffb-44cb-b6f5-2a217e84b7c2",
+      "createdAt": "2026-10-21T20:08:15.000Z",
+      "updatedAt": "2026-10-21T20:08:15.000Z",
+      "uid": "35240-2a78bf24-6ffb-44cb-b6f5-2a217e84b7c2"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "c0076d8e-f3e0-4599-8e42-dd2471bad6d5",
-    "name": "Baserow API spec Admin AI Assistant API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

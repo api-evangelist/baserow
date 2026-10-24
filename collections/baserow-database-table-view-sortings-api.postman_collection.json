@@ -1,1842 +1,1666 @@
 {
+  "info": {
+    "_postman_id": "2966ac34-64b4-4c13-b8c4-070455b524e9",
+    "name": "Baserow API spec Database table view sortings API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:10:32.000Z",
+    "updatedAt": "2026-10-21T20:10:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2966ac34-64b4-4c13-b8c4-070455b524e9"
+  },
   "item": [
     {
-      "id": "5820ff5f-c17a-4d2d-bbcc-e3180992a835",
-      "name": "Database table view sortings",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "de1ac75e-2d8c-4002-83cb-d2f48140e145",
-          "name": "list database table view sortings",
-          "request": {
-            "name": "list database table view sortings",
-            "description": {
-              "content": "Lists all sortings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple sortings. When all the rows are requested they will be in the desired order.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "sortings",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Returns only sortings of the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "database",
+          "item": [
             {
-              "id": "bb9d3a5c-4762-4a67-881c-f57e2f22b85a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "views",
+              "item": [
+                {
+                  "name": "{view_id}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only sortings of the view related to the provided value."
+                      "name": "sortings",
+                      "item": [
+                        {
+                          "name": "prioritize",
+                          "item": [
+                            {
+                              "name": "Prioritize database table view sortings",
+                              "id": "4aa6d929-3d74-49e9-9082-65d052130c7c",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"view_sort_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/prioritize/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    "prioritize",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "a3e32720-d265-4f38-ae4c-01e324e0c1e5",
+                                      "key": "view_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) Updates the priority of the sortings in the view related to the provided value."
+                                    }
+                                  ]
+                                },
+                                "description": "Updates the priority of the sorts to match the order of the given IDs. Sorts earlier in the list are applied first."
+                              },
+                              "response": [
+                                {
+                                  "id": "e1f2af59-1e92-4f0c-a86b-3315c4e88a5a",
+                                  "name": "No response body",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_sort_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "sortings",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-21T20:10:33.000Z",
+                                  "updatedAt": "2026-10-21T20:10:33.000Z",
+                                  "uid": "35240-e1f2af59-1e92-4f0c-a86b-3315c4e88a5a"
+                                },
+                                {
+                                  "id": "3068dd9a-5a48-48e8-90dd-e5276891b0f2",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_sort_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "sortings",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_VIEW_SORT_NOT_IN_VIEW\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:33.000Z",
+                                  "updatedAt": "2026-10-21T20:10:33.000Z",
+                                  "uid": "35240-3068dd9a-5a48-48e8-90dd-e5276891b0f2"
+                                },
+                                {
+                                  "id": "1f912a09-f087-49f9-b370-70454c890377",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_sort_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "sortings",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:33.000Z",
+                                  "updatedAt": "2026-10-21T20:10:33.000Z",
+                                  "uid": "35240-1f912a09-f087-49f9-b370-70454c890377"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-4aa6d929-3d74-49e9-9082-65d052130c7c"
+                            }
+                          ],
+                          "id": "e384c5db-ae2c-4314-98f3-9c3e26325c4b",
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-e384c5db-ae2c-4314-98f3-9c3e26325c4b"
+                        },
+                        {
+                          "name": "List database table view sortings",
+                          "id": "71ef7524-1cac-49df-b79d-3b766a6548e9",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                ":view_id",
+                                "sortings",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b7026545-c344-4cbc-ab6e-548cb51f3760",
+                                  "key": "view_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns only sortings of the view related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Lists all sortings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple sortings. When all the rows are requested they will be in the desired order."
+                          },
+                          "response": [
+                            {
+                              "id": "6babd1dc-4ab2-44a2-991d-644993a8da4f",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"field\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"priority\": \"<integer>\",\n    \"view\": \"<integer>\",\n    \"order\": \"DESC\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"field\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"priority\": \"<integer>\",\n    \"view\": \"<integer>\",\n    \"order\": \"ASC\",\n    \"type\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-6babd1dc-4ab2-44a2-991d-644993a8da4f"
+                            },
+                            {
+                              "id": "f9a29b90-857c-4e6f-b33b-38df4c5969cb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-f9a29b90-857c-4e6f-b33b-38df4c5969cb"
+                            },
+                            {
+                              "id": "e8c53e41-d789-4a69-a795-d217e868f0f2",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-e8c53e41-d789-4a69-a795-d217e868f0f2"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-71ef7524-1cac-49df-b79d-3b766a6548e9"
+                        },
+                        {
+                          "name": "Create database table view sort",
+                          "id": "97f958fe-fe27-40f3-ab84-0ff8099afb64",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                ":view_id",
+                                "sortings",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "6139dbb2-6048-4cd1-a2e3-80823484db35",
+                                  "key": "view_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Creates a sort for the view related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new sort for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace. When the rows of a view are requested, for example via the `list_database_table_grid_view_rows` endpoint, they will be returned in the respected order defined by all the sortings."
+                          },
+                          "response": [
+                            {
+                              "id": "d3d2494c-b564-4bcf-9f2a-dd0e839c7051",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-d3d2494c-b564-4bcf-9f2a-dd0e839c7051"
+                            },
+                            {
+                              "id": "99646587-a1ef-47e1-afa7-5bd31c33013c",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_FIELD_ALREADY_EXISTS\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-99646587-a1ef-47e1-afa7-5bd31c33013c"
+                            },
+                            {
+                              "id": "992e19cb-9e61-4ac6-b880-95ce6917d7cd",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/sortings/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "sortings",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-992e19cb-9e61-4ac6-b880-95ce6917d7cd"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-97f958fe-fe27-40f3-ab84-0ff8099afb64"
+                        }
+                      ],
+                      "id": "2bb7a67c-a10a-470b-9a60-d97da09fbdfa",
+                      "createdAt": "2026-10-21T20:10:33.000Z",
+                      "updatedAt": "2026-10-21T20:10:33.000Z",
+                      "uid": "35240-2bb7a67c-a10a-470b-9a60-d97da09fbdfa"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"field\": 1785,\n    \"id\": 7208,\n    \"priority\": 6113,\n    \"view\": 1597,\n    \"order\": \"ASC\",\n    \"type\": \"string\"\n  },\n  {\n    \"field\": 5674,\n    \"id\": 4557,\n    \"priority\": 1621,\n    \"view\": 8680,\n    \"order\": \"ASC\",\n    \"type\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ed706116-87a4-4183-ad0c-3aa0bc2eb322",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only sortings of the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ffd0c08d-4f24-4749-913a-7c27fedc1fcc",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only sortings of the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "487b2413-cf6d-4a52-8efd-9dc2572d879e",
-          "name": "create database table view sort",
-          "request": {
-            "name": "create database table view sort",
-            "description": {
-              "content": "Creates a new sort for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace. When the rows of a view are requested, for example via the `list_database_table_grid_view_rows` endpoint, they will be returned in the respected order defined by all the sortings.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "sortings",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Creates a sort for the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "field",
-                  "value": "<integer>",
-                  "description": "(Required) The field that must be sorted on."
-                },
-                {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "ASC",
-                  "description": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "a9a0aa4e-278f-4259-940a-8972b8ded0ee",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a sort for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"field\": 7721,\n  \"id\": 9572,\n  \"priority\": 8736,\n  \"view\": 2781,\n  \"order\": \"<string>\",\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "edd36a2f-c089-457e-906e-003af71eb157",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a sort for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_FIELD_NOT_IN_TABLE\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "dbf95c01-37f4-40b1-9c0b-4ae203dbb8ee",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a sort for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3aa823ab-8a14-4730-80cf-b0f93a3c95f2",
-          "name": "prioritize database table view sortings",
-          "request": {
-            "name": "prioritize database table view sortings",
-            "description": {
-              "content": "Updates the priority of the sorts to match the order of the given IDs. Sorts earlier in the list are applied first.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "sortings",
-                "prioritize",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Updates the priority of the sortings in the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "view_sort_ids",
-                  "value": "<integer>",
-                  "description": "(Required) View sort ids in the desired priority order. The sort with the lowest position in the list is applied first."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "042f07a2-4723-4776-a1c0-2c05d310a788",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the sortings in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_sort_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6ed1640e-89fa-4d9d-899f-dbc4668b1946",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the sortings in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_sort_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ab2a4aa7-d233-47ae-86f9-780f89f4b522",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "sortings",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the sortings in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View sort ids in the desired priority order. The sort with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_sort_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d8e2389f-55b1-4a36-98b1-1de53b34c490",
-          "name": "get database table view sort",
-          "request": {
-            "name": "get database table view sort",
-            "description": {
-              "content": "Returns the existing view sort if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "sort",
-                ":view_sort_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_sort_id",
-                  "description": "(Required) Returns the view sort related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "72a25c87-ad6e-4423-9cca-68a7961a35f8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Returns the view sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"field\": 7721,\n  \"id\": 9572,\n  \"priority\": 8736,\n  \"view\": 2781,\n  \"order\": \"<string>\",\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "92da0b45-9cfa-4efa-86c4-56569f0ca0c4",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Returns the view sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "db73985c-20f1-40b9-abc8-eef74abfbc6b",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Returns the view sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "aaf6cadd-682c-4c0c-8ee9-3b5b692b2c04",
-          "name": "update database table view sort",
-          "request": {
-            "name": "update database table view sort",
-            "description": {
-              "content": "Updates the existing sort if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "sort",
-                ":view_sort_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_sort_id",
-                  "description": "(Required) Updates the view sort related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "field",
-                  "value": "<integer>",
-                  "description": "The field that must be sorted on."
+                  "id": "d5f39c97-fc31-4bcb-85e3-e6e45e418874",
+                  "createdAt": "2026-10-21T20:10:33.000Z",
+                  "updatedAt": "2026-10-21T20:10:33.000Z",
+                  "uid": "35240-d5f39c97-fc31-4bcb-85e3-e6e45e418874"
                 },
                 {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "<string>",
-                  "description": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f45d53bc-c5f4-47bf-995d-1398dbe1705a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "sort",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Updates the view sort related to the provided value."
+                      "name": "{view_sort_id}",
+                      "item": [
+                        {
+                          "name": "Get database table view sort",
+                          "id": "4b641f10-e78e-4944-971c-fb30f8b45c5d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "sort",
+                                ":view_sort_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "9c340243-c1fb-45a7-9276-8654e13594fc",
+                                  "key": "view_sort_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns the view sort related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Returns the existing view sort if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "8b93e841-f619-4966-9a9d-189d27d20d31",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-8b93e841-f619-4966-9a9d-189d27d20d31"
+                            },
+                            {
+                              "id": "296806a8-03fd-4a2f-8f23-41dbb6c93500",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-296806a8-03fd-4a2f-8f23-41dbb6c93500"
+                            },
+                            {
+                              "id": "46ab7169-35b9-469b-8ba9-651841d322de",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-46ab7169-35b9-469b-8ba9-651841d322de"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-4b641f10-e78e-4944-971c-fb30f8b45c5d"
+                        },
+                        {
+                          "name": "Update database table view sort",
+                          "id": "9cd6e2df-d8e6-4e97-a2b3-170b02f85416",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "sort",
+                                ":view_sort_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8b45b341-5069-4602-aaf8-967329538994",
+                                  "key": "view_sort_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Updates the view sort related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Updates the existing sort if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "08152dc5-2ad2-4f85-b8f4-7455476b4f9f",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-08152dc5-2ad2-4f85-b8f4-7455476b4f9f"
+                            },
+                            {
+                              "id": "9384512c-e228-4a20-8550-a7b5fba8b9c8",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_FIELD_NOT_IN_TABLE\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-9384512c-e228-4a20-8550-a7b5fba8b9c8"
+                            },
+                            {
+                              "id": "10d5f2fa-d426-42c3-96c2-b25168dd8ccb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-10d5f2fa-d426-42c3-96c2-b25168dd8ccb"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-9cd6e2df-d8e6-4e97-a2b3-170b02f85416"
+                        },
+                        {
+                          "name": "Delete database table view sort",
+                          "id": "3da6443f-1293-4cba-9780-c61e1e931a72",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "sort",
+                                ":view_sort_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "21786881-73ce-4f7e-b807-9caeeb12fecf",
+                                  "key": "view_sort_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Deletes the sort related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Deletes the existing sort if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "84c242d8-95a7-48a1-94ab-3319170beb36",
+                              "name": "No response body",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-84c242d8-95a7-48a1-94ab-3319170beb36"
+                            },
+                            {
+                              "id": "ada0b4bf-4223-477e-9121-e8f98bfaa6c4",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-ada0b4bf-4223-477e-9121-e8f98bfaa6c4"
+                            },
+                            {
+                              "id": "c7fa843b-202d-4c06-842a-532971708cc0",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/sort/:view_sort_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "sort",
+                                    ":view_sort_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_sort_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:33.000Z",
+                              "updatedAt": "2026-10-21T20:10:33.000Z",
+                              "uid": "35240-c7fa843b-202d-4c06-842a-532971708cc0"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:33.000Z",
+                          "updatedAt": "2026-10-21T20:10:33.000Z",
+                          "uid": "35240-3da6443f-1293-4cba-9780-c61e1e931a72"
+                        }
+                      ],
+                      "id": "c2f3e467-ce75-458f-9ebf-0f353f878e21",
+                      "createdAt": "2026-10-21T20:10:33.000Z",
+                      "updatedAt": "2026-10-21T20:10:33.000Z",
+                      "uid": "35240-c2f3e467-ce75-458f-9ebf-0f353f878e21"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "9051bec8-82ba-4a2b-a7a3-636488d2a51f",
+                  "createdAt": "2026-10-21T20:10:33.000Z",
+                  "updatedAt": "2026-10-21T20:10:33.000Z",
+                  "uid": "35240-9051bec8-82ba-4a2b-a7a3-636488d2a51f"
                 }
               ],
-              "body": "{\n  \"field\": 7721,\n  \"id\": 9572,\n  \"priority\": 8736,\n  \"view\": 2781,\n  \"order\": \"<string>\",\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "61ebaab9-fd8b-4a95-9335-773fe92ba51c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Updates the view sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0cf7859e-c836-4aed-b7d2-03bf4371d304",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Updates the view sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be sorted on.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ee163de4-312b-43f8-82cc-5cf2a4303ea8",
-          "name": "delete database table view sort",
-          "request": {
-            "name": "delete database table view sort",
-            "description": {
-              "content": "Deletes the existing sort if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "sort",
-                ":view_sort_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_sort_id",
-                  "description": "(Required) Deletes the sort related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5e6e443c-dc28-46bf-ab84-63246c2cc2f8",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Deletes the sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8d159fdc-02ec-4d8e-a3ec-c0d6b93ca98f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Deletes the sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5bfbcca4-7ffe-4553-833a-037ce6dcd0a0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "sort",
-                    ":view_sort_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_sort_id",
-                      "description": "(Required) Deletes the sort related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_SORT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "f90fb73c-8450-41e9-8ce3-44ced4680626",
+              "createdAt": "2026-10-21T20:10:33.000Z",
+              "updatedAt": "2026-10-21T20:10:33.000Z",
+              "uid": "35240-f90fb73c-8450-41e9-8ce3-44ced4680626"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "d0f2a664-af61-4018-9e27-11ba291077ca",
+          "createdAt": "2026-10-21T20:10:33.000Z",
+          "updatedAt": "2026-10-21T20:10:33.000Z",
+          "uid": "35240-d0f2a664-af61-4018-9e27-11ba291077ca"
         }
       ],
-      "event": []
+      "id": "759565e2-5a0a-40c9-b34b-a4af3c5d1035",
+      "createdAt": "2026-10-21T20:10:33.000Z",
+      "updatedAt": "2026-10-21T20:10:33.000Z",
+      "uid": "35240-759565e2-5a0a-40c9-b34b-a4af3c5d1035"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "b3ca70c0-e99b-452b-b683-71617fae73a9",
-    "name": "Baserow API spec Admin Database table view sortings API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

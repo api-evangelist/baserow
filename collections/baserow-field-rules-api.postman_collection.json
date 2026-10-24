@@ -1,1560 +1,1331 @@
 {
+  "info": {
+    "_postman_id": "e163e4bb-85e0-4092-a4e4-77efc1082f7e",
+    "name": "Baserow API spec Field rules API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:10:54.000Z",
+    "updatedAt": "2026-10-21T20:10:55.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-e163e4bb-85e0-4092-a4e4-77efc1082f7e"
+  },
   "item": [
     {
-      "id": "61449b29-ae7e-455b-964e-f10cde96db27",
-      "name": "Field rules",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "30630d44-5090-478e-aae1-b1a3be6d79a1",
-          "name": "get field rules",
-          "request": {
-            "name": "get field rules",
-            "description": {
-              "content": "Get a list of field rules for the table",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "field-rules",
-                ":table_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The ID of the table to get field rules."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "database",
+          "item": [
             {
-              "id": "a8f768a9-92ac-4770-ab4f-136b4cb88d7f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "field-rules",
+              "item": [
+                {
+                  "name": "{table_id}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get field rules."
+                      "name": "invalid-rows",
+                      "item": [
+                        {
+                          "name": "Get invalid rows",
+                          "id": "2a91a83d-2db5-4271-8519-406a077193cc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/invalid-rows/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                "invalid-rows",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b11cd112-c63e-4820-98c7-ae9f0fa726ae",
+                                  "key": "table_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The ID of the table to get a list of invalid row ids."
+                                }
+                              ]
+                            },
+                            "description": "Get a list of invalid rows"
+                          },
+                          "response": [
+                            {
+                              "id": "c1d86797-5898-4002-8b6b-02cee06dba0e",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/field-rules/:table_id/invalid-rows/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "field-rules",
+                                    ":table_id",
+                                    "invalid-rows",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"count\": \"<integer>\",\n  \"next\": \"<string,null-uri>\",\n  \"previous\": \"<string,null-uri>\",\n  \"results\": [\n    {\n      \"id\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\"\n    }\n  ]\n}",
+                              "createdAt": "2026-10-21T20:10:55.000Z",
+                              "updatedAt": "2026-10-21T20:10:55.000Z",
+                              "uid": "35240-c1d86797-5898-4002-8b6b-02cee06dba0e"
+                            },
+                            {
+                              "id": "e36490f5-e34a-4c0d-a498-629bcf1006db",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/field-rules/:table_id/invalid-rows/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "field-rules",
+                                    ":table_id",
+                                    "invalid-rows",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:55.000Z",
+                              "updatedAt": "2026-10-21T20:10:55.000Z",
+                              "uid": "35240-e36490f5-e34a-4c0d-a498-629bcf1006db"
+                            },
+                            {
+                              "id": "2348a5bd-5a97-48a3-8046-7e450af0af4e",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/field-rules/:table_id/invalid-rows/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "field-rules",
+                                    ":table_id",
+                                    "invalid-rows",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:55.000Z",
+                              "updatedAt": "2026-10-21T20:10:55.000Z",
+                              "uid": "35240-2348a5bd-5a97-48a3-8046-7e450af0af4e"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-2a91a83d-2db5-4271-8519-406a077193cc"
+                        }
+                      ],
+                      "id": "f6308cb0-7e19-4c0c-b84d-35b2c53be8e6",
+                      "createdAt": "2026-10-21T20:10:55.000Z",
+                      "updatedAt": "2026-10-21T20:10:55.000Z",
+                      "uid": "35240-f6308cb0-7e19-4c0c-b84d-35b2c53be8e6"
+                    },
+                    {
+                      "name": "rule",
+                      "item": [
+                        {
+                          "name": "{rule_id}",
+                          "item": [
+                            {
+                              "name": "Update field rule",
+                              "id": "f008e314-eeb5-452a-a4e2-40c5889c5529",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "field-rules",
+                                    ":table_id",
+                                    "rule",
+                                    ":rule_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "192b72a2-b3a2-4dfd-95df-12fe77a5192e",
+                                      "key": "table_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The ID of the table."
+                                    },
+                                    {
+                                      "id": "d3fa1073-609a-4a03-ae04-6069d58fd313",
+                                      "key": "rule_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The ID of the rule to update."
+                                    }
+                                  ]
+                                },
+                                "description": "Update a specific field rule."
+                              },
+                              "response": [
+                                {
+                                  "id": "e6b1aad6-b550-4d64-b6ff-787ef2837f35",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "[\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  },\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  }\n]",
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-e6b1aad6-b550-4d64-b6ff-787ef2837f35"
+                                },
+                                {
+                                  "id": "13369c25-c109-4e50-bc64-9a3eb78561a2",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-13369c25-c109-4e50-bc64-9a3eb78561a2"
+                                },
+                                {
+                                  "id": "c368fd1d-e542-4754-8559-f90658cf463d",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-c368fd1d-e542-4754-8559-f90658cf463d"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:10:55.000Z",
+                              "updatedAt": "2026-10-21T20:10:55.000Z",
+                              "uid": "35240-f008e314-eeb5-452a-a4e2-40c5889c5529"
+                            },
+                            {
+                              "name": "Delete field rule",
+                              "id": "57089128-8b1f-41c4-9440-724420d22923",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "field-rules",
+                                    ":table_id",
+                                    "rule",
+                                    ":rule_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "03a09fb6-a25e-4a91-a24e-eb5dbaa39990",
+                                      "key": "table_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The ID of the table."
+                                    },
+                                    {
+                                      "id": "4bd280b2-419c-4528-a72d-03ce00325447",
+                                      "key": "rule_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The ID of the rule to delete."
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a field rule."
+                              },
+                              "response": [
+                                {
+                                  "id": "7564ea06-ab4a-4c60-8c6f-fea148e96438",
+                                  "name": "No response body",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-7564ea06-ab4a-4c60-8c6f-fea148e96438"
+                                },
+                                {
+                                  "id": "3ab3d1a6-4ed6-448b-a5ea-082a6958d8a0",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-3ab3d1a6-4ed6-448b-a5ea-082a6958d8a0"
+                                },
+                                {
+                                  "id": "1a3a019a-9968-4114-b9f3-d31d76ab272e",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/field-rules/:table_id/rule/:rule_id/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "field-rules",
+                                        ":table_id",
+                                        "rule",
+                                        ":rule_id",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        },
+                                        {
+                                          "key": "rule_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_RULE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:55.000Z",
+                                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                                  "uid": "35240-1a3a019a-9968-4114-b9f3-d31d76ab272e"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:10:55.000Z",
+                              "updatedAt": "2026-10-21T20:10:55.000Z",
+                              "uid": "35240-57089128-8b1f-41c4-9440-724420d22923"
+                            }
+                          ],
+                          "id": "d6a2f27b-5822-48c2-958f-aa2bec5da19e",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-d6a2f27b-5822-48c2-958f-aa2bec5da19e"
+                        }
+                      ],
+                      "id": "d402b377-4b9e-4e3a-aa84-a90822844d40",
+                      "createdAt": "2026-10-21T20:10:55.000Z",
+                      "updatedAt": "2026-10-21T20:10:55.000Z",
+                      "uid": "35240-d402b377-4b9e-4e3a-aa84-a90822844d40"
+                    },
+                    {
+                      "name": "Get field rules",
+                      "id": "d6a704d4-f9c1-4afc-89f4-91c80789216d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "field-rules",
+                            ":table_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "f446ca0d-9069-4561-b7a3-981363c0ae1a",
+                              "key": "table_id",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the table to get field rules."
+                            }
+                          ]
+                        },
+                        "description": "Get a list of field rules for the table"
+                      },
+                      "response": [
+                        {
+                          "id": "0682159e-5c58-4ecd-9cba-35b700c7f63d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  },\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-0682159e-5c58-4ecd-9cba-35b700c7f63d"
+                        },
+                        {
+                          "id": "9ddf36b0-6771-4e87-8c43-3b145ec45574",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-9ddf36b0-6771-4e87-8c43-3b145ec45574"
+                        },
+                        {
+                          "id": "5e9643c0-bc8f-4387-93b8-b88944fc801d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-5e9643c0-bc8f-4387-93b8-b88944fc801d"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:55.000Z",
+                      "updatedAt": "2026-10-21T20:10:55.000Z",
+                      "uid": "35240-d6a704d4-f9c1-4afc-89f4-91c80789216d"
+                    },
+                    {
+                      "name": "Create field rule",
+                      "id": "7ad2f676-58d5-449a-b39f-2f5390d3d49e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "field-rules",
+                            ":table_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "4730d9ad-a386-43b0-958f-47b16ad95df2",
+                              "key": "table_id",
+                              "value": "<integer>",
+                              "description": "(Required) The ID of the table to set a field rule."
+                            }
+                          ]
+                        },
+                        "description": "Create a field rule for a table"
+                      },
+                      "response": [
+                        {
+                          "id": "4eec5c0b-3c93-4ba7-8fd4-c9c2f3dcfeaa",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  },\n  {\n    \"error_text\": \"<string,null>\",\n    \"id\": \"<integer>\",\n    \"is_active\": \"<boolean>\",\n    \"is_valid\": \"<boolean>\",\n    \"table_id\": \"<integer>\",\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": \"<integer>\",\n    \"end_date_field_id\": \"<integer>\",\n    \"duration_field_id\": \"<integer>\",\n    \"dependency_linkrow_field_id\": \"<integer,null>\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-4eec5c0b-3c93-4ba7-8fd4-c9c2f3dcfeaa"
+                        },
+                        {
+                          "id": "0d0eb80c-3cec-4d61-8541-3ab5ac4a959b",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_RULE_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-0d0eb80c-3cec-4d61-8541-3ab5ac4a959b"
+                        },
+                        {
+                          "id": "6f6913c0-7941-4ac9-9333-f0f26b99bce8",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-6f6913c0-7941-4ac9-9333-f0f26b99bce8"
+                        },
+                        {
+                          "id": "b1a25b65-e430-4b47-9fbd-e295c3a2ca45",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"is_active\": \"<boolean>\",\n  \"type\": \"date_dependency\",\n  \"start_date_field_id\": \"<integer>\",\n  \"end_date_field_id\": \"<integer>\",\n  \"duration_field_id\": \"<integer>\",\n  \"dependency_linkrow_field_id\": \"<integer,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/field-rules/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "field-rules",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "table_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_RULE_ALREADY_EXISTS\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:55.000Z",
+                          "updatedAt": "2026-10-21T20:10:55.000Z",
+                          "uid": "35240-b1a25b65-e430-4b47-9fbd-e295c3a2ca45"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:55.000Z",
+                      "updatedAt": "2026-10-21T20:10:55.000Z",
+                      "uid": "35240-7ad2f676-58d5-449a-b39f-2f5390d3d49e"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "ea20ec1c-7b40-432a-bb1b-002cdf4617d3",
+                  "createdAt": "2026-10-21T20:10:55.000Z",
+                  "updatedAt": "2026-10-21T20:10:55.000Z",
+                  "uid": "35240-ea20ec1c-7b40-432a-bb1b-002cdf4617d3"
                 }
               ],
-              "body": "[\n  {\n    \"error_text\": \"string\",\n    \"id\": 3348,\n    \"is_active\": true,\n    \"is_valid\": true,\n    \"table_id\": 116,\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": 454,\n    \"end_date_field_id\": 3787,\n    \"duration_field_id\": 2915,\n    \"dependency_linkrow_field_id\": 2671\n  },\n  {\n    \"error_text\": \"string\",\n    \"id\": 2177,\n    \"is_active\": true,\n    \"is_valid\": true,\n    \"table_id\": 2308,\n    \"type\": \"date_dependency\",\n    \"start_date_field_id\": 4690,\n    \"end_date_field_id\": 4809,\n    \"duration_field_id\": 3459,\n    \"dependency_linkrow_field_id\": 7321\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8123882e-de15-4ec0-bb27-cba7a617e13d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get field rules."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d4be6084-2ae9-465e-8c28-3f7d3c9510fa",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get field rules."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ba895834-1b0d-4ce4-afa3-a1621b0beeab",
-          "name": "create field rule",
-          "request": {
-            "name": "create field rule",
-            "description": {
-              "content": "Create a field rule for a table",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "field-rules",
-                ":table_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The ID of the table to set a field rule."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "is_active",
-                  "value": "<boolean>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "start_date_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "end_date_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "duration_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "dependency_linkrow_field_id",
-                  "value": "<integer>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f23bad5d-b426-4619-ae73-d597bc10e9c0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to set a field rule."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"error_text\": \"string\",\n    \"id\": 4290,\n    \"is_active\": false,\n    \"is_valid\": true,\n    \"table_id\": 840,\n    \"type\": \"<string>\",\n    \"start_date_field_id\": 8639,\n    \"end_date_field_id\": 8456,\n    \"duration_field_id\": 3801,\n    \"dependency_linkrow_field_id\": 7040\n  },\n  {\n    \"error_text\": \"string\",\n    \"id\": 8485,\n    \"is_active\": true,\n    \"is_valid\": false,\n    \"table_id\": 4417,\n    \"type\": \"<string>\",\n    \"start_date_field_id\": 211,\n    \"end_date_field_id\": 152,\n    \"duration_field_id\": 3338,\n    \"dependency_linkrow_field_id\": 1922\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bc3580a5-c936-44fc-b5dd-9a90fb9891a1",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to set a field rule."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_RULE_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7b8f66f5-8415-4206-9222-7762778ce12e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to set a field rule."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a3e7b5a8-43c2-4216-92b3-43978495e74e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to set a field rule."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_RULE_ALREADY_EXISTS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cbcbdb5c-4c3d-4a7d-8f5e-cfee356f00aa",
-          "name": "get invalid rows",
-          "request": {
-            "name": "get invalid rows",
-            "description": {
-              "content": "Get a list of invalid rows",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "field-rules",
-                ":table_id",
-                "invalid-rows",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The ID of the table to get a list of invalid row ids."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "4dc5a0e8-c4a9-44da-ad51-02cd2894bcc7",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "invalid-rows",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get a list of invalid row ids."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"count\": 1520,\n  \"next\": \"https://vFuduiYqWpFdcTRnXL.nhscC2+cE12ggCsWsDOujn-FhoA9A,6CGMeEq9NbtTD2mSFrGRGc1\",\n  \"previous\": \"http://yVcseTGvzCu.tcBpW2M+A3-vaIAOueUXsXTzxk58z3wwF1fqfvIChot2l,V33GUE-Lj83ev,,\",\n  \"results\": [\n    {\n      \"id\": 4928\n    },\n    {\n      \"id\": 8487\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2c8b76a4-7911-4b5c-b824-c6e744faf47c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "invalid-rows",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get a list of invalid row ids."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "85b9465e-e192-4c28-9e0b-0ef40b4f17db",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "invalid-rows",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table to get a list of invalid row ids."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "58c9bc69-eb59-428e-bd6a-e171b5df7fca",
-          "name": "update field rule",
-          "request": {
-            "name": "update field rule",
-            "description": {
-              "content": "Update a specific field rule.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "field-rules",
-                ":table_id",
-                "rule",
-                ":rule_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "rule_id",
-                  "description": "(Required) The ID of the rule to update."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The ID of the table."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "is_active",
-                  "value": "<boolean>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "start_date_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "end_date_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "duration_field_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "dependency_linkrow_field_id",
-                  "value": "<integer>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "57ea6d3f-d42d-47b8-8fc6-a2de7478ce6a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"error_text\": \"string\",\n    \"id\": 4290,\n    \"is_active\": false,\n    \"is_valid\": true,\n    \"table_id\": 840,\n    \"type\": \"<string>\",\n    \"start_date_field_id\": 8639,\n    \"end_date_field_id\": 8456,\n    \"duration_field_id\": 3801,\n    \"dependency_linkrow_field_id\": 7040\n  },\n  {\n    \"error_text\": \"string\",\n    \"id\": 8485,\n    \"is_active\": true,\n    \"is_valid\": false,\n    \"table_id\": 4417,\n    \"type\": \"<string>\",\n    \"start_date_field_id\": 211,\n    \"end_date_field_id\": 152,\n    \"duration_field_id\": 3338,\n    \"dependency_linkrow_field_id\": 1922\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "944f6e3d-48df-4947-b59b-809dea4a5a2e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "51d17015-33b0-4804-bff9-c76b13611756",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to update."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "is_active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "start_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "end_date_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "duration_field_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "dependency_linkrow_field_id",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_RULE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "357b51f8-721d-4734-b7e5-780abda80a9b",
-          "name": "delete field rule",
-          "request": {
-            "name": "delete field rule",
-            "description": {
-              "content": "Delete a field rule.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "field-rules",
-                ":table_id",
-                "rule",
-                ":rule_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "rule_id",
-                  "description": "(Required) The ID of the rule to delete."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The ID of the table."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "a961469a-a94d-41e2-8344-cbc3dac2fdc8",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to delete."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a26e795f-5175-49ad-94bc-20322567f725",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to delete."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b27683d8-19e8-408f-ad70-ee007634d1d6",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "field-rules",
-                    ":table_id",
-                    "rule",
-                    ":rule_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "rule_id",
-                      "description": "(Required) The ID of the rule to delete."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The ID of the table."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_RULE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "ca599572-d7ac-4d2e-a5be-04a4ce6664d1",
+              "createdAt": "2026-10-21T20:10:55.000Z",
+              "updatedAt": "2026-10-21T20:10:55.000Z",
+              "uid": "35240-ca599572-d7ac-4d2e-a5be-04a4ce6664d1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "1e0e537d-c07f-49ed-86b6-485c9b7a3dff",
+          "createdAt": "2026-10-21T20:10:55.000Z",
+          "updatedAt": "2026-10-21T20:10:55.000Z",
+          "uid": "35240-1e0e537d-c07f-49ed-86b6-485c9b7a3dff"
         }
       ],
-      "event": []
+      "id": "4b3ce8e4-e367-451f-84d5-ff3a3227e9a4",
+      "createdAt": "2026-10-21T20:10:55.000Z",
+      "updatedAt": "2026-10-21T20:10:55.000Z",
+      "uid": "35240-4b3ce8e4-e367-451f-84d5-ff3a3227e9a4"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "bdc86c93-da23-4723-8a28-fc48d456b2c5",
-    "name": "Baserow API spec Admin Field rules API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

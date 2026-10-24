@@ -1,719 +1,695 @@
 {
+  "info": {
+    "_postman_id": "489e8780-3a4b-43c5-9c85-789ef35a480b",
+    "name": "Baserow API spec Templates API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:34.000Z",
+    "updatedAt": "2026-10-21T20:11:34.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-489e8780-3a4b-43c5-9c85-789ef35a480b"
+  },
   "item": [
     {
-      "id": "8272f41b-46f7-4c6b-9ad8-ae08f478c567",
-      "name": "Templates",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "54cd4b1d-39eb-4f5d-9d6f-8d3671f36ae5",
-          "name": "list templates",
-          "request": {
-            "name": "list templates",
-            "description": {
-              "content": "Lists all the template categories and the related templates that are in that category. The template's `workspace_id` can be used for previewing purposes because that workspace contains the applications that are in the template. All the `get` and `list` endpoints related to that workspace are publicly accessible.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "templates",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "templates",
+          "item": [
             {
-              "id": "204685ed-ae95-4b53-b788-f82613288743",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    ""
+              "name": "install",
+              "item": [
+                {
+                  "name": "{workspace_id}",
+                  "item": [
+                    {
+                      "name": "{template_id}",
+                      "item": [
+                        {
+                          "name": "async",
+                          "item": [
+                            {
+                              "name": "Install template async",
+                              "id": "31866e32-ec62-4d54-ae6e-03b441cf5ff6",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/async/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "templates",
+                                    "install",
+                                    ":workspace_id",
+                                    ":template_id",
+                                    "async",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "eafbd089-4539-4ac1-b26f-de8216b7684a",
+                                      "key": "workspace_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
+                                    },
+                                    {
+                                      "id": "6f27b6e4-9002-4320-8697-218c6e36773b",
+                                      "key": "template_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The id related to the template that must be installed."
+                                    }
+                                  ]
+                                },
+                                "description": "Start an async job to install the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications."
+                              },
+                              "response": [
+                                {
+                                  "id": "b9a4df66-a0eb-4bf3-a674-b3d88f090891",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "templates",
+                                        "install",
+                                        ":workspace_id",
+                                        ":template_id",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "workspace_id"
+                                        },
+                                        {
+                                          "key": "template_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Accepted",
+                                  "code": 202,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"id\": \"<integer>\",\n  \"installed_applications\": {\n    \"readOnly\": true\n  },\n  \"progress_percentage\": \"<integer>\",\n  \"state\": \"<string>\",\n  \"template\": {\n    \"icon\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"is_default\": \"<string>\",\n    \"name\": \"<string>\",\n    \"slug\": \"ZeW\",\n    \"workspace_id\": \"<integer,null>\",\n    \"keywords\": \"<string>\",\n    \"open_application\": \"<integer,null>\"\n  },\n  \"type\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"workspace\": {\n    \"generative_ai_models_enabled\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\"\n  },\n  \"human_readable_error\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:11:35.000Z",
+                                  "updatedAt": "2026-10-21T20:11:35.000Z",
+                                  "uid": "35240-b9a4df66-a0eb-4bf3-a674-b3d88f090891"
+                                },
+                                {
+                                  "id": "a4a879b3-6775-44d9-9ed4-ab54324ccdfa",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "templates",
+                                        "install",
+                                        ":workspace_id",
+                                        ":template_id",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "workspace_id"
+                                        },
+                                        {
+                                          "key": "template_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:11:35.000Z",
+                                  "updatedAt": "2026-10-21T20:11:35.000Z",
+                                  "uid": "35240-a4a879b3-6775-44d9-9ed4-ab54324ccdfa"
+                                },
+                                {
+                                  "id": "6dbcff0d-8b5a-455a-8568-be22b761b14e",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "templates",
+                                        "install",
+                                        ":workspace_id",
+                                        ":template_id",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "workspace_id"
+                                        },
+                                        {
+                                          "key": "template_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:11:35.000Z",
+                                  "updatedAt": "2026-10-21T20:11:35.000Z",
+                                  "uid": "35240-6dbcff0d-8b5a-455a-8568-be22b761b14e"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:11:35.000Z",
+                              "updatedAt": "2026-10-21T20:11:35.000Z",
+                              "uid": "35240-31866e32-ec62-4d54-ae6e-03b441cf5ff6"
+                            }
+                          ],
+                          "id": "61ba7bbd-417a-46c0-8088-d6ee50723b0b",
+                          "createdAt": "2026-10-21T20:11:35.000Z",
+                          "updatedAt": "2026-10-21T20:11:35.000Z",
+                          "uid": "35240-61ba7bbd-417a-46c0-8088-d6ee50723b0b"
+                        },
+                        {
+                          "name": "Install template",
+                          "id": "68e83a1e-9654-4c00-aca5-d04d71bda2f3",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "templates",
+                                "install",
+                                ":workspace_id",
+                                ":template_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "642eb5c2-c02d-41b4-8162-41d57237209f",
+                                  "key": "workspace_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The id related to the workspace where the template applications must be installed into."
+                                },
+                                {
+                                  "id": "7a11fb63-7784-4699-8951-2bdf1886e1fa",
+                                  "key": "template_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The id related to the template that must be installed."
+                                }
+                              ]
+                            },
+                            "description": "(Deprecated) Installs the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications."
+                          },
+                          "response": [
+                            {
+                              "id": "2c2a2294-0dcb-4584-abf4-f8533391182b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "templates",
+                                    "install",
+                                    ":workspace_id",
+                                    ":template_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    },
+                                    {
+                                      "key": "template_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  }\n]",
+                              "createdAt": "2026-10-21T20:11:35.000Z",
+                              "updatedAt": "2026-10-21T20:11:35.000Z",
+                              "uid": "35240-2c2a2294-0dcb-4584-abf4-f8533391182b"
+                            },
+                            {
+                              "id": "8100f7ac-33df-45fc-95e6-9055f8dbf074",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "templates",
+                                    "install",
+                                    ":workspace_id",
+                                    ":template_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    },
+                                    {
+                                      "key": "template_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:35.000Z",
+                              "updatedAt": "2026-10-21T20:11:35.000Z",
+                              "uid": "35240-8100f7ac-33df-45fc-95e6-9055f8dbf074"
+                            },
+                            {
+                              "id": "9e6a0bf1-35f8-4454-899f-aeb99910258d",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/templates/install/:workspace_id/:template_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "templates",
+                                    "install",
+                                    ":workspace_id",
+                                    ":template_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "workspace_id"
+                                    },
+                                    {
+                                      "key": "template_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:35.000Z",
+                              "updatedAt": "2026-10-21T20:11:35.000Z",
+                              "uid": "35240-9e6a0bf1-35f8-4454-899f-aeb99910258d"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:35.000Z",
+                          "updatedAt": "2026-10-21T20:11:35.000Z",
+                          "uid": "35240-68e83a1e-9654-4c00-aca5-d04d71bda2f3"
+                        }
+                      ],
+                      "id": "9332c218-700b-438c-b36c-d8a9fe7baad0",
+                      "createdAt": "2026-10-21T20:11:35.000Z",
+                      "updatedAt": "2026-10-21T20:11:35.000Z",
+                      "uid": "35240-9332c218-700b-438c-b36c-d8a9fe7baad0"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "id": "4b28ad16-f948-47cf-8085-ac32ff75337e",
+                  "createdAt": "2026-10-21T20:11:35.000Z",
+                  "updatedAt": "2026-10-21T20:11:35.000Z",
+                  "uid": "35240-4b28ad16-f948-47cf-8085-ac32ff75337e"
+                }
+              ],
+              "id": "f2509ab7-f3e8-4691-82c6-437ae3520a81",
+              "createdAt": "2026-10-21T20:11:35.000Z",
+              "updatedAt": "2026-10-21T20:11:35.000Z",
+              "uid": "35240-f2509ab7-f3e8-4691-82c6-437ae3520a81"
+            },
+            {
+              "name": "List templates",
+              "id": "d7370556-eb11-4c88-9558-d8964d803004",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
                 "method": "GET",
-                "body": {}
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/templates/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "templates",
+                    ""
+                  ]
+                },
+                "description": "Lists all the template categories and the related templates that are in that category. The template's `workspace_id` can be used for previewing purposes because that workspace contains the applications that are in the template. All the `get` and `list` endpoints related to that workspace are publicly accessible."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "01dd553e-01a8-4f6b-b32f-c781844507ee",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/templates/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "templates",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"templates\": [\n      {\n        \"icon\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"is_default\": \"<string>\",\n        \"name\": \"<string>\",\n        \"slug\": \"cN-xKNKfzme\",\n        \"workspace_id\": \"<integer,null>\",\n        \"keywords\": \"<string>\",\n        \"open_application\": \"<integer,null>\"\n      },\n      {\n        \"icon\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"is_default\": \"<string>\",\n        \"name\": \"<string>\",\n        \"slug\": \"Yu97f\",\n        \"workspace_id\": \"<integer,null>\",\n        \"keywords\": \"<string>\",\n        \"open_application\": \"<integer,null>\"\n      }\n    ]\n  },\n  {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"templates\": [\n      {\n        \"icon\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"is_default\": \"<string>\",\n        \"name\": \"<string>\",\n        \"slug\": \"kz-jK\",\n        \"workspace_id\": \"<integer,null>\",\n        \"keywords\": \"<string>\",\n        \"open_application\": \"<integer,null>\"\n      },\n      {\n        \"icon\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"is_default\": \"<string>\",\n        \"name\": \"<string>\",\n        \"slug\": \"DkIGLKm\",\n        \"workspace_id\": \"<integer,null>\",\n        \"keywords\": \"<string>\",\n        \"open_application\": \"<integer,null>\"\n      }\n    ]\n  }\n]",
+                  "createdAt": "2026-10-21T20:11:35.000Z",
+                  "updatedAt": "2026-10-21T20:11:35.000Z",
+                  "uid": "35240-01dd553e-01a8-4f6b-b32f-c781844507ee"
                 }
               ],
-              "body": "[\n  {\n    \"id\": 2000,\n    \"name\": \"string\",\n    \"templates\": [\n      {\n        \"icon\": \"string\",\n        \"id\": 2822,\n        \"is_default\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"nz4Co\",\n        \"workspace_id\": 3040,\n        \"keywords\": \"string\",\n        \"open_application\": 1809230325\n      },\n      {\n        \"icon\": \"string\",\n        \"id\": 6503,\n        \"is_default\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"PhZmVb\",\n        \"workspace_id\": 944,\n        \"keywords\": \"string\",\n        \"open_application\": -764631315\n      }\n    ]\n  },\n  {\n    \"id\": 151,\n    \"name\": \"string\",\n    \"templates\": [\n      {\n        \"icon\": \"string\",\n        \"id\": 1961,\n        \"is_default\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"hesow\",\n        \"workspace_id\": 9690,\n        \"keywords\": \"string\",\n        \"open_application\": 1214729703\n      },\n      {\n        \"icon\": \"string\",\n        \"id\": 30,\n        \"is_default\": \"string\",\n        \"name\": \"string\",\n        \"slug\": \"erOU_\",\n        \"workspace_id\": 67,\n        \"keywords\": \"string\",\n        \"open_application\": -1850388445\n      }\n    ]\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:11:35.000Z",
+              "updatedAt": "2026-10-21T20:11:35.000Z",
+              "uid": "35240-d7370556-eb11-4c88-9558-d8964d803004"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3937545f-8f1d-4bda-b06b-1ea5d2aca0ff",
-          "name": "install template",
-          "request": {
-            "name": "install template",
-            "description": {
-              "content": "(Deprecated) Installs the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "templates",
-                "install",
-                ":workspace_id",
-                ":template_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "template_id",
-                  "description": "(Required) The id related to the template that must be installed."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "b8813cbd-75c1-4fd5-84eb-4e3fab42e27a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"created_on\": \"1990-04-06T01:02:26.449Z\",\n    \"id\": 342,\n    \"name\": \"string\",\n    \"order\": 794453799,\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"synced_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"table_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_error\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"auto_add_new_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"two_way_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"database_id\": 3947,\n        \"id\": 3178,\n        \"name\": \"string\",\n        \"order\": 450389235\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"synced_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"table_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_error\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"auto_add_new_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"two_way_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"database_id\": 8511,\n        \"id\": 4355,\n        \"name\": \"string\",\n        \"order\": 465441422\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"string\",\n      \"id\": 5679,\n      \"name\": \"string\"\n    }\n  },\n  {\n    \"created_on\": \"1951-03-30T06:44:21.566Z\",\n    \"id\": 7844,\n    \"name\": \"string\",\n    \"order\": 211905994,\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"synced_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"table_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_error\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"auto_add_new_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"two_way_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"database_id\": 7119,\n        \"id\": 4835,\n        \"name\": \"string\",\n        \"order\": 1432778266\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"synced_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"table_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"type\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"last_error\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"auto_add_new_properties\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"two_way_sync\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"database_id\": 3,\n        \"id\": 4024,\n        \"name\": \"string\",\n        \"order\": 648524894\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"string\",\n      \"id\": 6139,\n      \"name\": \"string\"\n    }\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bc7b520c-8444-4034-a628-0a079763b7ee",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b99ad42a-2b2c-47ae-a67f-cec6fe849257",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEMPLATE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cb8c656a-abf3-4073-9e6f-233aacd84401",
-          "name": "install template async",
-          "request": {
-            "name": "install template async",
-            "description": {
-              "content": "Start an async job to install the applications of the given template into the given workspace if the user has access to that workspace. The response contains those newly created applications.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "templates",
-                "install",
-                ":workspace_id",
-                ":template_id",
-                "async",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "template_id",
-                  "description": "(Required) The id related to the template that must be installed."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "66313f48-1638-4872-8f25-fed5ce9d20d8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Accepted",
-              "code": 202,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"2025-10-10T05:55:12.874Z\",\n  \"id\": 4229,\n  \"installed_applications\": {},\n  \"progress_percentage\": 5580,\n  \"state\": \"string\",\n  \"template\": {\n    \"icon\": \"string\",\n    \"id\": 8548,\n    \"is_default\": \"string\",\n    \"name\": \"string\",\n    \"slug\": \"P7g60J\",\n    \"workspace_id\": 6223,\n    \"keywords\": \"string\",\n    \"open_application\": -1463893751\n  },\n  \"type\": \"string\",\n  \"updated_on\": \"2015-05-02T18:41:25.639Z\",\n  \"workspace\": {\n    \"generative_ai_models_enabled\": \"string\",\n    \"id\": 4689,\n    \"name\": \"string\"\n  },\n  \"human_readable_error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "29717876-5d6b-4765-a83f-fce9fe0ac6ee",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEMPLATE_FILE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d29a1bb2-cc8f-4e99-a181-2be4c2d34500",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "templates",
-                    "install",
-                    ":workspace_id",
-                    ":template_id",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "template_id",
-                      "description": "(Required) The id related to the template that must be installed."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The id related to the workspace where the template applications must be installed into."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEMPLATE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "567ab24b-3314-4d3c-bdb3-129322dafb0b",
+          "createdAt": "2026-10-21T20:11:35.000Z",
+          "updatedAt": "2026-10-21T20:11:35.000Z",
+          "uid": "35240-567ab24b-3314-4d3c-bdb3-129322dafb0b"
         }
       ],
-      "event": []
+      "id": "f537318f-8bed-44a4-8cda-49c5fae9ff7d",
+      "createdAt": "2026-10-21T20:11:35.000Z",
+      "updatedAt": "2026-10-21T20:11:35.000Z",
+      "uid": "35240-f537318f-8bed-44a4-8cda-49c5fae9ff7d"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "d9ac81ef-c9e8-4bd5-89d4-127ec89e37c1",
-    "name": "Baserow API spec Admin Templates API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

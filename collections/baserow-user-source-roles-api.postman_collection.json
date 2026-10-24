@@ -1,198 +1,223 @@
 {
+  "info": {
+    "_postman_id": "c174fc52-2157-4a58-9c93-355492dc95a4",
+    "name": "Baserow API spec User source roles API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:47.000Z",
+    "updatedAt": "2026-10-21T20:11:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c174fc52-2157-4a58-9c93-355492dc95a4"
+  },
   "item": [
     {
-      "id": "22b03190-9390-45ad-b745-c5d3032c3ead",
-      "name": "User source roles",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "a6614cb0-076d-4a5f-b49b-6c3a6fe2f326",
-          "name": "list application user source roles",
-          "request": {
-            "name": "list application user source roles",
-            "description": {
-              "content": "Lists all the roles of the application related to the provided parameter if the user has access to the related application's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "application",
-                ":application_id",
-                "user-sources",
-                "roles",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "application_id",
-                  "description": "(Required) Returns only the roles of the application related to the provided Id."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "application",
+          "item": [
             {
-              "id": "20e6979b-2918-4f86-8ca5-1ea888599b98",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "application",
-                    ":application_id",
-                    "user-sources",
-                    "roles",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "application_id",
-                      "description": "(Required) Returns only the roles of the application related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{application_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "user-sources",
+                  "item": [
+                    {
+                      "name": "roles",
+                      "item": [
+                        {
+                          "name": "List application user source roles",
+                          "id": "e59b8093-cee8-493c-9db3-98416d205943",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/application/:application_id/user-sources/roles/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "application",
+                                ":application_id",
+                                "user-sources",
+                                "roles",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a5c61c04-7735-4e92-8e68-ce37388ac7e9",
+                                  "key": "application_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns only the roles of the application related to the provided Id."
+                                }
+                              ]
+                            },
+                            "description": "Lists all the roles of the application related to the provided parameter if the user has access to the related application's workspace. If the workspace is related to a template, then this endpoint will be publicly accessible."
+                          },
+                          "response": [
+                            {
+                              "id": "c811888b-f1ee-4e76-bedb-5a48d6010d8a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/application/:application_id/user-sources/roles/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "application",
+                                    ":application_id",
+                                    "user-sources",
+                                    "roles",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "application_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"roles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"table_id\": \"<integer,null>\",\n  \"email_field_id\": \"<integer,null>\",\n  \"name_field_id\": \"<integer,null>\",\n  \"role_field_id\": \"<integer,null>\"\n}",
+                              "createdAt": "2026-10-21T20:11:48.000Z",
+                              "updatedAt": "2026-10-21T20:11:48.000Z",
+                              "uid": "35240-c811888b-f1ee-4e76-bedb-5a48d6010d8a"
+                            },
+                            {
+                              "id": "34e99c60-3702-4552-8512-cdeac6cbbcaa",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/application/:application_id/user-sources/roles/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "application",
+                                    ":application_id",
+                                    "user-sources",
+                                    "roles",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "application_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:48.000Z",
+                              "updatedAt": "2026-10-21T20:11:48.000Z",
+                              "uid": "35240-34e99c60-3702-4552-8512-cdeac6cbbcaa"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:48.000Z",
+                          "updatedAt": "2026-10-21T20:11:48.000Z",
+                          "uid": "35240-e59b8093-cee8-493c-9db3-98416d205943"
+                        }
+                      ],
+                      "id": "1fe894ca-3940-4bca-bd3b-2cffea157097",
+                      "createdAt": "2026-10-21T20:11:48.000Z",
+                      "updatedAt": "2026-10-21T20:11:48.000Z",
+                      "uid": "35240-1fe894ca-3940-4bca-bd3b-2cffea157097"
+                    }
+                  ],
+                  "id": "c9d14d04-221e-483b-86a0-36c6a4b235d2",
+                  "createdAt": "2026-10-21T20:11:48.000Z",
+                  "updatedAt": "2026-10-21T20:11:48.000Z",
+                  "uid": "35240-c9d14d04-221e-483b-86a0-36c6a4b235d2"
                 }
               ],
-              "body": "{\n  \"id\": 1308,\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ],\n  \"table_id\": 1765,\n  \"email_field_id\": 8396,\n  \"name_field_id\": 4556,\n  \"role_field_id\": 8539\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6e4931b4-935c-4d66-ae24-ae14bd72015e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "application",
-                    ":application_id",
-                    "user-sources",
-                    "roles",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "application_id",
-                      "description": "(Required) Returns only the roles of the application related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "46d403c9-f828-4080-9a4e-b56816136f12",
+              "createdAt": "2026-10-21T20:11:48.000Z",
+              "updatedAt": "2026-10-21T20:11:48.000Z",
+              "uid": "35240-46d403c9-f828-4080-9a4e-b56816136f12"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "6301a2cb-efcd-421a-9b88-f243e75a23d3",
+          "createdAt": "2026-10-21T20:11:48.000Z",
+          "updatedAt": "2026-10-21T20:11:48.000Z",
+          "uid": "35240-6301a2cb-efcd-421a-9b88-f243e75a23d3"
         }
       ],
-      "event": []
+      "id": "11a82af6-5408-43d1-bf7b-ff4d3e55c1b8",
+      "createdAt": "2026-10-21T20:11:48.000Z",
+      "updatedAt": "2026-10-21T20:11:48.000Z",
+      "uid": "35240-11a82af6-5408-43d1-bf7b-ff4d3e55c1b8"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "eb0577ad-bf71-4469-bfca-085a2f2b2c79",
-    "name": "Baserow API spec Admin User source roles API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

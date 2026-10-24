@@ -1,1908 +1,1666 @@
 {
+  "info": {
+    "_postman_id": "158e757c-23d1-45e7-9a6a-3db274dad2ce",
+    "name": "Baserow API spec Database table view groupings API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:10:29.000Z",
+    "updatedAt": "2026-10-21T20:10:29.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-158e757c-23d1-45e7-9a6a-3db274dad2ce"
+  },
   "item": [
     {
-      "id": "bff85532-85cd-4ad1-bffc-441515315db8",
-      "name": "Database table view groupings",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "1c2a8bf3-1aee-4c1d-aa8e-9d9541f838ca",
-          "name": "list database table view groupings",
-          "request": {
-            "name": "list database table view groupings",
-            "description": {
-              "content": "Lists all groupings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple groupings.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "group_bys",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Returns only groupings of the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "database",
+          "item": [
             {
-              "id": "e41d817e-d322-4808-91d9-ee8ee415a461",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "views",
+              "item": [
+                {
+                  "name": "{view_id}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only groupings of the view related to the provided value."
+                      "name": "group_bys",
+                      "item": [
+                        {
+                          "name": "prioritize",
+                          "item": [
+                            {
+                              "name": "Prioritize database table view group bys",
+                              "id": "7c69f49b-f851-43e2-8307-eb40defb5880",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"view_group_by_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/prioritize/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    "prioritize",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "74264f0a-6e79-4c38-a7a5-03df994dae25",
+                                      "key": "view_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) Updates the priority of the group bys in the view related to the provided value."
+                                    }
+                                  ]
+                                },
+                                "description": "Updates the priority of the provided view group by ids to the matching position that the id has in the list. The group by with the lowest position in the list is applied first when ordering rows."
+                              },
+                              "response": [
+                                {
+                                  "id": "e8561a81-932d-4fe4-a4d4-5d3f95ab50d4",
+                                  "name": "No response body",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_group_by_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "group_bys",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-21T20:10:30.000Z",
+                                  "updatedAt": "2026-10-21T20:10:30.000Z",
+                                  "uid": "35240-e8561a81-932d-4fe4-a4d4-5d3f95ab50d4"
+                                },
+                                {
+                                  "id": "1d42069e-b592-4a21-98e5-7ce11b0c1776",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_group_by_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "group_bys",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:30.000Z",
+                                  "updatedAt": "2026-10-21T20:10:30.000Z",
+                                  "uid": "35240-1d42069e-b592-4a21-98e5-7ce11b0c1776"
+                                },
+                                {
+                                  "id": "30206274-b712-4398-ac08-bcb67ca5d06a",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                        "key": "ClientUndoRedoActionGroupId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"view_group_by_ids\": [\n    \"<integer>\"\n  ]\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/prioritize/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "views",
+                                        ":view_id",
+                                        "group_bys",
+                                        "prioritize",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "view_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:30.000Z",
+                                  "updatedAt": "2026-10-21T20:10:30.000Z",
+                                  "uid": "35240-30206274-b712-4398-ac08-bcb67ca5d06a"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-7c69f49b-f851-43e2-8307-eb40defb5880"
+                            }
+                          ],
+                          "id": "ea678825-9680-4c8d-af48-2fd71b35d148",
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-ea678825-9680-4c8d-af48-2fd71b35d148"
+                        },
+                        {
+                          "name": "List database table view groupings",
+                          "id": "f2f9cdf7-acf2-4f88-a26c-19130d8e7139",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                ":view_id",
+                                "group_bys",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "65de1484-7fb3-4d73-b0de-9152436cb690",
+                                  "key": "view_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns only groupings of the view related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Lists all groupings of the view related to the provided `view_id` if the user has access to the related database's workspace. A view can have multiple groupings."
+                          },
+                          "response": [
+                            {
+                              "id": "54c10d11-c3a1-4a44-becf-800958dbfbca",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"field\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"priority\": \"<integer>\",\n    \"view\": \"<integer>\",\n    \"order\": \"ASC\",\n    \"width\": \"<integer>\",\n    \"type\": \"<string>\"\n  },\n  {\n    \"field\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"priority\": \"<integer>\",\n    \"view\": \"<integer>\",\n    \"order\": \"DESC\",\n    \"width\": \"<integer>\",\n    \"type\": \"<string>\"\n  }\n]",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-54c10d11-c3a1-4a44-becf-800958dbfbca"
+                            },
+                            {
+                              "id": "e759ece2-ed4c-42fd-b5ab-f18086e0788c",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-e759ece2-ed4c-42fd-b5ab-f18086e0788c"
+                            },
+                            {
+                              "id": "63af7649-d6e8-4d53-812e-497f8e0653da",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-63af7649-d6e8-4d53-812e-497f8e0653da"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-f2f9cdf7-acf2-4f88-a26c-19130d8e7139"
+                        },
+                        {
+                          "name": "Create database table view group",
+                          "id": "7fe683a5-0592-4eaa-b506-b51ab4a9b38b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": 200,\n  \"type\": \"default\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                ":view_id",
+                                "group_bys",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "3f228f44-6d8e-44d1-afb6-e8a2eecd8f53",
+                                  "key": "view_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Creates a group by for the view related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new group by for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "70d2b348-5734-4576-8ab4-78c2c61ede2a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": 200,\n  \"type\": \"default\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-70d2b348-5734-4576-8ab4-78c2c61ede2a"
+                            },
+                            {
+                              "id": "b598d9bc-7ac1-4f1f-8aa4-1e08420549f9",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": 200,\n  \"type\": \"default\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-b598d9bc-7ac1-4f1f-8aa4-1e08420549f9"
+                            },
+                            {
+                              "id": "f13317c3-29bc-4942-82a5-ebb1b0a94699",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": 200,\n  \"type\": \"default\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/:view_id/group_bys/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    ":view_id",
+                                    "group_bys",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-f13317c3-29bc-4942-82a5-ebb1b0a94699"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-7fe683a5-0592-4eaa-b506-b51ab4a9b38b"
+                        }
+                      ],
+                      "id": "415523bf-793a-4e60-9234-f9057bc33df1",
+                      "createdAt": "2026-10-21T20:10:30.000Z",
+                      "updatedAt": "2026-10-21T20:10:30.000Z",
+                      "uid": "35240-415523bf-793a-4e60-9234-f9057bc33df1"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"field\": 1824,\n    \"id\": 8899,\n    \"priority\": 843,\n    \"view\": 3039,\n    \"order\": \"DESC\",\n    \"width\": 6514988,\n    \"type\": \"string\"\n  },\n  {\n    \"field\": 1184,\n    \"id\": 3808,\n    \"priority\": 5586,\n    \"view\": 5229,\n    \"order\": \"DESC\",\n    \"width\": 807838473,\n    \"type\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eb7513a6-ed62-4fcf-9801-c7049c0fcd7f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only groupings of the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c697f5b3-ce1c-4251-ad36-9d8c079ad846",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Returns only groupings of the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ea4a4fae-54b2-43d8-b1bf-5ff0a9232e3c",
-          "name": "create database table view group",
-          "request": {
-            "name": "create database table view group",
-            "description": {
-              "content": "Creates a new group by for the view related to the provided `view_id` parameter if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "group_bys",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Creates a group by for the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "field",
-                  "value": "<integer>",
-                  "description": "(Required) The field that must be grouped by."
-                },
-                {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "ASC",
-                  "description": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending"
-                },
-                {
-                  "disabled": false,
-                  "key": "width",
-                  "value": "200",
-                  "description": "The pixel width of the group by in the related view."
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "default",
-                  "description": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "cff6a50f-4a08-430f-8944-630e52595cc2",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a group by for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "200"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "default"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"field\": 6606,\n  \"id\": 8274,\n  \"priority\": 4242,\n  \"view\": 8565,\n  \"order\": \"<string>\",\n  \"width\": 1694593411,\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2bc9dee1-facc-4652-82d6-d61e15160393",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a group by for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "200"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "default"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4b6f597f-5343-4c54-83a8-ee5c9642c29a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Creates a group by for the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "ASC"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "200"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "default"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9c570572-cb54-4453-9310-048bfee21338",
-          "name": "prioritize database table view group bys",
-          "request": {
-            "name": "prioritize database table view group bys",
-            "description": {
-              "content": "Updates the priority of the provided view group by ids to the matching position that the id has in the list. The group by with the lowest position in the list is applied first when ordering rows.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                ":view_id",
-                "group_bys",
-                "prioritize",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_id",
-                  "description": "(Required) Updates the priority of the group bys in the view related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "view_group_by_ids",
-                  "value": "<integer>",
-                  "description": "(Required) View group by ids in the desired priority order. The group by with the lowest position in the list is applied first."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "8b1cd41b-7bd0-4bb2-9abf-cddf7c616b39",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the group bys in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_group_by_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c1f3ee95-2ad4-4840-bcdc-ae584dffa48e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the group bys in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_group_by_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_NOT_IN_VIEW\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3150f95b-fe92-4cd2-b9c3-ba23fbe543bc",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    ":view_id",
-                    "group_bys",
-                    "prioritize",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_id",
-                      "description": "(Required) Updates the priority of the group bys in the view related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) View group by ids in the desired priority order. The group by with the lowest position in the list is applied first.",
-                        "type": "text/plain"
-                      },
-                      "key": "view_group_by_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b5b438c1-a38d-4e4f-b8ef-6a28521dd882",
-          "name": "get database table view group",
-          "request": {
-            "name": "get database table view group",
-            "description": {
-              "content": "Returns the existing view group by if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "group_by",
-                ":view_group_by_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_group_by_id",
-                  "description": "(Required) Returns the view group by related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "c09cf29f-2221-4fee-a6c3-3ce108eaaa3a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Returns the view group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"field\": 6606,\n  \"id\": 8274,\n  \"priority\": 4242,\n  \"view\": 8565,\n  \"order\": \"<string>\",\n  \"width\": 1694593411,\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "367251ba-5679-4c37-9b6f-7cd353286662",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Returns the view group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "681bcd09-28a3-42db-b3e5-692de5053062",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Returns the view group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "daaabbaf-ca1c-48f3-8938-c38e5aaf1676",
-          "name": "update database table view group",
-          "request": {
-            "name": "update database table view group",
-            "description": {
-              "content": "Updates the existing group by if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "group_by",
-                ":view_group_by_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_group_by_id",
-                  "description": "(Required) Updates the view group by related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "field",
-                  "value": "<integer>",
-                  "description": "The field that must be grouped by."
+                  "id": "e2620541-d4aa-4c4d-bfbb-2145973ff043",
+                  "createdAt": "2026-10-21T20:10:30.000Z",
+                  "updatedAt": "2026-10-21T20:10:30.000Z",
+                  "uid": "35240-e2620541-d4aa-4c4d-bfbb-2145973ff043"
                 },
                 {
-                  "disabled": false,
-                  "key": "order",
-                  "value": "<string>",
-                  "description": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending"
-                },
-                {
-                  "disabled": false,
-                  "key": "width",
-                  "value": "<integer>",
-                  "description": "The pixel width of the group by in the related view."
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "23b53d8e-26b5-4d84-b71a-f85cde2d178c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "group_by",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Updates the view group by related to the provided value."
+                      "name": "{view_group_by_id}",
+                      "item": [
+                        {
+                          "name": "Get database table view group",
+                          "id": "770ef68d-3bf1-4b03-9769-4928932b86a7",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "group_by",
+                                ":view_group_by_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "41b7bf3c-a134-417f-8074-3e5558b654b3",
+                                  "key": "view_group_by_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns the view group by related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Returns the existing view group by if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "98a55424-f084-49ce-984f-5c21a009144e",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-98a55424-f084-49ce-984f-5c21a009144e"
+                            },
+                            {
+                              "id": "2364397c-adcc-4b7b-8d94-c2bfd53068ae",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-2364397c-adcc-4b7b-8d94-c2bfd53068ae"
+                            },
+                            {
+                              "id": "2fbe66e4-9e56-4188-ba50-b4b0657fd15b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-2fbe66e4-9e56-4188-ba50-b4b0657fd15b"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-770ef68d-3bf1-4b03-9769-4928932b86a7"
+                        },
+                        {
+                          "name": "Update database table view group",
+                          "id": "876669af-c258-45ac-a0ae-5dcb73bbae3e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "group_by",
+                                ":view_group_by_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ece74865-3168-463b-9eea-aa3c7cc72da3",
+                                  "key": "view_group_by_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Updates the view group by related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Updates the existing group by if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "28d62afd-6510-4544-ab97-52a333c3589a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"field\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"priority\": \"<integer>\",\n  \"view\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-28d62afd-6510-4544-ab97-52a333c3589a"
+                            },
+                            {
+                              "id": "e9042a5f-2823-486f-85a6-3e29f4e7d4c1",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-e9042a5f-2823-486f-85a6-3e29f4e7d4c1"
+                            },
+                            {
+                              "id": "e75f60ba-5a67-473c-b4a2-17295a62949b",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "PATCH",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"field\": \"<integer>\",\n  \"order\": \"ASC\",\n  \"width\": \"<integer>\",\n  \"type\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-e75f60ba-5a67-473c-b4a2-17295a62949b"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-876669af-c258-45ac-a0ae-5dcb73bbae3e"
+                        },
+                        {
+                          "name": "Delete database table view group",
+                          "id": "86fe5220-e0b5-4eff-a276-d945935cdd14",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "views",
+                                "group_by",
+                                ":view_group_by_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "520b1ab4-aade-47b2-981b-8a4b381e25d8",
+                                  "key": "view_group_by_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Deletes the group by related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Deletes the existing group by if the authorized user has access to the related database's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "7d5f5b6a-d7f4-4b3c-95bb-2dd91b9f74da",
+                              "name": "No response body",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-7d5f5b6a-d7f4-4b3c-95bb-2dd91b9f74da"
+                            },
+                            {
+                              "id": "17a564ff-b550-46d3-9e5e-3863cc0ca789",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-17a564ff-b550-46d3-9e5e-3863cc0ca789"
+                            },
+                            {
+                              "id": "ffd2327a-e7c1-46a8-a4ad-b4716330df2a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                    "key": "ClientUndoRedoActionGroupId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/views/group_by/:view_group_by_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "views",
+                                    "group_by",
+                                    ":view_group_by_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "view_group_by_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:30.000Z",
+                              "updatedAt": "2026-10-21T20:10:30.000Z",
+                              "uid": "35240-ffd2327a-e7c1-46a8-a4ad-b4716330df2a"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:30.000Z",
+                          "updatedAt": "2026-10-21T20:10:30.000Z",
+                          "uid": "35240-86fe5220-e0b5-4eff-a276-d945935cdd14"
+                        }
+                      ],
+                      "id": "782f3979-f6f1-4f2c-be9b-93f5692aa04f",
+                      "createdAt": "2026-10-21T20:10:30.000Z",
+                      "updatedAt": "2026-10-21T20:10:30.000Z",
+                      "uid": "35240-782f3979-f6f1-4f2c-be9b-93f5692aa04f"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "32bd80cd-5883-4506-b888-c0dd787466e9",
+                  "createdAt": "2026-10-21T20:10:30.000Z",
+                  "updatedAt": "2026-10-21T20:10:30.000Z",
+                  "uid": "35240-32bd80cd-5883-4506-b888-c0dd787466e9"
                 }
               ],
-              "body": "{\n  \"field\": 6606,\n  \"id\": 8274,\n  \"priority\": 4242,\n  \"view\": 8565,\n  \"order\": \"<string>\",\n  \"width\": 1694593411,\n  \"type\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2a194c0c-3f6f-44e2-b69b-89638925cc6f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Updates the view group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_FIELD_ALREADY_EXISTS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0a60719a-05fe-45ce-a83a-d2f08ab0998b",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Updates the view group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The field that must be grouped by.",
-                        "type": "text/plain"
-                      },
-                      "key": "field",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort order direction. ASC (Ascending) is from A to Z and DESC (Descending) is from Z to A.\n\n* `ASC` - Ascending\n* `DESC` - Descending",
-                        "type": "text/plain"
-                      },
-                      "key": "order",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The pixel width of the group by in the related view.",
-                        "type": "text/plain"
-                      },
-                      "key": "width",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates the sort type. Will automatically fall back to `default` if incompatible with field type.",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8ac14a9b-b52f-44d6-9ce6-d7158266969c",
-          "name": "delete database table view group",
-          "request": {
-            "name": "delete database table view group",
-            "description": {
-              "content": "Deletes the existing group by if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "views",
-                "group_by",
-                ":view_group_by_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "view_group_by_id",
-                  "description": "(Required) Deletes the group by related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "c5b5c767-0768-4699-bf49-0e49b9607191",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Deletes the group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ca5bc72c-5021-4a18-a04b-a2f407da528a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Deletes the group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "546b6695-60f1-4e90-81af-6b8ee529ae03",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "views",
-                    "group_by",
-                    ":view_group_by_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "view_group_by_id",
-                      "description": "(Required) Deletes the group by related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_VIEW_GROUP_BY_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "fe654004-60e9-4799-ab06-5322def3c25e",
+              "createdAt": "2026-10-21T20:10:30.000Z",
+              "updatedAt": "2026-10-21T20:10:30.000Z",
+              "uid": "35240-fe654004-60e9-4799-ab06-5322def3c25e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "28aa8b89-c365-4e79-9340-56dd850f7b63",
+          "createdAt": "2026-10-21T20:10:30.000Z",
+          "updatedAt": "2026-10-21T20:10:30.000Z",
+          "uid": "35240-28aa8b89-c365-4e79-9340-56dd850f7b63"
         }
       ],
-      "event": []
+      "id": "cd2738ae-121d-4ad1-ad0c-49aaa949b17c",
+      "createdAt": "2026-10-21T20:10:30.000Z",
+      "updatedAt": "2026-10-21T20:10:30.000Z",
+      "uid": "35240-cd2738ae-121d-4ad1-ad0c-49aaa949b17c"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "dd914539-7fac-443e-aefd-d43f79551d4a",
-    "name": "Baserow API spec Admin Database table view groupings API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

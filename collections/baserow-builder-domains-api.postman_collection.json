@@ -1,1847 +1,1754 @@
 {
+  "info": {
+    "_postman_id": "1012f269-6784-4618-82de-b7d0193cb5f7",
+    "name": "Baserow API spec Builder domains API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:08:59.000Z",
+    "updatedAt": "2026-10-21T20:08:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1012f269-6784-4618-82de-b7d0193cb5f7"
+  },
   "item": [
     {
-      "id": "37780b10-3ea9-492f-91e4-a81faba9266c",
-      "name": "Builder domains",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "87ac7d12-c5cb-46f2-b3e7-ad9574e54199",
-          "name": "get builder domains",
-          "request": {
-            "name": "get builder domains",
-            "description": {
-              "content": "Gets all the domains of a builder",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                ":builder_id",
-                "domains",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "builder_id",
-                  "description": "(Required) Gets all the domains for the specified builder"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "builder",
+          "item": [
             {
-              "id": "575fdd39-36ce-4da7-8fd7-08754fbbc1d2",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Gets all the domains for the specified builder"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{builder_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "domains",
+                  "item": [
+                    {
+                      "name": "order",
+                      "item": [
+                        {
+                          "name": "Order builder domains",
+                          "id": "9903f555-f838-4fbc-9cd7-c71841d2e558",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"domain_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/order/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                "order",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "16ce66e8-ff92-41fe-8cc7-ed70bd2167f5",
+                                  "key": "builder_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The builder the domain belongs to"
+                                }
+                              ]
+                            },
+                            "description": "Apply a new order to the domains of a builder"
+                          },
+                          "response": [
+                            {
+                              "id": "0c904402-d090-4851-8c6b-7be77bde5e9b",
+                              "name": "No response body",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"domain_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/builder/:builder_id/domains/order/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "builder",
+                                    ":builder_id",
+                                    "domains",
+                                    "order",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "builder_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-21T20:08:59.000Z",
+                              "updatedAt": "2026-10-21T20:08:59.000Z",
+                              "uid": "35240-0c904402-d090-4851-8c6b-7be77bde5e9b"
+                            },
+                            {
+                              "id": "4f840987-689a-46b0-a2e6-b6eb09f1e9f6",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"domain_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/builder/:builder_id/domains/order/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "builder",
+                                    ":builder_id",
+                                    "domains",
+                                    "order",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "builder_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:08:59.000Z",
+                              "updatedAt": "2026-10-21T20:08:59.000Z",
+                              "uid": "35240-4f840987-689a-46b0-a2e6-b6eb09f1e9f6"
+                            },
+                            {
+                              "id": "f3c8bbc7-d724-444d-b48f-e15cc0c0e028",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"domain_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/builder/:builder_id/domains/order/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "builder",
+                                    ":builder_id",
+                                    "domains",
+                                    "order",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "builder_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_DOMAIN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:08:59.000Z",
+                              "updatedAt": "2026-10-21T20:08:59.000Z",
+                              "uid": "35240-f3c8bbc7-d724-444d-b48f-e15cc0c0e028"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-9903f555-f838-4fbc-9cd7-c71841d2e558"
+                        }
+                      ],
+                      "id": "549dfcb1-0908-43e1-bcba-b35ee6aad01e",
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-549dfcb1-0908-43e1-bcba-b35ee6aad01e"
+                    },
+                    {
+                      "name": "Get builder domains",
+                      "id": "4eda8168-b3fe-4307-8995-1ec87f47a03d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "builder",
+                            ":builder_id",
+                            "domains",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "30ddf865-a639-4f9e-be4a-004ef5b95d56",
+                              "key": "builder_id",
+                              "value": "<integer>",
+                              "description": "(Required) Gets all the domains for the specified builder"
+                            }
+                          ]
+                        },
+                        "description": "Gets all the domains of a builder"
+                      },
+                      "response": [
+                        {
+                          "id": "f2fd5914-575a-4a47-9fcb-b6d372b3145d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"builder_id\": \"<integer>\",\n    \"domain_name\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"order\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"last_published\": \"<string,null-date-time>\"\n  },\n  {\n    \"builder_id\": \"<integer>\",\n    \"domain_name\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"order\": \"<integer>\",\n    \"type\": \"<string>\",\n    \"last_published\": \"<string,null-date-time>\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-f2fd5914-575a-4a47-9fcb-b6d372b3145d"
+                        },
+                        {
+                          "id": "1c87fdf1-a388-44f4-9425-17ebcbfb2429",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-1c87fdf1-a388-44f4-9425-17ebcbfb2429"
+                        },
+                        {
+                          "id": "e7084168-8275-459f-8b9d-2ea4a631e82f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-e7084168-8275-459f-8b9d-2ea4a631e82f"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-4eda8168-b3fe-4307-8995-1ec87f47a03d"
+                    },
+                    {
+                      "name": "Create builder domain",
+                      "id": "6e5cc9dc-40f8-4ba6-bbbe-784b6de69c2a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"domain_name\": \"<string>\",\n  \"type\": \"sub_domain\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "builder",
+                            ":builder_id",
+                            "domains",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "433d41cc-3941-4265-8bac-881e7db6704c",
+                              "key": "builder_id",
+                              "value": "<integer>",
+                              "description": "(Required) Creates a domain for the application builder related tothe provided value"
+                            }
+                          ]
+                        },
+                        "description": "Creates a new domain for an application builder"
+                      },
+                      "response": [
+                        {
+                          "id": "a831df39-4ffd-41f8-85e0-4932c7388175",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"domain_name\": \"<string>\",\n  \"type\": \"sub_domain\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"builder_id\": \"<integer>\",\n  \"domain_name\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"order\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"last_published\": \"<string,null-date-time>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-a831df39-4ffd-41f8-85e0-4932c7388175"
+                        },
+                        {
+                          "id": "250091fb-1d1e-48d9-b416-f7b9bd462806",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"domain_name\": \"<string>\",\n  \"type\": \"sub_domain\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-250091fb-1d1e-48d9-b416-f7b9bd462806"
+                        },
+                        {
+                          "id": "576a8636-daaa-4d70-845c-4d65844f31e2",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"domain_name\": \"<string>\",\n  \"type\": \"sub_domain\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/:builder_id/domains/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                ":builder_id",
+                                "domains",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "builder_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-576a8636-daaa-4d70-845c-4d65844f31e2"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-6e5cc9dc-40f8-4ba6-bbbe-784b6de69c2a"
+                    }
+                  ],
+                  "id": "674bd04b-4cf0-40b3-ba1a-568ed83d840c",
+                  "createdAt": "2026-10-21T20:08:59.000Z",
+                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                  "uid": "35240-674bd04b-4cf0-40b3-ba1a-568ed83d840c"
                 }
               ],
-              "body": "[\n  {\n    \"builder_id\": 3717,\n    \"domain_name\": \"string\",\n    \"id\": 5948,\n    \"order\": 1809106888,\n    \"type\": \"string\",\n    \"last_published\": \"1996-02-07T19:36:27.704Z\"\n  },\n  {\n    \"builder_id\": 2956,\n    \"domain_name\": \"string\",\n    \"id\": 4794,\n    \"order\": 821412595,\n    \"type\": \"string\",\n    \"last_published\": \"1966-12-14T05:13:37.990Z\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "e1f508c8-c1ae-48ff-8c6a-864e93b5f27a",
+              "createdAt": "2026-10-21T20:08:59.000Z",
+              "updatedAt": "2026-10-21T20:08:59.000Z",
+              "uid": "35240-e1f508c8-c1ae-48ff-8c6a-864e93b5f27a"
             },
             {
-              "id": "d8d0b84f-ede3-4d5b-ab71-1280003d8754",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Gets all the domains for the specified builder"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "name": "domains",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{domain_id}",
+                  "item": [
+                    {
+                      "name": "publish",
+                      "item": [
+                        {
+                          "name": "async",
+                          "item": [
+                            {
+                              "name": "Publish builder domain",
+                              "id": "ccb8b241-ef8b-4ab1-bc7b-b7e77a93ff31",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/builder/domains/:domain_id/publish/async/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "builder",
+                                    "domains",
+                                    ":domain_id",
+                                    "publish",
+                                    "async",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8bd3e762-fa79-48ed-a257-4b39d3a2280e",
+                                      "key": "domain_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The builder application id the user wants to publish."
+                                    }
+                                  ]
+                                },
+                                "description": "This endpoint starts an asynchronous job to publish the builder. The job clones the current version of the given builder and publish it for the given domain."
+                              },
+                              "response": [
+                                {
+                                  "id": "9af57ac3-ac59-4403-81d5-3a7b24a6e877",
+                                  "name": "No response body",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/builder/domains/:domain_id/publish/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "builder",
+                                        "domains",
+                                        ":domain_id",
+                                        "publish",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "domain_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-10-21T20:08:59.000Z",
+                                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                                  "uid": "35240-9af57ac3-ac59-4403-81d5-3a7b24a6e877"
+                                },
+                                {
+                                  "id": "cf90548a-39c7-479d-82a6-e76f0cc86b2f",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/builder/domains/:domain_id/publish/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "builder",
+                                        "domains",
+                                        ":domain_id",
+                                        "publish",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "domain_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:08:59.000Z",
+                                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                                  "uid": "35240-cf90548a-39c7-479d-82a6-e76f0cc86b2f"
+                                },
+                                {
+                                  "id": "c38435d3-f4b8-49b1-845e-f935f601d9e8",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                        "key": "ClientSessionId",
+                                        "value": "<uuid>"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/builder/domains/:domain_id/publish/async/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "builder",
+                                        "domains",
+                                        ":domain_id",
+                                        "publish",
+                                        "async",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "domain_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:08:59.000Z",
+                                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                                  "uid": "35240-c38435d3-f4b8-49b1-845e-f935f601d9e8"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:08:59.000Z",
+                              "updatedAt": "2026-10-21T20:08:59.000Z",
+                              "uid": "35240-ccb8b241-ef8b-4ab1-bc7b-b7e77a93ff31"
+                            }
+                          ],
+                          "id": "59a5043a-9b5c-4a93-9296-322769ed9849",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-59a5043a-9b5c-4a93-9296-322769ed9849"
+                        }
+                      ],
+                      "id": "72592549-7a32-45de-8d45-9de542ce4541",
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-72592549-7a32-45de-8d45-9de542ce4541"
+                    },
+                    {
+                      "name": "Update builder domain",
+                      "id": "899b341a-e3de-48d1-be9c-1ae81d5153cb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"type\": \"custom\",\n  \"domain_name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "builder",
+                            "domains",
+                            ":domain_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "fce248d8-6feb-4566-afe6-4a313747ccdf",
+                              "key": "domain_id",
+                              "value": "<integer>",
+                              "description": "(Required) The id of the domain"
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing domain of an application builder"
+                      },
+                      "response": [
+                        {
+                          "id": "c2b46061-5bfd-4777-b53a-ed618b368c90",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"type\": \"custom\",\n  \"domain_name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"builder_id\": \"<integer>\",\n  \"domain_name\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"order\": \"<integer>\",\n  \"type\": \"<string>\",\n  \"last_published\": \"<string,null-date-time>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-c2b46061-5bfd-4777-b53a-ed618b368c90"
+                        },
+                        {
+                          "id": "51c56695-8aec-4cec-96f2-b5d864be0d6d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"type\": \"custom\",\n  \"domain_name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-51c56695-8aec-4cec-96f2-b5d864be0d6d"
+                        },
+                        {
+                          "id": "b9f19ca3-6081-4a92-881a-7e0f63bade9e",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"type\": \"custom\",\n  \"domain_name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DOMAIN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-b9f19ca3-6081-4a92-881a-7e0f63bade9e"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-899b341a-e3de-48d1-be9c-1ae81d5153cb"
+                    },
+                    {
+                      "name": "Delete builder domain",
+                      "id": "b1d88695-402c-4e4f-9d53-4a91d071370a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "builder",
+                            "domains",
+                            ":domain_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "7c0920d4-73ae-4ad1-8e88-17c85f27a1ab",
+                              "key": "domain_id",
+                              "value": "<integer>",
+                              "description": "(Required) The id of the domain"
+                            }
+                          ]
+                        },
+                        "description": "Deletes an existing domain of an application builder"
+                      },
+                      "response": [
+                        {
+                          "id": "381c98fb-cd34-4a0a-9993-434942bdffbe",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-381c98fb-cd34-4a0a-9993-434942bdffbe"
+                        },
+                        {
+                          "id": "09046cae-44d7-4bbe-bb81-a914e37f05c6",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-09046cae-44d7-4bbe-bb81-a914e37f05c6"
+                        },
+                        {
+                          "id": "e259aae6-cb6d-4b9d-97c0-0e4d4b28c98f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/:domain_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                ":domain_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "domain_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DOMAIN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-e259aae6-cb6d-4b9d-97c0-0e4d4b28c98f"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-b1d88695-402c-4e4f-9d53-4a91d071370a"
+                    }
+                  ],
+                  "id": "4d4f5342-59d8-46ba-adfb-07d304fb883c",
+                  "createdAt": "2026-10-21T20:08:59.000Z",
+                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                  "uid": "35240-4d4f5342-59d8-46ba-adfb-07d304fb883c"
+                },
+                {
+                  "name": "ask-public-domain-exists",
+                  "item": [
+                    {
+                      "name": "Ask public builder domain exists",
+                      "id": "d5f0fe40-c385-4b89-984c-1a4fabfe14a4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/builder/domains/ask-public-domain-exists/?domain=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "builder",
+                            "domains",
+                            "ask-public-domain-exists",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "The domain name for which",
+                              "key": "domain",
+                              "value": "<integer>"
+                            }
+                          ]
+                        },
+                        "description": "This endpoint can be used to check whether a domain exists for SSL certificate purposes. It's compatible with the Caddy on_demand TLS as described here: https://caddyserver.com/docs/json/apps/tls/automation/on_demand/ask/. It will respond with a 200 status code if it exists or a 404 if it doesn't exist."
+                      },
+                      "response": [
+                        {
+                          "id": "49b0e7c3-4641-4703-859d-b008dd2f8aec",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/ask-public-domain-exists/?domain=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                "ask-public-domain-exists",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "The domain name for which",
+                                  "key": "domain",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-49b0e7c3-4641-4703-859d-b008dd2f8aec"
+                        },
+                        {
+                          "id": "a62465f4-0fc2-4b31-abfa-bc6f38d8f7af",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/builder/domains/ask-public-domain-exists/?domain=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "builder",
+                                "domains",
+                                "ask-public-domain-exists",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "The domain name for which",
+                                  "key": "domain",
+                                  "value": "<integer>"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:08:59.000Z",
+                          "updatedAt": "2026-10-21T20:08:59.000Z",
+                          "uid": "35240-a62465f4-0fc2-4b31-abfa-bc6f38d8f7af"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:08:59.000Z",
+                      "updatedAt": "2026-10-21T20:08:59.000Z",
+                      "uid": "35240-d5f0fe40-c385-4b89-984c-1a4fabfe14a4"
+                    }
+                  ],
+                  "id": "f321b254-a76a-40b1-9afd-056b3507e988",
+                  "createdAt": "2026-10-21T20:08:59.000Z",
+                  "updatedAt": "2026-10-21T20:08:59.000Z",
+                  "uid": "35240-f321b254-a76a-40b1-9afd-056b3507e988"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5d706331-7d86-44c1-92f3-c4a49af4df35",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Gets all the domains for the specified builder"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "45891c15-7500-4f96-a197-38020531e454",
+              "createdAt": "2026-10-21T20:08:59.000Z",
+              "updatedAt": "2026-10-21T20:08:59.000Z",
+              "uid": "35240-45891c15-7500-4f96-a197-38020531e454"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fc294841-0261-4bd3-9182-430c9af68179",
-          "name": "create builder domain",
-          "request": {
-            "name": "create builder domain",
-            "description": {
-              "content": "Creates a new domain for an application builder",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                ":builder_id",
-                "domains",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "builder_id",
-                  "description": "(Required) Creates a domain for the application builder related tothe provided value"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "domain_name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "45d59767-1a14-47a7-a468-6076e57e8764",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Creates a domain for the application builder related tothe provided value"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"builder_id\": 2608,\n  \"domain_name\": \"string\",\n  \"id\": 2409,\n  \"order\": 887838945,\n  \"type\": \"string\",\n  \"last_published\": \"2024-10-31T18:56:03.328Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0099a885-2d4c-42f7-8504-0e843d0db763",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Creates a domain for the application builder related tothe provided value"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4fe7d4d0-e5a1-4131-abdd-f10bae19d6d4",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) Creates a domain for the application builder related tothe provided value"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b710acc0-7c5c-4150-8ec0-3451d2df4698",
-          "name": "order builder domains",
-          "request": {
-            "name": "order builder domains",
-            "description": {
-              "content": "Apply a new order to the domains of a builder",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                ":builder_id",
-                "domains",
-                "order",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "builder_id",
-                  "description": "(Required) The builder the domain belongs to"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "domain_ids",
-                  "value": "<integer>",
-                  "description": "(Required) The ids of the domains in the order they are supposed to be set in"
-                },
-                {
-                  "disabled": false,
-                  "key": "domain_ids",
-                  "value": "<integer>",
-                  "description": "(Required) The ids of the domains in the order they are supposed to be set in"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "d3d1eb1c-f8b1-4e38-8919-159349777935",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    "order",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) The builder the domain belongs to"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "aaf6329c-29d6-476a-8922-7ad2731ccc97",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    "order",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) The builder the domain belongs to"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DOMAIN_NOT_IN_BUILDER\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "21dcf784-006b-4558-8cbf-9eecf1d1aeb7",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    ":builder_id",
-                    "domains",
-                    "order",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "builder_id",
-                      "description": "(Required) The builder the domain belongs to"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ids of the domains in the order they are supposed to be set in",
-                        "type": "text/plain"
-                      },
-                      "key": "domain_ids",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6376ad7f-fa6d-4a31-847c-d4e9d0a5091f",
-          "name": "update builder domain",
-          "request": {
-            "name": "update builder domain",
-            "description": {
-              "content": "Updates an existing domain of an application builder",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                "domains",
-                ":domain_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "domain_id",
-                  "description": "(Required) The id of the domain"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "The type of the domain.\n\n* `custom` - custom\n* `sub_domain` - sub_domain"
-                },
-                {
-                  "disabled": false,
-                  "key": "domain_name",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "65f83867-3d8c-4bb9-a1fc-a0d54b787a02",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The type of the domain.\n\n* `custom` - custom\n* `sub_domain` - sub_domain",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"builder_id\": 2608,\n  \"domain_name\": \"string\",\n  \"id\": 2409,\n  \"order\": 887838945,\n  \"type\": \"string\",\n  \"last_published\": \"2024-10-31T18:56:03.328Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4c835118-04a1-4b50-84ab-9495fec7e07a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The type of the domain.\n\n* `custom` - custom\n* `sub_domain` - sub_domain",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "01045c66-cba7-43b1-a827-f28d38c1e456",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The type of the domain.\n\n* `custom` - custom\n* `sub_domain` - sub_domain",
-                        "type": "text/plain"
-                      },
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "domain_name",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DOMAIN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "245724fa-1a7b-435c-8b83-61b52300377e",
-          "name": "delete builder domain",
-          "request": {
-            "name": "delete builder domain",
-            "description": {
-              "content": "Deletes an existing domain of an application builder",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                "domains",
-                ":domain_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "domain_id",
-                  "description": "(Required) The id of the domain"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "9d22867a-c372-4b9a-8029-0ae4024c9f44",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "222e24fd-3ec2-46f1-9421-38187dc1d64c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e8411f76-f66c-43ef-8623-bdfa131d8807",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The id of the domain"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DOMAIN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4a57be5d-f438-4bc2-9088-2f6000ca8592",
-          "name": "publish builder domain",
-          "request": {
-            "name": "publish builder domain",
-            "description": {
-              "content": "This endpoint starts an asynchronous job to publish the builder. The job clones the current version of the given builder and publish it for the given domain.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                "domains",
-                ":domain_id",
-                "publish",
-                "async",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "domain_id",
-                  "description": "(Required) The builder application id the user wants to publish."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e65ccaa5-68bf-4853-b9c7-6c09b1466202",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    "publish",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The builder application id the user wants to publish."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "21118bbb-0866-41fc-9c76-27c407504dcb",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    "publish",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The builder application id the user wants to publish."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_MAX_JOB_COUNT_EXCEEDED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "68aec9a5-c694-4d85-b1b8-faafbef03480",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    ":domain_id",
-                    "publish",
-                    "async",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "domain_id",
-                      "description": "(Required) The builder application id the user wants to publish."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "32938c41-f1d2-4f59-b578-b0ac511213d9",
-          "name": "ask public builder domain exists",
-          "request": {
-            "name": "ask public builder domain exists",
-            "description": {
-              "content": "This endpoint can be used to check whether a domain exists for SSL certificate purposes. It's compatible with the Caddy on_demand TLS as described here: https://caddyserver.com/docs/json/apps/tls/automation/on_demand/ask/. It will respond with a 200 status code if it exists or a 404 if it doesn't exist.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "builder",
-                "domains",
-                "ask-public-domain-exists",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "domain",
-                  "value": "<integer>",
-                  "description": "The domain name for which"
-                }
-              ],
-              "variable": []
-            },
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "459ffcee-6670-4642-9fee-5dbf489ba355",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    "ask-public-domain-exists",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "domain",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "859415d8-5f39-4c07-8169-da90c130c5e9",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "builder",
-                    "domains",
-                    "ask-public-domain-exists",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "domain",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3edb1185-8ed9-4b9a-8042-a063e4043395",
+          "createdAt": "2026-10-21T20:08:59.000Z",
+          "updatedAt": "2026-10-21T20:08:59.000Z",
+          "uid": "35240-3edb1185-8ed9-4b9a-8042-a063e4043395"
         }
       ],
-      "event": []
+      "id": "71dd1a5a-0d5f-46d6-8cc6-e66a94f741fa",
+      "createdAt": "2026-10-21T20:08:59.000Z",
+      "updatedAt": "2026-10-21T20:08:59.000Z",
+      "uid": "35240-71dd1a5a-0d5f-46d6-8cc6-e66a94f741fa"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "e8c24398-a2bd-49d4-83d4-24b917d22222",
-    "name": "Baserow API spec Admin Builder domains API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

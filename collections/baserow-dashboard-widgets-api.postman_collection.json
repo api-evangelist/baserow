@@ -1,1348 +1,1271 @@
 {
+  "info": {
+    "_postman_id": "f7fc8719-c733-4425-9071-62650c097ec7",
+    "name": "Baserow API spec Dashboard widgets API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:09:30.000Z",
+    "updatedAt": "2026-10-21T20:09:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f7fc8719-c733-4425-9071-62650c097ec7"
+  },
   "item": [
     {
-      "id": "ab53ab04-d768-473e-82fb-e2f3c5aa06fe",
-      "name": "Dashboard widgets",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "d96bd49a-48cd-42d3-9c5e-5ce10204e9ad",
-          "name": "list dashboard widgets",
-          "request": {
-            "name": "list dashboard widgets",
-            "description": {
-              "content": "Lists all the widgets of the dashboard related to the provided parameter if the user has access to the related workspace. ",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                ":dashboard_id",
-                "widgets",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "dashboard_id",
-                  "description": "(Required) Returns only the widgets of the dashboard related to the provided Id."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "dashboard",
+          "item": [
             {
-              "id": "d6b2dc25-e061-4978-90fc-0d2bfe277aab",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the widgets of the dashboard related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{dashboard_id}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "widgets",
+                  "item": [
+                    {
+                      "name": "List dashboard widgets",
+                      "id": "d288e17b-5a49-4f3a-a336-00c485e8508b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            ":dashboard_id",
+                            "widgets",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "87851b52-8c3d-4830-a3b7-de555fd3f7ad",
+                              "key": "dashboard_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns only the widgets of the dashboard related to the provided Id."
+                            }
+                          ]
+                        },
+                        "description": "Lists all the widgets of the dashboard related to the provided parameter if the user has access to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "9635d760-2a52-4d43-bf88-5f9fc0a02daa",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"dashboard_id\": \"<integer>\",\n    \"description\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"order\": \"3453055264582988.69\",\n    \"title\": \"<string>\",\n    \"type\": \"<string>\",\n    \"data_source_id\": \"<integer>\"\n  },\n  {\n    \"dashboard_id\": \"<integer>\",\n    \"description\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"order\": \"944806922857490871.68\",\n    \"title\": \"<string>\",\n    \"type\": \"<string>\",\n    \"data_source_id\": \"<integer>\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-9635d760-2a52-4d43-bf88-5f9fc0a02daa"
+                        },
+                        {
+                          "id": "e981a750-a723-4ee2-9703-9012c7969e90",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-e981a750-a723-4ee2-9703-9012c7969e90"
+                        },
+                        {
+                          "id": "380d4ecf-5bc8-4607-aa35-2f26c27ee1b5",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-380d4ecf-5bc8-4607-aa35-2f26c27ee1b5"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:31.000Z",
+                      "updatedAt": "2026-10-21T20:09:31.000Z",
+                      "uid": "35240-d288e17b-5a49-4f3a-a336-00c485e8508b"
+                    },
+                    {
+                      "name": "Create dashboard widget",
+                      "id": "dbbe46f1-f264-40b7-9acd-fe28974d36ca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                            "key": "ClientUndoRedoActionGroupId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"chart\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            ":dashboard_id",
+                            "widgets",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "37b2dc47-db74-4493-9a5d-f010218a4ce2",
+                              "key": "dashboard_id",
+                              "value": "<integer>",
+                              "description": "(Required) Creates a widget for the dashboard related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Creates a new dashboard widget"
+                      },
+                      "response": [
+                        {
+                          "id": "8298839b-36bb-435d-845d-efa90f9c7d37",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"chart\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"dashboard_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"order\": \"-182071561479.904586415242062\",\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"data_source_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-8298839b-36bb-435d-845d-efa90f9c7d37"
+                        },
+                        {
+                          "id": "f73784c9-ca87-47b3-8dd1-5457a9743841",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"chart\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-f73784c9-ca87-47b3-8dd1-5457a9743841"
+                        },
+                        {
+                          "id": "4685668a-1ae6-4a50-a29d-3e30e6bd5569",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"chart\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-4685668a-1ae6-4a50-a29d-3e30e6bd5569"
+                        },
+                        {
+                          "id": "4bd9ac5b-c154-47c2-bdb3-b208fd1957b6",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"type\": \"chart\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/widgets/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "widgets",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-4bd9ac5b-c154-47c2-bdb3-b208fd1957b6"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:31.000Z",
+                      "updatedAt": "2026-10-21T20:09:31.000Z",
+                      "uid": "35240-dbbe46f1-f264-40b7-9acd-fe28974d36ca"
+                    }
+                  ],
+                  "id": "ae6ad022-cead-4939-b9f9-3a86acdd510d",
+                  "createdAt": "2026-10-21T20:09:30.000Z",
+                  "updatedAt": "2026-10-21T20:09:30.000Z",
+                  "uid": "35240-ae6ad022-cead-4939-b9f9-3a86acdd510d"
                 }
               ],
-              "body": "[\n  {\n    \"dashboard_id\": 6033,\n    \"description\": \"string\",\n    \"id\": 8908,\n    \"order\": \"-026.41326\",\n    \"title\": \"string\",\n    \"type\": \"string\",\n    \"data_source_id\": 9490\n  },\n  {\n    \"dashboard_id\": 6141,\n    \"description\": \"string\",\n    \"id\": 3450,\n    \"order\": \"37313111\",\n    \"title\": \"string\",\n    \"type\": \"string\",\n    \"data_source_id\": 5987\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7419bdb4-0619-4a77-b038-bb4be211b3f3",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the widgets of the dashboard related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2beb3b48-68f2-4b29-a93f-4fa3b520c818",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the widgets of the dashboard related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d667bd01-9c6c-4fbd-a3df-39fb008fa4e5",
-          "name": "create dashboard widget",
-          "request": {
-            "name": "create dashboard widget",
-            "description": {
-              "content": "Creates a new dashboard widget",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                ":dashboard_id",
-                "widgets",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "dashboard_id",
-                  "description": "(Required) Creates a widget for the dashboard related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "title",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "description",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f769c250-6326-43b9-a6a6-4157ecb23380",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Creates a widget for the dashboard related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"dashboard_id\": 107,\n  \"description\": \"string\",\n  \"id\": 6762,\n  \"order\": \"240080.89\",\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"data_source_id\": 1077\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c9a89488-2d7e-4097-935a-4a935f3bdf58",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Creates a widget for the dashboard related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a46c9db7-38a2-4f5b-b7ec-fd0274b9bdfc",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Creates a widget for the dashboard related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3f724b73-7e59-43dc-9cd5-c68ef4198ed1",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "widgets",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Creates a widget for the dashboard related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ffcda98d-7825-4efd-888c-6bb5f39c0b2b",
-          "name": "update dashboard widget",
-          "request": {
-            "name": "update dashboard widget",
-            "description": {
-              "content": "Updates an existing dashboard widget.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                "widgets",
-                ":widget_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "widget_id",
-                  "description": "(Required) The id of the widget"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "title",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "description",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "61127176-aa32-4da4-b150-4972bf017322",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"dashboard_id\": 107,\n  \"description\": \"string\",\n  \"id\": 6762,\n  \"order\": \"240080.89\",\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"data_source_id\": 1077\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "c3ca19e5-923e-41fe-a271-c61d7962c203",
+              "createdAt": "2026-10-21T20:09:30.000Z",
+              "updatedAt": "2026-10-21T20:09:30.000Z",
+              "uid": "35240-c3ca19e5-923e-41fe-a271-c61d7962c203"
             },
             {
-              "id": "882bdbe1-2188-4db6-b06d-b1d2b7cde8f3",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "name": "widgets",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{widget_id}",
+                  "item": [
+                    {
+                      "name": "Update dashboard widget",
+                      "id": "de0bf0c8-50d2-4ca7-b2be-7c5d8991750e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                            "key": "ClientUndoRedoActionGroupId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            "widgets",
+                            ":widget_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "617347d4-7a9b-4494-866b-de4a24926b65",
+                              "key": "widget_id",
+                              "value": "<integer>",
+                              "description": "(Required) The id of the widget"
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing dashboard widget."
+                      },
+                      "response": [
+                        {
+                          "id": "8e05f488-1d97-43db-8309-065df6146f03",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"dashboard_id\": \"<integer>\",\n  \"description\": \"<string>\",\n  \"id\": \"<integer>\",\n  \"order\": \"-182071561479.904586415242062\",\n  \"title\": \"<string>\",\n  \"type\": \"<string>\",\n  \"data_source_id\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-8e05f488-1d97-43db-8309-065df6146f03"
+                        },
+                        {
+                          "id": "c4ded1c2-d1ee-4f95-945f-54a8d260646d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-c4ded1c2-d1ee-4f95-945f-54a8d260646d"
+                        },
+                        {
+                          "id": "c7f9478c-968f-4da6-8ed0-87f0d76c6558",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-c7f9478c-968f-4da6-8ed0-87f0d76c6558"
+                        },
+                        {
+                          "id": "a5e717bf-5cb9-4c30-aa91-64e6917390d7",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"title\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_WIDGET_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-a5e717bf-5cb9-4c30-aa91-64e6917390d7"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:31.000Z",
+                      "updatedAt": "2026-10-21T20:09:31.000Z",
+                      "uid": "35240-de0bf0c8-50d2-4ca7-b2be-7c5d8991750e"
+                    },
+                    {
+                      "name": "Delete dashboard widget",
+                      "id": "d8548699-9928-4a86-8dd3-8be0b8b82234",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                            "key": "ClientUndoRedoActionGroupId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            "widgets",
+                            ":widget_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "5434d4e1-6c32-4b10-8d0e-1b70ae9807b6",
+                              "key": "widget_id",
+                              "value": "<integer>",
+                              "description": "(Required) The id of the widget"
+                            }
+                          ]
+                        },
+                        "description": "Deletes the widget related to the given id."
+                      },
+                      "response": [
+                        {
+                          "id": "29c9a6f2-1d23-4a4c-a852-552d06edc21f",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-29c9a6f2-1d23-4a4c-a852-552d06edc21f"
+                        },
+                        {
+                          "id": "f6e78bad-50ff-4255-b76c-5e604cfcd856",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-f6e78bad-50ff-4255-b76c-5e604cfcd856"
+                        },
+                        {
+                          "id": "e70a123f-542b-4549-8b27-2d25d447e15f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/widgets/:widget_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "widgets",
+                                ":widget_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "widget_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_WIDGET_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:31.000Z",
+                          "updatedAt": "2026-10-21T20:09:31.000Z",
+                          "uid": "35240-e70a123f-542b-4549-8b27-2d25d447e15f"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:31.000Z",
+                      "updatedAt": "2026-10-21T20:09:31.000Z",
+                      "uid": "35240-d8548699-9928-4a86-8dd3-8be0b8b82234"
+                    }
+                  ],
+                  "id": "b7ca72c4-8bc8-4b38-a2da-ca8da17d037b",
+                  "createdAt": "2026-10-21T20:09:30.000Z",
+                  "updatedAt": "2026-10-21T20:09:30.000Z",
+                  "uid": "35240-b7ca72c4-8bc8-4b38-a2da-ca8da17d037b"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e79ddf36-53b0-45ea-8f0d-49af3df6816f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "32eaea03-9bec-4587-a261-d94f554f9453",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "title",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "description",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_WIDGET_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1a71ba9a-8232-472d-b2ae-ece78a040f4c",
-          "name": "delete dashboard widget",
-          "request": {
-            "name": "delete dashboard widget",
-            "description": {
-              "content": "Deletes the widget related to the given id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                "widgets",
-                ":widget_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "widget_id",
-                  "description": "(Required) The id of the widget"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "2f636046-6dbd-4842-9bd0-f34343825f47",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5b48c8d4-4e3b-41b1-bc26-1efb30e161d6",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8b7ff5bb-bb85-4b1e-b797-f227a58a39af",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "widgets",
-                    ":widget_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "widget_id",
-                      "description": "(Required) The id of the widget"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_WIDGET_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "7ae8715d-edd7-46a5-9122-01b645bffd1c",
+              "createdAt": "2026-10-21T20:09:30.000Z",
+              "updatedAt": "2026-10-21T20:09:30.000Z",
+              "uid": "35240-7ae8715d-edd7-46a5-9122-01b645bffd1c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3ccea317-ffd6-4f2c-af91-721751925a45",
+          "createdAt": "2026-10-21T20:09:30.000Z",
+          "updatedAt": "2026-10-21T20:09:30.000Z",
+          "uid": "35240-3ccea317-ffd6-4f2c-af91-721751925a45"
         }
       ],
-      "event": []
+      "id": "c20614f0-f316-4f53-80af-af55556a9880",
+      "createdAt": "2026-10-21T20:09:30.000Z",
+      "updatedAt": "2026-10-21T20:09:30.000Z",
+      "uid": "35240-c20614f0-f316-4f53-80af-af55556a9880"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "6f3815eb-0c8d-4c25-87f2-09929fbbdd87",
-    "name": "Baserow API spec Admin Dashboard widgets API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

@@ -1,687 +1,677 @@
 {
+  "info": {
+    "_postman_id": "c2cfa9b5-f1a3-45f5-be9a-660962a9a88c",
+    "name": "Baserow API spec Trash API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:37.000Z",
+    "updatedAt": "2026-10-21T20:11:38.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c2cfa9b5-f1a3-45f5-be9a-660962a9a88c"
+  },
   "item": [
     {
-      "id": "7585aa52-7698-40da-8ef4-b23afd12695d",
-      "name": "Trash",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "fdcc6c4e-dc81-4ed7-adf3-bd17d4232867",
-          "name": "get trash structure",
-          "request": {
-            "name": "get trash structure",
-            "description": {
-              "content": "Responds with the workspaces and applications available for the requesting user to inspect the trash contents of.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "trash",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "trash",
+          "item": [
             {
-              "id": "5199cf51-9064-4f39-8438-8ec7e78c3ffb",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+              "name": "restore",
+              "item": [
+                {
+                  "name": "Restore",
+                  "id": "66b42147-6363-415b-8d39-6850573b8bd0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"trash_item_id\": \"<integer>\",\n  \"parent_trash_item_id\": \"<integer,null>\",\n  \"trash_item_type\": \"automation\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/trash/restore/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "trash",
+                        "restore",
+                        ""
+                      ]
+                    },
+                    "description": "Restores the specified trashed item back into baserow."
+                  },
+                  "response": [
+                    {
+                      "id": "12f06e99-f1de-4a2a-b734-532c83b5598a",
+                      "name": "No response body",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trash_item_id\": \"<integer>\",\n  \"parent_trash_item_id\": \"<integer,null>\",\n  \"trash_item_type\": \"automation\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/trash/restore/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "trash",
+                            "restore",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:11:38.000Z",
+                      "updatedAt": "2026-10-21T20:11:38.000Z",
+                      "uid": "35240-12f06e99-f1de-4a2a-b734-532c83b5598a"
+                    },
+                    {
+                      "id": "2b51007c-eae1-4ab4-af31-3145711267eb",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"trash_item_id\": \"<integer>\",\n  \"parent_trash_item_id\": \"<integer,null>\",\n  \"trash_item_type\": \"automation\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/trash/restore/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "trash",
+                            "restore",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_TRASH_ITEM_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:38.000Z",
+                      "updatedAt": "2026-10-21T20:11:38.000Z",
+                      "uid": "35240-2b51007c-eae1-4ab4-af31-3145711267eb"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:38.000Z",
+                  "updatedAt": "2026-10-21T20:11:38.000Z",
+                  "uid": "35240-66b42147-6363-415b-8d39-6850573b8bd0"
+                }
+              ],
+              "id": "bb992bb3-eeee-44b0-8498-d3e47077ef81",
+              "createdAt": "2026-10-21T20:11:38.000Z",
+              "updatedAt": "2026-10-21T20:11:38.000Z",
+              "uid": "35240-bb992bb3-eeee-44b0-8498-d3e47077ef81"
+            },
+            {
+              "name": "workspace",
+              "item": [
+                {
+                  "name": "{workspace_id}",
+                  "item": [
+                    {
+                      "name": "Workspace get contents",
+                      "id": "6f43398a-39f0-44f7-b011-3af56c79ec91",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>&page=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "trash",
+                            "workspace",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Optionally filters down the trash to only items for this application in the workspace.",
+                              "key": "application_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Selects which page of trash contents should be returned.",
+                              "key": "page",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "d15931fe-6dd9-4384-944e-451b276e74eb",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns the trash for the workspace with this id."
+                            }
+                          ]
+                        },
+                        "description": "Responds with trash contents for a workspace optionally filtered to a specific application."
+                      },
+                      "response": [
+                        {
+                          "id": "8c82a140-b3d9-421c-ba5f-95d777acc7f9",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>&page=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "trash",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optionally filters down the trash to only items for this application in the workspace.",
+                                  "key": "application_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Selects which page of trash contents should be returned.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"count\": \"<integer>\",\n  \"next\": \"<string,null-uri>\",\n  \"previous\": \"<string,null-uri>\",\n  \"results\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"trash_item_id\": \"<integer>\",\n      \"trash_item_type\": \"<string>\",\n      \"trashed_at\": \"<dateTime>\",\n      \"user_who_trashed\": \"<string>\",\n      \"workspace\": \"<integer>\",\n      \"parent_trash_item_id\": \"<integer,null>\",\n      \"application\": \"<integer,null>\",\n      \"names\": \"<array,null>\",\n      \"parent_name\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"trash_item_id\": \"<integer>\",\n      \"trash_item_type\": \"<string>\",\n      \"trashed_at\": \"<dateTime>\",\n      \"user_who_trashed\": \"<string>\",\n      \"workspace\": \"<integer>\",\n      \"parent_trash_item_id\": \"<integer,null>\",\n      \"application\": \"<integer,null>\",\n      \"names\": \"<array,null>\",\n      \"parent_name\": \"<string,null>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:11:38.000Z",
+                          "updatedAt": "2026-10-21T20:11:38.000Z",
+                          "uid": "35240-8c82a140-b3d9-421c-ba5f-95d777acc7f9"
+                        },
+                        {
+                          "id": "d49a83fb-c9cc-46e8-9e0c-d25241356ca6",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>&page=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "trash",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optionally filters down the trash to only items for this application in the workspace.",
+                                  "key": "application_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Selects which page of trash contents should be returned.",
+                                  "key": "page",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:38.000Z",
+                          "updatedAt": "2026-10-21T20:11:38.000Z",
+                          "uid": "35240-d49a83fb-c9cc-46e8-9e0c-d25241356ca6"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:38.000Z",
+                      "updatedAt": "2026-10-21T20:11:38.000Z",
+                      "uid": "35240-6f43398a-39f0-44f7-b011-3af56c79ec91"
+                    },
+                    {
+                      "name": "Workspace empty contents",
+                      "id": "ce3ac50b-756d-44f2-8053-c3a16eea60a0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "trash",
+                            "workspace",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Optionally filters down the trash to delete to only items for this application in the workspace.",
+                              "key": "application_id",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "85a284d6-6583-45bd-8df3-3e7e84f59909",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) The workspace whose trash contents to empty, including the workspace itself if it is also trashed."
+                            }
+                          ]
+                        },
+                        "description": "Empties the specified workspace and/or application of trash, including the workspace and application themselves if they are trashed also."
+                      },
+                      "response": [
+                        {
+                          "id": "47ab8ab2-d70f-4a2c-bc38-676fd5481169",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "trash",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optionally filters down the trash to delete to only items for this application in the workspace.",
+                                  "key": "application_id",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:11:38.000Z",
+                          "updatedAt": "2026-10-21T20:11:38.000Z",
+                          "uid": "35240-47ab8ab2-d70f-4a2c-bc38-676fd5481169"
+                        },
+                        {
+                          "id": "f0025686-59f9-41e5-8b39-ddac04f531c0",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/trash/workspace/:workspace_id/?application_id=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "trash",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Optionally filters down the trash to delete to only items for this application in the workspace.",
+                                  "key": "application_id",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:38.000Z",
+                          "updatedAt": "2026-10-21T20:11:38.000Z",
+                          "uid": "35240-f0025686-59f9-41e5-8b39-ddac04f531c0"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:38.000Z",
+                      "updatedAt": "2026-10-21T20:11:38.000Z",
+                      "uid": "35240-ce3ac50b-756d-44f2-8053-c3a16eea60a0"
+                    }
+                  ],
+                  "id": "a35a8221-daee-468b-a113-40ae29fd1d6f",
+                  "createdAt": "2026-10-21T20:11:38.000Z",
+                  "updatedAt": "2026-10-21T20:11:38.000Z",
+                  "uid": "35240-a35a8221-daee-468b-a113-40ae29fd1d6f"
+                }
+              ],
+              "id": "217d3163-2fa6-46da-ae77-def26508d4d6",
+              "createdAt": "2026-10-21T20:11:38.000Z",
+              "updatedAt": "2026-10-21T20:11:38.000Z",
+              "uid": "35240-217d3163-2fa6-46da-ae77-def26508d4d6"
+            },
+            {
+              "name": "Get trash structure",
+              "id": "0ddf92fe-4fa1-473b-bf28-c57c0713d980",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"workspaces\": [\n    {\n      \"applications\": [\n        {\n          \"id\": 9243,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"trashed\": false\n        },\n        {\n          \"id\": 2910,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"trashed\": true\n        }\n      ],\n      \"id\": 5057,\n      \"name\": \"string\",\n      \"trashed\": true\n    },\n    {\n      \"applications\": [\n        {\n          \"id\": 3398,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"trashed\": false\n        },\n        {\n          \"id\": 528,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"trashed\": false\n        }\n      ],\n      \"id\": 3517,\n      \"name\": \"string\",\n      \"trashed\": true\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9f729da8-8732-4be4-a66b-b1174623ca71",
-          "name": "restore",
-          "request": {
-            "name": "restore",
-            "description": {
-              "content": "Restores the specified trashed item back into baserow.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "trash",
-                "restore",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "trash_item_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "parent_trash_item_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "trash_item_type",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "00a822d8-3041-40b1-aebf-2aed43caf228",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "restore",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "trash_item_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "parent_trash_item_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "trash_item_type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a1a475e0-31a2-4a12-b7a8-b7ae48615bc5",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "restore",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "trash_item_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "parent_trash_item_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "trash_item_type",
-                      "value": "<string>"
-                    }
+                "url": {
+                  "raw": "{{baseUrl}}/api/trash/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "trash",
+                    ""
                   ]
-                }
+                },
+                "description": "Responds with the workspaces and applications available for the requesting user to inspect the trash contents of."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "5a3a47c4-8236-47aa-a7bd-a7dbc2903d90",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/trash/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "trash",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"workspaces\": [\n    {\n      \"applications\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"trashed\": \"<boolean>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"trashed\": \"<boolean>\"\n        }\n      ],\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"trashed\": \"<boolean>\"\n    },\n    {\n      \"applications\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"trashed\": \"<boolean>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"type\": \"<string>\",\n          \"trashed\": \"<boolean>\"\n        }\n      ],\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"trashed\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:11:38.000Z",
+                  "updatedAt": "2026-10-21T20:11:38.000Z",
+                  "uid": "35240-5a3a47c4-8236-47aa-a7bd-a7dbc2903d90"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_CANT_RESTORE_AS_RELATED_TABLE_TRASHED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:11:38.000Z",
+              "updatedAt": "2026-10-21T20:11:38.000Z",
+              "uid": "35240-0ddf92fe-4fa1-473b-bf28-c57c0713d980"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "299d53c1-2ea5-487c-9dbc-a5006caf246f",
-          "name": "workspace get contents",
-          "request": {
-            "name": "workspace get contents",
-            "description": {
-              "content": "Responds with trash contents for a workspace optionally filtered to a specific application.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "trash",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "application_id",
-                  "value": "<integer>",
-                  "description": "Optionally filters down the trash to only items for this application in the workspace."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<integer>",
-                  "description": "Selects which page of trash contents should be returned."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) Returns the trash for the workspace with this id."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "42dadf52-a319-408a-91ba-c2d2eb2503a9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "application_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Returns the trash for the workspace with this id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"count\": 1090,\n  \"next\": \"https://fhfQWtNJOjielnxn.esxwvPmDgzyicVHpZwu2w0K8ve8dHKtE6YzBpO2c6Bumg6nTVx,\",\n  \"previous\": \"http://lMzqzyTpIVyzLpzybUywsCROG.ryuoj5C8LohZPwXsCXeNGJRDhjiSFF+UchVDNEa+xHVShjietFDQQCEKrjlgi1H\",\n  \"results\": [\n    {\n      \"id\": 8631,\n      \"name\": \"string\",\n      \"trash_item_id\": 829535985,\n      \"trash_item_type\": \"string\",\n      \"trashed_at\": \"1973-06-10T06:33:24.711Z\",\n      \"user_who_trashed\": \"string\",\n      \"workspace\": 7770,\n      \"parent_trash_item_id\": 1498883892,\n      \"application\": 7761,\n      \"names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_name\": \"string\"\n    },\n    {\n      \"id\": 6920,\n      \"name\": \"string\",\n      \"trash_item_id\": 547657130,\n      \"trash_item_type\": \"string\",\n      \"trashed_at\": \"2001-08-04T00:54:58.945Z\",\n      \"user_who_trashed\": \"string\",\n      \"workspace\": 229,\n      \"parent_trash_item_id\": 475271514,\n      \"application\": 532,\n      \"names\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parent_name\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3c2ae471-7909-454b-8431-ad7e69ac22e5",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "application_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Returns the trash for the workspace with this id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9f3fb662-8b00-4e3f-95d3-95382a89a368",
-          "name": "workspace empty contents",
-          "request": {
-            "name": "workspace empty contents",
-            "description": {
-              "content": "Empties the specified workspace and/or application of trash, including the workspace and application themselves if they are trashed also.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "trash",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "application_id",
-                  "value": "<integer>",
-                  "description": "Optionally filters down the trash to delete to only items for this application in the workspace."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace whose trash contents to empty, including the workspace itself if it is also trashed."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "0820d7c4-349d-42b2-91f3-e0068663f88a",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "application_id",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace whose trash contents to empty, including the workspace itself if it is also trashed."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "dc8f4062-3f87-4f05-897b-dbc7e1b016cb",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "trash",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "application_id",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace whose trash contents to empty, including the workspace itself if it is also trashed."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_APPLICATION_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "af86030b-5dc1-4424-aca0-42930bbc52b2",
+          "createdAt": "2026-10-21T20:11:38.000Z",
+          "updatedAt": "2026-10-21T20:11:38.000Z",
+          "uid": "35240-af86030b-5dc1-4424-aca0-42930bbc52b2"
         }
       ],
-      "event": []
+      "id": "5b3a8a13-4ab6-4ec8-9b5c-d831a3acc7a7",
+      "createdAt": "2026-10-21T20:11:38.000Z",
+      "updatedAt": "2026-10-21T20:11:38.000Z",
+      "uid": "35240-5b3a8a13-4ab6-4ec8-9b5c-d831a3acc7a7"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "6d25937c-3a9c-4c24-ac44-df26859322c5",
-    "name": "Baserow API spec Admin Trash API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

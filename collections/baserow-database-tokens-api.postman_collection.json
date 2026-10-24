@@ -1,1327 +1,1102 @@
 {
+  "info": {
+    "_postman_id": "f1704016-8915-4c99-9b67-155877f2c0a7",
+    "name": "Baserow API spec Database tokens API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:10:48.000Z",
+    "updatedAt": "2026-10-21T20:10:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f1704016-8915-4c99-9b67-155877f2c0a7"
+  },
   "item": [
     {
-      "id": "f876bc5b-000c-4dce-a5a1-a4ed6c123650",
-      "name": "Database tokens",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "91ec84b5-52de-4f2c-a335-c2858dc80458",
-          "name": "list database tokens",
-          "request": {
-            "name": "list database tokens",
-            "description": {
-              "content": "Lists all the database tokens that belong to the authorized user. A token can be used to create, read, update and delete rows in the tables of the token's workspace. It only works on the tables if the token has the correct permissions. The **Database table rows** endpoints can be used for these operations.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "database",
+          "item": [
             {
-              "id": "31ee989d-88d0-4fc1-86df-1721abae5c0e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+              "name": "tokens",
+              "item": [
+                {
+                  "name": "{token_id}",
+                  "item": [
+                    {
+                      "name": "Get database token",
+                      "id": "da945e5f-0b00-4300-b94d-bee7fdef0432",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ":token_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "c9296e10-2bd3-4b58-b2f8-0b2abb2fa8b2",
+                              "key": "token_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns the database token related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Returns the requested database token if it is owned by the authorized user andif the user has access to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "f5c3f240-e5cc-4f24-bae5-9e809ab10b9b",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"workspace\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-f5c3f240-e5cc-4f24-bae5-9e809ab10b9b"
+                        },
+                        {
+                          "id": "bc200c84-206f-4dcd-8839-992f46983ca0",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-bc200c84-206f-4dcd-8839-992f46983ca0"
+                        },
+                        {
+                          "id": "ae027c00-6afb-4118-a2dc-997951d55d76",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-ae027c00-6afb-4118-a2dc-997951d55d76"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-da945e5f-0b00-4300-b94d-bee7fdef0432"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    {
+                      "name": "Update database token",
+                      "id": "23fa709c-39b7-41e3-95e7-8f5e66c6a982",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"rotate_key\": false\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ":token_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "d588e777-e856-4583-8560-5a912113f2cd",
+                              "key": "token_id",
+                              "value": "<integer>",
+                              "description": "(Required) Updates the database token related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Updates the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "5338a7ce-5123-45fa-a79e-671aa70ba94e",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"rotate_key\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"workspace\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-5338a7ce-5123-45fa-a79e-671aa70ba94e"
+                        },
+                        {
+                          "id": "629d052e-67aa-4e3d-bf4f-3896987a2e17",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"rotate_key\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_BELONG_TO_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-629d052e-67aa-4e3d-bf4f-3896987a2e17"
+                        },
+                        {
+                          "id": "822868a3-4037-4bcd-a171-3311296722a0",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"rotate_key\": false\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-822868a3-4037-4bcd-a171-3311296722a0"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-23fa709c-39b7-41e3-95e7-8f5e66c6a982"
+                    },
+                    {
+                      "name": "Delete database token",
+                      "id": "f0b2cbee-8c03-40de-9d5d-d1d5a4cbe8fe",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ":token_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "69740903-d4ae-4c97-a249-aa7e1614d463",
+                              "key": "token_id",
+                              "value": "<integer>",
+                              "description": "(Required) Deletes the database token related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Deletes the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "66379a33-62e0-4705-af90-21c050f83f4e",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-66379a33-62e0-4705-af90-21c050f83f4e"
+                        },
+                        {
+                          "id": "387b19df-5532-4d1d-bab4-16e73b13d102",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-387b19df-5532-4d1d-bab4-16e73b13d102"
+                        },
+                        {
+                          "id": "61816f28-5422-4d1d-9d59-7418ee69619e",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/:token_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                ":token_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "token_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-61816f28-5422-4d1d-9d59-7418ee69619e"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-f0b2cbee-8c03-40de-9d5d-d1d5a4cbe8fe"
+                    }
+                  ],
+                  "id": "4c512bf3-a71e-4472-bb7d-92c4778120ba",
+                  "createdAt": "2026-10-21T20:10:48.000Z",
+                  "updatedAt": "2026-10-21T20:10:48.000Z",
+                  "uid": "35240-4c512bf3-a71e-4472-bb7d-92c4778120ba"
+                },
+                {
+                  "name": "check",
+                  "item": [
+                    {
+                      "name": "Check database token",
+                      "id": "02396f7d-d995-4df4-90d4-ef6630bdcc85",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/check/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            "check",
+                            ""
+                          ]
+                        },
+                        "description": "This endpoint check be used to check if the provided personal API token is valid. If returns a `200` response if so and a `403` is not. This can be used by integrations like Zapier or n8n to test if a token is valid."
+                      },
+                      "response": [
+                        {
+                          "id": "8e1940c2-2e45-4600-8de4-53bb0b0165b9",
+                          "name": "No response body",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/check/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                "check",
+                                ""
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-8e1940c2-2e45-4600-8de4-53bb0b0165b9"
+                        },
+                        {
+                          "id": "8619505c-dbf4-47f2-9eec-d40926deba84",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/tokens/check/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "tokens",
+                                "check",
+                                ""
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:48.000Z",
+                          "updatedAt": "2026-10-21T20:10:48.000Z",
+                          "uid": "35240-8619505c-dbf4-47f2-9eec-d40926deba84"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-02396f7d-d995-4df4-90d4-ef6630bdcc85"
+                    }
+                  ],
+                  "id": "c6f1cf70-71f4-431c-adfd-00ec395be603",
+                  "createdAt": "2026-10-21T20:10:48.000Z",
+                  "updatedAt": "2026-10-21T20:10:48.000Z",
+                  "uid": "35240-c6f1cf70-71f4-431c-adfd-00ec395be603"
+                },
+                {
+                  "name": "List database tokens",
+                  "id": "182ecc73-03d6-493e-aad3-e2125567ec65",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 8357,\n    \"key\": \"string\",\n    \"name\": \"string\",\n    \"permissions\": {\n      \"create\": true,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": true\n    },\n    \"workspace\": 4772\n  },\n  {\n    \"id\": 8437,\n    \"key\": \"string\",\n    \"name\": \"string\",\n    \"permissions\": {\n      \"create\": true,\n      \"read\": true,\n      \"update\": true,\n      \"delete\": true\n    },\n    \"workspace\": 477\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8998818d-10d8-43eb-95a1-2e3c74f54c94",
-          "name": "create database token",
-          "request": {
-            "name": "create database token",
-            "description": {
-              "content": "Creates a new database token for a given workspace and for the authorized user.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "(Required) The human readable name of the database token for the user."
-                },
-                {
-                  "disabled": false,
-                  "key": "workspace",
-                  "value": "<integer>",
-                  "description": "(Required) Only the tables of the workspace can be accessed."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5a598288-5612-4959-a51a-b3403712d8e4",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/database/tokens/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "database",
+                        "tokens",
+                        ""
+                      ]
+                    },
+                    "description": "Lists all the database tokens that belong to the authorized user. A token can be used to create, read, update and delete rows in the tables of the token's workspace. It only works on the tables if the token has the correct permissions. The **Database table rows** endpoints can be used for these operations."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The human readable name of the database token for the user.",
-                        "type": "text/plain"
+                      "id": "a7730afc-cbef-4ed5-81d1-604fb3b2d70d",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ""
+                          ]
+                        }
                       },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Only the tables of the workspace can be accessed.",
-                        "type": "text/plain"
-                      },
-                      "key": "workspace",
-                      "value": "<integer>"
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"key\": \"<string>\",\n    \"name\": \"<string>\",\n    \"permissions\": {\n      \"create\": \"<boolean>\",\n      \"read\": \"<boolean>\",\n      \"update\": \"<boolean>\",\n      \"delete\": \"<boolean>\"\n    },\n    \"workspace\": \"<integer>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"key\": \"<string>\",\n    \"name\": \"<string>\",\n    \"permissions\": {\n      \"create\": \"<boolean>\",\n      \"read\": \"<boolean>\",\n      \"update\": \"<boolean>\",\n      \"delete\": \"<boolean>\"\n    },\n    \"workspace\": \"<integer>\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-a7730afc-cbef-4ed5-81d1-604fb3b2d70d"
                     }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c7a8f58e-6ea5-47e2-8780-6ca848efd167",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "createdAt": "2026-10-21T20:10:48.000Z",
+                  "updatedAt": "2026-10-21T20:10:48.000Z",
+                  "uid": "35240-182ecc73-03d6-493e-aad3-e2125567ec65"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "Create database token",
+                  "id": "be190d07-8b69-4a5f-963a-958b8039141d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The human readable name of the database token for the user.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) Only the tables of the workspace can be accessed.",
-                        "type": "text/plain"
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
                       },
-                      "key": "workspace",
-                      "value": "<integer>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6ef0591e-dde1-4747-b74d-9876ba638d97",
-          "name": "get database token",
-          "request": {
-            "name": "get database token",
-            "description": {
-              "content": "Returns the requested database token if it is owned by the authorized user andif the user has access to the related workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                ":token_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "token_id",
-                  "description": "(Required) Returns the database token related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "ce35730d-81c3-4c8a-b32b-4d5fc2f252f8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Returns the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"workspace\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/api/database/tokens/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "database",
+                        "tokens",
+                        ""
+                      ]
+                    },
+                    "description": "Creates a new database token for a given workspace and for the authorized user."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6edf3eb9-ab8f-4319-ac78-72067ea268e9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Returns the database token related to the provided value."
+                      "id": "8146283c-1e63-4c76-9538-58aa8f801ed3",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"workspace\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"permissions\": {\n    \"create\": \"<boolean>\",\n    \"read\": \"<boolean>\",\n    \"update\": \"<boolean>\",\n    \"delete\": \"<boolean>\"\n  },\n  \"workspace\": \"<integer>\"\n}",
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-8146283c-1e63-4c76-9538-58aa8f801ed3"
+                    },
+                    {
+                      "id": "e2e181c3-70b8-4cfa-b87a-e111c7e91c13",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"workspace\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/tokens/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "tokens",
+                            ""
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:10:48.000Z",
+                      "updatedAt": "2026-10-21T20:10:48.000Z",
+                      "uid": "35240-e2e181c3-70b8-4cfa-b87a-e111c7e91c13"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T20:10:48.000Z",
+                  "updatedAt": "2026-10-21T20:10:48.000Z",
+                  "uid": "35240-be190d07-8b69-4a5f-963a-958b8039141d"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "73d9f419-46c2-4fe1-9670-0d12c3064b82",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Returns the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6659eb06-0902-4783-bf58-c2a3ec73eca5",
-          "name": "update database token",
-          "request": {
-            "name": "update database token",
-            "description": {
-              "content": "Updates the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                ":token_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "token_id",
-                  "description": "(Required) Updates the database token related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "The human readable name of the database token for the user."
-                },
-                {
-                  "disabled": false,
-                  "key": "create",
-                  "value": "<boolean>",
-                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
-                },
-                {
-                  "disabled": false,
-                  "key": "read",
-                  "value": "<boolean>",
-                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
-                },
-                {
-                  "disabled": false,
-                  "key": "update",
-                  "value": "<boolean>",
-                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
-                },
-                {
-                  "disabled": false,
-                  "key": "delete",
-                  "value": "<boolean>",
-                  "description": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```"
-                },
-                {
-                  "disabled": false,
-                  "key": "rotate_key",
-                  "value": "false",
-                  "description": "Indicates if a new key must be generated."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "bd11118f-a0ed-4a41-814c-e01818d96831",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Updates the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The human readable name of the database token for the user.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "create",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "read",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "update",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "delete",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates if a new key must be generated.",
-                        "type": "text/plain"
-                      },
-                      "key": "rotate_key",
-                      "value": "false"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": 3926,\n  \"key\": \"string\",\n  \"name\": \"string\",\n  \"permissions\": {\n    \"create\": true,\n    \"read\": true,\n    \"update\": true,\n    \"delete\": true\n  },\n  \"workspace\": 1120\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "abf2b0f3-8c4f-45ac-97db-f0c4fe62e40a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Updates the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The human readable name of the database token for the user.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "create",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "read",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "update",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "delete",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates if a new key must be generated.",
-                        "type": "text/plain"
-                      },
-                      "key": "rotate_key",
-                      "value": "false"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DATABASE_DOES_NOT_BELONG_TO_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8ae41cc9-e01a-460f-a927-49ce3df1dd02",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Updates the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The human readable name of the database token for the user.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "create",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "read",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "update",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates per operation which permissions the database token has within the whole workspace. If the value of for example `create` is `true`, then the token can create rows in all tables related to the workspace. If a list is provided with for example `[[\"table\", 1]]` then the token only has create permissions for the table with id 1. Same goes for if a database references is provided. `[['database', 1]]` means create permissions for all tables in the database with id 1.\n\nExample:\n```json\n{\n  \"create\": true// Allows creating rows in all tables.\n  // Allows reading rows from database 1 and table 10.\n  \"read\": [[\"database\", 1], [\"table\", 10]],\n  \"update\": false  // Denies updating rows in all tables.\n  \"delete\": []  // Denies deleting rows in all tables.\n }\n```",
-                        "type": "text/plain"
-                      },
-                      "key": "delete",
-                      "value": "true"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates if a new key must be generated.",
-                        "type": "text/plain"
-                      },
-                      "key": "rotate_key",
-                      "value": "false"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "3b118c6c-09ae-433d-ba09-2876ded5533d",
-          "name": "delete database token",
-          "request": {
-            "name": "delete database token",
-            "description": {
-              "content": "Deletes the existing database token if it is owned by the authorized user and ifthe user has access to the related workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                ":token_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "token_id",
-                  "description": "(Required) Deletes the database token related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "13d3bd9a-00ae-447b-bb73-35d57fe40d80",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Deletes the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "26e0dcc4-0bf4-4fe5-85ef-5d91b3c8893d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Deletes the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7ee9d643-4294-47e9-b031-0e25768b2c75",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    ":token_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "token_id",
-                      "description": "(Required) Deletes the database token related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "eeb467e7-44bc-49a0-97fd-d283c329121e",
+              "createdAt": "2026-10-21T20:10:48.000Z",
+              "updatedAt": "2026-10-21T20:10:48.000Z",
+              "uid": "35240-eeb467e7-44bc-49a0-97fd-d283c329121e"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "4301745d-0c51-4c95-9a55-3477c47e2226",
-          "name": "check database token",
-          "request": {
-            "name": "check database token",
-            "description": {
-              "content": "This endpoint check be used to check if the provided personal API token is valid. If returns a `200` response if so and a `403` is not. This can be used by integrations like Zapier or n8n to test if a token is valid.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "tokens",
-                "check",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "76d5296a-2bd1-404a-8b82-ec568bbe77b7",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    "check",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "821384a6-6889-4da4-99dd-755cd12b28a8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "tokens",
-                    "check",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TOKEN_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e2f20c93-fb56-4b91-ab7c-9acbd67de858",
+          "createdAt": "2026-10-21T20:10:48.000Z",
+          "updatedAt": "2026-10-21T20:10:48.000Z",
+          "uid": "35240-e2f20c93-fb56-4b91-ab7c-9acbd67de858"
         }
       ],
-      "event": []
+      "id": "2063f407-b7ff-496a-b7c4-cd203a298161",
+      "createdAt": "2026-10-21T20:10:48.000Z",
+      "updatedAt": "2026-10-21T20:10:48.000Z",
+      "uid": "35240-2063f407-b7ff-496a-b7c4-cd203a298161"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "bfcc7064-984c-4d49-a691-307f9c81ec82",
-    "name": "Baserow API spec Admin Database tokens API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

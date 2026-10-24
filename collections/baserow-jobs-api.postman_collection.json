@@ -1,99 +1,434 @@
 {
+  "info": {
+    "_postman_id": "45e2e20c-2b34-4262-babb-97d04b761698",
+    "name": "Baserow API spec Jobs API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:04.000Z",
+    "updatedAt": "2026-10-21T20:11:05.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-45e2e20c-2b34-4262-babb-97d04b761698"
+  },
   "item": [
     {
-      "id": "b2f17fac-2187-4db2-8b43-e85618b37ded",
-      "name": "Jobs",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "0c4c147e-6561-4f30-9591-bee53593081f",
-          "name": "list job",
-          "request": {
-            "name": "list job",
-            "description": {
-              "content": "List all existing jobs. Jobs are task executed asynchronously in the background. You can use the `get_job` endpoint to read the current progress of the job. The available query parameters depend on the job type selected via the `type` parameter. Each job type may support additional type-specific filter parameters.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "jobs",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "generate_ai_values_field_id",
-                  "value": "<integer>",
-                  "description": "**[Only for type='generate_ai_values']** Filter by the AI field ID."
-                },
-                {
-                  "disabled": false,
-                  "key": "job_ids",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "20"
-                },
-                {
-                  "disabled": false,
-                  "key": "offset",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "states",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>",
-                  "description": "The type of job to filter for. Determines which additional filter fields are available.\n\n* `duplicate_application` - duplicate_application\n* `install_template` - install_template\n* `create_snapshot` - create_snapshot\n* `restore_snapshot` - restore_snapshot\n* `export_applications` - export_applications\n* `import_applications` - import_applications\n* `airtable` - airtable\n* `duplicate_table` - duplicate_table\n* `duplicate_field` - duplicate_field\n* `sync_data_sync_table` - sync_data_sync_table\n* `duplicate_page` - duplicate_page\n* `publish_domain` - publish_domain\n* `duplicate_automation_workflow` - duplicate_automation_workflow\n* `publish_automation_workflow` - publish_automation_workflow\n* `generate_ai_values` - generate_ai_values\n* `audit_log_export` - audit_log_export\n* `data_scan_result_export` - data_scan_result_export\n* `file_import` - file_import"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "jobs",
+          "item": [
             {
-              "id": "579269eb-050b-4cc6-a5cd-c59afdbd364d",
-              "originalRequest": {
+              "name": "{job_id}",
+              "item": [
+                {
+                  "name": "cancel",
+                  "item": [
+                    {
+                      "name": "Cancel job",
+                      "id": "074076b4-2f27-4a75-899d-0209031b4ed1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/jobs/:job_id/cancel/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "jobs",
+                            ":job_id",
+                            "cancel",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "e6dc7b4d-36ba-4c6c-832b-76d1c280b0d2",
+                              "key": "job_id",
+                              "value": "<integer>",
+                              "description": "(Required) The job id to cancel."
+                            }
+                          ]
+                        },
+                        "description": "Cancels a job. Note: you can cancel only a scheduled or a job that is already running. The user requesting must be the owner of the job to cancel."
+                      },
+                      "response": [
+                        {
+                          "id": "c65f680a-d842-4756-95af-3b15509d32ee",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/jobs/:job_id/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "jobs",
+                                ":job_id",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "job_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"duplicated_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"id\": \"<integer>\",\n  \"original_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"progress_percentage\": \"<integer>\",\n  \"state\": \"<string>\",\n  \"type\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"human_readable_error\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:05.000Z",
+                          "updatedAt": "2026-10-21T20:11:05.000Z",
+                          "uid": "35240-c65f680a-d842-4756-95af-3b15509d32ee"
+                        },
+                        {
+                          "id": "21daa3b9-5044-4339-8f7a-bdcb5dd99ff7",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/jobs/:job_id/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "jobs",
+                                ":job_id",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "job_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_JOB_NOT_CANCELLABLE\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:05.000Z",
+                          "updatedAt": "2026-10-21T20:11:05.000Z",
+                          "uid": "35240-21daa3b9-5044-4339-8f7a-bdcb5dd99ff7"
+                        },
+                        {
+                          "id": "8d9fbc61-27ba-4273-be1c-9b6ee31560f4",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/jobs/:job_id/cancel/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "jobs",
+                                ":job_id",
+                                "cancel",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "job_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:05.000Z",
+                          "updatedAt": "2026-10-21T20:11:05.000Z",
+                          "uid": "35240-8d9fbc61-27ba-4273-be1c-9b6ee31560f4"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:05.000Z",
+                      "updatedAt": "2026-10-21T20:11:05.000Z",
+                      "uid": "35240-074076b4-2f27-4a75-899d-0209031b4ed1"
+                    }
+                  ],
+                  "id": "90834d61-d16c-40cb-83f2-9ff3b97466c1",
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-90834d61-d16c-40cb-83f2-9ff3b97466c1"
+                },
+                {
+                  "name": "Get job",
+                  "id": "2e2eec9c-8d0b-4572-a29c-94d23b9e76d2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/jobs/:job_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "jobs",
+                        ":job_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "2675d9d3-8ee7-4cea-9e8a-d81b38c3389b",
+                          "key": "job_id",
+                          "value": "<integer>",
+                          "description": "(Required) The job id to lookup information about."
+                        }
+                      ]
+                    },
+                    "description": "Returns the information related to the provided job id. This endpoint can for example be polled to get the state and progress of the job in real time."
+                  },
+                  "response": [
+                    {
+                      "id": "1101fa22-6f1e-40be-b83a-684d40f15745",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/jobs/:job_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "jobs",
+                            ":job_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "job_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"duplicated_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"id\": \"<integer>\",\n  \"original_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"progress_percentage\": \"<integer>\",\n  \"state\": \"<string>\",\n  \"type\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"human_readable_error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:05.000Z",
+                      "updatedAt": "2026-10-21T20:11:05.000Z",
+                      "uid": "35240-1101fa22-6f1e-40be-b83a-684d40f15745"
+                    },
+                    {
+                      "id": "2aba1125-9f2d-4f86-9762-c6a7fda7bc50",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/jobs/:job_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "jobs",
+                            ":job_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "job_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:05.000Z",
+                      "updatedAt": "2026-10-21T20:11:05.000Z",
+                      "uid": "35240-2aba1125-9f2d-4f86-9762-c6a7fda7bc50"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-2e2eec9c-8d0b-4572-a29c-94d23b9e76d2"
+                }
+              ],
+              "id": "46002af0-4a30-4c7d-9811-7cd25e6a30ca",
+              "createdAt": "2026-10-21T20:11:05.000Z",
+              "updatedAt": "2026-10-21T20:11:05.000Z",
+              "uid": "35240-46002af0-4a30-4c7d-9811-7cd25e6a30ca"
+            },
+            {
+              "name": "List job",
+              "id": "81ff5d6b-59d9-44d6-83ce-402d2ffc5bb1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/api/jobs/?generate_ai_values_field_id=<integer>&job_ids=<string>&limit=20&offset=<integer>&states=<string>&type=create_snapshot",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "api",
                     "jobs",
                     ""
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "**[Only for type='generate_ai_values']** Filter by the AI field ID.",
                       "key": "generate_ai_values_field_id",
                       "value": "<integer>"
                     },
@@ -114,681 +449,340 @@
                       "value": "<string>"
                     },
                     {
+                      "description": "The type of job to filter for. Determines which additional filter fields are available.\n\n* `duplicate_application` - duplicate_application\n* `install_template` - install_template\n* `create_snapshot` - create_snapshot\n* `restore_snapshot` - restore_snapshot\n* `export_applications` - export_applications\n* `import_applications` - import_applications\n* `airtable` - airtable\n* `duplicate_table` - duplicate_table\n* `duplicate_field` - duplicate_field\n* `sync_data_sync_table` - sync_data_sync_table\n* `duplicate_page` - duplicate_page\n* `publish_domain` - publish_domain\n* `duplicate_automation_workflow` - duplicate_automation_workflow\n* `publish_automation_workflow` - publish_automation_workflow\n* `generate_ai_values` - generate_ai_values\n* `audit_log_export` - audit_log_export\n* `data_scan_result_export` - data_scan_result_export\n* `file_import` - file_import",
                       "key": "type",
-                      "value": "<string>"
+                      "value": "create_snapshot"
+                    }
+                  ]
+                },
+                "description": "List all existing jobs. Jobs are task executed asynchronously in the background. You can use the `get_job` endpoint to read the current progress of the job. The available query parameters depend on the job type selected via the `type` parameter. Each job type may support additional type-specific filter parameters."
+              },
+              "response": [
+                {
+                  "id": "eb895900-5a3c-4fe0-ae8a-7ceb9cb63c00",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/jobs/?generate_ai_values_field_id=<integer>&job_ids=<string>&limit=20&offset=<integer>&states=<string>&type=create_snapshot",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "jobs",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "**[Only for type='generate_ai_values']** Filter by the AI field ID.",
+                          "key": "generate_ai_values_field_id",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "job_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "limit",
+                          "value": "20"
+                        },
+                        {
+                          "key": "offset",
+                          "value": "<integer>"
+                        },
+                        {
+                          "key": "states",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The type of job to filter for. Determines which additional filter fields are available.\n\n* `duplicate_application` - duplicate_application\n* `install_template` - install_template\n* `create_snapshot` - create_snapshot\n* `restore_snapshot` - restore_snapshot\n* `export_applications` - export_applications\n* `import_applications` - import_applications\n* `airtable` - airtable\n* `duplicate_table` - duplicate_table\n* `duplicate_field` - duplicate_field\n* `sync_data_sync_table` - sync_data_sync_table\n* `duplicate_page` - duplicate_page\n* `publish_domain` - publish_domain\n* `duplicate_automation_workflow` - duplicate_automation_workflow\n* `publish_automation_workflow` - publish_automation_workflow\n* `generate_ai_values` - generate_ai_values\n* `audit_log_export` - audit_log_export\n* `data_scan_result_export` - data_scan_result_export\n* `file_import` - file_import",
+                          "key": "type",
+                          "value": "create_snapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[\n  {\n    \"created_on\": \"<dateTime>\",\n    \"duplicated_application\": {\n      \"created_on\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"tables\": [\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        },\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"workspace\": {\n        \"generative_ai_models_enabled\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"id\": \"<integer>\",\n    \"original_application\": {\n      \"created_on\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"tables\": [\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        },\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"workspace\": {\n        \"generative_ai_models_enabled\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"progress_percentage\": \"<integer>\",\n    \"state\": \"<string>\",\n    \"type\": \"<string>\",\n    \"updated_on\": \"<dateTime>\",\n    \"human_readable_error\": \"<string>\"\n  },\n  {\n    \"created_on\": \"<dateTime>\",\n    \"duplicated_application\": {\n      \"created_on\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"tables\": [\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        },\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"workspace\": {\n        \"generative_ai_models_enabled\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"id\": \"<integer>\",\n    \"original_application\": {\n      \"created_on\": \"<dateTime>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"order\": \"<integer>\",\n      \"tables\": [\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        },\n        {\n          \"data_sync\": {\n            \"database_id\": \"<string>\",\n            \"id\": \"<integer>\",\n            \"synced_properties\": [\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              },\n              {\n                \"field_id\": \"<integer>\",\n                \"key\": \"<string>\",\n                \"unique_primary\": \"<boolean>\"\n              }\n            ],\n            \"table_id\": \"<integer>\",\n            \"type\": \"<string>\",\n            \"last_sync\": \"<string,null-date-time>\",\n            \"last_error\": \"<string,null>\",\n            \"auto_add_new_properties\": \"<boolean>\",\n            \"two_way_sync\": \"<boolean>\"\n          },\n          \"database_id\": \"<integer>\",\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"order\": \"<integer>\"\n        }\n      ],\n      \"type\": \"<string>\",\n      \"workspace\": {\n        \"generative_ai_models_enabled\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\"\n      }\n    },\n    \"progress_percentage\": \"<integer>\",\n    \"state\": \"<string>\",\n    \"type\": \"<string>\",\n    \"updated_on\": \"<dateTime>\",\n    \"human_readable_error\": \"<string>\"\n  }\n]",
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-eb895900-5a3c-4fe0-ae8a-7ceb9cb63c00"
                 }
               ],
-              "body": "[\n  {\n    \"created_on\": \"1970-04-07T00:52:48.296Z\",\n    \"duplicated_application\": {\n      \"created_on\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"order\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"tables\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"workspace\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"id\": 9297,\n    \"original_application\": {\n      \"created_on\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"order\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"tables\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"workspace\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"progress_percentage\": 2013,\n    \"state\": \"string\",\n    \"type\": \"string\",\n    \"updated_on\": \"1995-12-23T06:37:55.139Z\",\n    \"human_readable_error\": \"string\"\n  },\n  {\n    \"created_on\": \"1969-01-15T09:41:19.624Z\",\n    \"duplicated_application\": {\n      \"created_on\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"order\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"tables\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"workspace\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"id\": 993,\n    \"original_application\": {\n      \"created_on\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"name\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"order\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"tables\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"workspace\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"progress_percentage\": 5296,\n    \"state\": \"string\",\n    \"type\": \"string\",\n    \"updated_on\": \"1964-08-01T10:49:39.818Z\",\n    \"human_readable_error\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ac644114-5ea0-4f9f-95d7-2619c87efec1",
-          "name": "create job",
-          "request": {
-            "name": "create job",
-            "description": {
-              "content": "Creates a new job. This job runs asynchronously in the background and execute the task specific to the provided typeparameters. The `get_job` can be used to get the current state of the job.",
-              "type": "text/plain"
+              "createdAt": "2026-10-21T20:11:05.000Z",
+              "updatedAt": "2026-10-21T20:11:05.000Z",
+              "uid": "35240-81ff5d6b-59d9-44d6-83ce-402d2ffc5bb1"
             },
-            "url": {
-              "path": [
-                "api",
-                "jobs",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "application_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "type",
-                  "value": "<string>"
-                }
-              ]
-            }
-          },
-          "response": [
             {
-              "id": "3f48012e-caa3-4b63-ab32-a6c411ca3173",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+              "name": "Create job",
+              "id": "a4a8e655-4e32-408d-bc3b-5f8a3c739a37",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
                 },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "application_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
+                  "mode": "raw",
+                  "raw": "{\n  \"application_id\": \"<integer>\",\n  \"type\": \"duplicate_automation_workflow\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
                     }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"1957-04-20T00:21:48.252Z\",\n  \"duplicated_application\": {\n    \"created_on\": \"1999-09-19T11:08:52.879Z\",\n    \"id\": 5589,\n    \"name\": \"string\",\n    \"order\": 993811068,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"id\": 5585,\n  \"original_application\": {\n    \"created_on\": \"1967-06-28T02:36:19.974Z\",\n    \"id\": 8944,\n    \"name\": \"string\",\n    \"order\": 1418059570,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"progress_percentage\": 4550,\n  \"state\": \"string\",\n  \"type\": \"string\",\n  \"updated_on\": \"1974-11-22T01:11:29.423Z\",\n  \"human_readable_error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "3d0f1314-9af5-4f87-9bba-8643c2eae8ca",
-              "originalRequest": {
+                  }
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/api/jobs/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "api",
                     "jobs",
                     ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "application_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    }
                   ]
-                }
+                },
+                "description": "Creates a new job. This job runs asynchronously in the background and execute the task specific to the provided typeparameters. The `get_job` can be used to get the current state of the job."
               },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "e3a99cec-dd80-4ebd-b43e-860d27bdaa73",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"application_id\": \"<integer>\",\n  \"type\": \"duplicate_automation_workflow\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"duplicated_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"id\": \"<integer>\",\n  \"original_application\": {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<integer>\",\n    \"tables\": [\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      },\n      {\n        \"data_sync\": {\n          \"database_id\": \"<string>\",\n          \"id\": \"<integer>\",\n          \"synced_properties\": [\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            },\n            {\n              \"field_id\": \"<integer>\",\n              \"key\": \"<string>\",\n              \"unique_primary\": \"<boolean>\"\n            }\n          ],\n          \"table_id\": \"<integer>\",\n          \"type\": \"<string>\",\n          \"last_sync\": \"<string,null-date-time>\",\n          \"last_error\": \"<string,null>\",\n          \"auto_add_new_properties\": \"<boolean>\",\n          \"two_way_sync\": \"<boolean>\"\n        },\n        \"database_id\": \"<integer>\",\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"order\": \"<integer>\"\n      }\n    ],\n    \"type\": \"<string>\",\n    \"workspace\": {\n      \"generative_ai_models_enabled\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  },\n  \"progress_percentage\": \"<integer>\",\n  \"state\": \"<string>\",\n  \"type\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"human_readable_error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-e3a99cec-dd80-4ebd-b43e-860d27bdaa73"
+                },
+                {
+                  "id": "d499a86d-63fb-4881-a334-a83010cb48a2",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"application_id\": \"<integer>\",\n  \"type\": \"duplicate_automation_workflow\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"ERROR_MAX_JOB_COUNT_EXCEEDED\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-d499a86d-63fb-4881-a334-a83010cb48a2"
+                },
+                {
+                  "id": "a126e3c6-8572-42f7-821e-66fd87397f60",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"application_id\": \"<integer>\",\n  \"type\": \"duplicate_automation_workflow\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/jobs/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "jobs",
+                        ""
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:11:05.000Z",
+                  "updatedAt": "2026-10-21T20:11:05.000Z",
+                  "uid": "35240-a126e3c6-8572-42f7-821e-66fd87397f60"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e3ba3633-b0c0-468a-afd4-86e421eabfa2",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "application_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:11:05.000Z",
+              "updatedAt": "2026-10-21T20:11:05.000Z",
+              "uid": "35240-a4a8e655-4e32-408d-bc3b-5f8a3c739a37"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "21208c57-8473-4a60-a8fb-675ffa261f35",
-          "name": "get job",
-          "request": {
-            "name": "get job",
-            "description": {
-              "content": "Returns the information related to the provided job id. This endpoint can for example be polled to get the state and progress of the job in real time.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "jobs",
-                ":job_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "job_id",
-                  "description": "(Required) The job id to lookup information about."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "02e073b6-9a8f-410a-bb02-3f37f698d99d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ":job_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "job_id",
-                      "description": "(Required) The job id to lookup information about."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"2012-09-17T05:07:20.598Z\",\n  \"duplicated_application\": {\n    \"created_on\": \"2021-05-04T20:24:21.198Z\",\n    \"id\": 3814,\n    \"name\": \"string\",\n    \"order\": 1127855120,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"id\": 5490,\n  \"original_application\": {\n    \"created_on\": \"1994-06-16T14:39:01.825Z\",\n    \"id\": 4122,\n    \"name\": \"string\",\n    \"order\": 1086119977,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"progress_percentage\": 1161,\n  \"state\": \"string\",\n  \"type\": \"string\",\n  \"updated_on\": \"2017-11-14T11:55:57.506Z\",\n  \"human_readable_error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fe0b4c29-3fe4-458a-8fe7-27a0dc4d45a3",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ":job_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "job_id",
-                      "description": "(Required) The job id to lookup information about."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "624f464f-172d-422b-927a-52aaf2ea14bf",
-          "name": "cancel job",
-          "request": {
-            "name": "cancel job",
-            "description": {
-              "content": "Cancels a job. Note: you can cancel only a scheduled or a job that is already running. The user requesting must be the owner of the job to cancel.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "jobs",
-                ":job_id",
-                "cancel",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "job_id",
-                  "description": "(Required) The job id to cancel."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "53660d65-8ad8-4121-a99d-6d3c3181160c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ":job_id",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "job_id",
-                      "description": "(Required) The job id to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"2012-09-17T05:07:20.598Z\",\n  \"duplicated_application\": {\n    \"created_on\": \"2021-05-04T20:24:21.198Z\",\n    \"id\": 3814,\n    \"name\": \"string\",\n    \"order\": 1127855120,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"id\": 5490,\n  \"original_application\": {\n    \"created_on\": \"1994-06-16T14:39:01.825Z\",\n    \"id\": 4122,\n    \"name\": \"string\",\n    \"order\": 1086119977,\n    \"tables\": [\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    ],\n    \"type\": \"string\",\n    \"workspace\": {\n      \"description\": \"The workspace that the application belongs to.\",\n      \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n    }\n  },\n  \"progress_percentage\": 1161,\n  \"state\": \"string\",\n  \"type\": \"string\",\n  \"updated_on\": \"2017-11-14T11:55:57.506Z\",\n  \"human_readable_error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c2c0d1a8-70b3-4c22-a973-601aabc5191d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ":job_id",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "job_id",
-                      "description": "(Required) The job id to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_JOB_NOT_CANCELLABLE\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ef6faf35-0cb5-4644-aa63-738ffd1ad4a8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "jobs",
-                    ":job_id",
-                    "cancel",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "job_id",
-                      "description": "(Required) The job id to cancel."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_JOB_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "65e4b553-f01f-4a3e-b5e4-0663d945a5b8",
+          "createdAt": "2026-10-21T20:11:05.000Z",
+          "updatedAt": "2026-10-21T20:11:05.000Z",
+          "uid": "35240-65e4b553-f01f-4a3e-b5e4-0663d945a5b8"
         }
       ],
-      "event": []
+      "id": "931b952a-f6e7-4f8f-9c66-70076d325ba1",
+      "createdAt": "2026-10-21T20:11:05.000Z",
+      "updatedAt": "2026-10-21T20:11:05.000Z",
+      "uid": "35240-931b952a-f6e7-4f8f-9c66-70076d325ba1"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "d5af7256-d597-466c-a467-9e26db6915fb",
-    "name": "Baserow API spec Admin Jobs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

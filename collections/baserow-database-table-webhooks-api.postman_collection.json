@@ -1,2307 +1,1452 @@
 {
+  "info": {
+    "_postman_id": "552b06ae-32c2-4ea3-bb33-0e04a725e594",
+    "name": "Baserow API spec Database table webhooks API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:10:41.000Z",
+    "updatedAt": "2026-10-21T20:10:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-552b06ae-32c2-4ea3-bb33-0e04a725e594"
+  },
   "item": [
     {
-      "id": "3c25b210-85b8-41c2-b1ab-0cfeeb2b37d8",
-      "name": "Database table webhooks",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "39e6e6dc-b0ec-4a3a-bfe7-61b6f96caae3",
-          "name": "get database table webhook",
-          "request": {
-            "name": "get database table webhook",
-            "description": {
-              "content": "Returns the existing webhook if the authorized user has access to the related database workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                ":webhook_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "webhook_id",
-                  "description": "(Required) Returns the webhook related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "database",
+          "item": [
             {
-              "id": "64683ca0-a732-4954-b13b-71d5039d53f7",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "webhooks",
+              "item": [
+                {
+                  "name": "{webhook_id}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Returns the webhook related to the provided value."
+                      "name": "Get database table webhook",
+                      "id": "2a0f7780-707b-444f-b46e-89c69909e76a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "webhooks",
+                            ":webhook_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "2b0006fc-66d3-4e20-bf99-f5cc565f15e7",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns the webhook related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Returns the existing webhook if the authorized user has access to the related database workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "85e26984-4041-4f8b-b140-29ef38a12a64",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    },\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    }\n  ],\n  \"created_on\": \"<dateTime>\",\n  \"event_config\": [\n    {\n      \"event_type\": \"view.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.updated\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"events\": {\n    \"exercitation_83c\": {}\n  },\n  \"headers\": {\n    \"veniam1\": {},\n    \"eab6\": {}\n  },\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"url\": \"<string>\",\n  \"use_user_field_names\": \"<boolean>\",\n  \"request_method\": \"PATCH\",\n  \"include_all_events\": \"<boolean>\",\n  \"failed_triggers\": \"<integer>\",\n  \"active\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-85e26984-4041-4f8b-b140-29ef38a12a64"
+                        },
+                        {
+                          "id": "e8fd75ed-9da6-4b4b-8f0e-4618d85c9f0b",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-e8fd75ed-9da6-4b4b-8f0e-4618d85c9f0b"
+                        },
+                        {
+                          "id": "31bc9451-6548-4d0f-a1ec-686fd3e3db78",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-31bc9451-6548-4d0f-a1ec-686fd3e3db78"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:41.000Z",
+                      "updatedAt": "2026-10-21T20:10:41.000Z",
+                      "uid": "35240-2a0f7780-707b-444f-b46e-89c69909e76a"
+                    },
+                    {
+                      "name": "Update database table webhook",
+                      "id": "b041c96b-6e7e-4771-b47e-039396fcfebf",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"view.updated\",\n    \"view.created\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"view.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"in6\": {},\n    \"pariatura7\": {}\n  },\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "webhooks",
+                            ":webhook_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "11a03555-4f75-4604-ab19-a46731d57cbd",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Updates the webhook related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Updates the existing view if the authorized user has access to the related database workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "f085b164-6aef-451c-98ac-8b67b793e1c2",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"view.updated\",\n    \"view.created\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"view.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"in6\": {},\n    \"pariatura7\": {}\n  },\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    },\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    }\n  ],\n  \"created_on\": \"<dateTime>\",\n  \"event_config\": [\n    {\n      \"event_type\": \"view.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.updated\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"events\": {\n    \"exercitation_83c\": {}\n  },\n  \"headers\": {\n    \"veniam1\": {},\n    \"eab6\": {}\n  },\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"url\": \"<string>\",\n  \"use_user_field_names\": \"<boolean>\",\n  \"request_method\": \"PATCH\",\n  \"include_all_events\": \"<boolean>\",\n  \"failed_triggers\": \"<integer>\",\n  \"active\": \"<boolean>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-f085b164-6aef-451c-98ac-8b67b793e1c2"
+                        },
+                        {
+                          "id": "ee6c4062-d89a-4c5d-a1fa-539cf82240ba",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"view.updated\",\n    \"view.created\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"view.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"in6\": {},\n    \"pariatura7\": {}\n  },\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-ee6c4062-d89a-4c5d-a1fa-539cf82240ba"
+                        },
+                        {
+                          "id": "551f6be1-2b7a-4270-8be9-2781a2e9fc3d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"view.updated\",\n    \"view.created\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"view.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.created\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"in6\": {},\n    \"pariatura7\": {}\n  },\n  \"name\": \"<string>\",\n  \"active\": \"<boolean>\",\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-551f6be1-2b7a-4270-8be9-2781a2e9fc3d"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:41.000Z",
+                      "updatedAt": "2026-10-21T20:10:41.000Z",
+                      "uid": "35240-b041c96b-6e7e-4771-b47e-039396fcfebf"
+                    },
+                    {
+                      "name": "Delete database table webhook",
+                      "id": "b3946885-7e6e-4fac-b5e0-10dc1f2cd6a1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "database",
+                            "webhooks",
+                            ":webhook_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "956526d4-526d-4a0a-8bf3-459f2590ea71",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Deletes the webhook related to the provided value."
+                            }
+                          ]
+                        },
+                        "description": "Deletes the existing webhook if the authorized user has access to the related database's workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "9b474748-a33f-48ed-9462-60b6424e5736",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-9b474748-a33f-48ed-9462-60b6424e5736"
+                        },
+                        {
+                          "id": "63461326-c6f9-4ff1-8d46-df0c11858a9b",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/:webhook_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                ":webhook_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-63461326-c6f9-4ff1-8d46-df0c11858a9b"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:10:41.000Z",
+                      "updatedAt": "2026-10-21T20:10:41.000Z",
+                      "uid": "35240-b3946885-7e6e-4fac-b5e0-10dc1f2cd6a1"
                     }
-                  ]
+                  ],
+                  "id": "ece4f16a-b68a-4eac-9097-69e57676d563",
+                  "createdAt": "2026-10-21T20:10:41.000Z",
+                  "updatedAt": "2026-10-21T20:10:41.000Z",
+                  "uid": "35240-ece4f16a-b68a-4eac-9097-69e57676d563"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"41dec46b-6189-3106-0ed9-272db1d44d41\",\n      \"event_type\": \"string\",\n      \"id\": 530,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"1974-06-16T22:30:14.312Z\",\n      \"response_status\": 331782234,\n      \"error\": \"string\"\n    },\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"bf551c9e-a571-c859-24db-383c8f85ad62\",\n      \"event_type\": \"string\",\n      \"id\": 1704,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"1960-01-28T04:05:54.327Z\",\n      \"response_status\": 1003106244,\n      \"error\": \"string\"\n    }\n  ],\n  \"created_on\": \"1987-11-27T23:03:17.737Z\",\n  \"event_config\": [\n    {\n      \"event_type\": \"field.updated\",\n      \"fields\": [\n        4405,\n        6745\n      ],\n      \"views\": [\n        3425,\n        8417\n      ]\n    },\n    {\n      \"event_type\": \"rows.deleted\",\n      \"fields\": [\n        6910,\n        727\n      ],\n      \"views\": [\n        983,\n        2946\n      ]\n    }\n  ],\n  \"events\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"headers\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"id\": 6182,\n  \"name\": \"string\",\n  \"updated_on\": \"1964-08-31T04:51:41.741Z\",\n  \"url\": \"string\",\n  \"use_user_field_names\": true,\n  \"request_method\": \"DELETE\",\n  \"include_all_events\": false,\n  \"failed_triggers\": -1723174550,\n  \"active\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "062af45d-2c6c-43b3-8dd4-1d6ad0d5a02e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "name": "table",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Returns the webhook related to the provided value."
+                      "name": "{table_id}",
+                      "item": [
+                        {
+                          "name": "test-call",
+                          "item": [
+                            {
+                              "name": "Test call database table webhook",
+                              "id": "aa855a32-9153-46fc-88cf-46f9fc0eb42b",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "bearer",
+                                  "bearer": [
+                                    {
+                                      "key": "token",
+                                      "value": "{{bearerToken}}",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"event_type\": \"view.rows_entered\",\n  \"url\": \"<string>\",\n  \"request_method\": \"GET\",\n  \"headers\": {\n    \"ut__\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/test-call/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    "test-call",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "46452906-6367-492f-b53f-3c1b763cb99c",
+                                      "key": "table_id",
+                                      "value": "<integer>",
+                                      "description": "(Required) The id of the table that must be tested."
+                                    }
+                                  ]
+                                },
+                                "description": "This endpoint triggers a test call based on the provided data if the user has access to the workspace related to the table. The test call will be made immediately and a copy of the request, response and status will be included in the response."
+                              },
+                              "response": [
+                                {
+                                  "id": "9df40640-9564-4de4-a473-2792c117f7b7",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"event_type\": \"view.rows_entered\",\n  \"url\": \"<string>\",\n  \"request_method\": \"GET\",\n  \"headers\": {\n    \"ut__\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/test-call/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "webhooks",
+                                        "table",
+                                        ":table_id",
+                                        "test-call",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"is_unreachable\": \"<boolean>\",\n  \"request\": \"<string>\",\n  \"response\": \"<string>\",\n  \"status_code\": \"<integer>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:41.000Z",
+                                  "updatedAt": "2026-10-21T20:10:41.000Z",
+                                  "uid": "35240-9df40640-9564-4de4-a473-2792c117f7b7"
+                                },
+                                {
+                                  "id": "5ad36083-f544-47f9-96fd-a537965929b5",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"event_type\": \"view.rows_entered\",\n  \"url\": \"<string>\",\n  \"request_method\": \"GET\",\n  \"headers\": {\n    \"ut__\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/test-call/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "webhooks",
+                                        "table",
+                                        ":table_id",
+                                        "test-call",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:41.000Z",
+                                  "updatedAt": "2026-10-21T20:10:41.000Z",
+                                  "uid": "35240-5ad36083-f544-47f9-96fd-a537965929b5"
+                                },
+                                {
+                                  "id": "7ee59b80-04bd-4961-bbd1-caae80c53f95",
+                                  "name": "New Response",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"event_type\": \"view.rows_entered\",\n  \"url\": \"<string>\",\n  \"request_method\": \"GET\",\n  \"headers\": {\n    \"ut__\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/test-call/",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "api",
+                                        "database",
+                                        "webhooks",
+                                        "table",
+                                        ":table_id",
+                                        "test-call",
+                                        ""
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "table_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                                  "createdAt": "2026-10-21T20:10:41.000Z",
+                                  "updatedAt": "2026-10-21T20:10:41.000Z",
+                                  "uid": "35240-7ee59b80-04bd-4961-bbd1-caae80c53f95"
+                                }
+                              ],
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-aa855a32-9153-46fc-88cf-46f9fc0eb42b"
+                            }
+                          ],
+                          "id": "9ffd1d6c-80c6-4a85-8a81-4c93b59d89eb",
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-9ffd1d6c-80c6-4a85-8a81-4c93b59d89eb"
+                        },
+                        {
+                          "name": "List database table webhooks",
+                          "id": "aaa2c12b-24ec-481b-be74-300cf65aa75a",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                "table",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b9028df2-8c96-4eb3-b3d7-691a6c646801",
+                                  "key": "table_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns only webhooks of the table related to this value."
+                                }
+                              ]
+                            },
+                            "description": "Lists all webhooks of the table related to the provided `table_id` if the user has access to the related database workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "4fe18eeb-9b70-4e09-a484-0bb40abad3a3",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "[\n  {\n    \"calls\": [\n      {\n        \"called_url\": \"<string>\",\n        \"event_id\": \"<uuid>\",\n        \"event_type\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"request\": \"<string>\",\n        \"response\": \"<string>\",\n        \"called_time\": \"<string,null-date-time>\",\n        \"response_status\": \"<integer,null>\",\n        \"error\": \"<string,null>\"\n      },\n      {\n        \"called_url\": \"<string>\",\n        \"event_id\": \"<uuid>\",\n        \"event_type\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"request\": \"<string>\",\n        \"response\": \"<string>\",\n        \"called_time\": \"<string,null-date-time>\",\n        \"response_status\": \"<integer,null>\",\n        \"error\": \"<string,null>\"\n      }\n    ],\n    \"created_on\": \"<dateTime>\",\n    \"event_config\": [\n      {\n        \"event_type\": \"field.deleted\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"event_type\": \"view.updated\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ],\n    \"events\": {\n      \"Excepteur_2\": {},\n      \"ullamco_28b\": {}\n    },\n    \"headers\": {\n      \"nostrudb\": {}\n    },\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"updated_on\": \"<dateTime>\",\n    \"url\": \"<string>\",\n    \"use_user_field_names\": \"<boolean>\",\n    \"request_method\": \"POST\",\n    \"include_all_events\": \"<boolean>\",\n    \"failed_triggers\": \"<integer>\",\n    \"active\": \"<boolean>\"\n  },\n  {\n    \"calls\": [\n      {\n        \"called_url\": \"<string>\",\n        \"event_id\": \"<uuid>\",\n        \"event_type\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"request\": \"<string>\",\n        \"response\": \"<string>\",\n        \"called_time\": \"<string,null-date-time>\",\n        \"response_status\": \"<integer,null>\",\n        \"error\": \"<string,null>\"\n      },\n      {\n        \"called_url\": \"<string>\",\n        \"event_id\": \"<uuid>\",\n        \"event_type\": \"<string>\",\n        \"id\": \"<integer>\",\n        \"request\": \"<string>\",\n        \"response\": \"<string>\",\n        \"called_time\": \"<string,null-date-time>\",\n        \"response_status\": \"<integer,null>\",\n        \"error\": \"<string,null>\"\n      }\n    ],\n    \"created_on\": \"<dateTime>\",\n    \"event_config\": [\n      {\n        \"event_type\": \"field.updated\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"event_type\": \"rows.created\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ],\n    \"events\": {\n      \"labore70\": {}\n    },\n    \"headers\": {\n      \"enim7\": {},\n      \"eu078\": {}\n    },\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"updated_on\": \"<dateTime>\",\n    \"url\": \"<string>\",\n    \"use_user_field_names\": \"<boolean>\",\n    \"request_method\": \"DELETE\",\n    \"include_all_events\": \"<boolean>\",\n    \"failed_triggers\": \"<integer>\",\n    \"active\": \"<boolean>\"\n  }\n]",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-4fe18eeb-9b70-4e09-a484-0bb40abad3a3"
+                            },
+                            {
+                              "id": "87c8e2e1-04bb-4fed-9188-3f4c640e0f2a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-87c8e2e1-04bb-4fed-9188-3f4c640e0f2a"
+                            },
+                            {
+                              "id": "299f1581-d802-4697-985a-8ebdeead06bb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-299f1581-d802-4697-985a-8ebdeead06bb"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-aaa2c12b-24ec-481b-be74-300cf65aa75a"
+                        },
+                        {
+                          "name": "Create database table webhook",
+                          "id": "f649590e-eddc-419a-9adf-d79ee545b16c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"rows.deleted\",\n    \"rows.updated\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"field.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"view.rows_entered\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"consectetur_2b\": {},\n    \"officia_1\": {},\n    \"ut_8\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "database",
+                                "webhooks",
+                                "table",
+                                ":table_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ccfc1243-125a-43c5-aa98-ec86b376bb37",
+                                  "key": "table_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Creates a webhook for the table related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Creates a new webhook for the table related to the provided `table_id` parameter if the authorized user has access to the related database workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "54f83434-fb6f-44ed-be9c-d78a196619bb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"rows.deleted\",\n    \"rows.updated\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"field.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"view.rows_entered\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"consectetur_2b\": {},\n    \"officia_1\": {},\n    \"ut_8\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    },\n    {\n      \"called_url\": \"<string>\",\n      \"event_id\": \"<uuid>\",\n      \"event_type\": \"<string>\",\n      \"id\": \"<integer>\",\n      \"request\": \"<string>\",\n      \"response\": \"<string>\",\n      \"called_time\": \"<string,null-date-time>\",\n      \"response_status\": \"<integer,null>\",\n      \"error\": \"<string,null>\"\n    }\n  ],\n  \"created_on\": \"<dateTime>\",\n  \"event_config\": [\n    {\n      \"event_type\": \"view.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"field.updated\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"events\": {\n    \"exercitation_83c\": {}\n  },\n  \"headers\": {\n    \"veniam1\": {},\n    \"eab6\": {}\n  },\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"updated_on\": \"<dateTime>\",\n  \"url\": \"<string>\",\n  \"use_user_field_names\": \"<boolean>\",\n  \"request_method\": \"PATCH\",\n  \"include_all_events\": \"<boolean>\",\n  \"failed_triggers\": \"<integer>\",\n  \"active\": \"<boolean>\"\n}",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-54f83434-fb6f-44ed-be9c-d78a196619bb"
+                            },
+                            {
+                              "id": "4848f243-6a12-4a92-913c-48573ca34ad0",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"rows.deleted\",\n    \"rows.updated\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"field.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"view.rows_entered\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"consectetur_2b\": {},\n    \"officia_1\": {},\n    \"ut_8\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_EVENT_CONFIG_FIELD_NOT_IN_TABLE\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-4848f243-6a12-4a92-913c-48573ca34ad0"
+                            },
+                            {
+                              "id": "5c8f49df-7e80-4eb8-9384-764ca1499837",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"include_all_events\": \"<boolean>\",\n  \"events\": [\n    \"rows.deleted\",\n    \"rows.updated\"\n  ],\n  \"event_config\": [\n    {\n      \"event_type\": \"field.deleted\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"view.rows_entered\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"request_method\": \"PUT\",\n  \"headers\": {\n    \"consectetur_2b\": {},\n    \"officia_1\": {},\n    \"ut_8\": {}\n  },\n  \"use_user_field_names\": \"<boolean>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/database/webhooks/table/:table_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "database",
+                                    "webhooks",
+                                    "table",
+                                    ":table_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "table_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:10:41.000Z",
+                              "updatedAt": "2026-10-21T20:10:41.000Z",
+                              "uid": "35240-5c8f49df-7e80-4eb8-9384-764ca1499837"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:10:41.000Z",
+                          "updatedAt": "2026-10-21T20:10:41.000Z",
+                          "uid": "35240-f649590e-eddc-419a-9adf-d79ee545b16c"
+                        }
+                      ],
+                      "id": "19831547-6ad0-4832-b449-8ca1a7f23d3f",
+                      "createdAt": "2026-10-21T20:10:41.000Z",
+                      "updatedAt": "2026-10-21T20:10:41.000Z",
+                      "uid": "35240-19831547-6ad0-4832-b449-8ca1a7f23d3f"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "18772aa0-fb04-4046-a46f-6375403ef1ec",
+                  "createdAt": "2026-10-21T20:10:41.000Z",
+                  "updatedAt": "2026-10-21T20:10:41.000Z",
+                  "uid": "35240-18772aa0-fb04-4046-a46f-6375403ef1ec"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "743355b2-6062-4c1a-a527-b2983b0c36e9",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Returns the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "26b034f4-7a1e-4dcf-987b-ee880f69e093",
-          "name": "update database table webhook",
-          "request": {
-            "name": "update database table webhook",
-            "description": {
-              "content": "Updates the existing view if the authorized user has access to the related database workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                ":webhook_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "webhook_id",
-                  "description": "(Required) Updates the webhook related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "url",
-                  "value": "<string>",
-                  "description": "The URL that must be called when the webhook is triggered."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_all_events",
-                  "value": "<boolean>",
-                  "description": "Indicates whether this webhook should listen to all events."
-                },
-                {
-                  "disabled": false,
-                  "key": "events",
-                  "value": "<string>",
-                  "description": "A list containing the events that will trigger this webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "events",
-                  "value": "<string>",
-                  "description": "A list containing the events that will trigger this webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "event_config",
-                  "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}",
-                  "description": "A list containing the addition event options."
-                },
-                {
-                  "disabled": false,
-                  "key": "event_config",
-                  "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}",
-                  "description": "A list containing the addition event options."
-                },
-                {
-                  "disabled": false,
-                  "key": "request_method",
-                  "value": "<string>",
-                  "description": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete"
-                },
-                {
-                  "disabled": false,
-                  "key": "key_0",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_1",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_2",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "An internal name of the webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "active",
-                  "value": "<boolean>",
-                  "description": "Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated."
-                },
-                {
-                  "disabled": false,
-                  "key": "use_user_field_names",
-                  "value": "<boolean>",
-                  "description": "Indicates whether the field names must be used as payload key instead of the id."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "599c17c1-890d-4922-b4fb-e405a96f154e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Updates the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.",
-                        "type": "text/plain"
-                      },
-                      "key": "active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"4a4e0c3e-fc0a-6aba-c88a-28bc41130a8c\",\n      \"event_type\": \"string\",\n      \"id\": 7762,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"2005-07-16T05:35:50.404Z\",\n      \"response_status\": -434936563,\n      \"error\": \"string\"\n    },\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"b836aa21-2c41-d8c1-9339-b4a09e7ccd47\",\n      \"event_type\": \"string\",\n      \"id\": 331,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"1987-01-05T02:37:09.665Z\",\n      \"response_status\": 596537319,\n      \"error\": \"string\"\n    }\n  ],\n  \"created_on\": \"2012-01-17T14:21:49.963Z\",\n  \"event_config\": [\n    {\n      \"event_type\": \"<string>\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"<string>\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"events\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"headers\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"id\": 6729,\n  \"name\": \"string\",\n  \"updated_on\": \"1969-11-10T07:02:48.701Z\",\n  \"url\": \"string\",\n  \"use_user_field_names\": false,\n  \"request_method\": \"<string>\",\n  \"include_all_events\": true,\n  \"failed_triggers\": 216906651,\n  \"active\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d8231a7b-409f-43ac-b86f-60877dfda244",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Updates the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.",
-                        "type": "text/plain"
-                      },
-                      "key": "active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cc5b38a2-05f3-4d10-9c63-2a4ff634dde8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Updates the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the web hook is active. When a webhook has failed multiple times, it will automatically be deactivated.",
-                        "type": "text/plain"
-                      },
-                      "key": "active",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "71b3500f-7b64-4638-a9fa-5aff472a467f",
-          "name": "delete database table webhook",
-          "request": {
-            "name": "delete database table webhook",
-            "description": {
-              "content": "Deletes the existing webhook if the authorized user has access to the related database's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                ":webhook_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "webhook_id",
-                  "description": "(Required) Deletes the webhook related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "4d15b224-b079-4dbc-830f-9eaff97574af",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Deletes the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "07cede99-6fcd-4d00-a8c9-7c4315b97901",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    ":webhook_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "webhook_id",
-                      "description": "(Required) Deletes the webhook related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "211c62d3-6ded-4b33-871f-9e2223b32ea6",
-          "name": "list database table webhooks",
-          "request": {
-            "name": "list database table webhooks",
-            "description": {
-              "content": "Lists all webhooks of the table related to the provided `table_id` if the user has access to the related database workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                "table",
-                ":table_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) Returns only webhooks of the table related to this value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "b10016e5-d540-45cc-9199-003f8150b3c8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Returns only webhooks of the table related to this value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"calls\": [\n      {\n        \"called_url\": \"string\",\n        \"event_id\": \"9c61362a-f4d1-ba27-d085-46bb4635e089\",\n        \"event_type\": \"string\",\n        \"id\": 5761,\n        \"request\": \"string\",\n        \"response\": \"string\",\n        \"called_time\": \"1992-06-23T12:08:21.400Z\",\n        \"response_status\": -331751832,\n        \"error\": \"string\"\n      },\n      {\n        \"called_url\": \"string\",\n        \"event_id\": \"1e3ca1ec-7af1-9ebb-4b88-68d2316f9752\",\n        \"event_type\": \"string\",\n        \"id\": 6770,\n        \"request\": \"string\",\n        \"response\": \"string\",\n        \"called_time\": \"1998-03-01T00:33:05.063Z\",\n        \"response_status\": 1097787385,\n        \"error\": \"string\"\n      }\n    ],\n    \"created_on\": \"1954-07-28T10:42:21.455Z\",\n    \"event_config\": [\n      {\n        \"event_type\": \"<string>\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"event_type\": \"<string>\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ],\n    \"events\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"headers\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"id\": 9894,\n    \"name\": \"string\",\n    \"updated_on\": \"2026-05-18T23:34:04.444Z\",\n    \"url\": \"string\",\n    \"use_user_field_names\": false,\n    \"request_method\": \"<string>\",\n    \"include_all_events\": false,\n    \"failed_triggers\": -1585308252,\n    \"active\": true\n  },\n  {\n    \"calls\": [\n      {\n        \"called_url\": \"string\",\n        \"event_id\": \"c7e6276e-b57c-67f6-66aa-0dab72504a6a\",\n        \"event_type\": \"string\",\n        \"id\": 3116,\n        \"request\": \"string\",\n        \"response\": \"string\",\n        \"called_time\": \"1991-04-12T16:46:00.219Z\",\n        \"response_status\": 1139376107,\n        \"error\": \"string\"\n      },\n      {\n        \"called_url\": \"string\",\n        \"event_id\": \"2c5dad21-198a-43e3-e84e-4c0f02c8ca4a\",\n        \"event_type\": \"string\",\n        \"id\": 2854,\n        \"request\": \"string\",\n        \"response\": \"string\",\n        \"called_time\": \"1956-10-05T03:46:01.295Z\",\n        \"response_status\": 1312637458,\n        \"error\": \"string\"\n      }\n    ],\n    \"created_on\": \"2024-07-23T21:46:49.588Z\",\n    \"event_config\": [\n      {\n        \"event_type\": \"<string>\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      },\n      {\n        \"event_type\": \"<string>\",\n        \"fields\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"views\": [\n          \"<integer>\",\n          \"<integer>\"\n        ]\n      }\n    ],\n    \"events\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    \"headers\": {\n      \"key_0\": {}\n    },\n    \"id\": 2386,\n    \"name\": \"string\",\n    \"updated_on\": \"1998-10-08T05:22:38.864Z\",\n    \"url\": \"string\",\n    \"use_user_field_names\": true,\n    \"request_method\": \"<string>\",\n    \"include_all_events\": false,\n    \"failed_triggers\": 619137440,\n    \"active\": true\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6e8b2fe6-7373-4041-8527-71ee8c489bb5",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Returns only webhooks of the table related to this value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2bd75fbd-218f-4165-a334-ba513218b73c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Returns only webhooks of the table related to this value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "d1d91be4-cce2-473c-8d84-fb7f08c9482e",
-          "name": "create database table webhook",
-          "request": {
-            "name": "create database table webhook",
-            "description": {
-              "content": "Creates a new webhook for the table related to the provided `table_id` parameter if the authorized user has access to the related database workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                "table",
-                ":table_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) Creates a webhook for the table related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "(Required) An internal name of the webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "url",
-                  "value": "<string>",
-                  "description": "(Required) The URL that must be called when the webhook is triggered."
-                },
-                {
-                  "disabled": false,
-                  "key": "include_all_events",
-                  "value": "<boolean>",
-                  "description": "Indicates whether this webhook should listen to all events."
-                },
-                {
-                  "disabled": false,
-                  "key": "events",
-                  "value": "<string>",
-                  "description": "A list containing the events that will trigger this webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "events",
-                  "value": "<string>",
-                  "description": "A list containing the events that will trigger this webhook."
-                },
-                {
-                  "disabled": false,
-                  "key": "event_config",
-                  "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}",
-                  "description": "A list containing the addition event options."
-                },
-                {
-                  "disabled": false,
-                  "key": "event_config",
-                  "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}",
-                  "description": "A list containing the addition event options."
-                },
-                {
-                  "disabled": false,
-                  "key": "request_method",
-                  "value": "<string>",
-                  "description": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete"
-                },
-                {
-                  "disabled": false,
-                  "key": "key_0",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_1",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "use_user_field_names",
-                  "value": "<boolean>",
-                  "description": "Indicates whether the field names must be used as payload key instead of the id."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "53998d6b-4a43-42ee-9188-8fe0bfdce7de",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Creates a webhook for the table related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"calls\": [\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"4a4e0c3e-fc0a-6aba-c88a-28bc41130a8c\",\n      \"event_type\": \"string\",\n      \"id\": 7762,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"2005-07-16T05:35:50.404Z\",\n      \"response_status\": -434936563,\n      \"error\": \"string\"\n    },\n    {\n      \"called_url\": \"string\",\n      \"event_id\": \"b836aa21-2c41-d8c1-9339-b4a09e7ccd47\",\n      \"event_type\": \"string\",\n      \"id\": 331,\n      \"request\": \"string\",\n      \"response\": \"string\",\n      \"called_time\": \"1987-01-05T02:37:09.665Z\",\n      \"response_status\": 596537319,\n      \"error\": \"string\"\n    }\n  ],\n  \"created_on\": \"2012-01-17T14:21:49.963Z\",\n  \"event_config\": [\n    {\n      \"event_type\": \"<string>\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    },\n    {\n      \"event_type\": \"<string>\",\n      \"fields\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"views\": [\n        \"<integer>\",\n        \"<integer>\"\n      ]\n    }\n  ],\n  \"events\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"headers\": {\n    \"key_0\": {},\n    \"key_1\": {}\n  },\n  \"id\": 6729,\n  \"name\": \"string\",\n  \"updated_on\": \"1969-11-10T07:02:48.701Z\",\n  \"url\": \"string\",\n  \"use_user_field_names\": false,\n  \"request_method\": \"<string>\",\n  \"include_all_events\": true,\n  \"failed_triggers\": 216906651,\n  \"active\": false\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "83318793-a0ec-45c8-96fa-cceda05a3b9f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Creates a webhook for the table related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_WEBHOOK_EVENT_CONFIG_FIELD_NOT_IN_TABLE\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "44293937-be27-4cf5-b3e3-06b326e33e95",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) Creates a webhook for the table related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) An internal name of the webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether this webhook should listen to all events.",
-                        "type": "text/plain"
-                      },
-                      "key": "include_all_events",
-                      "value": "<boolean>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the events that will trigger this webhook.",
-                        "type": "text/plain"
-                      },
-                      "key": "events",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "A list containing the addition event options.",
-                        "type": "text/plain"
-                      },
-                      "key": "event_config",
-                      "value": "{\"event_type\":\"<string>\",\"fields\":[\"<integer>\",\"<integer>\"],\"views\":[\"<integer>\",\"<integer>\"]}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "985bef85-9ffd-4940-a57b-4daa5849a044",
+              "createdAt": "2026-10-21T20:10:41.000Z",
+              "updatedAt": "2026-10-21T20:10:41.000Z",
+              "uid": "35240-985bef85-9ffd-4940-a57b-4daa5849a044"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "81cbb1a8-fcc1-4fb8-9b8f-04b791f2d7e2",
-          "name": "test call database table webhook",
-          "request": {
-            "name": "test call database table webhook",
-            "description": {
-              "content": "This endpoint triggers a test call based on the provided data if the user has access to the workspace related to the table. The test call will be made immediately and a copy of the request, response and status will be included in the response.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "database",
-                "webhooks",
-                "table",
-                ":table_id",
-                "test-call",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "table_id",
-                  "description": "(Required) The id of the table that must be tested."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "event_type",
-                  "value": "<string>",
-                  "description": "(Required) The event type that must be used for the test call.\n\n* `rows.created` - rows.created\n* `rows.updated` - rows.updated\n* `rows.deleted` - rows.deleted\n* `field.created` - field.created\n* `field.updated` - field.updated\n* `field.deleted` - field.deleted\n* `view.created` - view.created\n* `view.updated` - view.updated\n* `view.deleted` - view.deleted\n* `view.rows_entered` - view.rows_entered"
-                },
-                {
-                  "disabled": false,
-                  "key": "url",
-                  "value": "<string>",
-                  "description": "(Required) The URL that must be called when the webhook is triggered."
-                },
-                {
-                  "disabled": false,
-                  "key": "request_method",
-                  "value": "<string>",
-                  "description": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete"
-                },
-                {
-                  "disabled": false,
-                  "key": "key_0",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_1",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_2",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "key_3",
-                  "value": "{}",
-                  "description": "The additional headers as an object where the key is the name and the value the value."
-                },
-                {
-                  "disabled": false,
-                  "key": "use_user_field_names",
-                  "value": "<boolean>",
-                  "description": "Indicates whether the field names must be used as payload key instead of the id."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "e1345f08-f4be-44ae-8440-5b73b1723422",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    "test-call",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The id of the table that must be tested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The event type that must be used for the test call.\n\n* `rows.created` - rows.created\n* `rows.updated` - rows.updated\n* `rows.deleted` - rows.deleted\n* `field.created` - field.created\n* `field.updated` - field.updated\n* `field.deleted` - field.deleted\n* `view.created` - view.created\n* `view.updated` - view.updated\n* `view.deleted` - view.deleted\n* `view.rows_entered` - view.rows_entered",
-                        "type": "text/plain"
-                      },
-                      "key": "event_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_1",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_2",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"is_unreachable\": true,\n  \"request\": \"string\",\n  \"response\": \"string\",\n  \"status_code\": 4383\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "025bbf23-da50-42cc-b069-9deb4cd855e7",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    "test-call",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The id of the table that must be tested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The event type that must be used for the test call.\n\n* `rows.created` - rows.created\n* `rows.updated` - rows.updated\n* `rows.deleted` - rows.deleted\n* `field.created` - field.created\n* `field.updated` - field.updated\n* `field.deleted` - field.deleted\n* `view.created` - view.created\n* `view.updated` - view.updated\n* `view.deleted` - view.deleted\n* `view.rows_entered` - view.rows_entered",
-                        "type": "text/plain"
-                      },
-                      "key": "event_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_1",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_2",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bf503a7a-98d5-44ee-99f8-da878cda307f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "database",
-                    "webhooks",
-                    "table",
-                    ":table_id",
-                    "test-call",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "table_id",
-                      "description": "(Required) The id of the table that must be tested."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The event type that must be used for the test call.\n\n* `rows.created` - rows.created\n* `rows.updated` - rows.updated\n* `rows.deleted` - rows.deleted\n* `field.created` - field.created\n* `field.updated` - field.updated\n* `field.deleted` - field.deleted\n* `view.created` - view.created\n* `view.updated` - view.updated\n* `view.deleted` - view.deleted\n* `view.rows_entered` - view.rows_entered",
-                        "type": "text/plain"
-                      },
-                      "key": "event_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The URL that must be called when the webhook is triggered.",
-                        "type": "text/plain"
-                      },
-                      "key": "url",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The request method that be used when the event occurs.\n\n* `POST` - Post\n* `GET` - Get\n* `PUT` - Put\n* `PATCH` - Patch\n* `DELETE` - Delete",
-                        "type": "text/plain"
-                      },
-                      "key": "request_method",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_0",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_1",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The additional headers as an object where the key is the name and the value the value.",
-                        "type": "text/plain"
-                      },
-                      "key": "key_2",
-                      "value": "{}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "Indicates whether the field names must be used as payload key instead of the id.",
-                        "type": "text/plain"
-                      },
-                      "key": "use_user_field_names",
-                      "value": "<boolean>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TABLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "336c5783-36c9-463d-a56b-93d7d4cbae42",
+          "createdAt": "2026-10-21T20:10:41.000Z",
+          "updatedAt": "2026-10-21T20:10:41.000Z",
+          "uid": "35240-336c5783-36c9-463d-a56b-93d7d4cbae42"
         }
       ],
-      "event": []
+      "id": "6e467b3d-a967-475a-90a9-b7105bf65fde",
+      "createdAt": "2026-10-21T20:10:41.000Z",
+      "updatedAt": "2026-10-21T20:10:41.000Z",
+      "uid": "35240-6e467b3d-a967-475a-90a9-b7105bf65fde"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "24c2bcc2-74d9-4f80-af8c-3ba449305ed6",
-    "name": "Baserow API spec Admin Database table webhooks API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

@@ -1,1101 +1,876 @@
 {
+  "info": {
+    "_postman_id": "69a6a4ab-c576-40fa-a921-0d6ae1c69ee3",
+    "name": "Baserow API spec Dashboard data sources API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:09:27.000Z",
+    "updatedAt": "2026-10-21T20:09:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-69a6a4ab-c576-40fa-a921-0d6ae1c69ee3"
+  },
   "item": [
     {
-      "id": "7e8009e2-a7a7-4dcc-9781-ff2a990b5d13",
-      "name": "Dashboard data sources",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "4b4522fb-50e2-4f6e-a849-e0fe44a3e361",
-          "name": "list dashboard data sources",
-          "request": {
-            "name": "list dashboard data sources",
-            "description": {
-              "content": "Lists all the data sources of the dashboard if the user has access to the related dashboard's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                ":dashboard_id",
-                "data-sources",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "dashboard_id",
-                  "description": "(Required) Returns only the data sources of the dashboard related to the provided Id."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "dashboard",
+          "item": [
             {
-              "id": "0f9f270d-2c0a-448a-8554-47f7457e30d7",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "data-sources",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{dashboard_id}",
+              "item": [
+                {
+                  "name": "data-sources",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the data sources of the dashboard related to the provided Id."
+                      "name": "List dashboard data sources",
+                      "id": "b3a4eeb8-b04f-4a6a-bbc4-9f9a1ceb314b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/data-sources/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            ":dashboard_id",
+                            "data-sources",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "9b1949e6-efd0-4c0f-8c93-15d0f31163b5",
+                              "key": "dashboard_id",
+                              "value": "<integer>",
+                              "description": "(Required) Returns only the data sources of the dashboard related to the provided Id."
+                            }
+                          ]
+                        },
+                        "description": "Lists all the data sources of the dashboard if the user has access to the related dashboard's workspace."
+                      },
+                      "response": [
+                        {
+                          "id": "67a15483-1cc2-41c2-afe9-d78e3c353d41",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/data-sources/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "data-sources",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"context_data\": {\n      \"esse17\": {},\n      \"sed8\": {}\n    },\n    \"context_data_schema\": {\n      \"amet7c\": {},\n      \"ut_65a\": {}\n    },\n    \"dashboard_id\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<string>\",\n    \"sample_data\": {\n      \"readOnly\": true,\n      \"description\": \"Store the sample data used for generating a schema.\"\n    },\n    \"schema\": {\n      \"ida\": {},\n      \"ut_c\": {}\n    },\n    \"type\": \"<string>\",\n    \"integration_id\": \"<integer,null>\",\n    \"table_id\": \"<integer,null>\",\n    \"view_id\": \"<integer,null>\",\n    \"filter_type\": \"AND\",\n    \"search_query\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    },\n    \"row_id\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    }\n  },\n  {\n    \"context_data\": {\n      \"sunt_9d\": {}\n    },\n    \"context_data_schema\": {\n      \"elit_f\": {},\n      \"ad3_\": {},\n      \"pariaturf3\": {},\n      \"tempor_9\": {},\n      \"elit6\": {}\n    },\n    \"dashboard_id\": \"<integer>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"order\": \"<string>\",\n    \"sample_data\": {\n      \"readOnly\": true,\n      \"description\": \"Store the sample data used for generating a schema.\"\n    },\n    \"schema\": {\n      \"magna5\": {}\n    },\n    \"type\": \"<string>\",\n    \"integration_id\": \"<integer,null>\",\n    \"table_id\": \"<integer,null>\",\n    \"view_id\": \"<integer,null>\",\n    \"filter_type\": \"OR\",\n    \"search_query\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    },\n    \"row_id\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    }\n  }\n]",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-67a15483-1cc2-41c2-afe9-d78e3c353d41"
+                        },
+                        {
+                          "id": "d690b4dc-efd4-40e0-b08f-dd258ad9c0a6",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/data-sources/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "data-sources",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-d690b4dc-efd4-40e0-b08f-dd258ad9c0a6"
+                        },
+                        {
+                          "id": "f123cd8e-d42f-4145-8b18-56310ce61b69",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/:dashboard_id/data-sources/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                ":dashboard_id",
+                                "data-sources",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "dashboard_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-f123cd8e-d42f-4145-8b18-56310ce61b69"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:27.000Z",
+                      "updatedAt": "2026-10-21T20:09:27.000Z",
+                      "uid": "35240-b3a4eeb8-b04f-4a6a-bbc4-9f9a1ceb314b"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "id": "1a63e614-26d1-4b79-9930-009fc72cc63b",
+                  "createdAt": "2026-10-21T20:09:27.000Z",
+                  "updatedAt": "2026-10-21T20:09:27.000Z",
+                  "uid": "35240-1a63e614-26d1-4b79-9930-009fc72cc63b"
                 }
               ],
-              "body": "[\n  {\n    \"context_data\": {\n      \"key_0\": {}\n    },\n    \"context_data_schema\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    },\n    \"dashboard_id\": 7194,\n    \"id\": 9555,\n    \"name\": \"string\",\n    \"order\": \"string\",\n    \"sample_data\": {},\n    \"schema\": {\n      \"key_0\": {}\n    },\n    \"type\": \"string\",\n    \"integration_id\": 2994,\n    \"table_id\": 691,\n    \"view_id\": 9321,\n    \"filter_type\": \"OR\",\n    \"search_query\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    },\n    \"row_id\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    }\n  },\n  {\n    \"context_data\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"context_data_schema\": {\n      \"key_0\": {}\n    },\n    \"dashboard_id\": 1422,\n    \"id\": 5094,\n    \"name\": \"string\",\n    \"order\": \"string\",\n    \"sample_data\": {},\n    \"schema\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    \"type\": \"string\",\n    \"integration_id\": 6599,\n    \"table_id\": 9989,\n    \"view_id\": 4064,\n    \"filter_type\": \"OR\",\n    \"search_query\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    },\n    \"row_id\": {\n      \"formula\": \"\",\n      \"version\": \"0.1\",\n      \"mode\": \"simple\"\n    }\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "47f9b972-0636-4785-90fa-56ac7fbc678a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "data-sources",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the data sources of the dashboard related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5a0c8f67-9868-4f34-9997-85dd8dfbfb9b",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    ":dashboard_id",
-                    "data-sources",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "dashboard_id",
-                      "description": "(Required) Returns only the data sources of the dashboard related to the provided Id."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "56d7d141-349f-4e75-9218-2711cda63a9b",
-          "name": "update dashboard data source",
-          "request": {
-            "name": "update dashboard data source",
-            "description": {
-              "content": "Updates an existing dashboard data source.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                "data-sources",
-                ":data_source_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "data_source_id",
-                  "description": "(Required) The id of the dashboard data source."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                "key": "ClientUndoRedoActionGroupId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "integration_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "table_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "view_id",
-                  "value": "<integer>"
-                },
-                {
-                  "disabled": false,
-                  "key": "filter_type",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "formula",
-                  "value": ""
-                },
-                {
-                  "disabled": false,
-                  "key": "version",
-                  "value": "0.1"
-                },
-                {
-                  "disabled": false,
-                  "key": "mode",
-                  "value": "simple"
-                },
-                {
-                  "disabled": false,
-                  "key": "formula",
-                  "value": ""
-                },
-                {
-                  "disabled": false,
-                  "key": "version",
-                  "value": "0.1"
-                },
-                {
-                  "disabled": false,
-                  "key": "mode",
-                  "value": "simple"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "193ad9f4-351b-48a4-9dc9-01b91b3c7fb6",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the dashboard data source."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "integration_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "table_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "view_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "filter_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"context_data\": {\n    \"key_0\": {}\n  },\n  \"context_data_schema\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {},\n    \"key_3\": {}\n  },\n  \"dashboard_id\": 4032,\n  \"id\": 5582,\n  \"name\": \"string\",\n  \"order\": \"string\",\n  \"sample_data\": {},\n  \"schema\": {\n    \"key_0\": {}\n  },\n  \"type\": \"string\",\n  \"integration_id\": 9099,\n  \"table_id\": 1523,\n  \"view_id\": 4172,\n  \"filter_type\": \"<string>\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "1942387b-ceed-4aaf-b61e-8d3be49f3b30",
+              "createdAt": "2026-10-21T20:09:27.000Z",
+              "updatedAt": "2026-10-21T20:09:27.000Z",
+              "uid": "35240-1942387b-ceed-4aaf-b61e-8d3be49f3b30"
             },
             {
-              "id": "430dd27e-afc3-4d29-90f0-94c957df9486",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the dashboard data source."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "integration_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "table_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "view_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "filter_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
+              "name": "data-sources",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "{data_source_id}",
+                  "item": [
+                    {
+                      "name": "dispatch",
+                      "item": [
+                        {
+                          "name": "Dispatch dashboard data source",
+                          "id": "1fd08504-678a-4dbb-bfd4-8780ac472ce5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/dispatch/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "data-sources",
+                                ":data_source_id",
+                                "dispatch",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "85f9a20f-27a7-48cc-997e-1022e507dcc6",
+                                  "key": "data_source_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The id of the data source you want to call the dispatch for"
+                                }
+                              ]
+                            },
+                            "description": "Dispatches the service of the related data source and returns the result."
+                          },
+                          "response": [
+                            {
+                              "id": "00f67923-8454-46b4-b4fd-d6fefdf665db",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/dispatch/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "dashboard",
+                                    "data-sources",
+                                    ":data_source_id",
+                                    "dispatch",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "data_source_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_IMPROPERLY_CONFIGURED\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:09:27.000Z",
+                              "updatedAt": "2026-10-21T20:09:27.000Z",
+                              "uid": "35240-00f67923-8454-46b4-b4fd-d6fefdf665db"
+                            },
+                            {
+                              "id": "d2861907-e962-485d-a9ed-02741d0e3282",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/dispatch/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "dashboard",
+                                    "data-sources",
+                                    ":data_source_id",
+                                    "dispatch",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "data_source_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:09:27.000Z",
+                              "updatedAt": "2026-10-21T20:09:27.000Z",
+                              "uid": "35240-d2861907-e962-485d-a9ed-02741d0e3282"
+                            },
+                            {
+                              "id": "05254242-ea88-47c3-a7c6-27a34a013677",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/dispatch/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "dashboard",
+                                    "data-sources",
+                                    ":data_source_id",
+                                    "dispatch",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "data_source_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:09:27.000Z",
+                              "updatedAt": "2026-10-21T20:09:27.000Z",
+                              "uid": "35240-05254242-ea88-47c3-a7c6-27a34a013677"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-1fd08504-678a-4dbb-bfd4-8780ac472ce5"
+                        }
+                      ],
+                      "id": "fe0166cb-b768-4bb7-abe0-9dac1e7ed1ac",
+                      "createdAt": "2026-10-21T20:09:27.000Z",
+                      "updatedAt": "2026-10-21T20:09:27.000Z",
+                      "uid": "35240-fe0166cb-b768-4bb7-abe0-9dac1e7ed1ac"
+                    },
+                    {
+                      "name": "Update dashboard data source",
+                      "id": "5117dc47-5333-43c1-afea-fc011886e20f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                            "key": "ClientUndoRedoActionGroupId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"integration_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"AND\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "dashboard",
+                            "data-sources",
+                            ":data_source_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "ffd21659-63b5-4da4-b687-0a99bd9d940f",
+                              "key": "data_source_id",
+                              "value": "<integer>",
+                              "description": "(Required) The id of the dashboard data source."
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing dashboard data source."
+                      },
+                      "response": [
+                        {
+                          "id": "47b28f0a-1a78-4417-b7a1-87ec66564d3f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"integration_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"AND\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "data-sources",
+                                ":data_source_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "data_source_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"context_data\": {\n    \"magnaeaf\": {},\n    \"eu_9f_\": {}\n  },\n  \"context_data_schema\": {\n    \"sitd\": {},\n    \"magna_c\": {}\n  },\n  \"dashboard_id\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"order\": \"<string>\",\n  \"sample_data\": {\n    \"readOnly\": true,\n    \"description\": \"Store the sample data used for generating a schema.\"\n  },\n  \"schema\": {\n    \"in_a_\": {},\n    \"fugiat89\": {}\n  },\n  \"type\": \"<string>\",\n  \"integration_id\": \"<integer,null>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"OR\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-47b28f0a-1a78-4417-b7a1-87ec66564d3f"
+                        },
+                        {
+                          "id": "22d0643f-eb9b-468d-a2c9-f62ff5f1331f",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"integration_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"AND\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "data-sources",
+                                ":data_source_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "data_source_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-22d0643f-eb9b-468d-a2c9-f62ff5f1331f"
+                        },
+                        {
+                          "id": "e932c3f1-19df-4229-a1c0-673228ea9b43",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"integration_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"AND\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "data-sources",
+                                ":data_source_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "data_source_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-e932c3f1-19df-4229-a1c0-673228ea9b43"
+                        },
+                        {
+                          "id": "dd62363d-e107-4118-a7b8-f26afb4c1c38",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
+                                "key": "ClientUndoRedoActionGroupId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"integration_id\": \"<integer,null>\",\n  \"name\": \"<string>\",\n  \"table_id\": \"<integer,null>\",\n  \"view_id\": \"<integer,null>\",\n  \"filter_type\": \"AND\",\n  \"search_query\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  },\n  \"row_id\": {\n    \"formula\": \"\",\n    \"version\": \"0.1\",\n    \"mode\": \"simple\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/dashboard/data-sources/:data_source_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "dashboard",
+                                "data-sources",
+                                ":data_source_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "data_source_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:09:27.000Z",
+                          "updatedAt": "2026-10-21T20:09:27.000Z",
+                          "uid": "35240-dd62363d-e107-4118-a7b8-f26afb4c1c38"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:09:27.000Z",
+                      "updatedAt": "2026-10-21T20:09:27.000Z",
+                      "uid": "35240-5117dc47-5333-43c1-afea-fc011886e20f"
+                    }
+                  ],
+                  "id": "c00958c5-1186-48af-8f01-c6cbf6c21e43",
+                  "createdAt": "2026-10-21T20:09:27.000Z",
+                  "updatedAt": "2026-10-21T20:09:27.000Z",
+                  "uid": "35240-c00958c5-1186-48af-8f01-c6cbf6c21e43"
                 }
               ],
-              "body": "{\n  \"error\": \"ERROR_REQUEST_BODY_VALIDATION\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "ebfa88e4-cd01-41b3-892c-d72b20789a49",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the dashboard data source."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "integration_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "table_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "view_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "filter_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    }
-                  ]
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "881a2351-8bcc-499c-8bfb-a9d67610e3ec",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the dashboard data source."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular action group.Then calling the undo/redo endpoint with the same ClientSessionId header, all the actions belonging to the same action group can be undone/redone together in a single API call.",
-                    "key": "ClientUndoRedoActionGroupId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "key": "integration_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "table_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "view_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "filter_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "formula",
-                      "value": ""
-                    },
-                    {
-                      "disabled": false,
-                      "key": "version",
-                      "value": "0.1"
-                    },
-                    {
-                      "disabled": false,
-                      "key": "mode",
-                      "value": "simple"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "974978da-5d97-4c3b-81c8-0dbfe5b69cdb",
-          "name": "dispatch dashboard data source",
-          "request": {
-            "name": "dispatch dashboard data source",
-            "description": {
-              "content": "Dispatches the service of the related data source and returns the result.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "dashboard",
-                "data-sources",
-                ":data_source_id",
-                "dispatch",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "data_source_id",
-                  "description": "(Required) The id of the data source you want to call the dispatch for"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "89f4e4be-49d4-4819-a2a3-29a848641be0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    "dispatch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the data source you want to call the dispatch for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_IMPROPERLY_CONFIGURED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "52e28b99-8533-42dc-acbc-c6683b75bc8c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    "dispatch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the data source you want to call the dispatch for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_PERMISSION_DENIED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c19b7933-785d-461c-8f90-d64f47d90c35",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "dashboard",
-                    "data-sources",
-                    ":data_source_id",
-                    "dispatch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "data_source_id",
-                      "description": "(Required) The id of the data source you want to call the dispatch for"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DASHBOARD_DATA_SOURCE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "565ed406-e10d-41de-8643-fa5ffff572fb",
+              "createdAt": "2026-10-21T20:09:27.000Z",
+              "updatedAt": "2026-10-21T20:09:27.000Z",
+              "uid": "35240-565ed406-e10d-41de-8643-fa5ffff572fb"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "a8febb25-b71c-473e-95db-2c1e3058f33e",
+          "createdAt": "2026-10-21T20:09:27.000Z",
+          "updatedAt": "2026-10-21T20:09:27.000Z",
+          "uid": "35240-a8febb25-b71c-473e-95db-2c1e3058f33e"
         }
       ],
-      "event": []
+      "id": "935074af-45c1-4cb1-8e13-494b4b1e847d",
+      "createdAt": "2026-10-21T20:09:27.000Z",
+      "updatedAt": "2026-10-21T20:09:27.000Z",
+      "uid": "35240-935074af-45c1-4cb1-8e13-494b4b1e847d"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "2ba8f90b-47b1-4ef3-b984-2ddceaf25299",
-    "name": "Baserow API spec Admin Dashboard data sources API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

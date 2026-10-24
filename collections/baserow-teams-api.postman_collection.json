@@ -1,2253 +1,2042 @@
 {
+  "info": {
+    "_postman_id": "20d1c8ec-b813-454a-bcf7-09dd140783b6",
+    "name": "Baserow API spec Teams API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:30.000Z",
+    "updatedAt": "2026-10-21T20:11:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-20d1c8ec-b813-454a-bcf7-09dd140783b6"
+  },
   "item": [
     {
-      "id": "6f7bb1a6-2e9d-409a-b10a-6b4d5f24d30f",
-      "name": "Teams",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "bf67d70a-3c41-44e5-af10-18106c9468d2",
-          "name": "get team",
-          "request": {
-            "name": "get team",
-            "description": {
-              "content": "Returns the information related to the provided team id.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "team_id",
-                  "description": "(Required) Returns the team related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "teams",
+          "item": [
             {
-              "id": "fb6ef071-2e82-49ed-bb0f-fb1111382264",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "{team_id}",
+              "item": [
+                {
+                  "name": "subjects",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) Returns the team related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "name": "{subject_id}",
+                      "item": [
+                        {
+                          "name": "Get subject",
+                          "id": "2e7f5f67-b5d7-4375-96c1-b4c3dda4135b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ":subject_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "b630ecaa-1957-4fc1-93c1-034ca9017f30",
+                                  "key": "team_id",
+                                  "value": "208813219",
+                                  "description": "(Required) "
+                                },
+                                {
+                                  "id": "ba07da18-d2a9-4663-bf28-15e0b37c5c46",
+                                  "key": "subject_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Returns the subject related to the provided value."
+                                }
+                              ]
+                            },
+                            "description": "Returns the information related to the provided subject id"
+                          },
+                          "response": [
+                            {
+                              "id": "84fd4022-f715-436a-8c52-9c17f23961ff",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "teams",
+                                    ":team_id",
+                                    "subjects",
+                                    ":subject_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "team_id"
+                                    },
+                                    {
+                                      "key": "subject_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"id\": \"<integer>\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"<string>\",\n  \"team\": \"<integer>\"\n}",
+                              "createdAt": "2026-10-21T20:11:31.000Z",
+                              "updatedAt": "2026-10-21T20:11:31.000Z",
+                              "uid": "35240-84fd4022-f715-436a-8c52-9c17f23961ff"
+                            },
+                            {
+                              "id": "57f018cc-182e-44c0-992f-0abbe8d96dad",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "teams",
+                                    ":team_id",
+                                    "subjects",
+                                    ":subject_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "team_id"
+                                    },
+                                    {
+                                      "key": "subject_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:31.000Z",
+                              "updatedAt": "2026-10-21T20:11:31.000Z",
+                              "uid": "35240-57f018cc-182e-44c0-992f-0abbe8d96dad"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-2e7f5f67-b5d7-4375-96c1-b4c3dda4135b"
+                        },
+                        {
+                          "name": "Delete subject",
+                          "id": "b91506ae-b969-4c12-abb5-3065c177a65c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ":subject_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0d4e7496-6142-4065-9205-519cddece9a0",
+                                  "key": "team_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The team id which the subject will be removed from."
+                                },
+                                {
+                                  "id": "831c4b65-8153-4542-b1bb-295e210856bc",
+                                  "key": "subject_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) The subject id to remove from the team."
+                                }
+                              ]
+                            },
+                            "description": "Deletes a subject if the authorized user is in the team's workspace."
+                          },
+                          "response": [
+                            {
+                              "id": "9435a6fd-d324-4fc2-a2d0-75da2102a450",
+                              "name": "No response body",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "teams",
+                                    ":team_id",
+                                    "subjects",
+                                    ":subject_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "team_id"
+                                    },
+                                    {
+                                      "key": "subject_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-10-21T20:11:31.000Z",
+                              "updatedAt": "2026-10-21T20:11:31.000Z",
+                              "uid": "35240-9435a6fd-d324-4fc2-a2d0-75da2102a450"
+                            },
+                            {
+                              "id": "85833d8d-146f-4a27-b329-065ee052702a",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "teams",
+                                    ":team_id",
+                                    "subjects",
+                                    ":subject_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "team_id"
+                                    },
+                                    {
+                                      "key": "subject_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Bad Request",
+                              "code": 400,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_CANNOT_DELETE_ALREADY_DELETED_ITEM\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:31.000Z",
+                              "updatedAt": "2026-10-21T20:11:31.000Z",
+                              "uid": "35240-85833d8d-146f-4a27-b329-065ee052702a"
+                            },
+                            {
+                              "id": "d2a4a347-962c-4acd-bb7f-5f04b78989fb",
+                              "name": "New Response",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                    "key": "ClientSessionId",
+                                    "value": "<uuid>"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/teams/:team_id/subjects/:subject_id/",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "teams",
+                                    ":team_id",
+                                    "subjects",
+                                    ":subject_id",
+                                    ""
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "team_id"
+                                    },
+                                    {
+                                      "key": "subject_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                              "createdAt": "2026-10-21T20:11:31.000Z",
+                              "updatedAt": "2026-10-21T20:11:31.000Z",
+                              "uid": "35240-d2a4a347-962c-4acd-bb7f-5f04b78989fb"
+                            }
+                          ],
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-b91506ae-b969-4c12-abb5-3065c177a65c"
+                        }
+                      ],
+                      "id": "681e5be6-7713-4392-ae41-b88586c96bbf",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-681e5be6-7713-4392-ae41-b88586c96bbf"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"1964-05-15T14:26:05.330Z\",\n  \"id\": 6604,\n  \"name\": \"string\",\n  \"subject_count\": 6260,\n  \"updated_on\": \"1957-05-11T11:11:22.176Z\",\n  \"workspace\": 698,\n  \"default_role\": \"string\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": 1471,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": 9425\n    },\n    {\n      \"subject_id\": 1128,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": 8064\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0b639720-e65a-46fd-bf7d-0850e056bf46",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) Returns the team related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "a01ae1ec-872b-48d6-9677-4327b811841b",
-          "name": "update team",
-          "request": {
-            "name": "update team",
-            "description": {
-              "content": "Updates an existing team with a new name.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "team_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "(Required) A human friendly name for this team."
-                },
-                {
-                  "disabled": false,
-                  "key": "default_role",
-                  "value": "<string>",
-                  "description": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "de91b4f1-3b45-4150-84f1-ee8936b6099c",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
+                      "name": "List team subjects",
+                      "id": "f5f7c766-461e-4505-a120-9453ed642a8c",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
                       },
-                      "key": "name",
-                      "value": "<string>"
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            "subjects",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "591ea8ed-fb82-4510-89e9-2a9de6fdcce4",
+                              "key": "team_id",
+                              "value": "208813219",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Lists all team subjects in a given team."
+                      },
+                      "response": [
+                        {
+                          "id": "e59727e5-8ec1-46f2-8f55-dc16cd6a0945",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "team_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"<string>\",\n    \"team\": \"<integer>\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"<string>\",\n    \"team\": \"<integer>\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-e59727e5-8ec1-46f2-8f55-dc16cd6a0945"
+                        },
+                        {
+                          "id": "3f5ccdd5-d468-4cba-89bb-9eba5b66a45e",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "team_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-3f5ccdd5-d468-4cba-89bb-9eba5b66a45e"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-f5f7c766-461e-4505-a120-9453ed642a8c"
                     },
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
+                      "name": "Create subject",
+                      "id": "9ef7a3d6-958c-49a3-81ed-fd5502f9496b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
                       },
-                      "key": "default_role",
-                      "value": "<string>"
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"id\": \"<integer>\",\n  \"subject_type\": \"auth.User\",\n  \"subject_id\": \"<integer>\",\n  \"subject_user_email\": \"<email>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            "subjects",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "57a9c2bc-6529-47c6-9705-ca7decad5f6e",
+                              "key": "team_id",
+                              "value": "208813219",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Creates a new team subject."
+                      },
+                      "response": [
+                        {
+                          "id": "fee048ff-e5eb-480c-a822-5f6d7b735c4e",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<integer>\",\n  \"subject_type\": \"auth.User\",\n  \"subject_id\": \"<integer>\",\n  \"subject_user_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "team_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<integer>\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"<string>\",\n  \"team\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-fee048ff-e5eb-480c-a822-5f6d7b735c4e"
+                        },
+                        {
+                          "id": "1a66a1e3-0311-4f7e-96cb-add8f1d3fb6a",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<integer>\",\n  \"subject_type\": \"auth.User\",\n  \"subject_id\": \"<integer>\",\n  \"subject_user_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "team_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_SUBJECT_BAD_REQUEST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-1a66a1e3-0311-4f7e-96cb-add8f1d3fb6a"
+                        },
+                        {
+                          "id": "e6cd54e1-bde8-4c95-b6f8-aac82212460d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"id\": \"<integer>\",\n  \"subject_type\": \"auth.User\",\n  \"subject_id\": \"<integer>\",\n  \"subject_user_email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/:team_id/subjects/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                ":team_id",
+                                "subjects",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "team_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-e6cd54e1-bde8-4c95-b6f8-aac82212460d"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-9ef7a3d6-958c-49a3-81ed-fd5502f9496b"
                     }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+                  ],
+                  "id": "6deadb3d-8bd0-4c57-8e53-6d53c0fab63e",
+                  "createdAt": "2026-10-21T20:11:31.000Z",
+                  "updatedAt": "2026-10-21T20:11:31.000Z",
+                  "uid": "35240-6deadb3d-8bd0-4c57-8e53-6d53c0fab63e"
+                },
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Get team",
+                  "id": "fb4e711a-2064-4547-896a-10ddbbe7f7cc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/teams/:team_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "teams",
+                        ":team_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "405e75bb-8e50-4581-b52b-bc4fc530e2ae",
+                          "key": "team_id",
+                          "value": "<integer>",
+                          "description": "(Required) Returns the team related to the provided value."
+                        }
+                      ]
+                    },
+                    "description": "Returns the information related to the provided team id."
+                  },
+                  "response": [
+                    {
+                      "id": "dc32204a-32cc-46f5-8f97-46d7ef19a37f",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject_count\": \"<integer>\",\n  \"updated_on\": \"<dateTime>\",\n  \"workspace\": \"<integer>\",\n  \"default_role\": \"<string>\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    },\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-dc32204a-32cc-46f5-8f97-46d7ef19a37f"
+                    },
+                    {
+                      "id": "559c8af0-3188-4882-8c54-790ea5c7636e",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-559c8af0-3188-4882-8c54-790ea5c7636e"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:31.000Z",
+                  "updatedAt": "2026-10-21T20:11:31.000Z",
+                  "uid": "35240-fb4e711a-2064-4547-896a-10ddbbe7f7cc"
+                },
+                {
+                  "name": "Update team",
+                  "id": "7d4dc308-d2b6-425b-9ef4-b772af14fd21",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                        "key": "ClientSessionId",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/teams/:team_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "teams",
+                        ":team_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "64ea189b-6585-4e7b-91f3-9d09a3d6c8f7",
+                          "key": "team_id",
+                          "value": "208813219",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Updates an existing team with a new name."
+                  },
+                  "response": [
+                    {
+                      "id": "39036127-f60e-4c15-be00-07e808b46eb3",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject_count\": \"<integer>\",\n  \"updated_on\": \"<dateTime>\",\n  \"workspace\": \"<integer>\",\n  \"default_role\": \"<string>\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    },\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-39036127-f60e-4c15-be00-07e808b46eb3"
+                    },
+                    {
+                      "id": "bf9514df-696e-49d5-915b-af0bfa158e0b",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_SUBJECT_BAD_REQUEST\\\"\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-bf9514df-696e-49d5-915b-af0bfa158e0b"
+                    },
+                    {
+                      "id": "951e99d9-4d66-48c3-acae-c31f84151c02",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-951e99d9-4d66-48c3-acae-c31f84151c02"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:31.000Z",
+                  "updatedAt": "2026-10-21T20:11:31.000Z",
+                  "uid": "35240-7d4dc308-d2b6-425b-9ef4-b772af14fd21"
+                },
+                {
+                  "name": "Delete team",
+                  "id": "41831068-235c-450d-a711-bfd821128da0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                        "key": "ClientSessionId",
+                        "value": "<uuid>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/teams/:team_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "teams",
+                        ":team_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "daed526a-3252-458e-b46a-76767386e62c",
+                          "key": "team_id",
+                          "value": "<integer>",
+                          "description": "(Required) Deletes the team related to the provided value."
+                        }
+                      ]
+                    },
+                    "description": "Deletes a team if the authorized user is in the team's workspace. All the related children (e.g. subjects) are also going to be deleted."
+                  },
+                  "response": [
+                    {
+                      "id": "17872a19-7ad3-4322-aa1d-8043244d4112",
+                      "name": "No response body",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-17872a19-7ad3-4322-aa1d-8043244d4112"
+                    },
+                    {
+                      "id": "0b2e3be7-325e-4ae3-9148-2913adbb89d8",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_CANNOT_DELETE_ALREADY_DELETED_ITEM\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-0b2e3be7-325e-4ae3-9148-2913adbb89d8"
+                    },
+                    {
+                      "id": "b3bc340c-d675-40f5-b5b3-58847b21c415",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/:team_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            ":team_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "team_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-b3bc340c-d675-40f5-b5b3-58847b21c415"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:31.000Z",
+                  "updatedAt": "2026-10-21T20:11:31.000Z",
+                  "uid": "35240-41831068-235c-450d-a711-bfd821128da0"
                 }
               ],
-              "body": "{\n  \"created_on\": \"2021-08-10T11:34:28.605Z\",\n  \"id\": 64,\n  \"name\": \"string\",\n  \"subject_count\": 6432,\n  \"updated_on\": \"1978-09-26T21:51:16.240Z\",\n  \"workspace\": 1976,\n  \"default_role\": \"string\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": 4363,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"<string>\",\n      \"team_subject_id\": 8005\n    },\n    {\n      \"subject_id\": 5717,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"<string>\",\n      \"team_subject_id\": 4040\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "b8c6308a-fa72-4c00-9b90-9a6c01cfbc5d",
+              "createdAt": "2026-10-21T20:11:31.000Z",
+              "updatedAt": "2026-10-21T20:11:31.000Z",
+              "uid": "35240-b8c6308a-fa72-4c00-9b90-9a6c01cfbc5d"
             },
             {
-              "id": "7a909179-64d8-442d-bb4c-c291f93a06d8",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+              "name": "workspace",
+              "item": [
+                {
+                  "name": "{workspace_id}",
+                  "item": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
+                      "name": "Workspace list teams",
+                      "id": "19885a4a-3455-46b5-a4c3-23bdf9f092fa",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
                       },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/?search=<string>&sorts=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            "workspace",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "Search for teams by their name.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort teams by name or subjects.",
+                              "key": "sorts",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "23f41c90-9fb6-4678-9294-37574827aac8",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) Lists all teams in a given workspace."
+                            }
+                          ]
+                        },
+                        "description": "Lists all teams in a given workspace."
                       },
-                      "key": "default_role",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8a6636a6-d098-4ab4-8c07-cd813664d149",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                      "response": [
+                        {
+                          "id": "cf21d069-210a-4211-8b84-fd2df22d6cf5",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/?search=<string>&sorts=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Search for teams by their name.",
+                                  "key": "search",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Sort teams by name or subjects.",
+                                  "key": "sorts",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"subject_count\": \"<integer>\",\n    \"updated_on\": \"<dateTime>\",\n    \"workspace\": \"<integer>\",\n    \"default_role\": \"<string>\",\n    \"subject_sample\": [\n      {\n        \"subject_id\": \"<integer>\",\n        \"subject_label\": \"<string>\",\n        \"subject_type\": \"auth.User\",\n        \"team_subject_id\": \"<integer>\"\n      },\n      {\n        \"subject_id\": \"<integer>\",\n        \"subject_label\": \"<string>\",\n        \"subject_type\": \"auth.User\",\n        \"team_subject_id\": \"<integer>\"\n      }\n    ]\n  },\n  {\n    \"created_on\": \"<dateTime>\",\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"subject_count\": \"<integer>\",\n    \"updated_on\": \"<dateTime>\",\n    \"workspace\": \"<integer>\",\n    \"default_role\": \"<string>\",\n    \"subject_sample\": [\n      {\n        \"subject_id\": \"<integer>\",\n        \"subject_label\": \"<string>\",\n        \"subject_type\": \"auth.User\",\n        \"team_subject_id\": \"<integer>\"\n      },\n      {\n        \"subject_id\": \"<integer>\",\n        \"subject_label\": \"<string>\",\n        \"subject_type\": \"auth.User\",\n        \"team_subject_id\": \"<integer>\"\n      }\n    ]\n  }\n]",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-cf21d069-210a-4211-8b84-fd2df22d6cf5"
+                        },
+                        {
+                          "id": "4e5d93b7-2924-4036-a9c2-4fe296f41b44",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/?search=<string>&sorts=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "query": [
+                                {
+                                  "description": "Search for teams by their name.",
+                                  "key": "search",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Sort teams by name or subjects.",
+                                  "key": "sorts",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-4e5d93b7-2924-4036-a9c2-4fe296f41b44"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-19885a4a-3455-46b5-a4c3-23bdf9f092fa"
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
+                      "name": "Workspace create team",
+                      "id": "a54ae23e-3da5-4049-8481-d89e02edc07b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
                       },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                            "key": "ClientSessionId",
+                            "value": "<uuid>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "teams",
+                            "workspace",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "778e0a73-53d8-44dd-8b9d-613d401b7c3b",
+                              "key": "workspace_id",
+                              "value": "208813219",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Creates a new team."
                       },
-                      "key": "default_role",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_ROLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "000adb2e-6e3e-4135-8348-a747a6b039ef",
-          "name": "delete team",
-          "request": {
-            "name": "delete team",
-            "description": {
-              "content": "Deletes a team if the authorized user is in the team's workspace. All the related children (e.g. subjects) are also going to be deleted.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "team_id",
-                  "description": "(Required) Deletes the team related to the provided value."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "46f40ede-e487-4954-aeb9-f7ec33e02c74",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) Deletes the team related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "56b0a406-42ca-489a-9776-0b9f49dcc216",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) Deletes the team related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9663c1f6-d2b9-43d5-9342-e45f4d9b05de",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) Deletes the team related to the provided value."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "df849e06-d544-49ad-b08d-0e58f111882e",
-          "name": "list team subjects",
-          "request": {
-            "name": "list team subjects",
-            "description": {
-              "content": "Lists all team subjects in a given team.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                "subjects",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "team_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5f720c57-f754-4ec0-8dde-630c761c2f0b",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 4432,\n    \"subject_id\": -1986443731,\n    \"subject_type\": \"string\",\n    \"team\": 4150\n  },\n  {\n    \"id\": 6109,\n    \"subject_id\": 277111324,\n    \"subject_type\": \"string\",\n    \"team\": 8159\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "355c97ae-c0e5-4c1e-bd66-ff660936ab27",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_TEAM_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c697fed7-9143-40cb-aca9-edbfad9bb118",
-          "name": "create subject",
-          "request": {
-            "name": "create subject",
-            "description": {
-              "content": "Creates a new team subject.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                "subjects",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "team_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "subject_type",
-                  "value": "<string>",
-                  "description": "(Required) The type of subject that is being invited.\n\n* `auth.User` - auth.User"
-                },
-                {
-                  "disabled": false,
-                  "key": "subject_id",
-                  "value": "<integer>",
-                  "description": "The subject's unique identifier."
-                },
-                {
-                  "disabled": false,
-                  "key": "subject_user_email",
-                  "value": "<email>",
-                  "description": "The user subject's email address."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "a31f8b22-1cbf-485b-a0a4-ad01ddec471a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The type of subject that is being invited.\n\n* `auth.User` - auth.User",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The subject's unique identifier.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The user subject's email address.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_user_email",
-                      "value": "<email>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": 8730,\n  \"subject_id\": 1512112751,\n  \"subject_type\": \"string\",\n  \"team\": 4881\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "4749dd5f-40f9-4e6f-be82-a184db111c63",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The type of subject that is being invited.\n\n* `auth.User` - auth.User",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The subject's unique identifier.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The user subject's email address.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_user_email",
-                      "value": "<email>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SUBJECT_BAD_REQUEST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7a994981-6c6a-4230-97a2-e4b15c128c0f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The type of subject that is being invited.\n\n* `auth.User` - auth.User",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The subject's unique identifier.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The user subject's email address.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_user_email",
-                      "value": "<email>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "ff9c3634-6867-433d-b3df-641eac10eab6",
-          "name": "get subject",
-          "request": {
-            "name": "get subject",
-            "description": {
-              "content": "Returns the information related to the provided subject id",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                "subjects",
-                ":subject_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "subject_id",
-                  "description": "(Required) Returns the subject related to the provided value."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "team_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "0bbd8b67-7d47-4689-95f7-2f1c64d07dfe",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ":subject_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "subject_id",
-                      "description": "(Required) Returns the subject related to the provided value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": 8730,\n  \"subject_id\": 1512112751,\n  \"subject_type\": \"string\",\n  \"team\": 4881\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "627ffab5-1242-41de-bcc6-1caf2f83ee35",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ":subject_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "subject_id",
-                      "description": "(Required) Returns the subject related to the provided value."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "team_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "9c0a6849-d52a-4bdc-9209-b2ddadb6fc5d",
-          "name": "delete subject",
-          "request": {
-            "name": "delete subject",
-            "description": {
-              "content": "Deletes a subject if the authorized user is in the team's workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                ":team_id",
-                "subjects",
-                ":subject_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "subject_id",
-                  "description": "(Required) The subject id to remove from the team."
-                },
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "team_id",
-                  "description": "(Required) The team id which the subject will be removed from."
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "b5f84e84-2b72-4c38-a81c-dba819f6c323",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ":subject_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "subject_id",
-                      "description": "(Required) The subject id to remove from the team."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) The team id which the subject will be removed from."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "65c1ded9-2bab-406a-ae82-519da3c2fa1f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ":subject_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "subject_id",
-                      "description": "(Required) The subject id to remove from the team."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) The team id which the subject will be removed from."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_CANNOT_DELETE_ALREADY_DELETED_ITEM\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6a51331e-8265-431b-88ef-b1d371dcab28",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    ":team_id",
-                    "subjects",
-                    ":subject_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "subject_id",
-                      "description": "(Required) The subject id to remove from the team."
-                    },
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "team_id",
-                      "description": "(Required) The team id which the subject will be removed from."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SUBJECT_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "691a94c4-a9d7-4498-82f3-6c60dfee7c7b",
-          "name": "workspace list teams",
-          "request": {
-            "name": "workspace list teams",
-            "description": {
-              "content": "Lists all teams in a given workspace.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "search",
-                  "value": "<string>",
-                  "description": "Search for teams by their name."
-                },
-                {
-                  "disabled": false,
-                  "key": "sorts",
-                  "value": "<string>",
-                  "description": "Sort teams by name or subjects."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) Lists all teams in a given workspace."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "eb669251-ab3d-4ee1-89e4-35ae6d780683",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorts",
-                      "value": "<string>"
+                      "response": [
+                        {
+                          "id": "ac5cac5e-337d-41f5-8261-7c7d47bfd2ff",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"created_on\": \"<dateTime>\",\n  \"id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"subject_count\": \"<integer>\",\n  \"updated_on\": \"<dateTime>\",\n  \"workspace\": \"<integer>\",\n  \"default_role\": \"<string>\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    },\n    {\n      \"subject_id\": \"<integer>\",\n      \"subject_label\": \"<string>\",\n      \"subject_type\": \"auth.User\",\n      \"team_subject_id\": \"<integer>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-ac5cac5e-337d-41f5-8261-7c7d47bfd2ff"
+                        },
+                        {
+                          "id": "a493851f-a8c9-4ae2-af47-6fc9b2ad677d",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_SUBJECT_BAD_REQUEST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-a493851f-a8c9-4ae2-af47-6fc9b2ad677d"
+                        },
+                        {
+                          "id": "4660433d-5413-45fa-a7cb-3e2baa62e6ad",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
+                                "key": "ClientSessionId",
+                                "value": "<uuid>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"default_role\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/teams/workspace/:workspace_id/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "teams",
+                                "workspace",
+                                ":workspace_id",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:31.000Z",
+                          "updatedAt": "2026-10-21T20:11:31.000Z",
+                          "uid": "35240-4660433d-5413-45fa-a7cb-3e2baa62e6ad"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:31.000Z",
+                      "updatedAt": "2026-10-21T20:11:31.000Z",
+                      "uid": "35240-a54ae23e-3da5-4049-8481-d89e02edc07b"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Lists all teams in a given workspace."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "98d07c66-a3f1-4cb5-8b7c-a0ec84f7eab7",
+                  "createdAt": "2026-10-21T20:11:31.000Z",
+                  "updatedAt": "2026-10-21T20:11:31.000Z",
+                  "uid": "35240-98d07c66-a3f1-4cb5-8b7c-a0ec84f7eab7"
                 }
               ],
-              "body": "[\n  {\n    \"created_on\": \"1950-05-22T11:39:38.764Z\",\n    \"id\": 8201,\n    \"name\": \"string\",\n    \"subject_count\": 102,\n    \"updated_on\": \"1952-12-04T22:18:32.546Z\",\n    \"workspace\": 4422,\n    \"default_role\": \"string\",\n    \"subject_sample\": [\n      {\n        \"subject_id\": 8631,\n        \"subject_label\": \"string\",\n        \"subject_type\": \"<string>\",\n        \"team_subject_id\": 8142\n      },\n      {\n        \"subject_id\": 2064,\n        \"subject_label\": \"string\",\n        \"subject_type\": \"<string>\",\n        \"team_subject_id\": 2649\n      }\n    ]\n  },\n  {\n    \"created_on\": \"2001-02-24T10:10:52.719Z\",\n    \"id\": 7722,\n    \"name\": \"string\",\n    \"subject_count\": 9785,\n    \"updated_on\": \"2017-08-28T02:27:15.313Z\",\n    \"workspace\": 5419,\n    \"default_role\": \"string\",\n    \"subject_sample\": [\n      {\n        \"subject_id\": 476,\n        \"subject_label\": \"string\",\n        \"subject_type\": \"<string>\",\n        \"team_subject_id\": 7686\n      },\n      {\n        \"subject_id\": 9832,\n        \"subject_label\": \"string\",\n        \"subject_type\": \"<string>\",\n        \"team_subject_id\": 2302\n      }\n    ]\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0bf8ebde-489c-400e-ace6-3900a6771725",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "search",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "sorts",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) Lists all teams in a given workspace."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b0d53bba-069e-4e70-8146-c8f0eb8314a8",
-          "name": "workspace create team",
-          "request": {
-            "name": "workspace create team",
-            "description": {
-              "content": "Creates a new team.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "teams",
-                "workspace",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "workspace_id",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                "key": "ClientSessionId",
-                "value": "<uuid>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "name",
-                  "value": "<string>",
-                  "description": "(Required) A human friendly name for this team."
-                },
-                {
-                  "disabled": false,
-                  "key": "default_role",
-                  "value": "<string>",
-                  "description": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role."
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f07a9cd8-5d55-42c2-bcdc-aa612803507a",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "workspace_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "default_role",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"created_on\": \"2021-08-10T11:34:28.605Z\",\n  \"id\": 64,\n  \"name\": \"string\",\n  \"subject_count\": 6432,\n  \"updated_on\": \"1978-09-26T21:51:16.240Z\",\n  \"workspace\": 1976,\n  \"default_role\": \"string\",\n  \"subject_sample\": [\n    {\n      \"subject_id\": 4363,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"<string>\",\n      \"team_subject_id\": 8005\n    },\n    {\n      \"subject_id\": 5717,\n      \"subject_label\": \"string\",\n      \"subject_type\": \"<string>\",\n      \"team_subject_id\": 4040\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "331d0534-e255-4d9a-9bbd-2f224a9ba06e",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "workspace_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "default_role",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SUBJECT_TYPE_UNSUPPORTED\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e117f3e4-5e75-4f9b-a38d-4f2b019f0ea1",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "teams",
-                    "workspace",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "workspace_id",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "An optional header that marks the action performed by this request as having occurred in a particular client session. Then using the undo/redo endpoints with the same ClientSessionId header this action can be undone/redone.",
-                    "key": "ClientSessionId",
-                    "value": "<uuid>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) A human friendly name for this team.",
-                        "type": "text/plain"
-                      },
-                      "key": "name",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "The uid of the role you want to assign to the team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "default_role",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_GROUP_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "3f1012b4-01e8-491d-abc7-7ea92018206b",
+              "createdAt": "2026-10-21T20:11:31.000Z",
+              "updatedAt": "2026-10-21T20:11:31.000Z",
+              "uid": "35240-3f1012b4-01e8-491d-abc7-7ea92018206b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "bd1451bb-c9ef-4c5e-bf9b-dca27a8c5244",
+          "createdAt": "2026-10-21T20:11:31.000Z",
+          "updatedAt": "2026-10-21T20:11:31.000Z",
+          "uid": "35240-bd1451bb-c9ef-4c5e-bf9b-dca27a8c5244"
         }
       ],
-      "event": []
+      "id": "d33fbd42-3806-4d72-b068-639323317447",
+      "createdAt": "2026-10-21T20:11:31.000Z",
+      "updatedAt": "2026-10-21T20:11:31.000Z",
+      "uid": "35240-d33fbd42-3806-4d72-b068-639323317447"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "1ee30c63-c976-4ed2-b071-a327d71aa8bc",
-    "name": "Baserow API spec Admin Teams API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

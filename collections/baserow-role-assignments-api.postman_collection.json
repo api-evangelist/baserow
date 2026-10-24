@@ -1,1087 +1,881 @@
 {
+  "info": {
+    "_postman_id": "ce7fd39e-ff80-4eac-927c-738968c54c4f",
+    "name": "Baserow API spec Role assignments API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:14.000Z",
+    "updatedAt": "2026-10-21T20:11:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ce7fd39e-ff80-4eac-927c-738968c54c4f"
+  },
   "item": [
     {
-      "id": "dd0f1dcf-2c9c-417f-8981-eae7db5749d6",
-      "name": "Role assignments",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "abfef40e-39a9-477f-986a-b69e619d39d6",
-          "name": "list role assignments",
-          "request": {
-            "name": "list role assignments",
-            "description": {
-              "content": "You can list the role assignments within a workspace, optionally filtered downto a specific scope inside of that workspace. If the scope isn't specified,the workspace will be considered the scope.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "role",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "scope_id",
-                  "value": "<integer>",
-                  "description": "The id of the scope you are trying to get all roleassignments for."
-                },
-                {
-                  "disabled": false,
-                  "key": "scope_type",
-                  "value": "<string>",
-                  "description": "The type of scope you are trying to get all roleassignments for."
-                }
-              ],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace in which the role assignments are related to."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "role",
+          "item": [
             {
-              "id": "147bef14-d6dd-4a72-817b-6dd12dcc1375",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "{workspace_id}",
+              "item": [
+                {
+                  "name": "batch",
+                  "item": [
                     {
-                      "key": "scope_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "scope_type",
-                      "value": "<string>"
+                      "name": "Batch assign role",
+                      "id": "424a4c01-22cf-472f-a381-b381142f999b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"items\": [\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"builder_data_source\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"anonymous\"\n    },\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"automation\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"core.Token\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/batch/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            "batch",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "id": "9f452df9-6557-415a-bbb9-cc5c7321935e",
+                              "key": "workspace_id",
+                              "value": "<integer>",
+                              "description": "(Required) The workspace in which the role assignment takes place."
+                            }
+                          ]
+                        },
+                        "description": "You can assign a role to a multiple subjects into the given workspace for the given scopes with this endpoint. If you want to remove the role you can omit the role property."
+                      },
+                      "response": [
+                        {
+                          "id": "944a95c5-70ea-4778-a642-baf7df628fce",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"builder_data_source\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"anonymous\"\n    },\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"automation\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"core.Token\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/role/:workspace_id/batch/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "role",
+                                ":workspace_id",
+                                "batch",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"role\": \"<string>\",\n    \"scope_id\": \"<integer>\",\n    \"scope_type\": \"database_view_group\",\n    \"subject\": {\n      \"id\": \"<integer>\"\n    },\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"user_source.user\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"role\": \"<string>\",\n    \"scope_id\": \"<integer>\",\n    \"scope_type\": \"automation_workflow\",\n    \"subject\": {\n      \"id\": \"<integer>\"\n    },\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"auth.User\"\n  }\n]",
+                          "createdAt": "2026-10-21T20:11:15.000Z",
+                          "updatedAt": "2026-10-21T20:11:15.000Z",
+                          "uid": "35240-944a95c5-70ea-4778-a642-baf7df628fce"
+                        },
+                        {
+                          "id": "94fab19c-f836-4f44-b62a-f43438a1dae2",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"builder_data_source\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"anonymous\"\n    },\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"automation\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"core.Token\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/role/:workspace_id/batch/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "role",
+                                ":workspace_id",
+                                "batch",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:15.000Z",
+                          "updatedAt": "2026-10-21T20:11:15.000Z",
+                          "uid": "35240-94fab19c-f836-4f44-b62a-f43438a1dae2"
+                        },
+                        {
+                          "id": "139e916b-d1ab-4d47-9bad-a154f74a45c5",
+                          "name": "New Response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"items\": [\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"builder_data_source\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"anonymous\"\n    },\n    {\n      \"role\": \"<string,null>\",\n      \"scope_id\": \"<integer>\",\n      \"scope_type\": \"automation\",\n      \"subject_id\": \"<integer>\",\n      \"subject_type\": \"core.Token\"\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/role/:workspace_id/batch/",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "role",
+                                ":workspace_id",
+                                "batch",
+                                ""
+                              ],
+                              "variable": [
+                                {
+                                  "key": "workspace_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"ERROR_SUBJECT_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:11:15.000Z",
+                          "updatedAt": "2026-10-21T20:11:15.000Z",
+                          "uid": "35240-139e916b-d1ab-4d47-9bad-a154f74a45c5"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-424a4c01-22cf-472f-a381-b381142f999b"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignments are related to."
-                    }
-                  ]
+                  "id": "51020073-fdae-4785-b6d0-1c8bb214ee4c",
+                  "createdAt": "2026-10-21T20:11:15.000Z",
+                  "updatedAt": "2026-10-21T20:11:15.000Z",
+                  "uid": "35240-51020073-fdae-4785-b6d0-1c8bb214ee4c"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "List role assignments",
+                  "id": "12d62fc1-f75a-4cde-9e8e-e92adb406685",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 7758,\n    \"role\": \"string\",\n    \"scope_id\": 614509070,\n    \"scope_type\": \"application\",\n    \"subject\": {\n      \"id\": 429\n    },\n    \"subject_id\": -1952362653,\n    \"subject_type\": \"anonymous\"\n  },\n  {\n    \"id\": 7992,\n    \"role\": \"string\",\n    \"scope_id\": -109924590,\n    \"scope_type\": \"database_view_group\",\n    \"subject\": {\n      \"id\": 475\n    },\n    \"subject_id\": 1807598013,\n    \"subject_type\": \"baserow_enterprise.Team\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "dde36a60-087c-4258-b06c-c133285e342d",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "scope_id",
-                      "value": "<integer>"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    {
-                      "key": "scope_type",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignments are related to."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/role/:workspace_id/?scope_id=<integer>&scope_type=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "role",
+                        ":workspace_id",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "The id of the scope you are trying to get all roleassignments for.",
+                          "key": "scope_id",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "The type of scope you are trying to get all roleassignments for.",
+                          "key": "scope_type",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "99b7be8f-5c68-46d7-b3cf-25fc3294e80b",
+                          "key": "workspace_id",
+                          "value": "<integer>",
+                          "description": "(Required) The workspace in which the role assignments are related to."
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "description": "You can list the role assignments within a workspace, optionally filtered downto a specific scope inside of that workspace. If the scope isn't specified,the workspace will be considered the scope."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a2eed0c4-21ea-40d0-96e0-18bc0fd2dbb0",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+                  "response": [
                     {
-                      "key": "scope_id",
-                      "value": "<integer>"
+                      "id": "769afa7b-aa39-4b78-b10b-7434fe46e12a",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/?scope_id=<integer>&scope_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "The id of the scope you are trying to get all roleassignments for.",
+                              "key": "scope_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The type of scope you are trying to get all roleassignments for.",
+                              "key": "scope_type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<integer>\",\n    \"role\": \"<string>\",\n    \"scope_id\": \"<integer>\",\n    \"scope_type\": \"database_view_group\",\n    \"subject\": {\n      \"id\": \"<integer>\"\n    },\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"user_source.user\"\n  },\n  {\n    \"id\": \"<integer>\",\n    \"role\": \"<string>\",\n    \"scope_id\": \"<integer>\",\n    \"scope_type\": \"automation_workflow\",\n    \"subject\": {\n      \"id\": \"<integer>\"\n    },\n    \"subject_id\": \"<integer>\",\n    \"subject_type\": \"auth.User\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-769afa7b-aa39-4b78-b10b-7434fe46e12a"
                     },
                     {
-                      "key": "scope_type",
-                      "value": "<string>"
+                      "id": "f4f005d3-318d-4c46-818d-709b47ed627d",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/?scope_id=<integer>&scope_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "The id of the scope you are trying to get all roleassignments for.",
+                              "key": "scope_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The type of scope you are trying to get all roleassignments for.",
+                              "key": "scope_type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-f4f005d3-318d-4c46-818d-709b47ed627d"
+                    },
+                    {
+                      "id": "5745f839-ce5f-4c09-8059-eb4cf9d60e24",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/?scope_id=<integer>&scope_type=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "query": [
+                            {
+                              "description": "The id of the scope you are trying to get all roleassignments for.",
+                              "key": "scope_id",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "The type of scope you are trying to get all roleassignments for.",
+                              "key": "scope_type",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_SCOPE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-5745f839-ce5f-4c09-8059-eb4cf9d60e24"
                     }
                   ],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignments are related to."
-                    }
-                  ]
+                  "createdAt": "2026-10-21T20:11:15.000Z",
+                  "updatedAt": "2026-10-21T20:11:15.000Z",
+                  "uid": "35240-12d62fc1-f75a-4cde-9e8e-e92adb406685"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                {
+                  "name": "Assign role",
+                  "id": "0f69b599-dd65-431e-b86c-ac6b231432fb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_SCOPE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6454b797-5c23-45ea-9a4f-829ae4c59fac",
-          "name": "assign role",
-          "request": {
-            "name": "assign role",
-            "description": {
-              "content": "You can assign a role to a subject into the given workspace for the given scope with this endpoint. If you want to remove the role you can omit the role property.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "role",
-                ":workspace_id",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace in which the role assignment takes place."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "role",
-                  "value": "<string>",
-                  "description": "(Required) The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role."
-                },
-                {
-                  "disabled": false,
-                  "key": "scope_id",
-                  "value": "<integer>",
-                  "description": "(Required) The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants."
-                },
-                {
-                  "disabled": false,
-                  "key": "scope_type",
-                  "value": "<string>",
-                  "description": "(Required) The scope object type.\n\n* `core` - core\n* `application` - application\n* `workspace` - workspace\n* `workspace_invitation` - workspace_invitation\n* `snapshot` - snapshot\n* `workspace_user` - workspace_user\n* `integration` - integration\n* `user_source` - user_source\n* `mcp_endpoint` - mcp_endpoint\n* `database` - database\n* `database_table` - database_table\n* `database_field` - database_field\n* `database_view` - database_view\n* `database_view_decoration` - database_view_decoration\n* `database_view_sort` - database_view_sort\n* `database_view_group` - database_view_group\n* `database_view_filter` - database_view_filter\n* `database_view_filter_group` - database_view_filter_group\n* `token` - token\n* `builder` - builder\n* `builder_page` - builder_page\n* `builder_element` - builder_element\n* `builder_domain` - builder_domain\n* `builder_data_source` - builder_data_source\n* `builder_workflow_action` - builder_workflow_action\n* `dashboard` - dashboard\n* `dashboard_data_source` - dashboard_data_source\n* `dashboard_widget` - dashboard_widget\n* `automation` - automation\n* `automation_workflow` - automation_workflow\n* `automation_node` - automation_node\n* `team` - team\n* `team_subject` - team_subject\n* `license` - license"
-                },
-                {
-                  "disabled": false,
-                  "key": "subject_id",
-                  "value": "<integer>",
-                  "description": "(Required) The subject ID. A subject is an actor that can do operations."
-                },
-                {
-                  "disabled": false,
-                  "key": "subject_type",
-                  "value": "<string>",
-                  "description": "(Required) The subject type.\n\n* `auth.User` - auth.User\n* `anonymous` - anonymous\n* `user_source.user` - user_source.user\n* `core.Token` - core.Token\n* `baserow_enterprise.Team` - baserow_enterprise.Team"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "c5a0f9a2-8baf-4c32-8250-8a40b377b470",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"role\": \"<string,null>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"automation_node\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"auth.User\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/role/:workspace_id/",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "role",
+                        ":workspace_id",
+                        ""
+                      ],
+                      "variable": [
+                        {
+                          "id": "b7036e5e-417f-48a3-b58c-1c52636e0c08",
+                          "key": "workspace_id",
+                          "value": "<integer>",
+                          "description": "(Required) The workspace in which the role assignment takes place."
+                        }
+                      ]
+                    },
+                    "description": "You can assign a role to a subject into the given workspace for the given scope with this endpoint. If you want to remove the role you can omit the role property."
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
+                  "response": [
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
+                      "id": "eae8f1dc-b671-466d-99ee-994607f0b94f",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"<string,null>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"automation_node\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"auth.User\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
                       },
-                      "key": "role",
-                      "value": "<string>"
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"role\": \"<string>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"database_view_filter\",\n  \"subject\": {\n    \"id\": \"<integer>\"\n  },\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"core.Token\"\n}",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-eae8f1dc-b671-466d-99ee-994607f0b94f"
                     },
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.",
-                        "type": "text/plain"
+                      "id": "c9110b88-de29-4f21-a58f-c12fe18f8c2a",
+                      "name": "No response body",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"<string,null>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"automation_node\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"auth.User\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
                       },
-                      "key": "scope_id",
-                      "value": "<integer>"
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-c9110b88-de29-4f21-a58f-c12fe18f8c2a"
                     },
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The scope object type.\n\n* `core` - core\n* `application` - application\n* `workspace` - workspace\n* `workspace_invitation` - workspace_invitation\n* `snapshot` - snapshot\n* `workspace_user` - workspace_user\n* `integration` - integration\n* `user_source` - user_source\n* `mcp_endpoint` - mcp_endpoint\n* `database` - database\n* `database_table` - database_table\n* `database_field` - database_field\n* `database_view` - database_view\n* `database_view_decoration` - database_view_decoration\n* `database_view_sort` - database_view_sort\n* `database_view_group` - database_view_group\n* `database_view_filter` - database_view_filter\n* `database_view_filter_group` - database_view_filter_group\n* `token` - token\n* `builder` - builder\n* `builder_page` - builder_page\n* `builder_element` - builder_element\n* `builder_domain` - builder_domain\n* `builder_data_source` - builder_data_source\n* `builder_workflow_action` - builder_workflow_action\n* `dashboard` - dashboard\n* `dashboard_data_source` - dashboard_data_source\n* `dashboard_widget` - dashboard_widget\n* `automation` - automation\n* `automation_workflow` - automation_workflow\n* `automation_node` - automation_node\n* `team` - team\n* `team_subject` - team_subject\n* `license` - license",
-                        "type": "text/plain"
+                      "id": "6cd937a2-3166-4bc1-9cdd-d5fb0bab0369",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"<string,null>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"automation_node\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"auth.User\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
                       },
-                      "key": "scope_type",
-                      "value": "<string>"
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-6cd937a2-3166-4bc1-9cdd-d5fb0bab0369"
                     },
                     {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject ID. A subject is an actor that can do operations.",
-                        "type": "text/plain"
+                      "id": "eff208e6-04a9-4b6a-b9e2-1489d26d5e53",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"role\": \"<string,null>\",\n  \"scope_id\": \"<integer>\",\n  \"scope_type\": \"automation_node\",\n  \"subject_id\": \"<integer>\",\n  \"subject_type\": \"auth.User\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/role/:workspace_id/",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "role",
+                            ":workspace_id",
+                            ""
+                          ],
+                          "variable": [
+                            {
+                              "key": "workspace_id"
+                            }
+                          ]
+                        }
                       },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject type.\n\n* `auth.User` - auth.User\n* `anonymous` - anonymous\n* `user_source.user` - user_source.user\n* `core.Token` - core.Token\n* `baserow_enterprise.Team` - baserow_enterprise.Team",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_SUBJECT_TYPE_DOES_NOT_EXIST\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:15.000Z",
+                      "updatedAt": "2026-10-21T20:11:15.000Z",
+                      "uid": "35240-eff208e6-04a9-4b6a-b9e2-1489d26d5e53"
                     }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  ],
+                  "createdAt": "2026-10-21T20:11:15.000Z",
+                  "updatedAt": "2026-10-21T20:11:15.000Z",
+                  "uid": "35240-0f69b599-dd65-431e-b86c-ac6b231432fb"
                 }
               ],
-              "body": "{\n  \"id\": 8130,\n  \"role\": \"string\",\n  \"scope_id\": 271345688,\n  \"scope_type\": \"<string>\",\n  \"subject\": {\n    \"id\": 4350\n  },\n  \"subject_id\": 1035805305,\n  \"subject_type\": \"<string>\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7e801eee-4c3c-4ddb-a868-cbca27b33ccd",
-              "name": "No response body",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "role",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The scope object type.\n\n* `core` - core\n* `application` - application\n* `workspace` - workspace\n* `workspace_invitation` - workspace_invitation\n* `snapshot` - snapshot\n* `workspace_user` - workspace_user\n* `integration` - integration\n* `user_source` - user_source\n* `mcp_endpoint` - mcp_endpoint\n* `database` - database\n* `database_table` - database_table\n* `database_field` - database_field\n* `database_view` - database_view\n* `database_view_decoration` - database_view_decoration\n* `database_view_sort` - database_view_sort\n* `database_view_group` - database_view_group\n* `database_view_filter` - database_view_filter\n* `database_view_filter_group` - database_view_filter_group\n* `token` - token\n* `builder` - builder\n* `builder_page` - builder_page\n* `builder_element` - builder_element\n* `builder_domain` - builder_domain\n* `builder_data_source` - builder_data_source\n* `builder_workflow_action` - builder_workflow_action\n* `dashboard` - dashboard\n* `dashboard_data_source` - dashboard_data_source\n* `dashboard_widget` - dashboard_widget\n* `automation` - automation\n* `automation_workflow` - automation_workflow\n* `automation_node` - automation_node\n* `team` - team\n* `team_subject` - team_subject\n* `license` - license",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject ID. A subject is an actor that can do operations.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject type.\n\n* `auth.User` - auth.User\n* `anonymous` - anonymous\n* `user_source.user` - user_source.user\n* `core.Token` - core.Token\n* `baserow_enterprise.Team` - baserow_enterprise.Team",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "No Content",
-              "code": 204,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "05b7200c-0499-4083-9af6-4d05807a9b60",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "role",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The scope object type.\n\n* `core` - core\n* `application` - application\n* `workspace` - workspace\n* `workspace_invitation` - workspace_invitation\n* `snapshot` - snapshot\n* `workspace_user` - workspace_user\n* `integration` - integration\n* `user_source` - user_source\n* `mcp_endpoint` - mcp_endpoint\n* `database` - database\n* `database_table` - database_table\n* `database_field` - database_field\n* `database_view` - database_view\n* `database_view_decoration` - database_view_decoration\n* `database_view_sort` - database_view_sort\n* `database_view_group` - database_view_group\n* `database_view_filter` - database_view_filter\n* `database_view_filter_group` - database_view_filter_group\n* `token` - token\n* `builder` - builder\n* `builder_page` - builder_page\n* `builder_element` - builder_element\n* `builder_domain` - builder_domain\n* `builder_data_source` - builder_data_source\n* `builder_workflow_action` - builder_workflow_action\n* `dashboard` - dashboard\n* `dashboard_data_source` - dashboard_data_source\n* `dashboard_widget` - dashboard_widget\n* `automation` - automation\n* `automation_workflow` - automation_workflow\n* `automation_node` - automation_node\n* `team` - team\n* `team_subject` - team_subject\n* `license` - license",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject ID. A subject is an actor that can do operations.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject type.\n\n* `auth.User` - auth.User\n* `anonymous` - anonymous\n* `user_source.user` - user_source.user\n* `core.Token` - core.Token\n* `baserow_enterprise.Team` - baserow_enterprise.Team",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_USER_NOT_IN_GROUP\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "82f84b92-cb94-4f0c-a64a-8fcae934f861",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The uid of the role you want to assign to the user or team in the given workspace. You can omit this property if you want to remove the role.",
-                        "type": "text/plain"
-                      },
-                      "key": "role",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The ID of the scope object. The scope object limit the role assignment to this scope and all its descendants.",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The scope object type.\n\n* `core` - core\n* `application` - application\n* `workspace` - workspace\n* `workspace_invitation` - workspace_invitation\n* `snapshot` - snapshot\n* `workspace_user` - workspace_user\n* `integration` - integration\n* `user_source` - user_source\n* `mcp_endpoint` - mcp_endpoint\n* `database` - database\n* `database_table` - database_table\n* `database_field` - database_field\n* `database_view` - database_view\n* `database_view_decoration` - database_view_decoration\n* `database_view_sort` - database_view_sort\n* `database_view_group` - database_view_group\n* `database_view_filter` - database_view_filter\n* `database_view_filter_group` - database_view_filter_group\n* `token` - token\n* `builder` - builder\n* `builder_page` - builder_page\n* `builder_element` - builder_element\n* `builder_domain` - builder_domain\n* `builder_data_source` - builder_data_source\n* `builder_workflow_action` - builder_workflow_action\n* `dashboard` - dashboard\n* `dashboard_data_source` - dashboard_data_source\n* `dashboard_widget` - dashboard_widget\n* `automation` - automation\n* `automation_workflow` - automation_workflow\n* `automation_node` - automation_node\n* `team` - team\n* `team_subject` - team_subject\n* `license` - license",
-                        "type": "text/plain"
-                      },
-                      "key": "scope_type",
-                      "value": "<string>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject ID. A subject is an actor that can do operations.",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_id",
-                      "value": "<integer>"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) The subject type.\n\n* `auth.User` - auth.User\n* `anonymous` - anonymous\n* `user_source.user` - user_source.user\n* `core.Token` - core.Token\n* `baserow_enterprise.Team` - baserow_enterprise.Team",
-                        "type": "text/plain"
-                      },
-                      "key": "subject_type",
-                      "value": "<string>"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_ROLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "cfe50fc1-f4b6-4575-bc41-202647f13054",
-          "name": "batch assign role",
-          "request": {
-            "name": "batch assign role",
-            "description": {
-              "content": "You can assign a role to a multiple subjects into the given workspace for the given scopes with this endpoint. If you want to remove the role you can omit the role property.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "role",
-                ":workspace_id",
-                "batch",
-                ""
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<integer>",
-                  "key": "workspace_id",
-                  "description": "(Required) The workspace in which the role assignment takes place."
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/x-www-form-urlencoded"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "disabled": false,
-                  "key": "items",
-                  "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}",
-                  "description": "(Required) "
-                },
-                {
-                  "disabled": false,
-                  "key": "items",
-                  "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}",
-                  "description": "(Required) "
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "5ed17ff1-f00b-424e-9ed2-23ecd261aa25",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    "batch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"id\": 2827,\n    \"role\": \"string\",\n    \"scope_id\": 1193503419,\n    \"scope_type\": \"<string>\",\n    \"subject\": {\n      \"id\": 2040\n    },\n    \"subject_id\": 63799950,\n    \"subject_type\": \"<string>\"\n  },\n  {\n    \"id\": 6856,\n    \"role\": \"string\",\n    \"scope_id\": -630238537,\n    \"scope_type\": \"<string>\",\n    \"subject\": {\n      \"id\": 9579\n    },\n    \"subject_id\": 635786788,\n    \"subject_type\": \"<string>\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0c85fed3-7478-48d4-86a2-068e4059e35f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    "batch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    }
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_DUPLICATE_ROLE_ASSIGNMENTS\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "08d24d1a-a16d-43ee-9688-9005a6c7d3fc",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "role",
-                    ":workspace_id",
-                    "batch",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<integer>",
-                      "key": "workspace_id",
-                      "description": "(Required) The workspace in which the role assignment takes place."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "urlencoded",
-                  "urlencoded": [
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    },
-                    {
-                      "disabled": false,
-                      "description": {
-                        "content": "(Required) ",
-                        "type": "text/plain"
-                      },
-                      "key": "items",
-                      "value": "{\"role\":\"<string>\",\"scope_id\":\"<integer>\",\"scope_type\":\"<string>\",\"subject_id\":\"<integer>\",\"subject_type\":\"<string>\"}"
-                    }
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"ERROR_ROLE_DOES_NOT_EXIST\",\n  \"detail\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "230a543a-8691-494a-9184-561531be6f8b",
+              "createdAt": "2026-10-21T20:11:15.000Z",
+              "updatedAt": "2026-10-21T20:11:15.000Z",
+              "uid": "35240-230a543a-8691-494a-9184-561531be6f8b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "5cfcc9c0-4cd1-427a-96c2-f2e08499509c",
+          "createdAt": "2026-10-21T20:11:15.000Z",
+          "updatedAt": "2026-10-21T20:11:15.000Z",
+          "uid": "35240-5cfcc9c0-4cd1-427a-96c2-f2e08499509c"
         }
       ],
-      "event": []
+      "id": "39ff046d-19bd-4553-8021-d9703bad0e1b",
+      "createdAt": "2026-10-21T20:11:15.000Z",
+      "updatedAt": "2026-10-21T20:11:15.000Z",
+      "uid": "35240-39ff046d-19bd-4553-8021-d9703bad0e1b"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "3de347d0-676c-46bb-b980-da0dc86fa7a4",
-    "name": "Baserow API spec Admin Role assignments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

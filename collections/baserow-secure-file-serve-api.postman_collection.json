@@ -1,165 +1,176 @@
 {
+  "info": {
+    "_postman_id": "40dd9827-3041-4b92-b745-8856f9b283b8",
+    "name": "Baserow API spec Secure file serve API",
+    "description": "For more information about our REST API, please visit this page.\n\nFor more information about our deprecation policy, please visit this page.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:11:21.000Z",
+    "updatedAt": "2026-10-21T20:11:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-40dd9827-3041-4b92-b745-8856f9b283b8"
+  },
   "item": [
     {
-      "id": "f3d60e22-e1bd-467f-accd-a0dff3a0f430",
-      "name": "Secure file serve",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "9bbd08d8-e838-424a-9c4a-cdfc098c634c",
-          "name": "secure file serve download",
-          "request": {
-            "name": "secure file serve download",
-            "description": {
-              "content": "Downloads a file using the backend and the secure file serve feature. The signed data is extracted from the URL and used to verify if the user has access to the file. If the permissions check passes and the file exists, the file is served to the user.\n\nThis is a **enterprise** feature.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "files",
-                ":signed_data"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "signed_data",
-                  "description": "(Required) "
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/octet-stream"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "files",
+          "item": [
             {
-              "id": "40b4860b-10f3-419c-8505-f4cdd81ed64f",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "files",
-                    ":signed_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "signed_data",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/octet-stream"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "{signed_data}",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/octet-stream"
+                  "name": "Secure file serve download",
+                  "id": "b733ce28-57ad-41fe-ab09-bc1895457d6b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/octet-stream"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/files/:signed_data",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "files",
+                        ":signed_data"
+                      ],
+                      "variable": [
+                        {
+                          "id": "276cc7c0-043c-42a8-a6f3-2dad9d5c4078",
+                          "key": "signed_data",
+                          "value": "G/ATx",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Downloads a file using the backend and the secure file serve feature. The signed data is extracted from the URL and used to verify if the user has access to the file. If the permissions check passes and the file exists, the file is served to the user.\n\nThis is a **enterprise** feature."
+                  },
+                  "response": [
+                    {
+                      "id": "9b150904-42cb-49f6-b9e8-6f3d18e35072",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/octet-stream"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/files/:signed_data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "files",
+                            ":signed_data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "signed_data"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/octet-stream"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"description\": \"File download\"\n}",
+                      "createdAt": "2026-10-21T20:11:21.000Z",
+                      "updatedAt": "2026-10-21T20:11:21.000Z",
+                      "uid": "35240-9b150904-42cb-49f6-b9e8-6f3d18e35072"
+                    },
+                    {
+                      "id": "9ae82133-3c88-481c-a791-704ec5b1561e",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/octet-stream"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/files/:signed_data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "files",
+                            ":signed_data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "signed_data"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/octet-stream"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"ERROR_SECURE_FILE_SERVE_EXCEPTION\",\n  \"detail\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:11:21.000Z",
+                      "updatedAt": "2026-10-21T20:11:21.000Z",
+                      "uid": "35240-9ae82133-3c88-481c-a791-704ec5b1561e"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:11:21.000Z",
+                  "updatedAt": "2026-10-21T20:11:21.000Z",
+                  "uid": "35240-b733ce28-57ad-41fe-ab09-bc1895457d6b"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "74fbef32-a999-469b-9183-9470be187475",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "files",
-                    ":signed_data"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "signed_data",
-                      "description": "(Required) "
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/octet-stream"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/octet-stream"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "d10e8752-868c-468a-8353-13877e0de7d1",
+              "createdAt": "2026-10-21T20:11:21.000Z",
+              "updatedAt": "2026-10-21T20:11:21.000Z",
+              "uid": "35240-d10e8752-868c-468a-8353-13877e0de7d1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "4d68954d-73e3-4ab1-9dfa-bf5cb53fd048",
+          "createdAt": "2026-10-21T20:11:21.000Z",
+          "updatedAt": "2026-10-21T20:11:21.000Z",
+          "uid": "35240-4d68954d-73e3-4ab1-9dfa-bf5cb53fd048"
         }
       ],
-      "event": []
+      "id": "f98df582-de90-487f-8271-3fb10c06e944",
+      "createdAt": "2026-10-21T20:11:21.000Z",
+      "updatedAt": "2026-10-21T20:11:21.000Z",
+      "uid": "35240-f98df582-de90-487f-8271-3fb10c06e944"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "/",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "/"
     }
-  ],
-  "info": {
-    "_postman_id": "e30f834f-9fec-4577-bc24-6d9e62940a2a",
-    "name": "Baserow API spec Admin Secure file serve API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "For more information about our REST API, please visit [this page](https://baserow.io/docs/apis%2Frest-api).\n\nFor more information about our deprecation policy, please visit [this page](https://baserow.io/docs/apis%2Fdeprecations).",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
